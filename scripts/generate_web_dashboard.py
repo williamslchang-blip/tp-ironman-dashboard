@@ -159,6 +159,16 @@ def generate_52_week_dashboard():
         art_md_file = WEEKLY_DIR / f"2026-W{w:02d}_當週鐵人新知與文章整理_中文版.md"
         art_html = simple_md_to_html(art_md_file.read_text(encoding="utf-8")) if art_md_file.exists() else "<p style='color:var(--text-muted);'>該週尚未產生鐵人新知報告</p>"
 
+        # Read Strength Plan content if available
+        str_md_file1 = WEEKLY_DIR / f"2026-W{w:02d}_第{w:02d}週肌力訓練計畫.md"
+        str_md_file2 = WEEKLY_DIR / f"2026-W{w:02d}_當週肌力訓練計畫.md"
+        if str_md_file1.exists():
+            str_html = simple_md_to_html(str_md_file1.read_text(encoding="utf-8"))
+        elif str_md_file2.exists():
+            str_html = simple_md_to_html(str_md_file2.read_text(encoding="utf-8"))
+        else:
+            str_html = "<p style='color:var(--text-muted);'>該週尚未產生肌力訓練計畫與課表報告</p>"
+
         # Target completed previous week's review report for current week (W30 for W31)
         prev_w = w - 1 if w > 1 else 1
         prev_rev_file = WEEKLY_DIR / f"2026-W{prev_w:02d}_當週執行率回顧報告.md"
@@ -218,6 +228,7 @@ def generate_52_week_dashboard():
             "daily_schedule": daily_schedule,
             "estimator": est_snap,
             "art_html": art_html,
+            "str_html": str_html,
             "rev_html": rev_html,
             "docx_strength": f"2026-W{w:02d}_第{w}週肌力訓練計畫.docx",
             "docx_articles": f"2026-W{w:02d}_當週鐵人新知與文章整理_中文版.docx",
@@ -623,6 +634,12 @@ def generate_52_week_dashboard():
                                 ${{scheduleRowsHtml}}
                             </tbody>
                         </table>
+                    </div>
+
+                    <!-- FULL STRENGTH WORKOUT DETAILS BELOW -->
+                    <div class="section-box" style="line-height: 1.8;">
+                        <div class="section-title">🏋️ 第 ${{data.week_num}} 週肌力訓練計畫與課表詳細指南</div>
+                        <div>${{data.str_html}}</div>
                     </div>
                 </div>
 
