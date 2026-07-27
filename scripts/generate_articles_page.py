@@ -29,8 +29,8 @@ def get_cat_id(cat_name: str) -> str:
         return "recovery"
     return "general"
 
-def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) -> str:
-    """Parses weekly articles Markdown into a beautiful standalone HTML web page with sticky quick jump navigation."""
+def parse_articles_md_to_body_html(md_content: str, include_home_link: bool = False) -> str:
+    """Parses weekly articles Markdown into a clean, categorized HTML body with quick jump navigation chips."""
     lines = md_content.split("\n")
     
     current_cat = "一般"
@@ -61,7 +61,7 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
                 "meta": "",
                 "desc": ""
             })
-        elif stripped.startswith("**來源**:") or stripped.startswith("**英文原名**:"):
+        elif stripped.startswith("**來源**:") or stripped.startswith("**英文原名**:") or stripped.startswith("**分類**:") or stripped.startswith("**難易度**:") or stripped.startswith("**核心效益**:") or stripped.startswith("**原網頁連結**:") or stripped.startswith("**原始連結**:") or stripped.startswith("**連結**:"):
             if current_cat in articles_by_cat and articles_by_cat[current_cat]:
                 articles_by_cat[current_cat][-1]["meta"] += f"<br>{stripped}"
         elif stripped.startswith("> "):
@@ -106,6 +106,29 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
         articles_cards_html += """
             </div>
         </div>"""
+
+    home_chip = '<a href="index.html" class="nav-chip chip-home">🏠 返回 52 週儀表板主頁</a>' if include_home_link else ''
+
+    return f"""
+        <!-- QUICK JUMP CATEGORY NAV BAR -->
+        <div class="nav-quick-bar">
+            <span class="nav-label">⚡ 分類快速導覽：</span>
+            {home_chip}
+            {f'<a href="#summary" class="nav-chip chip-summary">🌟 綜合重點 SUMMARY</a>' if summary_html else ''}
+            <a href="#swim" class="nav-chip chip-swim">🏊 游泳 SWIM</a>
+            <a href="#bike" class="nav-chip chip-bike">🚴 騎車 BIKE</a>
+            <a href="#run" class="nav-chip chip-run">🏃 跑步 RUN</a>
+            <a href="#recovery" class="nav-chip chip-recovery">🥗 補給及恢復 RECOVERY</a>
+        </div>
+
+        {f'<div class="summary-box" id="summary"><h2>🌟 五、 當週各項運動新知綜合整理重點</h2><div>{summary_html}</div></div>' if summary_html else ''}
+
+        {articles_cards_html}
+    """
+
+def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) -> str:
+    """Parses weekly articles Markdown into a beautiful standalone HTML web page with sticky quick jump navigation."""
+    body_content_html = parse_articles_md_to_body_html(md_content, include_home_link=True)
 
     full_page_html = f"""<!DOCTYPE html>
 <html lang="zh-TW">
@@ -343,20 +366,7 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
             <a href="index.html" class="btn-back">⬅️ 返回 52 週儀表板主頁</a>
         </div>
 
-        <!-- STICKY QUICK JUMP NAV BAR -->
-        <div class="nav-quick-bar">
-            <span class="nav-label">⚡ 快速導覽：</span>
-            <a href="index.html" class="nav-chip chip-home">🏠 返回 52 週儀表板主頁</a>
-            {f'<a href="#summary" class="nav-chip chip-summary">🌟 綜合重點 SUMMARY</a>' if summary_html else ''}
-            <a href="#swim" class="nav-chip chip-swim">🏊 游泳 SWIM</a>
-            <a href="#bike" class="nav-chip chip-bike">🚴 騎車 BIKE</a>
-            <a href="#run" class="nav-chip chip-run">🏃 跑步 RUN</a>
-            <a href="#recovery" class="nav-chip chip-recovery">🥗 補給及恢復 RECOVERY</a>
-        </div>
-
-        {f'<div class="summary-box" id="summary"><h2>🌟 五、 當週各項運動新知綜合整理重點</h2><div>{summary_html}</div></div>' if summary_html else ''}
-
-        {articles_cards_html}
+        {body_content_html}
     </div>
 </body>
 </html>

@@ -11,6 +11,7 @@ if str(ROOT / "scripts") not in sys.path:
     sys.path.append(str(ROOT / "scripts"))
 
 from estimator_226 import calculate_dynamic_226_estimate
+from generate_articles_page import parse_articles_md_to_body_html
 
 CACHE_FILE = ROOT / "data" / "raw" / "calendar_cache.json"
 OUT_INDEX = ROOT / "outputs" / "index.html"
@@ -163,7 +164,10 @@ def generate_52_week_dashboard():
 
         # Read reports content if available
         art_md_file = WEEKLY_DIR / f"2026-W{w:02d}_當週鐵人新知與文章整理_中文版.md"
-        art_html = simple_md_to_html(art_md_file.read_text(encoding="utf-8")) if art_md_file.exists() else "<p style='color:var(--text-muted);'>該週尚未產生鐵人新知報告</p>"
+        if art_md_file.exists():
+            art_html = parse_articles_md_to_body_html(art_md_file.read_text(encoding="utf-8"))
+        else:
+            art_html = "<p style='color:var(--text-muted);'>該週尚未產生鐵人新知報告</p>"
 
         # Read Strength Plan content if available
         str_md_file1 = WEEKLY_DIR / f"2026-W{w:02d}_第{w:02d}週肌力訓練計畫.md"
@@ -449,6 +453,110 @@ def generate_52_week_dashboard():
             font-weight: 600;
         }}
         .btn-dl:hover {{ background: var(--accent-blue); color: #FFF; }}
+
+        /* ARTICLES CATEGORIZED CARDS & NAV CHIPS */
+        .nav-quick-bar {{
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 12px;
+            padding: 10px 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow-x: auto;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+        }}
+        .nav-label {{ font-size: 0.85rem; font-weight: 700; color: #38BDF8; white-space: nowrap; }}
+        .nav-chip {{
+            padding: 6px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }}
+        .chip-summary {{ background: rgba(245, 158, 11, 0.15); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.4); }}
+        .chip-swim {{ background: rgba(6, 182, 212, 0.15); color: #22D3EE; border: 1px solid rgba(6, 182, 212, 0.4); }}
+        .chip-bike {{ background: rgba(59, 130, 246, 0.15); color: #60A5FA; border: 1px solid rgba(59, 130, 246, 0.4); }}
+        .chip-run {{ background: rgba(245, 158, 11, 0.15); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.4); }}
+        .chip-recovery {{ background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.4); }}
+        .chip-home {{ background: rgba(56, 189, 248, 0.15); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.4); }}
+        .nav-chip:hover {{ transform: translateY(-2px); filter: brightness(1.2); }}
+
+        .summary-box {{
+            background: linear-gradient(135deg, rgba(30,41,59,0.8), rgba(15,23,42,0.9));
+            border: 1px solid rgba(245,158,11,0.4);
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 16px rgba(245,158,11,0.1);
+        }}
+        .summary-box h2 {{ color: #FBBF24; font-size: 1.2rem; margin-bottom: 14px; }}
+        .cat-group {{ margin-bottom: 32px; }}
+        .cat-header {{
+            font-size: 1.25rem;
+            color: #38BDF8;
+            margin-bottom: 14px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border-color);
+            scroll-margin-top: 70px;
+        }}
+        .articles-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 18px;
+        }}
+        .art-card {{
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+        }}
+        .art-card:hover {{
+            border-color: var(--accent-cyan);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }}
+        .art-title {{ font-size: 1.05rem; font-weight: 700; color: #F8FAFC; margin-bottom: 8px; line-height: 1.4; }}
+        .art-title a {{ color: #38BDF8; text-decoration: none; }}
+        .art-title a:hover {{ color: var(--accent-cyan); text-decoration: underline; }}
+        .art-meta {{ font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.5; }}
+        .art-desc {{
+            font-size: 0.88rem;
+            color: #CBD5E1;
+            background: rgba(15, 23, 42, 0.5);
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+            flex: 1;
+            line-height: 1.6;
+        }}
+        .art-footer {{ display: flex; justify-content: flex-end; }}
+        .art-btn {{
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            color: var(--accent-cyan);
+            padding: 8px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.84rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }}
+        .art-btn:hover {{ background: var(--accent-cyan); color: #0F172A; }}
+        .ext-link {{ color: #38BDF8; text-decoration: none; }}
+        .ext-link:hover {{ text-decoration: underline; }}
+        .ext-icon {{ font-size: 0.8em; color: var(--accent-cyan); }}
     </style>
 </head>
 <body>
@@ -696,14 +804,7 @@ def generate_52_week_dashboard():
                 <!-- SUBTAB 3: ARTICLES ONLINE READ -->
                 <div id="subview-articles" class="subtab-view">
                     <div class="section-box" style="line-height: 1.8;">
-                        <div style="margin-bottom: 18px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-                            <a href="weekly_articles.html" target="_blank" class="btn-dl" style="background:linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); color:#FFF; font-size:0.92rem; font-weight:700; padding:10px 18px; display:inline-block;">📰 開啟當週鐵人新知獨立網頁 ↗</a>
-                            <a href="weekly_articles.html#swim" target="_blank" class="btn-dl" style="background:rgba(6,182,212,0.15); color:#22D3EE; border:1px solid rgba(6,182,212,0.4); font-weight:700;">🏊 游泳 SWIM ↗</a>
-                            <a href="weekly_articles.html#bike" target="_blank" class="btn-dl" style="background:rgba(59,130,246,0.15); color:#60A5FA; border:1px solid rgba(59,130,246,0.4); font-weight:700;">🚴 騎車 BIKE ↗</a>
-                            <a href="weekly_articles.html#run" target="_blank" class="btn-dl" style="background:rgba(245,158,11,0.15); color:#FBBF24; border:1px solid rgba(245,158,11,0.4); font-weight:700;">🏃 跑步 RUN ↗</a>
-                            <a href="weekly_articles.html#recovery" target="_blank" class="btn-dl" style="background:rgba(16,185,129,0.15); color:#34D399; border:1px solid rgba(16,185,129,0.4); font-weight:700;">🥗 補給及恢復 RECOVERY ↗</a>
-                        </div>
-                        <div class="section-title">📰 第 ${{data.week_num}} 週鐵人新知與權威文章（繁體中文網頁線上閱讀）</div>
+                        <div class="section-title" style="margin-bottom: 20px;">📰 第 ${{data.week_num}} 週鐵人新知與權威文章（分類整理與100字重點摘要）</div>
                         <div>${{data.art_html}}</div>
                     </div>
                 </div>
