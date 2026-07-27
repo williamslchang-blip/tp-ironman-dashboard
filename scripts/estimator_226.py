@@ -98,6 +98,47 @@ def calculate_dynamic_226_estimate(target_monday: date) -> dict:
     if neu_mins >= con_mins:
         con_mins = neu_mins + 15.0
 
+    # Itemized Splits calculation (Swim, T1, Bike, T2, Run)
+    opt_swim = base_swim_mins - 2.0
+    opt_t1 = 5.0
+    opt_bike = base_bike_mins + (0.20 * bike_fade_penalty_mins)
+    opt_t2 = 5.0
+    opt_run = base_run_mins + (0.20 * run_fade_penalty_mins) + min(0.0, exec_bonus)
+
+    neu_swim = base_swim_mins
+    neu_t1 = 6.0
+    neu_bike = base_bike_mins + (0.60 * bike_fade_penalty_mins)
+    neu_t2 = 6.0
+    neu_run = base_run_mins + (0.60 * run_fade_penalty_mins) + max(0.0, exec_bonus * 0.5)
+
+    con_swim = base_swim_mins + 4.0
+    con_t1 = 8.0
+    con_bike = base_bike_mins + (1.10 * bike_fade_penalty_mins)
+    con_t2 = 8.0
+    con_run = base_run_mins + (1.10 * run_fade_penalty_mins) + max(10.0, exec_bonus)
+
+    opt_splits = {
+        "swim": format_minutes(opt_swim),
+        "t1": format_minutes(opt_t1),
+        "bike": format_minutes(opt_bike),
+        "t2": format_minutes(opt_t2),
+        "run": format_minutes(opt_run)
+    }
+    neu_splits = {
+        "swim": format_minutes(neu_swim),
+        "t1": format_minutes(neu_t1),
+        "bike": format_minutes(neu_bike),
+        "t2": format_minutes(neu_t2),
+        "run": format_minutes(neu_run)
+    }
+    con_splits = {
+        "swim": format_minutes(con_swim),
+        "t1": format_minutes(con_t1),
+        "bike": format_minutes(con_bike),
+        "t2": format_minutes(con_t2),
+        "run": format_minutes(con_run)
+    }
+
     # Classic Public Formulas (Riegel Formula & 70.3 Multiplier)
     # Assumed baseline 70.3 time: 5h15m (315 mins) for a 11:38 PB athlete
     ref_703_mins = 315.0
@@ -123,6 +164,9 @@ def calculate_dynamic_226_estimate(target_monday: date) -> dict:
         "optimistic_mid": format_minutes(opt_mins),
         "neutral_mid": format_minutes(neu_mins),
         "conservative_mid": format_minutes(con_mins),
+        "opt_splits": opt_splits,
+        "neu_splits": neu_splits,
+        "con_splits": con_splits,
         "formulas": {
             "riegel_power_law": f"樂觀 {format_minutes(riegel_opt)} | 中性 {format_minutes(riegel_neu)} | 保守 {format_minutes(riegel_con)} (指數 1.06–1.11)",
             "multiplier_703": f"樂觀 {format_minutes(mult_opt)} (2.12x) | 中性 {format_minutes(mult_neu)} (2.20x) | 保守 {format_minutes(mult_con)} (2.28x)",
