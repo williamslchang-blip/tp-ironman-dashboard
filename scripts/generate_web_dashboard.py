@@ -546,7 +546,7 @@ def generate_52_week_dashboard():
 
                 <!-- SUBNAV TABS FOR ONLINE READING -->
                 <div class="subnav-tabs">
-                    <button class="subtab-btn active" onclick="openSubtab('overview')">📊 當週總覽 & 226 預估</button>
+                    <button class="subtab-btn active" onclick="openSubtab('overview')">📊 當週總覽 & 226/113 完賽預估</button>
                     <button class="subtab-btn" onclick="openSubtab('plan')">🏋️ 當週課表與肌力計畫</button>
                     <button class="subtab-btn" onclick="openSubtab('articles')">📰 當週鐵人新知</button>
                     <button class="subtab-btn" onclick="openSubtab('review')">📈 上週 (W${{data.prev_week_num}}) 執行率回顧</button>
@@ -581,6 +581,7 @@ def generate_52_week_dashboard():
                         </div>
                     </div>
 
+                    <!-- IM226 DYNAMIC ESTIMATE -->
                     <div class="section-box">
                         <div class="section-title">🔮 IM226 滾動動態完賽時間預估 (該週數據試算)</div>
                         <div class="target-grid">
@@ -618,6 +619,49 @@ def generate_52_week_dashboard():
                                     <div style="display:flex; justify-content:space-between;"><span>🚴 騎車 180km</span><strong>${{est.con_splits.bike}}</strong></div>
                                     <div style="display:flex; justify-content:space-between;"><span>⏱️ T2 轉換區</span><strong>${{est.con_splits.t2}}</strong></div>
                                     <div style="display:flex; justify-content:space-between;"><span>🏃 跑步 42.2km</span><strong>${{est.con_splits.run}}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IM70.3 (113km) DYNAMIC ESTIMATE -->
+                    <div class="section-box" style="margin-top: 20px;">
+                        <div class="section-title">🔮 IM70.3 (113km) 滾動動態完賽時間預估 (該週數據試算)</div>
+                        <div class="target-grid">
+                            <div class="target-card target-opt">
+                                <div class="target-tag">🟢 樂觀目標 (高峰發揮 / 無抽筋)</div>
+                                <div class="target-time">${{est.optimistic_range_703}}</div>
+                                <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; margin-bottom: 8px;">預估中位數：${{est.optimistic_mid_703}}</div>
+                                <div style="font-size: 0.8rem; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 8px; line-height: 1.6;">
+                                    <div style="display:flex; justify-content:space-between;"><span>🏊 游泳 1.9km</span><strong>${{est.opt_splits_703.swim}}</strong></div>
+                                    <div style="display:flex; justify-content:space-between;"><span>⏱️ T1 轉換區</span><strong>${{est.opt_splits_703.t1}}</strong></div>
+                                    <div style="display:flex; justify-content:space-between;"><span>🚴 騎車 90km</span><strong>${{est.opt_splits_703.bike}}</strong></div>
+                                    <div style="display:flex; justify-content:space-between;"><span>⏱️ T2 轉換區</span><strong>${{est.opt_splits_703.t2}}</strong></div>
+                                    <div style="display:flex; justify-content:space-between;"><span>🏃 跑步 21.1km</span><strong>${{est.opt_splits_703.run}}</strong></div>
+                                </div>
+                            </div>
+                            <div class="target-card target-neu">
+                                <div class="target-tag">🟠 中性目標 (穩定配速完賽)</div>
+                                <div class="target-time">${{est.neutral_range_703}}</div>
+                                <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; margin-bottom: 8px;">預估中位數：${{est.neutral_mid_703}}</div>
+                                <div style="font-size: 0.8rem; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 8px; line-height: 1.6;">
+                                    <div style="display:flex; justify-content:space-between;"><span>🏊 游泳 1.9km</span><strong>${{est.neu_splits_703.swim}}</strong></div>
+                                    <div style="display:flex; justify-content:space-between;"><span>⏱️ T1 轉換區</span><strong>${{est.neu_splits_703.t1}}</strong></div>
+                                    <div style="display:flex; justify-content:space-between;"><span>🚴 騎車 90km</span><strong>${{est.neu_splits_703.bike}}</strong></div>
+                                    <div style="display:flex; justify-content:space-between;"><span>⏱️ T2 轉換區</span><strong>${{est.neu_splits_703.t2}}</strong></div>
+                                    <div style="display:flex; justify-content:space-between;"><span>🏃 跑步 21.1km</span><strong>${{est.neu_splits_703.run}}</strong></div>
+                                </div>
+                            </div>
+                            <div class="target-card target-con">
+                                <div class="target-tag">🔴 保守目標 (後半程路跑掉速/抽筋)</div>
+                                <div class="target-time">${{est.conservative_range_703}}</div>
+                                <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; margin-bottom: 8px;">預估中位數：${{est.conservative_mid_703}}</div>
+                                <div style="font-size: 0.8rem; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 8px; line-height: 1.6;">
+                                    <div style="display:flex; justify-content:space-between;"><span>🏊 游泳 1.9km</span><strong>${{est.con_splits_703.swim}}</strong></div>
+                                    <div style="display:flex; justify-content:space-between;"><span>⏱️ T1 轉換區</span><strong>${{est.con_splits_703.t1}}</strong></div>
+                                    <div style="display:flex; justify-content:space-between;"><span>🚴 騎車 90km</span><strong>${{est.con_splits_703.bike}}</strong></div>
+                                    <div style="display:flex; justify-content:space-between;"><span>⏱️ T2 轉換區</span><strong>${{est.con_splits_703.t2}}</strong></div>
+                                    <div style="display:flex; justify-content:space-between;"><span>🏃 跑步 21.1km</span><strong>${{est.con_splits_703.run}}</strong></div>
                                 </div>
                             </div>
                         </div>

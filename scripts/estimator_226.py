@@ -139,6 +139,47 @@ def calculate_dynamic_226_estimate(target_monday: date) -> dict:
         "run": format_minutes(con_run)
     }
 
+    # ------------------ IM70.3 (113km) MODEL ------------------
+    base_swim_703 = 34.0
+    base_t1_703 = 3.0
+    base_bike_703 = 161.0  # 2h41m
+    base_t2_703 = 3.0
+    base_run_703 = 114.0   # 1h54m
+    base_total_703 = base_swim_703 + base_t1_703 + base_bike_703 + base_t2_703 + base_run_703  # 315 mins (5h15m)
+
+    fade_total_703 = 0.45 * (run_fade_penalty_mins + bike_fade_penalty_mins)
+
+    opt_mins_703 = base_total_703 + (0.15 * fade_total_703) + min(0.0, exec_bonus * 0.5)
+    neu_mins_703 = base_total_703 + (0.50 * fade_total_703) + max(0.0, exec_bonus * 0.3)
+    con_mins_703 = base_total_703 + (1.00 * fade_total_703) + max(6.0, exec_bonus * 0.6)
+
+    if opt_mins_703 >= neu_mins_703:
+        opt_mins_703 = neu_mins_703 - 8.0
+    if neu_mins_703 >= con_mins_703:
+        con_mins_703 = neu_mins_703 + 10.0
+
+    opt_splits_703 = {
+        "swim": format_minutes(base_swim_703 - 1.0),
+        "t1": format_minutes(2.5),
+        "bike": format_minutes(base_bike_703 + (0.15 * 0.45 * bike_fade_penalty_mins)),
+        "t2": format_minutes(2.5),
+        "run": format_minutes(base_run_703 + (0.15 * 0.45 * run_fade_penalty_mins) + min(0.0, exec_bonus * 0.5))
+    }
+    neu_splits_703 = {
+        "swim": format_minutes(base_swim_703),
+        "t1": format_minutes(3.0),
+        "bike": format_minutes(base_bike_703 + (0.50 * 0.45 * bike_fade_penalty_mins)),
+        "t2": format_minutes(3.0),
+        "run": format_minutes(base_run_703 + (0.50 * 0.45 * run_fade_penalty_mins) + max(0.0, exec_bonus * 0.3))
+    }
+    con_splits_703 = {
+        "swim": format_minutes(base_swim_703 + 2.0),
+        "t1": format_minutes(4.0),
+        "bike": format_minutes(base_bike_703 + (1.00 * 0.45 * bike_fade_penalty_mins)),
+        "t2": format_minutes(4.0),
+        "run": format_minutes(base_run_703 + (1.00 * 0.45 * run_fade_penalty_mins) + max(6.0, exec_bonus * 0.6))
+    }
+
     # Classic Public Formulas (Riegel Formula & 70.3 Multiplier)
     # Assumed baseline 70.3 time: 5h15m (315 mins) for a 11:38 PB athlete
     ref_703_mins = 315.0
@@ -167,6 +208,15 @@ def calculate_dynamic_226_estimate(target_monday: date) -> dict:
         "opt_splits": opt_splits,
         "neu_splits": neu_splits,
         "con_splits": con_splits,
+        "optimistic_range_703": f"{format_minutes(opt_mins_703 - 5.0)} – {format_minutes(opt_mins_703 + 5.0)}",
+        "neutral_range_703": f"{format_minutes(neu_mins_703 - 6.0)} – {format_minutes(neu_mins_703 + 6.0)}",
+        "conservative_range_703": f"{format_minutes(con_mins_703 - 8.0)} – {format_minutes(con_mins_703 + 10.0)}",
+        "optimistic_mid_703": format_minutes(opt_mins_703),
+        "neutral_mid_703": format_minutes(neu_mins_703),
+        "conservative_mid_703": format_minutes(con_mins_703),
+        "opt_splits_703": opt_splits_703,
+        "neu_splits_703": neu_splits_703,
+        "con_splits_703": con_splits_703,
         "formulas": {
             "riegel_power_law": f"樂觀 {format_minutes(riegel_opt)} | 中性 {format_minutes(riegel_neu)} | 保守 {format_minutes(riegel_con)} (指數 1.06–1.11)",
             "multiplier_703": f"樂觀 {format_minutes(mult_opt)} (2.12x) | 中性 {format_minutes(mult_neu)} (2.20x) | 保守 {format_minutes(mult_con)} (2.28x)",
