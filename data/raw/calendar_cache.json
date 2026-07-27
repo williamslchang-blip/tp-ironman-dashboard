@@ -1,0 +1,692 @@
+{
+  "20260701_Swim_Swim甜甜課表_75_0": {
+    "date": "2026-07-01",
+    "summary": "Swim: 甜甜課表",
+    "uid": "da2b82e8-260d-437d-bf82-68cd198be6cd",
+    "type": "Swim",
+    "planned_time": 75,
+    "actual_time": 64,
+    "planned_dist": 0,
+    "actual_dist": 3.1,
+    "last_synced": "2026-07-06T12:16:09.590084",
+    "original_plan": {
+      "planned_time": 75,
+      "planned_dist": 0
+    }
+  },
+  "20260702_Bike_BikeTEMPO4x7_55_0": {
+    "date": "2026-07-02",
+    "summary": "Bike: TEMPO 4x7",
+    "uid": "dae08949-f047-45f0-8f4d-f78406853a31",
+    "type": "Bike",
+    "planned_time": 55,
+    "actual_time": 55,
+    "planned_dist": 0,
+    "actual_dist": 22.63,
+    "last_synced": "2026-07-06T19:22:58.212148",
+    "original_plan": {
+      "planned_time": 55,
+      "planned_dist": 0
+    }
+  },
+  "20260703_Swim_Swim甜甜課表_75_0": {
+    "date": "2026-07-03",
+    "summary": "Swim: 甜甜課表",
+    "uid": "e09689d9-a078-487c-8378-bf5af7369565",
+    "type": "Swim",
+    "planned_time": 75,
+    "actual_time": 62,
+    "planned_dist": 0,
+    "actual_dist": 3.15,
+    "last_synced": "2026-07-06T19:22:58.212148",
+    "original_plan": {
+      "planned_time": 75,
+      "planned_dist": 0
+    }
+  },
+  "20260703_Strength_StrengthStrength_0_0": {
+    "date": "2026-07-03",
+    "summary": "Strength: Strength",
+    "uid": "dd3633e2-adbb-4013-8ad9-2fcb824c4107",
+    "type": "Strength",
+    "planned_time": 0,
+    "actual_time": 16,
+    "planned_dist": 0,
+    "actual_dist": 0.0,
+    "last_synced": "2026-07-06T19:22:58.212148",
+    "original_plan": {
+      "planned_time": 0,
+      "planned_dist": 0
+    }
+  },
+  "20260704_Bike_Bike大安石門全家大安_270_90.0": {
+    "date": "2026-07-04",
+    "summary": "Bike: 大安～石門全家～大安",
+    "uid": "2aa24d07-d5f3-4f69-8522-021752b926b7",
+    "type": "Bike",
+    "planned_time": 270,
+    "actual_time": 226,
+    "planned_dist": 90.0,
+    "actual_dist": 89.28,
+    "last_synced": "2026-07-06T19:22:58.212148",
+    "original_plan": {
+      "planned_time": 270,
+      "planned_dist": 90.0
+    }
+  },
+  "20260705_Run_Run有氧打底_90_15.0": {
+    "date": "2026-07-05",
+    "summary": "Run: 有氧打底",
+    "uid": "4b7ea01e-5aff-4319-b5f4-9d25cdb2ff61",
+    "type": "Run",
+    "planned_time": 90,
+    "actual_time": 93,
+    "planned_dist": 15.0,
+    "actual_dist": 14.04,
+    "last_synced": "2026-07-06T19:22:58.212148",
+    "original_plan": {
+      "planned_time": 90,
+      "planned_dist": 15.0
+    }
+  },
+  "20260705_Swim_Swim3200_75_3.2": {
+    "date": "2026-07-05",
+    "summary": "Swim: 3200",
+    "uid": "1ab0f6fc-06cf-4279-84d0-e7df64319f4a",
+    "type": "Swim",
+    "planned_time": 75,
+    "actual_time": 68,
+    "planned_dist": 3.2,
+    "actual_dist": 3.3,
+    "last_synced": "2026-07-06T19:22:58.212148",
+    "original_plan": {
+      "planned_time": 75,
+      "planned_dist": 3.2
+    }
+  },
+  "20260706_Day Off_DayOff基礎期11DayOff_0_0": {
+    "date": "2026-07-06",
+    "summary": "Day Off: 基礎期1-1 Day Off",
+    "uid": "5f0cad5d-f4bc-4a3d-9c14-5a8de8edb0cc",
+    "type": "Day Off",
+    "planned_time": 0,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-06T19:22:58.212148",
+    "original_plan": {
+      "planned_time": 0,
+      "planned_dist": 0
+    }
+  },
+  "20260707_Run_Run_80_11.2": {
+    "date": "2026-07-07",
+    "summary": "Run",
+    "uid": "0c4c9d0d-bfd9-4176-96a8-b5cb495b4be3",
+    "type": "Run",
+    "planned_time": 80,
+    "actual_time": 0,
+    "planned_dist": 11.2,
+    "actual_dist": 0,
+    "last_synced": "2026-07-06T19:22:58.212148",
+    "original_plan": {
+      "planned_time": 80,
+      "planned_dist": 11.2
+    }
+  },
+  "20260708_Swim_Swim甜甜課表_80_0": {
+    "date": "2026-07-08",
+    "summary": "Swim: 甜甜課表",
+    "uid": "83f8cf72-663b-43f9-b15a-d68a7f29459b",
+    "type": "Swim",
+    "planned_time": 80,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-06T19:22:58.212148",
+    "original_plan": {
+      "planned_time": 80,
+      "planned_dist": 0
+    }
+  },
+  "20260709_Day Off_DayOffDayOff交通日_0_0": {
+    "date": "2026-07-09",
+    "summary": "Day Off: Day Off (交通日)",
+    "uid": "c13f7bff-d6eb-41b8-9bd6-463751d34358",
+    "type": "Day Off",
+    "planned_time": 0,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-06T19:22:58.212148",
+    "original_plan": {
+      "planned_time": 0,
+      "planned_dist": 0
+    }
+  },
+  "20260710_Run_Run45分鐘ZONE2_45_0": {
+    "date": "2026-07-10",
+    "summary": "Run: 45 分鐘 ZONE 2",
+    "uid": "5198fbb2-a99b-485b-ac00-7f53e0d0d3d5",
+    "type": "Run",
+    "planned_time": 45,
+    "actual_time": 44,
+    "planned_dist": 0,
+    "actual_dist": 6.22,
+    "last_synced": "2026-07-15T09:57:36.800902",
+    "original_plan": {
+      "planned_time": 45,
+      "planned_dist": 0
+    }
+  },
+  "20260711_Run_Run70分鐘漸快_70_0": {
+    "date": "2026-07-11",
+    "summary": "Run: 70 分鐘 漸快",
+    "uid": "af7b3424-5fc5-4ac6-ac1c-859364ca6311",
+    "type": "Run",
+    "planned_time": 70,
+    "actual_time": 70,
+    "planned_dist": 0,
+    "actual_dist": 10.52,
+    "last_synced": "2026-07-15T09:57:36.800902",
+    "original_plan": {
+      "planned_time": 70,
+      "planned_dist": 0
+    }
+  },
+  "20260712_Run_Run90分鐘ZONE2_90_15.0": {
+    "date": "2026-07-12",
+    "summary": "Run: 90 分鐘 ZONE2",
+    "uid": "5aafa835-6e99-49c3-b977-201cdcc3c323",
+    "type": "Run",
+    "planned_time": 90,
+    "actual_time": 0,
+    "planned_dist": 15.0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-15T09:57:36.800902",
+    "original_plan": {
+      "planned_time": 90,
+      "planned_dist": 15.0
+    }
+  },
+  "20260713_Day Off_DayOffDayOff_0_0": {
+    "date": "2026-07-13",
+    "summary": "Day Off: Day Off",
+    "uid": "1c48d30a-e6ff-4243-ba99-e3e250403d74",
+    "type": "Day Off",
+    "planned_time": 0,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-15T09:57:36.800902",
+    "original_plan": {
+      "planned_time": 0,
+      "planned_dist": 0
+    }
+  },
+  "20260714_Swim_SwimOpenWaterSwimming_0_0": {
+    "date": "2026-07-14",
+    "summary": "Swim: Open Water Swimming",
+    "uid": "c265cda9-d6cb-4de6-a92b-21263baa76af",
+    "type": "Swim",
+    "planned_time": 0,
+    "actual_time": 12,
+    "planned_dist": 0,
+    "actual_dist": 0.36945999999999996,
+    "last_synced": "2026-07-15T09:57:36.800902",
+    "original_plan": {
+      "planned_time": 0,
+      "planned_dist": 0
+    }
+  },
+  "20260715_Swim_Swim甜甜課表_75_0": {
+    "date": "2026-07-15",
+    "summary": "Swim: 甜甜課表",
+    "uid": "e1a8ce42-768d-4308-a936-d3a42acdbdad",
+    "type": "Swim",
+    "planned_time": 75,
+    "actual_time": 63,
+    "planned_dist": 0,
+    "actual_dist": 3.2,
+    "last_synced": "2026-07-20T09:00:04.409873",
+    "original_plan": {
+      "planned_time": 75,
+      "planned_dist": 0
+    }
+  },
+  "20260716_Bike_BikeVO2Max3setsof5x1_60_0": {
+    "date": "2026-07-16",
+    "summary": "Bike: VO2 Max 3 sets of 5x1",
+    "uid": "ec1b4b81-6bef-4b35-958c-8ca3fdd30a5f",
+    "type": "Bike",
+    "planned_time": 60,
+    "actual_time": 60,
+    "planned_dist": 0,
+    "actual_dist": 29.81,
+    "last_synced": "2026-07-20T09:00:04.409873",
+    "original_plan": {
+      "planned_time": 60,
+      "planned_dist": 0
+    }
+  },
+  "20260716_Run_Run轉換跑_30_0": {
+    "date": "2026-07-16",
+    "summary": "Run: 轉換跑",
+    "uid": "f5ae2080-6b06-47b6-b2fd-bd809dbc61c1",
+    "type": "Run",
+    "planned_time": 30,
+    "actual_time": 30,
+    "planned_dist": 0,
+    "actual_dist": 4.59,
+    "last_synced": "2026-07-20T09:00:04.410386",
+    "original_plan": {
+      "planned_time": 30,
+      "planned_dist": 0
+    }
+  },
+  "20260717_Swim_Swim甜甜課表_75_0": {
+    "date": "2026-07-17",
+    "summary": "Swim: 甜甜課表",
+    "uid": "52b9bd75-2b17-4edc-b110-d706d33fa19d",
+    "type": "Swim",
+    "planned_time": 75,
+    "actual_time": 58,
+    "planned_dist": 0,
+    "actual_dist": 2.9,
+    "last_synced": "2026-07-20T09:00:04.410386",
+    "original_plan": {
+      "planned_time": 75,
+      "planned_dist": 0
+    }
+  },
+  "20260718_Bike_Bike_270_0": {
+    "date": "2026-07-18",
+    "summary": "Bike",
+    "uid": "57f1392e-6d82-4288-af73-7816469942a0",
+    "type": "Bike",
+    "planned_time": 270,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-23T11:37:22.361625",
+    "original_plan": {
+      "planned_time": 270,
+      "planned_dist": 0
+    }
+  },
+  "20260718_Run_Run轉換75分_75_13.0": {
+    "date": "2026-07-18",
+    "summary": "Run: 轉換75分",
+    "uid": "b3eff3ca-fca3-4f5d-bc28-fc7e8b611cd4",
+    "type": "Run",
+    "planned_time": 75,
+    "actual_time": 0,
+    "planned_dist": 13.0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-23T11:37:22.361625",
+    "original_plan": {
+      "planned_time": 75,
+      "planned_dist": 13.0
+    }
+  },
+  "20260719_Run_Run貓空_150_22.0": {
+    "date": "2026-07-19",
+    "summary": "Run: 貓空～",
+    "uid": "9f12142e-0d83-433f-ae1d-250c41af4cc5",
+    "type": "Run",
+    "planned_time": 150,
+    "actual_time": 0,
+    "planned_dist": 22.0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-23T11:37:22.361625",
+    "original_plan": {
+      "planned_time": 150,
+      "planned_dist": 22.0
+    }
+  },
+  "20260719_Swim_Swim4000_90_4.0": {
+    "date": "2026-07-19",
+    "summary": "Swim: 4000",
+    "uid": "8b1d7ba2-70fc-4ece-bf26-ba7b1ef5c10e",
+    "type": "Swim",
+    "planned_time": 90,
+    "actual_time": 87,
+    "planned_dist": 4.0,
+    "actual_dist": 4.25,
+    "last_synced": "2026-07-23T11:37:22.361625",
+    "original_plan": {
+      "planned_time": 90,
+      "planned_dist": 4.0
+    }
+  },
+  "20260721_Run_RunRunning_80_11.2": {
+    "date": "2026-07-21",
+    "summary": "Run: Running",
+    "uid": "67619426-2123-4569-a401-0b6eba6648db",
+    "type": "Run",
+    "planned_time": 80,
+    "actual_time": 88,
+    "planned_dist": 11.2,
+    "actual_dist": 12.75,
+    "last_synced": "2026-07-23T11:37:22.361625",
+    "original_plan": {
+      "planned_time": 80,
+      "planned_dist": 11.2
+    }
+  },
+  "20260715_Bike_BikeCycling_0_0": {
+    "date": "2026-07-15",
+    "summary": "Bike: Cycling",
+    "uid": "20260715_Bike_BikeCycling_0_0",
+    "type": "Bike",
+    "planned_time": 0,
+    "actual_time": 13,
+    "planned_dist": 0,
+    "actual_dist": 3.83,
+    "last_synced": "2026-07-20T09:00:04.409873",
+    "original_plan": {
+      "planned_time": 0,
+      "planned_dist": 0
+    }
+  },
+  "20260720_Day Off_DayOffDayOff_0_0": {
+    "date": "2026-07-20",
+    "summary": "Day Off: Day Off",
+    "uid": "20260720_Day Off_DayOffDayOff_0_0",
+    "type": "Day Off",
+    "planned_time": 0,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-19T20:00:04.328754",
+    "original_plan": {
+      "planned_time": 0,
+      "planned_dist": 0
+    }
+  },
+  "20260722_Swim_Swim甜甜課表_75_0": {
+    "date": "2026-07-22",
+    "summary": "Swim: 甜甜課表",
+    "uid": "20260722_Swim_Swim甜甜課表_75_0",
+    "type": "Swim",
+    "planned_time": 75,
+    "actual_time": 3,
+    "planned_dist": 0,
+    "actual_dist": 0.2,
+    "last_synced": "2026-07-27T09:00:03.241202",
+    "original_plan": {
+      "planned_time": 75,
+      "planned_dist": 0
+    }
+  },
+  "20260723_Bike_BikeTempo75_90_0": {
+    "date": "2026-07-23",
+    "summary": "Bike: Tempo 75",
+    "uid": "20260723_Bike_BikeTempo75_90_0",
+    "type": "Bike",
+    "planned_time": 90,
+    "actual_time": 90,
+    "planned_dist": 0,
+    "actual_dist": 41.02,
+    "last_synced": "2026-07-27T09:00:03.241202",
+    "original_plan": {
+      "planned_time": 90,
+      "planned_dist": 0
+    }
+  },
+  "20260723_Run_Run轉換跑_20_3.0": {
+    "date": "2026-07-23",
+    "summary": "Run: 轉換跑",
+    "uid": "20260723_Run_Run轉換跑_20_3.0",
+    "type": "Run",
+    "planned_time": 20,
+    "actual_time": 20,
+    "planned_dist": 3.0,
+    "actual_dist": 3.54,
+    "last_synced": "2026-07-27T09:00:03.241202",
+    "original_plan": {
+      "planned_time": 20,
+      "planned_dist": 3.0
+    }
+  },
+  "20260724_Swim_Swim甜甜課表_75_0": {
+    "date": "2026-07-24",
+    "summary": "Swim: 甜甜課表",
+    "uid": "20260724_Swim_Swim甜甜課表_75_0",
+    "type": "Swim",
+    "planned_time": 75,
+    "actual_time": 72,
+    "planned_dist": 0,
+    "actual_dist": 3.8,
+    "last_synced": "2026-07-27T09:00:03.241202",
+    "original_plan": {
+      "planned_time": 75,
+      "planned_dist": 0
+    }
+  },
+  "20260725_Bike_BikeLSD_300_0": {
+    "date": "2026-07-25",
+    "summary": "Bike: LSD",
+    "uid": "20260725_Bike_BikeLSD_300_0",
+    "type": "Bike",
+    "planned_time": 300,
+    "actual_time": 263,
+    "planned_dist": 0,
+    "actual_dist": 105.89,
+    "last_synced": "2026-07-27T09:00:03.241202",
+    "original_plan": {
+      "planned_time": 300,
+      "planned_dist": 0
+    }
+  },
+  "20260725_Run_Run轉換75分_75_0": {
+    "date": "2026-07-25",
+    "summary": "Run: 轉換75分",
+    "uid": "20260725_Run_Run轉換75分_75_0",
+    "type": "Run",
+    "planned_time": 75,
+    "actual_time": 76,
+    "planned_dist": 0,
+    "actual_dist": 9.83,
+    "last_synced": "2026-07-27T09:00:03.241202",
+    "original_plan": {
+      "planned_time": 75,
+      "planned_dist": 0
+    }
+  },
+  "20260726_Swim_Swim4000_90_4.0": {
+    "date": "2026-07-26",
+    "summary": "Swim: 4000",
+    "uid": "20260726_Swim_Swim4000_90_4.0",
+    "type": "Swim",
+    "planned_time": 90,
+    "actual_time": 81,
+    "planned_dist": 4.0,
+    "actual_dist": 3.9,
+    "last_synced": "2026-07-27T09:00:03.241202",
+    "original_plan": {
+      "planned_time": 90,
+      "planned_dist": 4.0
+    }
+  },
+  "20260726_Run_Run有氧打底_100_18.0": {
+    "date": "2026-07-26",
+    "summary": "Run: 有氧打底",
+    "uid": "20260726_Run_Run有氧打底_100_18.0",
+    "type": "Run",
+    "planned_time": 100,
+    "actual_time": 101,
+    "planned_dist": 18.0,
+    "actual_dist": 13.24,
+    "last_synced": "2026-07-27T09:00:03.241202",
+    "original_plan": {
+      "planned_time": 100,
+      "planned_dist": 18.0
+    }
+  },
+  "20260720_Day Off_DayOff基礎期13DayOff_0_0": {
+    "date": "2026-07-20",
+    "summary": "Day Off: 基礎期1-3 Day Off",
+    "uid": "20260720_Day Off_DayOff基礎期13DayOff_0_0",
+    "type": "Day Off",
+    "planned_time": 0,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-23T11:37:22.361625",
+    "original_plan": {
+      "planned_time": 0,
+      "planned_dist": 0
+    }
+  },
+  "20260722_Swim_SwimLapSwimming_0_0": {
+    "date": "2026-07-22",
+    "summary": "Swim: Lap Swimming",
+    "uid": "20260722_Swim_SwimLapSwimming_0_0",
+    "type": "Swim",
+    "planned_time": 0,
+    "actual_time": 65,
+    "planned_dist": 0,
+    "actual_dist": 3.2,
+    "last_synced": "2026-07-27T09:00:03.241202",
+    "original_plan": {
+      "planned_time": 0,
+      "planned_dist": 0
+    }
+  },
+  "20260727_Day Off_DayOffDayOff減量週_0_0": {
+    "date": "2026-07-27",
+    "summary": "Day Off: Day Off (減量週)",
+    "uid": "20260727_Day Off_DayOffDayOff減量週_0_0",
+    "type": "Day Off",
+    "planned_time": 0,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-27T09:00:03.241202",
+    "original_plan": {
+      "planned_time": 0,
+      "planned_dist": 0
+    }
+  },
+  "20260728_Run_Run比賽配速_60_8.8": {
+    "date": "2026-07-28",
+    "summary": "Run: 比賽配速",
+    "uid": "20260728_Run_Run比賽配速_60_8.8",
+    "type": "Run",
+    "planned_time": 60,
+    "actual_time": 0,
+    "planned_dist": 8.8,
+    "actual_dist": 0,
+    "last_synced": "2026-07-27T09:00:03.241202",
+    "original_plan": {
+      "planned_time": 60,
+      "planned_dist": 8.8
+    }
+  },
+  "20260729_Swim_Swim甜甜課表_75_0": {
+    "date": "2026-07-29",
+    "summary": "Swim: 甜甜課表",
+    "uid": "20260729_Swim_Swim甜甜課表_75_0",
+    "type": "Swim",
+    "planned_time": 75,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-27T09:00:03.241202",
+    "original_plan": {
+      "planned_time": 75,
+      "planned_dist": 0
+    }
+  },
+  "20260730_Bike_BikeEndurance_60_0": {
+    "date": "2026-07-30",
+    "summary": "Bike: Endurance",
+    "uid": "20260730_Bike_BikeEndurance_60_0",
+    "type": "Bike",
+    "planned_time": 60,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-26T14:41:56.144554",
+    "original_plan": {
+      "planned_time": 60,
+      "planned_dist": 0
+    }
+  },
+  "20260730_Run_Run轉換跑20分鐘630600_20_3.16": {
+    "date": "2026-07-30",
+    "summary": "Run: 轉換跑 20分鐘（6:30~6:00）",
+    "uid": "20260730_Run_Run轉換跑20分鐘630600_20_3.16",
+    "type": "Run",
+    "planned_time": 20,
+    "actual_time": 0,
+    "planned_dist": 3.16,
+    "actual_dist": 0,
+    "last_synced": "2026-07-26T14:41:56.144554",
+    "original_plan": {
+      "planned_time": 20,
+      "planned_dist": 3.16
+    }
+  },
+  "20260731_Swim_Swim甜甜課表_75_0": {
+    "date": "2026-07-31",
+    "summary": "Swim: 甜甜課表",
+    "uid": "20260731_Swim_Swim甜甜課表_75_0",
+    "type": "Swim",
+    "planned_time": 75,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-27T09:00:03.241202",
+    "original_plan": {
+      "planned_time": 75,
+      "planned_dist": 0
+    }
+  },
+  "20260801_Bike_BikeLSD_210_0": {
+    "date": "2026-08-01",
+    "summary": "Bike: LSD",
+    "uid": "20260801_Bike_BikeLSD_210_0",
+    "type": "Bike",
+    "planned_time": 210,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-27T09:00:03.241202",
+    "original_plan": {
+      "planned_time": 210,
+      "planned_dist": 0
+    }
+  },
+  "20260802_Run_Run有氧打底540600_80_14.0": {
+    "date": "2026-08-02",
+    "summary": "Run: 有氧打底 5:40~6:00",
+    "uid": "20260802_Run_Run有氧打底540600_80_14.0",
+    "type": "Run",
+    "planned_time": 80,
+    "actual_time": 0,
+    "planned_dist": 14.0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-27T09:00:03.241202",
+    "original_plan": {
+      "planned_time": 80,
+      "planned_dist": 14.0
+    }
+  },
+  "20260730_Bike_BikeFTP測試沒測試下週期FTP3orEndurance_60_0": {
+    "date": "2026-07-30",
+    "summary": "Bike: FTP 測試(沒測試下週期FTP+3%) or Endurance",
+    "uid": "20260730_Bike_BikeFTP測試沒測試下週期FTP3orEndurance_60_0",
+    "type": "Bike",
+    "planned_time": 60,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-07-27T09:00:03.241202",
+    "original_plan": {
+      "planned_time": 60,
+      "planned_dist": 0
+    }
+  }
+}
