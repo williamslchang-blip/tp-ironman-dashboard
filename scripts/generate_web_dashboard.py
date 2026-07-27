@@ -592,8 +592,12 @@ def generate_52_week_dashboard():
                 <!-- SUBTAB 3: ARTICLES ONLINE READ -->
                 <div id="subview-articles" class="subtab-view">
                     <div class="section-box" style="line-height: 1.8;">
-                        <div style="margin-bottom: 16px;">
-                            <a href="weekly_articles.html" target="_blank" class="btn-dl" style="background:linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); color:#FFF; font-size:0.92rem; font-weight:700; padding:10px 18px; display:inline-block;">📰 開啟當週鐵人新知與綜合整理重點獨立網頁 ↗</a>
+                        <div style="margin-bottom: 18px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                            <a href="weekly_articles.html" target="_blank" class="btn-dl" style="background:linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); color:#FFF; font-size:0.92rem; font-weight:700; padding:10px 18px; display:inline-block;">📰 開啟當週鐵人新知獨立網頁 ↗</a>
+                            <a href="weekly_articles.html#swim" target="_blank" class="btn-dl" style="background:rgba(6,182,212,0.15); color:#22D3EE; border:1px solid rgba(6,182,212,0.4); font-weight:700;">🏊 游泳 SWIM ↗</a>
+                            <a href="weekly_articles.html#bike" target="_blank" class="btn-dl" style="background:rgba(59,130,246,0.15); color:#60A5FA; border:1px solid rgba(59,130,246,0.4); font-weight:700;">🚴 騎車 BIKE ↗</a>
+                            <a href="weekly_articles.html#run" target="_blank" class="btn-dl" style="background:rgba(245,158,11,0.15); color:#FBBF24; border:1px solid rgba(245,158,11,0.4); font-weight:700;">🏃 跑步 RUN ↗</a>
+                            <a href="weekly_articles.html#recovery" target="_blank" class="btn-dl" style="background:rgba(16,185,129,0.15); color:#34D399; border:1px solid rgba(16,185,129,0.4); font-weight:700;">🥗 補給及恢復 RECOVERY ↗</a>
                         </div>
                         <div class="section-title">📰 第 ${{data.week_num}} 週鐵人新知與權威文章（繁體中文網頁線上閱讀）</div>
                         <div>${{data.art_html}}</div>
