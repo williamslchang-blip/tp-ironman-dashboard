@@ -36,13 +36,19 @@ def simple_md_to_html(md_text: str) -> str:
             if all(set(c).issubset({"-", ":", " "}) for c in cells):
                 # Separator line
                 continue
+
+            processed_cells = []
+            for c in cells:
+                c_proc = re.sub(r"\[([^\]]+)\]\((https?://[^\)]+)\)", r'<a href="\2" target="_blank" style="color:#38BDF8; font-weight:700; text-decoration:none; background:rgba(56,189,248,0.12); padding:4px 10px; border-radius:6px; border:1px solid rgba(56,189,248,0.3); display:inline-block; font-size:0.85rem;">\1 ↗</a>', c)
+                c_proc = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", c_proc)
+                processed_cells.append(c_proc)
             
             if not in_table:
                 in_table = True
                 html_lines.append('<table class="table-custom">')
-                html_lines.append('<thead><tr>' + ''.join(f'<th>{c}</th>' for c in cells) + '</tr></thead><tbody>')
+                html_lines.append('<thead><tr>' + ''.join(f'<th>{c}</th>' for c in processed_cells) + '</tr></thead><tbody>')
             else:
-                html_lines.append('<tr>' + ''.join(f'<td>{c}</td>' for c in cells) + '</tr>')
+                html_lines.append('<tr>' + ''.join(f'<td>{c}</td>' for c in processed_cells) + '</tr>')
             continue
         elif in_table:
             in_table = False

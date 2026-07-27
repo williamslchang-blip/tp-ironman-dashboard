@@ -573,80 +573,56 @@ def build(monday):
 
     week_num = monday.isocalendar().week
     
-    # Save Markdown version for Web Dashboard embedding
-    md_content = f"""# 🏋️ 2026-W{week_num:02d} 第 {week_num} 週肌力訓練計畫與詳細課表內容
+    # Save Streamlined Strength Workout Markdown with Tutorial Links
+    main_rows_md = ""
+    if variant == "A":
+        main_rows_md = """| **分腿蹲 (Split Squat)** | 3 組 × 6–8 下／邊 (強化單腿力量與平衡) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=分腿蹲+Split+Squat+教學) |
+| **羅馬尼亞硬舉 (RDL)** | 3 組 × 6–8 下 (強化臀大肌與大腿後側膕繩肌) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=羅馬尼亞硬舉+RDL+教學) |
+| **單腳硬舉 (Single Leg RDL)** | 2 組 × 6–8 下／邊 (訓練腳踝與髖關節穩定) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=單腳硬舉+Single+Leg+RDL+教學) |
+| **側棒式 (Side Plank)** | 2 組 × 30–45 秒／邊 (強化核心側向抗側彎能力) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=側棒式+Side+Plank+教學) |
+| **死蟲式 (Dead Bug)** | 2 組 × 8–10 下／邊 (核心抗伸展能力) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=死蟲式+Dead+Bug+教學) |
+| **雙腳提踵 (Calf Raises)** | 3 組 × 12–15 下 (加強小腿與跟腱強度) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=提踵+Calf+Raises+教學) |"""
+    else:
+        main_rows_md = """| **臀推或橋式 (Hip Thrust)** | 3 組 × 8–10 下 (活化並強化臀大肌) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=臀推+Hip+Thrust+教學) |
+| **登階 (Step-up)** | 3 組 × 6–8 下／边 (模仿跑步推蹬與單腳穩定) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=登階+Step-up+教學) |
+| **帕羅夫壓 (Pallof Press)** | 2 組 × 10–12 下／邊 (核心抗旋轉能力) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=帕羅夫壓+Pallof+Press+教學) |
+| **怪獸走 (Monster Walk)** | 2 組 × 10–15 步／邊 (激活臀中肌，防止膝外翻) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=怪獸走+Monster+Walk+教學) |
+| **離心提踵 (Eccentric Calf)** | 3 組 × 8–12 下 (預防跟腱炎，加強推蹬剛性) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=離心提踵+Eccentric+Calf+教學) |
+| **髖屈肌伸展 (Hip Flexor Stretch)** | 2 組 × 30 秒／邊 (舒緩久坐與騎車的緊繃) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=髖屈肌伸展+Hip+Flexor+Stretch+教學) |"""
 
-> **週期：** {monday:%Y/%m/%d} – {monday+timedelta(days=6):%Y/%m/%d} ｜ **階段：** {"Base Phase" if week_num <= 20 else "Build / Peak Phase"}
+    md_content = f"""# 🏋️ 2026-W{week_num:02d} 第 {week_num} 週肌力訓練課表詳細內容
 
----
-
-## 一、 當週體能狀態與數據分析
-
-- **4 週跑量均量：** {est.get('rolling_4w_avg_run_km', 0)} km / 週
-- **4 週單車均量：** {est.get('rolling_4w_avg_bike_km', 0)} km / 週
-- **4 週游泳均量：** {est.get('rolling_4w_avg_swim_km', 0)} km / 週
-- **4 週執行率：** {est.get('rolling_4w_exec_rate', 0)}% （{est.get('exec_status_text', '')}）
-- **IM226 動態預估完賽時間：**
-  - 🟢 **樂觀目標：** {est.get('optimistic_range', '')} （中位數：{est.get('optimistic_mid', '')}）
-  - 🟠 **中性目標：** {est.get('neutral_range', '')} （中位數：{est.get('neutral_mid', '')}）
-  - 🔴 **保守目標：** {est.get('conservative_range', '')} （中位數：{est.get('conservative_mid', '')}）
-
----
-
-## 二、 本週肌力訓練策略與安排
-
+### 📌 本週肌力訓練安排
 - **週一 & 週四（主課 {variant}）：** 專注下肢多關節推拉與髖關節主導動作（30–40 分鐘），保留 2–3 下餘裕。
 - **週三（短課模板）：** 游泳後或晚間進行核心抗旋轉、抗側彎與足踝推蹬剛性訓練（15–20 分鐘）。
 - **週日（恢復與拉伸）：** 全身滾筒放鬆與胸椎/髖關節活動度拉伸。
 
 ---
 
-## 三、 肌力訓練動作詳細內容
-
 ### 🏋️ 主課 {variant}（週一與週四執行，約 30–40 分鐘）
 
-| 動作名稱 | 訓練目標與建議量 |
-| :--- | :--- |
-| **分腿蹲 (Split Squat)** | 3 組 × 6–8 下／邊 (強化單腿力量與平衡) |
-| **羅馬尼亞硬舉 (RDL)** | 3 組 × 6–8 下 (強化臀大肌與大腿後側膕繩肌) |
-| **單腳硬舉 (Single Leg RDL)** | 2 組 × 6–8 下／邊 (訓練腳踝與髖關節穩定) |
-| **側棒式 (Side Plank)** | 2 組 × 30–45 秒／邊 (強化核心側向抗側彎能力) |
-| **死蟲式 (Dead bug)** | 2 組 × 8–10 下／邊 (核心抗伸展能力) |
-| **提踵 (Calf Raises)** | 3 組 × 12–15 下 (加強小腿與跟腱強度) |
+| 動作名稱 | 訓練目標與建議量 | 🎥 動作教學影片 |
+| :--- | :--- | :---: |
+{main_rows_md}
+
+---
 
 ### ⚡ 短課模板（週三執行，約 15–20 分鐘）
 
-| 動作名稱 | 建議量 |
-| :--- | :--- |
-| **死蟲式 (Dead bug)** | 2 組 × 8–10 下／邊 |
-| **側棒式 (Side Plank)** | 2 組 × 30 秒／邊 |
-| **鳥狗式 (Bird dog)** | 2 組 × 8 下／邊 (強化對側核心控制) |
-| **彈力帶側走 (Band Walk)** | 2 組 × 10–15 步／邊 |
-| **單腳提踵 (Single Calf Raise)** | 2 組 × 12–15 下／邊 |
-
-> ⚠️ **肌力調整規則：** 若出現關節疼痛、嚴重疲勞或睡眠不足，應果斷將主課減至 2 組或改做輕度活動度拉伸。若有尖銳疼痛請立即停止訓練。
+| 動作名稱 | 訓練目標與建議量 | 🎥 動作教學影片 |
+| :--- | :--- | :---: |
+| **死蟲式 (Dead Bug)** | 2 組 × 8–10 下／邊 (核心抗伸展能力) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=死蟲式+Dead+Bug+教學) |
+| **側棒式 (Side Plank)** | 2 組 × 30 秒／邊 (強化核心抗側彎) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=側棒式+Side+Plank+教學) |
+| **鳥狗式 (Bird Dog)** | 2 組 × 8 下／邊 (對側核心控制力) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=鳥狗式+Bird+Dog+教學) |
+| **彈力帶側走 (Band Walk)** | 2 組 × 10–15 步／邊 (臀中肌激活) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=彈力帶側走+Band+Walk+教學) |
+| **單腳提踵 (Single Calf Raise)** | 2 組 × 12–15 下／邊 (足踝推蹬剛性) | [▶️ 觀看教學 ↗](https://www.youtube.com/results?search_query=單腳提踵+Single+Calf+Raise+教學) |
 
 ---
 
-## 四、 220 Triathlon 最新鐵人訓練新知與建議
-
-1. **基礎期的三大核心任務：** 220 Triathlon 教練強調，基礎期 (Base Phase) 的主要目標是提高「有氧效率」、「代謝脂肪燃燒能力」以及「肌肉防傷彈性」。本週跑步課表為 Zone 2 (有氧慢跑)，務必將心率裝在區間內，不要超速。
-2. **腸胃耐受性訓練 (Gut Training)：** 營養被稱為鐵人三項的「第五學科」。長距離跑步時，練習每 30–45 分鐘攝取 30g 碳水化合物，訓練小腸吸收能力，避免比賽日腸胃不適。
-3. **傾聽身體而非盲從數據：** 當前科技產品發達，但教練提醒過度關注手錶數據可能導致焦慮。若腿部關節緊繃，應以體感自覺強度 (RPE) 為準主動減量。
-4. **夏季高溫水分補給：** 暑熱汗液流失極快，超過 1 小時跑步每 15 分鐘固定小口補水，每小時目標補水量為 500–750ml，並搭配電解質鹽錠。
-
----
-
-## 五、 IM226 Sub-11 完賽目標對比與攻略
-
-| 項目 | 2024 普悠瑪 (PB) | Sub-11 目標配速 | 目標削減時間 |
-| :--- | :---: | :---: | :---: |
-| **游泳 (3.8k)** | 01:19:36 | 01:12:00 (~1:53/100m) | - 7 分 36 秒 |
-| **轉換區 T1** | 00:04:47 | 00:03:30 | - 1 分 17 秒 |
-| **自行車 (180k)** | 05:37:55 | 05:25:00 (~33.2 km/h) | - 12 分 55 秒 |
-| **轉換區 T2** | 00:06:04 | 00:03:30 | - 2 分 34 秒 |
-| **跑步 (42.2k)** | 04:30:01 | 04:11:00 (~5:56/km) | - 19 分 01 秒 |
-| **總計 (Total)** | **11:38:24** | **10:55:00** | **- 43 分 24 秒** |
+> ⚠️ **肌力調整與安全規則：**
+> 1. 若出現關節疼痛、嚴重疲勞或睡眠不足，應果斷將主課減至 2 組或改做輕度活動度拉伸。
+> 2. 若出現尖銳疼痛，請立即停止該項訓練。
+> 3. 離心動作（如提踵）請維持 3 秒緩慢下降，勿快速摔落下彈。
 
 """
     md_file1 = OUT_DIR / f"{monday:%Y}-W{week_num:02d}_第{week_num:02d}週肌力訓練計畫.md"
