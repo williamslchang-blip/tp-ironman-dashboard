@@ -210,7 +210,7 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
             transition: all 0.2s ease;
             border: 1px solid var(--border-color);
         }}
-        .chip-home { background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); color: #FFF; border-color: transparent; }
+        .chip-home {{ background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); color: #FFF; border-color: transparent; }}
         .chip-summary {{ background: rgba(56, 189, 248, 0.15); color: #38BDF8; border-color: rgba(56, 189, 248, 0.4); }}
         .chip-swim {{ background: rgba(6, 182, 212, 0.15); color: #22D3EE; border-color: rgba(6, 182, 212, 0.4); }}
         .chip-bike {{ background: rgba(59, 130, 246, 0.15); color: #60A5FA; border-color: rgba(59, 130, 246, 0.4); }}
