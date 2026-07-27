@@ -301,7 +301,6 @@
                     <button class="subtab-btn" onclick="openSubtab('plan')">🏋️ 當週課表與肌力計畫 (網頁線上版)</button>
                     <button class="subtab-btn" onclick="openSubtab('articles')">📰 當週鐵人新知 (網頁線上版)</button>
                     <button class="subtab-btn" onclick="openSubtab('review')">📈 當週執行率回顧 (網頁線上版)</button>
-                    <button class="subtab-btn" onclick="openSubtab('files')">📄 原始 Word 檔案</button>
                 </div>
 
                 <!-- SUBTAB 1: OVERVIEW -->
@@ -394,18 +393,6 @@
                     <div class="section-box" style="line-height: 1.8;">
                         <div class="section-title">📈 第 ${data.week_num} 週訓練執行率回顧（網頁線上閱讀）</div>
                         <div>${data.rev_html}</div>
-                    </div>
-                </div>
-
-                <!-- SUBTAB 5: DOCX FILES -->
-                <div id="subview-files" class="subtab-view">
-                    <div class="section-box">
-                        <div class="section-title">📄 地端原始 Word 檔案與備份</div>
-                        <div class="downloads">
-                            <a href="weekly/${data.docx_strength}" class="btn-dl" target="_blank">📥 下載肌力計畫 Word 檔 (${data.docx_strength})</a>
-                            <a href="weekly/${data.docx_articles}" class="btn-dl" target="_blank">📥 下載鐵人新知 Word 檔 (${data.docx_articles})</a>
-                            <a href="weekly/${data.docx_review}" class="btn-dl" target="_blank">📥 下載執行率回顧 Word 檔 (${data.docx_review})</a>
-                        </div>
                     </div>
                 </div>
             `;
