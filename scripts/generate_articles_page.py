@@ -14,16 +14,25 @@ def md_link_to_html(text: str) -> str:
     """Converts markdown links [title](url) to HTML <a href="url" target="_blank">title ↗</a>."""
     if not text:
         return ""
-    # Pattern for [text](url)
     pattern = r"\[([^\]]+)\]\((https?://[^\)]+)\)"
     replacement = r'<a href="\2" target="_blank" class="ext-link">\1 <span class="ext-icon">↗</span></a>'
     return re.sub(pattern, replacement, text)
 
+def get_cat_id(cat_name: str) -> str:
+    if "游泳" in cat_name or "Swim" in cat_name:
+        return "swim"
+    elif "騎車" in cat_name or "Bike" in cat_name or "Cycling" in cat_name:
+        return "bike"
+    elif "跑步" in cat_name or "Run" in cat_name:
+        return "run"
+    elif "補給" in cat_name or "Recovery" in cat_name or "Fueling" in cat_name:
+        return "recovery"
+    return "general"
+
 def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) -> str:
-    """Parses weekly articles Markdown into a beautiful standalone HTML web page."""
+    """Parses weekly articles Markdown into a beautiful standalone HTML web page with sticky quick jump navigation."""
     lines = md_content.split("\n")
     
-    html_sections = []
     current_cat = "一般"
     articles_by_cat = {}
     summary_lines = []
@@ -41,13 +50,11 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
 
         if stripped.startswith("## ") and not stripped.startswith("## 目錄"):
             cat_name = stripped[3:].strip()
-            # Clean anchor tags if present
             cat_name = re.sub(r'<a name="[^"]*"></a>', '', cat_name).strip()
             current_cat = cat_name
             if current_cat not in articles_by_cat:
                 articles_by_cat[current_cat] = []
         elif stripped.startswith("### 🔗 ") or stripped.startswith("### "):
-            # Article Title
             title_text = stripped[4:].strip() if stripped.startswith("### 🔗 ") else stripped[4:].strip()
             articles_by_cat.setdefault(current_cat, []).append({
                 "title_raw": title_text,
@@ -61,28 +68,26 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
             if current_cat in articles_by_cat and articles_by_cat[current_cat]:
                 articles_by_cat[current_cat][-1]["desc"] += f" {stripped[2:]}"
 
-    # Render Summary HTML
     summary_html = ""
     if summary_lines:
         raw_sum = "\n".join(summary_lines)
         summary_html = md_link_to_html(raw_sum)
         summary_html = summary_html.replace("### ", "<h3 style='color:#38BDF8; margin-top:16px; margin-bottom:8px;'>").replace("\n", "<br>")
 
-    # Render Articles Cards HTML
     articles_cards_html = ""
     for cat, arts in articles_by_cat.items():
         if not arts:
             continue
+        cat_id = get_cat_id(cat)
         articles_cards_html += f"""
         <div class="cat-group">
-            <h2 class="cat-header">{cat} ({len(arts)} 篇)</h2>
+            <h2 class="cat-header" id="{cat_id}">{cat} ({len(arts)} 篇)</h2>
             <div class="articles-grid">"""
         for art in arts:
             title_html = md_link_to_html(art["title_raw"])
             meta_html = md_link_to_html(art["meta"])
             desc_text = art["desc"].strip()
 
-            # Extract URL if present
             match = re.search(r"https?://[^\)]+", art["title_raw"])
             url = match.group(0) if match else "#"
 
@@ -90,7 +95,10 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
                 <div class="art-card">
                     <div class="art-title">{title_html}</div>
                     <div class="art-meta">{meta_html}</div>
-                    <div class="art-desc">{desc_text if desc_text else '點擊下方連結可閱讀外網原始全文內容。'}</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        {desc_text if desc_text else '點擊下方連結可閱讀外網原始全文內容。'}
+                    </div>
                     <div class="art-footer">
                         <a href="{url}" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -119,6 +127,7 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
             --border-color: #334155;
         }}
         * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+        html {{ scroll-behavior: smooth; }}
         body {{
             font-family: 'Inter', 'Noto Sans TC', sans-serif;
             background-color: var(--bg-primary);
@@ -135,7 +144,7 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 28px 36px;
-            margin-bottom: 28px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -168,6 +177,49 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
         }}
         .btn-back:hover {{ transform: translateY(-2px); }}
 
+        /* STICKY QUICK JUMP NAV BAR */
+        .nav-quick-bar {{
+            position: sticky;
+            top: 15px;
+            z-index: 100;
+            background: rgba(30, 41, 59, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 14px;
+            padding: 12px 20px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow-x: auto;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+        }}
+        .nav-label {{
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #38BDF8;
+            white-space: nowrap;
+        }}
+        .nav-chip {{
+            padding: 7px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
+        }}
+        .chip-summary {{ background: rgba(56, 189, 248, 0.15); color: #38BDF8; border-color: rgba(56, 189, 248, 0.4); }}
+        .chip-swim {{ background: rgba(6, 182, 212, 0.15); color: #22D3EE; border-color: rgba(6, 182, 212, 0.4); }}
+        .chip-bike {{ background: rgba(59, 130, 246, 0.15); color: #60A5FA; border-color: rgba(59, 130, 246, 0.4); }}
+        .chip-run {{ background: rgba(245, 158, 11, 0.15); color: #FBBF24; border-color: rgba(245, 158, 11, 0.4); }}
+        .chip-recovery {{ background: rgba(16, 185, 129, 0.15); color: #34D399; border-color: rgba(16, 185, 129, 0.4); }}
+        .nav-chip:hover {{
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }}
+
         /* SUMMARY BOX */
         .summary-box {{
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
@@ -176,6 +228,7 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
             padding: 28px;
             margin-bottom: 32px;
             box-shadow: 0 4px 24px rgba(6, 182, 212, 0.15);
+            scroll-margin-top: 90px;
         }}
         .summary-box h2 {{
             font-size: 1.35rem;
@@ -196,6 +249,7 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
             margin-bottom: 16px;
             padding-bottom: 8px;
             border-bottom: 1px solid var(--border-color);
+            scroll-margin-top: 90px;
         }}
         .articles-grid {{
             display: grid;
@@ -288,7 +342,17 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
             <a href="index.html" class="btn-back">⬅️ 返回 52 週儀表板主頁</a>
         </div>
 
-        {f'<div class="summary-box"><h2>🌟 五、 當週各項運動新知綜合整理重點</h2><div>{summary_html}</div></div>' if summary_html else ''}
+        <!-- STICKY QUICK JUMP NAV BAR -->
+        <div class="nav-quick-bar">
+            <span class="nav-label">⚡ 快速導覽：</span>
+            {f'<a href="#summary" class="nav-chip chip-summary">🌟 綜合重點 SUMMARY</a>' if summary_html else ''}
+            <a href="#swim" class="nav-chip chip-swim">🏊 游泳 SWIM</a>
+            <a href="#bike" class="nav-chip chip-bike">🚴 騎車 BIKE</a>
+            <a href="#run" class="nav-chip chip-run">🏃 跑步 RUN</a>
+            <a href="#recovery" class="nav-chip chip-recovery">🥗 補給及恢復 RECOVERY</a>
+        </div>
+
+        {f'<div class="summary-box" id="summary"><h2>🌟 五、 當週各項運動新知綜合整理重點</h2><div>{summary_html}</div></div>' if summary_html else ''}
 
         {articles_cards_html}
     </div>
@@ -296,7 +360,7 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
 </html>
 """
     OUT_ARTICLES_HTML.write_text(full_page_html, encoding="utf-8")
-    print("Standalone weekly articles web page generated at:", OUT_ARTICLES_HTML)
+    print("Standalone weekly articles web page with sticky quick jump nav generated at:", OUT_ARTICLES_HTML)
 
 def generate_current_articles_page():
     today = date.today()

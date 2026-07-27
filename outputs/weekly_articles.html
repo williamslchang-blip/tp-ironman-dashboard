@@ -18,6 +18,7 @@
             --border-color: #334155;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', 'Noto Sans TC', sans-serif;
             background-color: var(--bg-primary);
@@ -34,7 +35,7 @@
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 28px 36px;
-            margin-bottom: 28px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -67,6 +68,49 @@
         }
         .btn-back:hover { transform: translateY(-2px); }
 
+        /* STICKY QUICK JUMP NAV BAR */
+        .nav-quick-bar {
+            position: sticky;
+            top: 15px;
+            z-index: 100;
+            background: rgba(30, 41, 59, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 14px;
+            padding: 12px 20px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow-x: auto;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+        }
+        .nav-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #38BDF8;
+            white-space: nowrap;
+        }
+        .nav-chip {
+            padding: 7px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
+        }
+        .chip-summary { background: rgba(56, 189, 248, 0.15); color: #38BDF8; border-color: rgba(56, 189, 248, 0.4); }
+        .chip-swim { background: rgba(6, 182, 212, 0.15); color: #22D3EE; border-color: rgba(6, 182, 212, 0.4); }
+        .chip-bike { background: rgba(59, 130, 246, 0.15); color: #60A5FA; border-color: rgba(59, 130, 246, 0.4); }
+        .chip-run { background: rgba(245, 158, 11, 0.15); color: #FBBF24; border-color: rgba(245, 158, 11, 0.4); }
+        .chip-recovery { background: rgba(16, 185, 129, 0.15); color: #34D399; border-color: rgba(16, 185, 129, 0.4); }
+        .nav-chip:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+
         /* SUMMARY BOX */
         .summary-box {
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
@@ -75,6 +119,7 @@
             padding: 28px;
             margin-bottom: 32px;
             box-shadow: 0 4px 24px rgba(6, 182, 212, 0.15);
+            scroll-margin-top: 90px;
         }
         .summary-box h2 {
             font-size: 1.35rem;
@@ -95,6 +140,7 @@
             margin-bottom: 16px;
             padding-bottom: 8px;
             border-bottom: 1px solid var(--border-color);
+            scroll-margin-top: 90px;
         }
         .articles-grid {
             display: grid;
@@ -187,16 +233,29 @@
             <a href="index.html" class="btn-back">⬅️ 返回 52 週儀表板主頁</a>
         </div>
 
-        <div class="summary-box"><h2>🌟 五、 當週各項運動新知綜合整理重點</h2><div><br><h3 style='color:#38BDF8; margin-top:16px; margin-bottom:8px;'>游泳 (Swimming)核心要點<br>* **「很高興再次與瓦斯科進行戰鬥！」馬特·豪瑟 (Matt Hauser) 在 WTCS 倫敦男子比賽中衝刺獲勝**：世界鐵人三項錦標賽系列賽 (WTCS) 重返倫敦，精彩紛呈，精彩紛呈，讓觀眾盡興而歸，其中包括馬特·豪瑟 (Matt Hauser) 和瓦斯科·維爾 (Vasco Vil) 之間的另一次衝刺衝刺…<br>* **2026 年最好的防水游泳耳機是什麼？我們測試了六種完全浸沒的選項**：喜歡隨著音樂進行訓練並想在泳池中做到這一點？游泳教練海倫·韋伯斯特測試了最好的游泳防水耳機<br>* **對這些 Van Life 家庭來說，終極公路旅行是追逐青少年鐵人三項夢想**：為了孩子的鐵人三項夢想，你會開多遠？對於越野鐵人三項的「貨車生活」家庭來說，這些車輛是優先考慮冒險、共享體驗和…的生活方式的引擎。<br><br><h3 style='color:#38BDF8; margin-top:16px; margin-bottom:8px;'>騎車 (Cycling)核心要點<br>* **為什麼我對 WHOOP 健身追蹤器上癮**：無螢幕健身追蹤器正在風靡一時。與傳統的智慧手錶不同，這些穿戴式裝置可以悄悄地收集從心率和睡眠到壓力和恢復等各個方面的數據，所有這些都無需<br>* **世界鐵人三項賽和職業鐵人三項組織公佈 2027 年巡迴賽日曆**：T100 和重新命名的 T50 系列將在全球範圍內舉辦精英和年齡組比賽，包括洛杉磯為奧運會做準備時的威尼斯海灘比賽<br>* **Garmin Forerunner 70：170 的精簡版，但沒有三重追踪**：尚未上市的最便宜的 Garmin Forerunner 是針對跑步新手的，但它是否有足夠的智慧來取悅鐵人三項人群呢？<br><br><h3 style='color:#38BDF8; margin-top:16px; margin-bottom:8px;'>跑步 (Running)核心要點<br>* **喬治亞·泰勒-布朗：“我不希望它變成一場跑步比賽。我想改變比賽規則”**：英國三屆奧運獎牌得主回顧了重返倫敦的世界鐵人三項錦標賽系列賽，以及她需要採取哪些措施才能登上奧運頒獎台<br>* **我們對 50 美元的亞馬遜跑鞋與名牌跑鞋進行了實驗室測試。這是真正值得購買的東西。**：在正面測試中，昂貴的跑鞋真的比預算機型表現更好嗎？我們前往實驗室尋找答案。<br>閱讀完整文章：我們實驗室測試了價值 50 美元的亞馬遜跑鞋與 Nam<br>* **「我從未停止相信我能做到」：Alanis Siffert 如何從跑步新手成長為 2 分 45 秒的馬拉松**：羅斯挑戰賽冠軍艾拉尼斯·西弗特幾年前才開始跑步。她向 220 Triathlon 講述耐心、堅持和對自己身體的信任如何幫助她跑出了 2 分 45 秒的非凡馬拉鬆成績。為了<br><br><h3 style='color:#38BDF8; margin-top:16px; margin-bottom:8px;'>補給與恢復 (Fueling & Recovery)核心要點<br>* **氣氛很好，但迫切需要重新審視：倫敦世界職棒大賽回歸後，英國精英男子的情緒對比**：WTCS 的前十名中沒有英國男子，但這並不是因為缺乏主場觀眾的支持<br>* **「我只是最近沒有展現出我真正的能力。」Sam Long 在 Ironman 70.3 Boise 比賽中獲勝，表現出恢復狀態，而 Kirsten Kasper 則贏得了女子比賽**：2026 年 IRONMAN 70.3 博伊西鐵人三項賽上演了驚心動魄的專業比賽，眾多鐵人三項頂尖選手的精彩表現令人難忘，美國選手 Sam Long 在比賽中取得了壓倒性的勝利。<br>* **Cassandre Beaugrand 在快速而激烈的 WTCS 倫敦女子比賽中奪得冠軍**：世界鐵人三項錦標賽系列賽回到倫敦，卡桑德爾·博格蘭德 (Cassandre Beaugrand) 在三場比賽中取得三場勝利。這是自2015年以來首次舉辦精英短道比賽…<br><br></div></div>
+        <!-- STICKY QUICK JUMP NAV BAR -->
+        <div class="nav-quick-bar">
+            <span class="nav-label">⚡ 快速導覽：</span>
+            <a href="#summary" class="nav-chip chip-summary">🌟 綜合重點 SUMMARY</a>
+            <a href="#swim" class="nav-chip chip-swim">🏊 游泳 SWIM</a>
+            <a href="#bike" class="nav-chip chip-bike">🚴 騎車 BIKE</a>
+            <a href="#run" class="nav-chip chip-run">🏃 跑步 RUN</a>
+            <a href="#recovery" class="nav-chip chip-recovery">🥗 補給及恢復 RECOVERY</a>
+        </div>
+
+        <div class="summary-box" id="summary"><h2>🌟 五、 當週各項運動新知綜合整理重點</h2><div><br><h3 style='color:#38BDF8; margin-top:16px; margin-bottom:8px;'>游泳 (Swimming)核心要點<br>* **「很高興再次與瓦斯科進行戰鬥！」馬特·豪瑟 (Matt Hauser) 在 WTCS 倫敦男子比賽中衝刺獲勝**：世界鐵人三項錦標賽系列賽 (WTCS) 重返倫敦，精彩紛呈，精彩紛呈，讓觀眾盡興而歸，其中包括馬特·豪瑟 (Matt Hauser) 和瓦斯科·維爾 (Vasco Vil) 之間的另一次衝刺衝刺…<br>* **2026 年最好的防水游泳耳機是什麼？我們測試了六種完全浸沒的選項**：喜歡隨著音樂進行訓練並想在泳池中做到這一點？游泳教練海倫·韋伯斯特測試了最好的游泳防水耳機 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。<br>* **對這些 Van Life 家庭來說，終極公路旅行是追逐青少年鐵人三項夢想**：為了孩子的鐵人三項夢想，你會開多遠？對於越野鐵人三項的「貨車生活」家庭來說，這些車輛是優先考慮冒險、共享體驗和…的生活方式的引擎。 本文深入分析 Triathlete Magazine 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。<br><br><h3 style='color:#38BDF8; margin-top:16px; margin-bottom:8px;'>騎車 (Cycling)核心要點<br>* **為什麼我對 WHOOP 健身追蹤器上癮**：無螢幕健身追蹤器正在風靡一時。與傳統的智慧手錶不同，這些穿戴式裝置可以悄悄地收集從心率和睡眠到壓力和恢復等各個方面的數據，所有這些都無需<br>* **世界鐵人三項賽和職業鐵人三項組織公佈 2027 年巡迴賽日曆**：T100 和重新命名的 T50 系列將在全球範圍內舉辦精英和年齡組比賽，包括洛杉磯為奧運會做準備時的威尼斯海灘比賽 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。<br>* **Garmin Forerunner 70：170 的精簡版，但沒有三重追踪**：尚未上市的最便宜的 Garmin Forerunner 是針對跑步新手的，但它是否有足夠的智慧來取悅鐵人三項人群呢？ 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。<br><br><h3 style='color:#38BDF8; margin-top:16px; margin-bottom:8px;'>跑步 (Running)核心要點<br>* **喬治亞·泰勒-布朗：“我不希望它變成一場跑步比賽。我想改變比賽規則”**：英國三屆奧運獎牌得主回顧了重返倫敦的世界鐵人三項錦標賽系列賽，以及她需要採取哪些措施才能登上奧運頒獎台 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。<br>* **我們對 50 美元的亞馬遜跑鞋與名牌跑鞋進行了實驗室測試。這是真正值得購買的東西。**：在正面測試中，昂貴的跑鞋真的比預算機型表現更好嗎？我們前往實驗室尋找答案。<br>閱讀完整文章：我們實驗室測試了價值 50 美元的亞馬遜跑鞋與 Nam<br>* **「我從未停止相信我能做到」：Alanis Siffert 如何從跑步新手成長為 2 分 45 秒的馬拉松**：羅斯挑戰賽冠軍艾拉尼斯·西弗特幾年前才開始跑步。她向 220 Triathlon 講述耐心、堅持和對自己身體的信任如何幫助她跑出了 2 分 45 秒的非凡馬拉鬆成績。為了<br><br><h3 style='color:#38BDF8; margin-top:16px; margin-bottom:8px;'>補給與恢復 (Fueling & Recovery)核心要點<br>* **氣氛很好，但迫切需要重新審視：倫敦世界職棒大賽回歸後，英國精英男子的情緒對比**：WTCS 的前十名中沒有英國男子，但這並不是因為缺乏主場觀眾的支持 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。<br>* **「我只是最近沒有展現出我真正的能力。」Sam Long 在 Ironman 70.3 Boise 比賽中獲勝，表現出恢復狀態，而 Kirsten Kasper 則贏得了女子比賽**：2026 年 IRONMAN 70.3 博伊西鐵人三項賽上演了驚心動魄的專業比賽，眾多鐵人三項頂尖選手的精彩表現令人難忘，美國選手 Sam Long 在比賽中取得了壓倒性的勝利。<br>* **Cassandre Beaugrand 在快速而激烈的 WTCS 倫敦女子比賽中奪得冠軍**：世界鐵人三項錦標賽系列賽回到倫敦，卡桑德爾·博格蘭德 (Cassandre Beaugrand) 在三場比賽中取得三場勝利。這是自2015年以來首次舉辦精英短道比賽…<br><br></div></div>
 
         
         <div class="cat-group">
-            <h2 class="cat-header">游泳 (Swimming) (4 篇)</h2>
+            <h2 class="cat-header" id="swim">游泳 (Swimming) (4 篇)</h2>
             <div class="articles-grid">
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/wtcs-london-men-results" target="_blank" class="ext-link">「很高興再次與瓦斯科進行戰鬥！」馬特·豪瑟 (Matt Hauser) 在 WTCS 倫敦男子比賽中衝刺獲勝 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *“It was nice to have another battle with Vasco!” Matt Hauser sprints to the win in WTCS London men’s race*<br>**來源**: 220 Triathlon | **日期**: 2026-07-26</div>
-                    <div class="art-desc">世界鐵人三項錦標賽系列賽 (WTCS) 重返倫敦，精彩紛呈，精彩紛呈，讓觀眾盡興而歸，其中包括馬特·豪瑟 (Matt Hauser) 和瓦斯科·維爾 (Vasco Vil) 之間的另一次衝刺衝刺…</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        世界鐵人三項錦標賽系列賽 (WTCS) 重返倫敦，精彩紛呈，精彩紛呈，讓觀眾盡興而歸，其中包括馬特·豪瑟 (Matt Hauser) 和瓦斯科·維爾 (Vasco Vil) 之間的另一次衝刺衝刺…
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/news/wtcs-london-men-results" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -204,7 +263,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/swim/waterproof-headphones-for-swimming" target="_blank" class="ext-link">2026 年最好的防水游泳耳機是什麼？我們測試了六種完全浸沒的選項 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *What are the best waterproof swimming headphones in 2026? We’ve tested six fully submergible options*<br>**來源**: 220 Triathlon | **日期**: 2026-07-24</div>
-                    <div class="art-desc">喜歡隨著音樂進行訓練並想在泳池中做到這一點？游泳教練海倫·韋伯斯特測試了最好的游泳防水耳機...</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        喜歡隨著音樂進行訓練並想在泳池中做到這一點？游泳教練海倫·韋伯斯特測試了最好的游泳防水耳機... 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/gear/swim/waterproof-headphones-for-swimming" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -212,7 +274,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/culture/youth-triathlon-van-life-families/" target="_blank" class="ext-link">對這些 Van Life 家庭來說，終極公路旅行是追逐青少年鐵人三項夢想 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *For These Van Life Families, The Ultimate Road Trip is Chasing the Youth Triathlon Dream*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-22</div>
-                    <div class="art-desc">為了孩子的鐵人三項夢想，你會開多遠？對於越野鐵人三項的「貨車生活」家庭來說，這些車輛是優先考慮冒險、共享體驗和…的生活方式的引擎。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        為了孩子的鐵人三項夢想，你會開多遠？對於越野鐵人三項的「貨車生活」家庭來說，這些車輛是優先考慮冒險、共享體驗和…的生活方式的引擎。 本文深入分析 Triathlete Magazine 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.triathlete.com/culture/youth-triathlon-van-life-families/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -220,7 +285,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/swim/goggles/best-swimming-goggles-for-triathlon" target="_blank" class="ext-link">最好的泳鏡是什麼？教練測試泳池和開放水域游泳的最佳選擇 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *What are the best swim goggles? Coach tests the best options for pool and open-water swimming*<br>**來源**: 220 Triathlon | **日期**: 2026-07-20</div>
-                    <div class="art-desc">戴上這款久經考驗的泳鏡，清晰舒適地游泳。我回顧了鐵人三項、泳池訓練和開放水域游泳的 10 項最佳運動。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        戴上這款久經考驗的泳鏡，清晰舒適地游泳。我回顧了鐵人三項、泳池訓練和開放水域游泳的 10 項最佳運動。 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/gear/swim/goggles/best-swimming-goggles-for-triathlon" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -228,12 +296,15 @@
             </div>
         </div>
         <div class="cat-group">
-            <h2 class="cat-header">騎車 (Cycling) (12 篇)</h2>
+            <h2 class="cat-header" id="bike">騎車 (Cycling) (12 篇)</h2>
             <div class="articles-grid">
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/whoop-fitness-tracker-review" target="_blank" class="ext-link">為什麼我對 WHOOP 健身追蹤器上癮 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Why I’m addicted to my WHOOP fitness tracker*<br>**來源**: 220 Triathlon | **日期**: 2026-07-25</div>
-                    <div class="art-desc">無螢幕健身追蹤器正在風靡一時。與傳統的智慧手錶不同，這些穿戴式裝置可以悄悄地收集從心率和睡眠到壓力和恢復等各個方面的數據，所有這些都無需...</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        無螢幕健身追蹤器正在風靡一時。與傳統的智慧手錶不同，這些穿戴式裝置可以悄悄地收集從心率和睡眠到壓力和恢復等各個方面的數據，所有這些都無需...
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/news/whoop-fitness-tracker-review" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -241,7 +312,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/world-triathlon-and-the-professional-triathletes-organisation-reveal-tour-calendars-for-2027" target="_blank" class="ext-link">世界鐵人三項賽和職業鐵人三項組織公佈 2027 年巡迴賽日曆 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *World Triathlon and the Professional Triathletes Organisation reveal tour calendars for 2027*<br>**來源**: 220 Triathlon | **日期**: 2026-07-25</div>
-                    <div class="art-desc">T100 和重新命名的 T50 系列將在全球範圍內舉辦精英和年齡組比賽，包括洛杉磯為奧運會做準備時的威尼斯海灘比賽</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        T100 和重新命名的 T50 系列將在全球範圍內舉辦精英和年齡組比賽，包括洛杉磯為奧運會做準備時的威尼斯海灘比賽 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/news/world-triathlon-and-the-professional-triathletes-organisation-reveal-tour-calendars-for-2027" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -249,7 +323,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/garmin-forerunner-70" target="_blank" class="ext-link">Garmin Forerunner 70：170 的精簡版，但沒有三重追踪 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Garmin Forerunner 70: a slimmed-down version of the 170 but no tri tracking*<br>**來源**: 220 Triathlon | **日期**: 2026-07-24</div>
-                    <div class="art-desc">尚未上市的最便宜的 Garmin Forerunner 是針對跑步新手的，但它是否有足夠的智慧來取悅鐵人三項人群呢？</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        尚未上市的最便宜的 Garmin Forerunner 是針對跑步新手的，但它是否有足夠的智慧來取悅鐵人三項人群呢？ 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/news/garmin-forerunner-70" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -257,7 +334,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/kiprun-run-900-shorts-a-light-and-airy-choice-for-trail-runs" target="_blank" class="ext-link">Kiprun Run 900 短褲：輕盈透氣的越野跑之選 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Kiprun Run 900 Shorts: a light and airy choice for trail runs*<br>**來源**: 220 Triathlon | **日期**: 2026-07-24</div>
-                    <div class="art-desc">迪卡儂 Kiprun 品牌的這些專注於越野的 Run 900 短褲以令人印象深刻的價格提供卓越的性能和一系列有用的功能。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        迪卡儂 Kiprun 品牌的這些專注於越野的 Run 900 短褲以令人印象深刻的價格提供卓越的性能和一系列有用的功能。 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/gear/kiprun-run-900-shorts-a-light-and-airy-choice-for-trail-runs" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -265,7 +345,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/run/run-shoes/under-armour-velociti-elite-3-sharon-lokedi-review" target="_blank" class="ext-link">我測試了 Sharon Lokedi 兩屆波士頓馬拉松冠軍鞋 - 這是我的誠實意見 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *I tested the two-time Boston marathon-winning shoe of Sharon Lokedi – here’s my honest opinion*<br>**來源**: 220 Triathlon | **日期**: 2026-07-24</div>
-                    <div class="art-desc">這些充滿活力的碳纖維公路鞋見證了許多比賽的勝利。但日常跑步者使用它們時效果如何呢？</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        這些充滿活力的碳纖維公路鞋見證了許多比賽的勝利。但日常跑步者使用它們時效果如何呢？ 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/gear/run/run-shoes/under-armour-velociti-elite-3-sharon-lokedi-review" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -273,7 +356,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/bike/helmets/best-aero-road-helmets-reviewed" target="_blank" class="ext-link">最好的空氣動力自行車頭盔是什麼？我們在風洞中測試了 9 個以找出答案 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *What are the best aero bike helmets? We tested 9 in a wind tunnel to find out*<br>**來源**: 220 Triathlon | **日期**: 2026-07-24</div>
-                    <div class="art-desc">忘記車輪吧，如果您正在尋找物有所值的自行車速度升級，請投資購買空氣動力學公路頭盔。在這裡，我們測試了 9 種最快、最安全、最舒適的鐵人三項。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        忘記車輪吧，如果您正在尋找物有所值的自行車速度升級，請投資購買空氣動力學公路頭盔。在這裡，我們測試了 9 種最快、最安全、最舒適的鐵人三項。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/gear/bike/helmets/best-aero-road-helmets-reviewed" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -281,7 +367,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/bike/accessories/aerobars/best-aero-bars" target="_blank" class="ext-link">最好的夾式氣動把是什麼？我們測試了 8 種空氣動力學速度和舒適度 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *What are the best clip-on aerobars? We’ve tested 8 for aero speed and comfort*<br>**來源**: 220 Triathlon | **日期**: 2026-07-23</div>
-                    <div class="art-desc">通常，在公路自行車上縮短時間的最簡單方法是添加一組夾式空氣動力車把。在這裡，我們回顧了 10 個最適合鐵人三項的項目…</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        通常，在公路自行車上縮短時間的最簡單方法是添加一組夾式空氣動力車把。在這裡，我們回顧了 10 個最適合鐵人三項的項目… 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/gear/bike/accessories/aerobars/best-aero-bars" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -289,7 +378,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/run/run-shoes/best-running-shoes" target="_blank" class="ext-link">最好的跑鞋是什麼？我們測試 2026 年比賽和訓練的最佳選擇 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *What are the best running shoes? We test the best options for racing and training in 2026*<br>**來源**: 220 Triathlon | **日期**: 2026-07-23</div>
-                    <div class="art-desc">對尋找跑鞋感到困惑並想找到最好的？以下是我們最喜歡的 10 款經過專家測試的全能跑鞋。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        對尋找跑鞋感到困惑並想找到最好的？以下是我們最喜歡的 10 款經過專家測試的全能跑鞋。 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/gear/run/run-shoes/best-running-shoes" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -297,7 +389,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/industry/garmin-buys-trainingpeaks-and-trainheroic/" target="_blank" class="ext-link">Garmin 收購 TrainingPeaks 和 TrainHeroic <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Garmin Buys TrainingPeaks and TrainHeroic*<br>**來源**: Slowtwitch | **日期**: 2026-07-23</div>
-                    <div class="art-desc">Garmin 今天宣布，它已收購 TrainingPeaks 和 TrainHeroic，將這家可穿戴技術公司與高性能分析、運動員關係和訓練計劃結合在一起。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        Garmin 今天宣布，它已收購 TrainingPeaks 和 TrainHeroic，將這家可穿戴技術公司與高性能分析、運動員關係和訓練計劃結合在一起。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.slowtwitch.com/industry/garmin-buys-trainingpeaks-and-trainheroic/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -305,7 +400,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/garmin-launch-cirqa-fitness-tracker" target="_blank" class="ext-link">Garmin 推出首款無螢幕健身追蹤器 - 但它能滿足鐵人三項運動員的需求嗎？ <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Garmin launch first screen-free fitness tracker – but will it serve the needs of triathletes?*<br>**來源**: 220 Triathlon | **日期**: 2026-07-21</div>
-                    <div class="art-desc">有句老笑話說：“如果我昏倒了，請停止我的 Garmin”，如果鐵人三項運動員喜歡一件事，那就是統計數據或 100。但今天 Garmin 宣布推出無螢幕健身手環。想想李...</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        有句老笑話說：“如果我昏倒了，請停止我的 Garmin”，如果鐵人三項運動員喜歡一件事，那就是統計數據或 100。但今天 Garmin 宣布推出無螢幕健身手環。想想李...
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/news/garmin-launch-cirqa-fitness-tracker" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -313,7 +411,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/training/exercise-snacks-triathlon-training/" target="_blank" class="ext-link">15 分鐘的「運動零食」能和 60 分鐘的運動一樣有效嗎？ <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Can 15-Minute “Exercise Snacks” Be Just as Good as a 60-Minute Workout?*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-20</div>
-                    <div class="art-desc">時間緊迫？這些短暫的活動可以讓您的思維更加敏銳，並在最忙碌的工作日保護您的健康。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        時間緊迫？這些短暫的活動可以讓您的思維更加敏銳，並在最忙碌的工作日保護您的健康。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.triathlete.com/training/exercise-snacks-triathlon-training/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -321,7 +422,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/tri-tech/multisport-watches/best-triathlon-watches-reviewed" target="_blank" class="ext-link">最好的鐵人三項手錶有哪些？我們分享適合專業人士和初學者的 10 款最佳模型 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *What are the best triathlon watches? We share our top 10 models for pros and beginners*<br>**來源**: 220 Triathlon | **日期**: 2026-07-20</div>
-                    <div class="art-desc">鐵人三項智慧手錶可以徹底改變您的鐵人三項訓練和比賽。但市面上這麼多，哪些值得花呢？我們的專家測試了 10 種最好的...</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        鐵人三項智慧手錶可以徹底改變您的鐵人三項訓練和比賽。但市面上這麼多，哪些值得花呢？我們的專家測試了 10 種最好的... 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/gear/tri-tech/multisport-watches/best-triathlon-watches-reviewed" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -329,12 +433,15 @@
             </div>
         </div>
         <div class="cat-group">
-            <h2 class="cat-header">跑步 (Running) (6 篇)</h2>
+            <h2 class="cat-header" id="run">跑步 (Running) (6 篇)</h2>
             <div class="articles-grid">
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/georgia-taylor-brown-i-dont-want-it-to-come-down-to-a-run-race-i-want-to-change-the-game" target="_blank" class="ext-link">喬治亞·泰勒-布朗：“我不希望它變成一場跑步比賽。我想改變比賽規則” <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Georgia Taylor-Brown: “I don’t want it to come down to a run race. I want to change the game”*<br>**來源**: 220 Triathlon | **日期**: 2026-07-26</div>
-                    <div class="art-desc">英國三屆奧運獎牌得主回顧了重返倫敦的世界鐵人三項錦標賽系列賽，以及她需要採取哪些措施才能登上奧運頒獎台</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        英國三屆奧運獎牌得主回顧了重返倫敦的世界鐵人三項錦標賽系列賽，以及她需要採取哪些措施才能登上奧運頒獎台 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/news/georgia-taylor-brown-i-dont-want-it-to-come-down-to-a-run-race-i-want-to-change-the-game" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -342,7 +449,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/training/we-lab-tested-budget-running-shoes-against-expensive-brands/" target="_blank" class="ext-link">我們對 50 美元的亞馬遜跑鞋與名牌跑鞋進行了實驗室測試。這是真正值得購買的東西。 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *We Lab-Tested $50 Amazon Running Shoes Against Name-Brand Kicks. Here’s What’s Actually Worth Buying.*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-24</div>
-                    <div class="art-desc">在正面測試中，昂貴的跑鞋真的比預算機型表現更好嗎？我們前往實驗室尋找答案。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        在正面測試中，昂貴的跑鞋真的比預算機型表現更好嗎？我們前往實驗室尋找答案。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.triathlete.com/training/we-lab-tested-budget-running-shoes-against-expensive-brands/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -350,7 +460,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/athletes/alanis-siffert-245-marathon" target="_blank" class="ext-link">「我從未停止相信我能做到」：Alanis Siffert 如何從跑步新手成長為 2 分 45 秒的馬拉松 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *‘I never stopped believing I could do it’: How Alanis Siffert went from beginner runner to a 2:45 marathon*<br>**來源**: 220 Triathlon | **日期**: 2026-07-24</div>
-                    <div class="art-desc">羅斯挑戰賽冠軍艾拉尼斯·西弗特幾年前才開始跑步。她向 220 Triathlon 講述耐心、堅持和對自己身體的信任如何幫助她跑出了 2 分 45 秒的非凡馬拉鬆成績。為了...</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        羅斯挑戰賽冠軍艾拉尼斯·西弗特幾年前才開始跑步。她向 220 Triathlon 講述耐心、堅持和對自己身體的信任如何幫助她跑出了 2 分 45 秒的非凡馬拉鬆成績。為了...
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/news/athletes/alanis-siffert-245-marathon" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -358,7 +471,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/training/chinese-running-shoes/" target="_blank" class="ext-link">我測試了30款中國跑鞋1000多英里這八個是我的最愛。 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *I Tested 30 Chinese Running Shoes Over 1,000 Miles. These Eight Were My Favorites.*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-22</div>
-                    <div class="art-desc">中國的跑鞋物美價廉，但並不總是那麼容易買到。以下是如何獲得這些偉大價值的方法。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        中國的跑鞋物美價廉，但並不總是那麼容易買到。以下是如何獲得這些偉大價值的方法。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.triathlete.com/training/chinese-running-shoes/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -366,7 +482,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/running/a-beginners-guide-to-running-in-the-heat/" target="_blank" class="ext-link">高溫跑步初學者指南 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *A Beginner’s Guide to Running in the Heat*<br>**來源**: Slowtwitch | **日期**: 2026-07-22</div>
-                    <div class="art-desc">在炎熱的天氣中跑步並不容易，但如果做得正確，這是可以控制的</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        在炎熱的天氣中跑步並不容易，但如果做得正確，這是可以控制的
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.slowtwitch.com/running/a-beginners-guide-to-running-in-the-heat/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -374,7 +493,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.trainingpeaks.com/blog/running-in-the-heat-how-to-adjust-training-and-race-pace/" target="_blank" class="ext-link">在炎熱的天氣中跑步：如何調整您的訓練和比賽日計劃 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Running in the Heat: How to Adjust Your Training & Race-Day Plans*<br>**來源**: TrainingPeaks Blog | **日期**: 2026-07-21</div>
-                    <div class="art-desc">在炎熱的天氣下進行比賽訓練？本文介紹如何為成功（且安全！）完成比賽做好準備。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        在炎熱的天氣下進行比賽訓練？本文介紹如何為成功（且安全！）完成比賽做好準備。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.trainingpeaks.com/blog/running-in-the-heat-how-to-adjust-training-and-race-pace/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -382,12 +504,15 @@
             </div>
         </div>
         <div class="cat-group">
-            <h2 class="cat-header">補給與恢復 (Fueling & Recovery) (20 篇)</h2>
+            <h2 class="cat-header" id="recovery">補給與恢復 (Fueling & Recovery) (20 篇)</h2>
             <div class="articles-grid">
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/great-atmosphere-but-desperately-needed-a-recce-contrasting-emotions-for-gbs-elite-men-following-the-return-of-london-world-series-event" target="_blank" class="ext-link">氣氛很好，但迫切需要重新審視：倫敦世界職棒大賽回歸後，英國精英男子的情緒對比 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Great atmosphere but desperately needed a recce: Contrasting emotions for GB’s elite men following the return of London World Series event*<br>**來源**: 220 Triathlon | **日期**: 2026-07-27</div>
-                    <div class="art-desc">WTCS 的前十名中沒有英國男子，但這並不是因為缺乏主場觀眾的支持</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        WTCS 的前十名中沒有英國男子，但這並不是因為缺乏主場觀眾的支持 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/news/great-atmosphere-but-desperately-needed-a-recce-contrasting-emotions-for-gbs-elite-men-following-the-return-of-london-world-series-event" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -395,7 +520,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/ironman-70-3-boise-2026" target="_blank" class="ext-link">「我只是最近沒有展現出我真正的能力。」Sam Long 在 Ironman 70.3 Boise 比賽中獲勝，表現出恢復狀態，而 Kirsten Kasper 則贏得了女子比賽 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *“I just haven’t shown what I am truly capable of lately.” Sam Long shows a return to form with a win at Ironman 70.3 Boise, while Kirsten Kasper takes the women’s race*<br>**來源**: 220 Triathlon | **日期**: 2026-07-26</div>
-                    <div class="art-desc">2026 年 IRONMAN 70.3 博伊西鐵人三項賽上演了驚心動魄的專業比賽，眾多鐵人三項頂尖選手的精彩表現令人難忘，美國選手 Sam Long 在比賽中取得了壓倒性的勝利。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        2026 年 IRONMAN 70.3 博伊西鐵人三項賽上演了驚心動魄的專業比賽，眾多鐵人三項頂尖選手的精彩表現令人難忘，美國選手 Sam Long 在比賽中取得了壓倒性的勝利。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/news/ironman-70-3-boise-2026" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -403,7 +531,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/wtcs-london-women-results" target="_blank" class="ext-link">Cassandre Beaugrand 在快速而激烈的 WTCS 倫敦女子比賽中奪得冠軍 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Cassandre Beaugrand surges to the win in fast and furious WTCS London women’s race*<br>**來源**: 220 Triathlon | **日期**: 2026-07-25</div>
-                    <div class="art-desc">世界鐵人三項錦標賽系列賽回到倫敦，卡桑德爾·博格蘭德 (Cassandre Beaugrand) 在三場比賽中取得三場勝利。這是自2015年以來首次舉辦精英短道比賽…</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        世界鐵人三項錦標賽系列賽回到倫敦，卡桑德爾·博格蘭德 (Cassandre Beaugrand) 在三場比賽中取得三場勝利。這是自2015年以來首次舉辦精英短道比賽…
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/news/wtcs-london-women-results" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -411,7 +542,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/news/pto-world-triathlon-announce-2027-t100-and-t50-race-calendars/" target="_blank" class="ext-link">PTO、世界鐵人三項賽公佈 2027 年 T100 和 T50 比賽日曆 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *PTO, World Triathlon Announce 2027 T100 and T50 Race Calendars*<br>**來源**: Slowtwitch | **日期**: 2026-07-25</div>
-                    <div class="art-desc">鐵人三項世界巡迴賽今天正式啟動，職業鐵人三項組織 (PTO) 和世界鐵人三項賽宣布了最初的 T50 和 T100 世界錦標賽巡迴賽日曆。 「來...</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        鐵人三項世界巡迴賽今天正式啟動，職業鐵人三項組織 (PTO) 和世界鐵人三項賽宣布了最初的 T50 和 T100 世界錦標賽巡迴賽日曆。 「來...
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.slowtwitch.com/news/pto-world-triathlon-announce-2027-t100-and-t50-race-calendars/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -419,7 +553,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/news/antonio-arimany-isnt-wasting-any-time-changing-things-up-at-world-triathlon/" target="_blank" class="ext-link">安東尼奧·阿里馬尼（Antonio Arimany）不會浪費任何時間改變世界鐵人三項賽的情況 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Antonio Arimany Isn’t Wasting Any Time Changing Things Up at World Triathlon*<br>**來源**: Slowtwitch | **日期**: 2026-07-25</div>
-                    <div class="art-desc">安東尼奧·費爾南德斯·阿里馬尼 (Antonio Fernández Arimany) 於 2024 年 10 月成為世界鐵人三項主席，繼馬里索爾·卡薩多斯 (Marisol Casados) 16 年任期後接任主席，成為該管理機構的第三位主席…</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        安東尼奧·費爾南德斯·阿里馬尼 (Antonio Fernández Arimany) 於 2024 年 10 月成為世界鐵人三項主席，繼馬里索爾·卡薩多斯 (Marisol Casados) 16 年任期後接任主席，成為該管理機構的第三位主席…
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.slowtwitch.com/news/antonio-arimany-isnt-wasting-any-time-changing-things-up-at-world-triathlon/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -427,7 +564,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/culture/news/pto-and-world-triathlon-unveil-unified-triathlon-world-tour-for-2027/" target="_blank" class="ext-link">PTO與世界鐵人三項賽聯合推出2027年“鐵人三項世界巡迴賽” <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *PTO and World Triathlon Unveil Unified “Triathlon World Tour” for 2027*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-25</div>
-                    <div class="art-desc">透過將 T100 和 WTCS 整合為品牌並發布高調的全球日曆，這項運動又一舉成為主流。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        透過將 T100 和 WTCS 整合為品牌並發布高調的全球日曆，這項運動又一舉成為主流。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.triathlete.com/culture/news/pto-and-world-triathlon-unveil-unified-triathlon-world-tour-for-2027/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -435,7 +575,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/cant-sleep-before-a-race-its-a-good-sign-but-heres-what-to-do-about-it/" target="_blank" class="ext-link">比賽前無法入睡？這是一個好兆頭，但該怎麼辦 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Can’t Sleep Before a Race? It’s a Good Sign, But Here’s What to Do About It*<br>**來源**: Slowtwitch | **日期**: 2026-07-24</div>
-                    <div class="art-desc">比賽前一晚沒有必要為睡眠感到壓力。這裡有一些提示，可幫助您在開始時盡可能地休息。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        比賽前一晚沒有必要為睡眠感到壓力。這裡有一些提示，可幫助您在開始時盡可能地休息。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.slowtwitch.com/triathlon/cant-sleep-before-a-race-its-a-good-sign-but-heres-what-to-do-about-it/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -443,7 +586,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/training/beginners/whats-a-good-triathlon-time" target="_blank" class="ext-link">我們比較精英賽車手和年齡組選手，看看什麼是鐵人三項的最佳時間 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *We compare elite racers and age-groupers to see what’s a good triathlon time*<br>**來源**: 220 Triathlon | **日期**: 2026-07-24</div>
-                    <div class="art-desc">我們研究了鐵人三項賽中涉及的不同距離，並解釋了每種距離的最佳鐵人三項時間是多少</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        我們研究了鐵人三項賽中涉及的不同距離，並解釋了每種距離的最佳鐵人三項時間是多少 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/training/beginners/whats-a-good-triathlon-time" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -451,7 +597,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/triathlon-excluded-from-2026-commonwealth-games" target="_blank" class="ext-link">為什麼鐵人三項沒有被列入 2026 年格拉斯哥英聯邦運動會？ <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Why isn’t triathlon included in the 2026 Commonwealth Games in Glasgow?*<br>**來源**: 220 Triathlon | **日期**: 2026-07-24</div>
-                    <div class="art-desc">英聯邦運動會將在格拉斯哥開幕，但鐵人三項不會出現。在成本急劇上升後，從澳洲維多利亞州搬到這裡後，體育項目清單被精簡了，只有十項體育項目…</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        英聯邦運動會將在格拉斯哥開幕，但鐵人三項不會出現。在成本急劇上升後，從澳洲維多利亞州搬到這裡後，體育項目清單被精簡了，只有十項體育項目… 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/news/triathlon-excluded-from-2026-commonwealth-games" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -459,7 +608,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/training/kiss-keep-it-simple-stupid-your-way-to-more-fun-with-your-triathlon-training-and-racing/" target="_blank" class="ext-link">KISS（保持簡單，愚蠢！）為您的鐵人三項訓練和比賽帶來更多樂趣 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *KISS (Keep It Simple, Stupid!) Your Way To More Fun with Your Triathlon Training and Racing*<br>**來源**: Slowtwitch | **日期**: 2026-07-24</div>
-                    <div class="art-desc">鐵人三項可以有很多花俏的東西，但它並不是必須的</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        鐵人三項可以有很多花俏的東西，但它並不是必須的
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.slowtwitch.com/training/kiss-keep-it-simple-stupid-your-way-to-more-fun-with-your-triathlon-training-and-racing/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -467,7 +619,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/ironman-launch-new-2027-european-70-3-triathlon-race-in-portugal" target="_blank" class="ext-link">Ironman 在葡萄牙推出新的 2027 年歐洲 70.3 鐵人三項賽 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Ironman launch new 2027 European 70.3 triathlon race in Portugal*<br>**來源**: 220 Triathlon | **日期**: 2026-07-23</div>
-                    <div class="art-desc">Ironman 今天宣布，歐洲系列賽將增加新的 70.3 鐵人三項比賽。新比賽將於 2027 年 4 月 3 日在葡萄牙舉行，正式拉開歐洲...</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        Ironman 今天宣布，歐洲系列賽將增加新的 70.3 鐵人三項比賽。新比賽將於 2027 年 4 月 3 日在葡萄牙舉行，正式拉開歐洲...
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/news/ironman-launch-new-2027-european-70-3-triathlon-race-in-portugal" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -475,7 +630,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/culture/news/tour-de-france-triathlon-lessons/" target="_blank" class="ext-link">鐵人三項運動員可以從環法自行車賽中學到的 5 件事（以及需要忽略的 5 件事） <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *5 Things Triathletes Can Learn from the Tour de France (And 5 Things to Ignore)*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-23</div>
-                    <div class="art-desc">雖然環法自行車賽是自行車運動的大師級賽事，但有些策略純粹是多項運動的陷阱。這正是鐵人三項運動員在下一場比賽中應該借用的東西，以及他們絕對應該借用的東西...</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        雖然環法自行車賽是自行車運動的大師級賽事，但有些策略純粹是多項運動的陷阱。這正是鐵人三項運動員在下一場比賽中應該借用的東西，以及他們絕對應該借用的東西...
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.triathlete.com/culture/news/tour-de-france-triathlon-lessons/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -483,7 +641,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/training/training-plans/free-3-month-winter-training-plan" target="_blank" class="ext-link">免費3個月奧運距離冬季訓練計劃 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Free 3-month Olympic-distance winter training plan*<br>**來源**: 220 Triathlon | **日期**: 2026-07-22</div>
-                    <div class="art-desc">現在就開始在訓練中打下堅實的基礎，並在明年迎來有史以來最好的比賽賽季。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        現在就開始在訓練中打下堅實的基礎，並在明年迎來有史以來最好的比賽賽季。 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/training/training-plans/free-3-month-winter-training-plan" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -491,7 +652,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/all-the-celebrities-at-t100-london-triathlon" target="_blank" class="ext-link">McFly 的 Harry Judd 和參加本週末 T100 倫敦鐵人三項賽的所有名人 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *McFly’s Harry Judd and all the celebrities racing this weekend’s T100 London triathlon*<br>**來源**: 220 Triathlon | **日期**: 2026-07-22</div>
-                    <div class="art-desc">T100 賽事將於 7 月 25 日星期六和 7 月 26 日星期日重返倫敦 Excel，共有 5,300 名年齡組運動員參加超級短跑、短跑、奧運和 T100 距離比賽。其中將有數...</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        T100 賽事將於 7 月 25 日星期六和 7 月 26 日星期日重返倫敦 Excel，共有 5,300 名年齡組運動員參加超級短跑、短跑、奧運和 T100 距離比賽。其中將有數...
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/news/all-the-celebrities-at-t100-london-triathlon" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -499,7 +663,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/cycling/the-final-days-of-the-tour-de-france/" target="_blank" class="ext-link">環法自行車賽的發生 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Happenings of The Tour de France*<br>**來源**: Slowtwitch | **日期**: 2026-07-22</div>
-                    <div class="art-desc">根據 Sean Mackinnon 介紹，個人計時賽提供了一些有趣的科技景象，為環法賽最後一周激動人心的比賽做好準備。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        根據 Sean Mackinnon 介紹，個人計時賽提供了一些有趣的科技景象，為環法賽最後一周激動人心的比賽做好準備。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.slowtwitch.com/cycling/the-final-days-of-the-tour-de-france/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -507,7 +674,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/culture/news/how-the-survival-of-the-shawangunks-triathlon-survived-40-years-of-change/" target="_blank" class="ext-link">Shawangunks 鐵人三項賽如何在 40 年的變化中倖存下來 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *How the Survival of the Shawangunks Triathlon Survived 40 Years of Change*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-21</div>
-                    <div class="art-desc">從救生員的訓練火花到傳奇的點對點耐力挑戰，Davis 家族回顧了 Shawangunks 鐵人三項賽的 40 年生存歷程。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        從救生員的訓練火花到傳奇的點對點耐力挑戰，Davis 家族回顧了 Shawangunks 鐵人三項賽的 40 年生存歷程。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.triathlete.com/culture/news/how-the-survival-of-the-shawangunks-triathlon-survived-40-years-of-change/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -515,7 +685,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/training/workouts/30-minute-strength-routine-for-triathlon/" target="_blank" class="ext-link">這個 30 分鐘的肌力訓練可以防止受傷並為鐵人三項賽提供穩定性 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *This 30-Minute Strength Routine Can Prevent Injury and Provide Stability for Triathlon*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-21</div>
-                    <div class="art-desc">您只需要 30 分鐘和一對啞鈴即可進行這項專為鐵人三項運動員打造的全身力量鍛鍊。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        您只需要 30 分鐘和一對啞鈴即可進行這項專為鐵人三項運動員打造的全身力量鍛鍊。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.triathlete.com/training/workouts/30-minute-strength-routine-for-triathlon/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -523,7 +696,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/we-noticed-knibb-takes-edmonton-world-cup-and-more/" target="_blank" class="ext-link">我們注意到：尼布奪得埃德蒙頓世界盃以及更多 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *We Noticed: Knibb Takes Edmonton World Cup, and More*<br>**來源**: Slowtwitch | **日期**: 2026-07-21</div>
-                    <div class="art-desc">這位美國長距離和短程明星重返頒獎台，以及來自鐵人三項世界的更多新聞。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        這位美國長距離和短程明星重返頒獎台，以及來自鐵人三項世界的更多新聞。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.slowtwitch.com/triathlon/we-noticed-knibb-takes-edmonton-world-cup-and-more/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -531,7 +707,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/training/female-endurance-advantage-fatigue-resistance/" target="_blank" class="ext-link">女性比男性更能抵抗疲勞。這有關係嗎？ <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Women Resist Fatigue Better than Men. Does It Matter?*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-20</div>
-                    <div class="art-desc">新的證據支持了女性生理機能決定耐力的說法。但這並不是 Rachel Entrekin 贏得 Cocodona 250 比賽的原因。</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        新的證據支持了女性生理機能決定耐力的說法。但這並不是 Rachel Entrekin 贏得 Cocodona 250 比賽的原因。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.triathlete.com/training/female-endurance-advantage-fatigue-resistance/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
@@ -539,7 +718,10 @@
                 <div class="art-card">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/training/training-plans/free-8-week-sprint-triathlon-training-plan" target="_blank" class="ext-link">免費8週衝刺鐵人三項訓練計劃 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Free 8-week sprint triathlon training plan*<br>**來源**: 220 Triathlon | **日期**: 2026-07-20</div>
-                    <div class="art-desc">本季參加短距離三人賽？那麼您需要我們的專家建議和八週衝刺鐵人三項訓練計劃來幫助引導您到達終點線</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
+                        本季參加短距離三人賽？那麼您需要我們的專家建議和八週衝刺鐵人三項訓練計劃來幫助引導您到達終點線 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                    </div>
                     <div class="art-footer">
                         <a href="https://www.220triathlon.com/training/training-plans/free-8-week-sprint-triathlon-training-plan" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
