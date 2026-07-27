@@ -75,21 +75,28 @@ def calculate_dynamic_226_estimate(target_monday: date) -> dict:
     bike_long_ratio = min(1.0, (long_bike_sessions / active_weeks) / 1.0)
     bike_fade_penalty_mins = 25.0 * (1.0 - (0.5 * bike_vol_ratio + 0.5 * bike_long_ratio))
 
-    # 3. Execution Consistency
+    base_total_mins = base_swim_mins + base_transitions_mins + base_bike_mins + base_run_mins
+    fade_total = run_fade_penalty_mins + bike_fade_penalty_mins
+
+    # Scenario formulation (Ensuring strict monotonicity: Optimistic < Neutral < Conservative)
     if exec_rate >= 85.0:
-        consistency_adjustment = -10.0
+        exec_bonus = -10.0
         exec_status_text = "極佳 (有氧峰值，能量轉換順暢)"
     elif exec_rate >= 70.0:
-        consistency_adjustment = 0.0
+        exec_bonus = 0.0
         exec_status_text = "良好 (維持基本盤發揮)"
     else:
-        consistency_adjustment = 15.0
+        exec_bonus = 15.0
         exec_status_text = "偏低 (有體力下滑與後程抽筋風險)"
 
-    # Dynamic Rolling Prediction Scenarios
-    opt_mins = (base_swim_mins + base_transitions_mins + base_bike_mins + base_run_mins) + (0.25 * run_fade_penalty_mins) + (0.25 * bike_fade_penalty_mins) + consistency_adjustment
-    neu_mins = (base_swim_mins + base_transitions_mins + base_bike_mins + base_run_mins) + (0.65 * run_fade_penalty_mins) + (0.65 * bike_fade_penalty_mins)
-    con_mins = (base_swim_mins + base_transitions_mins + base_bike_mins + base_run_mins) + (1.20 * run_fade_penalty_mins) + (1.10 * bike_fade_penalty_mins) + max(10.0, -consistency_adjustment)
+    opt_mins = base_total_mins + (0.20 * fade_total) + min(0.0, exec_bonus)
+    neu_mins = base_total_mins + (0.60 * fade_total) + max(0.0, exec_bonus * 0.5)
+    con_mins = base_total_mins + (1.10 * fade_total) + max(10.0, exec_bonus)
+
+    if opt_mins >= neu_mins:
+        opt_mins = neu_mins - 12.0
+    if neu_mins >= con_mins:
+        con_mins = neu_mins + 15.0
 
     # Classic Public Formulas (Riegel Formula & 70.3 Multiplier)
     # Assumed baseline 70.3 time: 5h15m (315 mins) for a 11:38 PB athlete
