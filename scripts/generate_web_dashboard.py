@@ -159,8 +159,20 @@ def generate_52_week_dashboard():
         art_md_file = WEEKLY_DIR / f"2026-W{w:02d}_當週鐵人新知與文章整理_中文版.md"
         art_html = simple_md_to_html(art_md_file.read_text(encoding="utf-8")) if art_md_file.exists() else "<p style='color:var(--text-muted);'>該週尚未產生鐵人新知報告</p>"
 
-        rev_md_file = WEEKLY_DIR / f"2026-W{w:02d}_當週執行率回顧報告.md"
-        rev_html = simple_md_to_html(rev_md_file.read_text(encoding="utf-8")) if rev_md_file.exists() else "<p style='color:var(--text-muted);'>該週執行率回顧報告將於週日晚上自動結算生成</p>"
+        # Target completed previous week's review report for current week (W30 for W31)
+        prev_w = w - 1 if w > 1 else 1
+        prev_rev_file = WEEKLY_DIR / f"2026-W{prev_w:02d}_當週執行率回顧報告.md"
+        curr_rev_file = WEEKLY_DIR / f"2026-W{w:02d}_當週執行率回顧報告.md"
+        
+        if prev_rev_file.exists():
+            rev_html = simple_md_to_html(prev_rev_file.read_text(encoding="utf-8"))
+            rev_target = prev_w
+        elif curr_rev_file.exists():
+            rev_html = simple_md_to_html(curr_rev_file.read_text(encoding="utf-8"))
+            rev_target = w
+        else:
+            rev_html = "<p style='color:var(--text-muted);'>上週執行率回顧報告將於週日晚上自動結算生成</p>"
+            rev_target = prev_w
 
         daily_schedule = []
         curr_d = w_monday
@@ -190,6 +202,7 @@ def generate_52_week_dashboard():
 
         weeks_data[w] = {
             "week_num": w,
+            "prev_week_num": rev_target,
             "monday": f"{w_monday:%Y/%m/%d}",
             "sunday": f"{w_sunday:%Y/%m/%d}",
             "date_range": f"{w_monday:%m/%d} – {w_sunday:%m/%d}",
@@ -319,21 +332,25 @@ def generate_52_week_dashboard():
         }}
         .subnav-tabs {{
             display: flex;
-            gap: 8px;
+            width: 100%;
+            gap: 10px;
             margin-bottom: 20px;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 8px;
+            padding-bottom: 10px;
         }}
         .subtab-btn {{
+            flex: 1;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             color: var(--text-muted);
-            padding: 8px 16px;
+            padding: 10px 14px;
             border-radius: 8px;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 0.88rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: center;
             transition: all 0.2s ease;
+            white-space: nowrap;
         }}
         .subtab-btn:hover, .subtab-btn.active {{
             background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
@@ -513,9 +530,9 @@ def generate_52_week_dashboard():
                 <!-- SUBNAV TABS FOR ONLINE READING -->
                 <div class="subnav-tabs">
                     <button class="subtab-btn active" onclick="openSubtab('overview')">📊 當週總覽 & 226 預估</button>
-                    <button class="subtab-btn" onclick="openSubtab('plan')">🏋️ 當週課表與肌力計畫 (網頁線上版)</button>
-                    <button class="subtab-btn" onclick="openSubtab('articles')">📰 當週鐵人新知 (網頁線上版)</button>
-                    <button class="subtab-btn" onclick="openSubtab('review')">📈 當週執行率回顧 (網頁線上版)</button>
+                    <button class="subtab-btn" onclick="openSubtab('plan')">🏋️ 當週課表與肌力計畫</button>
+                    <button class="subtab-btn" onclick="openSubtab('articles')">📰 當週鐵人新知</button>
+                    <button class="subtab-btn" onclick="openSubtab('review')">📈 上週 (W${{data.prev_week_num}}) 執行率回顧</button>
                 </div>
 
                 <!-- SUBTAB 1: OVERVIEW -->
@@ -606,7 +623,7 @@ def generate_52_week_dashboard():
                 <!-- SUBTAB 4: REVIEW ONLINE READ -->
                 <div id="subview-review" class="subtab-view">
                     <div class="section-box" style="line-height: 1.8;">
-                        <div class="section-title">📈 第 ${{data.week_num}} 週訓練執行率回顧（網頁線上閱讀）</div>
+                        <div class="section-title">📈 上週 (W${{data.prev_week_num}}) 訓練執行率回顧成果</div>
                         <div>${{data.rev_html}}</div>
                     </div>
                 </div>
