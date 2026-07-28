@@ -292,11 +292,17 @@ def build_report(target_date: date):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", help="指定日期 YYYY-MM-DD，預設為今日")
+    parser.add_argument("--current-week", action="store_true", help="強制以今日所在的當週計算執行率")
     args = parser.parse_args()
     
-    anchor = date.fromisoformat(args.date) if args.date else date.today()
-    if not args.date and anchor.weekday() in (0, 1, 2):  # Mon, Tue, Wed
-        anchor = anchor - timedelta(days=anchor.weekday() + 1)  # Target last Sunday
+    if args.current_week:
+        anchor = date.today()
+    elif args.date:
+        anchor = date.fromisoformat(args.date)
+    else:
+        anchor = date.today()
+        if anchor.weekday() in (0, 1, 2):  # Mon, Tue, Wed
+            anchor = anchor - timedelta(days=anchor.weekday() + 1)  # Target last Sunday
 
     # Automatically sync first
     try:

@@ -21,11 +21,14 @@ def main():
     # 1. Sync TrainingPeaks iCal calendar
     run_step([sys.executable, "scripts/sync_calendar.py"], "1. Syncing TrainingPeaks Calendar")
     
-    # 2. Regenerate 52-Week Web Dashboard & Merged Articles
-    run_step([sys.executable, "scripts/generate_web_dashboard.py"], "2. Regenerating Web Dashboard & Articles")
+    # 2. Update Current Week Execution Rate Report
+    run_step([sys.executable, "scripts/generate_execution_report.py", "--current-week"], "2. Updating Current Week Execution Rate Report")
     
-    # 3. Package outputs to docs/ deployment folder
-    run_step([sys.executable, "scripts/package_for_web.py"], "3. Packaging to docs/ Deployment Directory")
+    # 3. Regenerate 52-Week Web Dashboard & Merged Articles
+    run_step([sys.executable, "scripts/generate_web_dashboard.py"], "3. Regenerating Web Dashboard & Articles")
+    
+    # 4. Package outputs to docs/ deployment folder
+    run_step([sys.executable, "scripts/package_for_web.py"], "4. Packaging to docs/ Deployment Directory")
     
     print("Daily Update Finished Successfully!")
 
