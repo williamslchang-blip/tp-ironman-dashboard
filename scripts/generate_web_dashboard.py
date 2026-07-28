@@ -279,7 +279,7 @@ def generate_52_week_dashboard():
             overflow: hidden;
         }}
         /* COLLAPSIBLE SIDEBAR & RESPONSIVE DRAWER */
-        .sidebar-toggle-btn {
+        .sidebar-toggle-btn {{
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -293,13 +293,13 @@ def generate_52_week_dashboard():
             cursor: pointer;
             transition: all 0.2s ease;
             white-space: nowrap;
-        }
-        .sidebar-toggle-btn:hover {
+        }}
+        .sidebar-toggle-btn:hover {{
             background: var(--accent-cyan);
             color: #0F172A;
             border-color: transparent;
-        }
-        .sidebar-close-btn {
+        }}
+        .sidebar-close-btn {{
             background: transparent;
             border: 1px solid var(--border-color);
             color: var(--text-muted);
@@ -308,9 +308,9 @@ def generate_52_week_dashboard():
             font-size: 0.78rem;
             cursor: pointer;
             transition: all 0.2s ease;
-        }
-        .sidebar-close-btn:hover { color: #FFF; border-color: var(--accent-red); background: rgba(239, 68, 68, 0.2); }
-        .sidebar-overlay {
+        }}
+        .sidebar-close-btn:hover {{ color: #FFF; border-color: var(--accent-red); background: rgba(239, 68, 68, 0.2); }}
+        .sidebar-overlay {{
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -319,15 +319,15 @@ def generate_52_week_dashboard():
             z-index: 998;
             opacity: 0;
             transition: opacity 0.3s ease;
-        }
-        .sidebar-overlay.active {
+        }}
+        .sidebar-overlay.active {{
             display: block;
             opacity: 1;
-        }
+        }}
 
         /* DESKTOP HOVER & TOGGLE COLLAPSE */
-        @media (min-width: 769px) {
-            .sidebar {
+        @media (min-width: 769px) {{
+            .sidebar {{
                 width: 320px;
                 background: var(--bg-sidebar);
                 border-right: 1px solid var(--border-color);
@@ -337,26 +337,26 @@ def generate_52_week_dashboard():
                 transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
                 z-index: 999;
                 position: relative;
-            }
-            .sidebar.collapsed {
+            }}
+            .sidebar.collapsed {{
                 position: absolute;
                 top: 0; left: 0; bottom: 0;
                 width: 320px;
                 transform: translateX(-290px);
                 box-shadow: 4px 0 20px rgba(0,0,0,0.5);
-            }
-            .sidebar.collapsed:hover, .sidebar.collapsed.expanded {
+            }}
+            .sidebar.collapsed:hover, .sidebar.collapsed.expanded {{
                 transform: translateX(0);
                 box-shadow: 10px 0 30px rgba(0,0,0,0.7);
-            }
-        }
+            }}
+        }}
 
         /* MOBILE DRAWER MODE (<769px) */
-        @media (max-width: 768px) {
-            body {
+        @media (max-width: 768px) {{
+            body {{
                 flex-direction: column;
-            }
-            .sidebar {
+            }}
+            .sidebar {{
                 position: fixed;
                 top: 0;
                 left: -320px;
@@ -365,37 +365,20 @@ def generate_52_week_dashboard():
                 z-index: 999;
                 box-shadow: 10px 0 30px rgba(0,0,0,0.6);
                 transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-            .sidebar.open {
+            }}
+            .sidebar.open {{
                 transform: translateX(320px);
-            }
-            .main-content {
+            }}
+            .main-content {{
                 padding: 16px 12px;
                 width: 100%;
-            }
-            .main-header {
+            }}
+            .main-header {{
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 12px;
-            }
-            .subnav-tabs {
-                flex-wrap: wrap;
-            }
-            .subtab-btn {
-                flex: 1 1 45%;
-                font-size: 0.8rem;
-                padding: 8px 10px;
-            }
-            .table-custom {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-            .grid-kpi {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        .sidebar-header {
+            }}
+             .sidebar-header {{
             padding: 20px;
             border-bottom: 1px solid var(--border-color);
             background: linear-gradient(135deg, #1E293B, #0F172A);
@@ -441,6 +424,9 @@ def generate_52_week_dashboard():
         .week-title {{ font-weight: 700; font-size: 0.9rem; }}
         .week-dates {{ font-size: 0.75rem; color: var(--text-muted); }}
         .badge-status {{ font-size: 0.72rem; padding: 2px 7px; border-radius: 10px; font-weight: 600; }}
+        .badge-past {{ background: rgba(16, 185, 129, 0.15); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.3); }}
+        .badge-current {{ background: rgba(6, 182, 212, 0.25); color: #38BDF8; border: 1px solid #38BDF8; }}
+        .badge-future {{ background: rgba(148, 163, 184, 0.15); color: var(--text-muted); border: 1px solid rgba(148, 163, 184, 0.3); }}tus {{ font-size: 0.72rem; padding: 2px 7px; border-radius: 10px; font-weight: 600; }}
         .badge-past {{ background: rgba(16, 185, 129, 0.15); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.3); }}
         .badge-current {{ background: rgba(6, 182, 212, 0.25); color: #38BDF8; border: 1px solid #38BDF8; }}
         .badge-future {{ background: rgba(148, 163, 184, 0.15); color: var(--text-muted); border: 1px solid rgba(148, 163, 184, 0.3); }}
