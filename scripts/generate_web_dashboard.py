@@ -278,16 +278,124 @@ def generate_52_week_dashboard():
             height: 100vh;
             overflow: hidden;
         }}
-        /* SIDEBAR */
-        .sidebar {{
-            width: 330px;
-            background: var(--bg-sidebar);
-            border-right: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            flex-shrink: 0;
-        }}
-        .sidebar-header {{
+        /* COLLAPSIBLE SIDEBAR & RESPONSIVE DRAWER */
+        .sidebar-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(59, 130, 246, 0.2));
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #38BDF8;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .sidebar-toggle-btn:hover {
+            background: var(--accent-cyan);
+            color: #0F172A;
+            border-color: transparent;
+        }
+        .sidebar-close-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .sidebar-close-btn:hover { color: #FFF; border-color: var(--accent-red); background: rgba(239, 68, 68, 0.2); }
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 998;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .sidebar-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* DESKTOP HOVER & TOGGLE COLLAPSE */
+        @media (min-width: 769px) {
+            .sidebar {
+                width: 320px;
+                background: var(--bg-sidebar);
+                border-right: 1px solid var(--border-color);
+                display: flex;
+                flex-direction: column;
+                flex-shrink: 0;
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+                z-index: 999;
+                position: relative;
+            }
+            .sidebar.collapsed {
+                position: absolute;
+                top: 0; left: 0; bottom: 0;
+                width: 320px;
+                transform: translateX(-290px);
+                box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+            }
+            .sidebar.collapsed:hover, .sidebar.collapsed.expanded {
+                transform: translateX(0);
+                box-shadow: 10px 0 30px rgba(0,0,0,0.7);
+            }
+        }
+
+        /* MOBILE DRAWER MODE (<769px) */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: -320px;
+                width: 290px;
+                height: 100vh;
+                z-index: 999;
+                box-shadow: 10px 0 30px rgba(0,0,0,0.6);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .sidebar.open {
+                transform: translateX(320px);
+            }
+            .main-content {
+                padding: 16px 12px;
+                width: 100%;
+            }
+            .main-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .subnav-tabs {
+                flex-wrap: wrap;
+            }
+            .subtab-btn {
+                flex: 1 1 45%;
+                font-size: 0.8rem;
+                padding: 8px 10px;
+            }
+            .table-custom {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            .grid-kpi {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .sidebar-header {
             padding: 20px;
             border-bottom: 1px solid var(--border-color);
             background: linear-gradient(135deg, #1E293B, #0F172A);
@@ -560,9 +668,13 @@ def generate_52_week_dashboard():
     </style>
 </head>
 <body>
-    <div class="sidebar">
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar(false)"></div>
+    <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h1>TrainingPeaks 52 週網頁版儀表板</h1>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <h1 style="font-size: 1.1rem; margin: 0;">TrainingPeaks 52 週儀表板</h1>
+                <button class="sidebar-close-btn" onclick="toggleSidebar(false)">✕ 收起</button>
+            </div>
             <div class="sub">全網頁內容即時閱讀 & 地端資料分析</div>
         </div>
         <div class="sidebar-controls">
@@ -577,6 +689,31 @@ def generate_52_week_dashboard():
         const WEEKS_DATA = {weeks_json_str};
         const CURRENT_WEEK = {current_week_num};
         let selectedWeekNum = CURRENT_WEEK;
+
+        function toggleSidebar(forceState) {{
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            if (window.innerWidth <= 768) {{
+                const isOpen = forceState !== undefined ? forceState : !sidebar.classList.contains('open');
+                if (isOpen) {{
+                    sidebar.classList.add('open');
+                    overlay.classList.add('active');
+                }} else {{
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                }}
+            }} else {{
+                const isCollapsed = forceState !== undefined ? !forceState : !sidebar.classList.contains('collapsed');
+                if (isCollapsed) {{
+                    sidebar.classList.add('collapsed');
+                    sidebar.classList.remove('expanded');
+                }} else {{
+                    sidebar.classList.remove('collapsed');
+                    sidebar.classList.add('expanded');
+                }}
+            }}
+        }}
 
         function renderSidebar() {{
             const listEl = document.getElementById('weekList');
@@ -609,6 +746,9 @@ def generate_52_week_dashboard():
             selectedWeekNum = wNum;
             renderSidebar();
             renderMainContent(wNum);
+            if (window.innerWidth <= 768) {{
+                toggleSidebar(false);
+            }}
         }}
 
         function openSubtab(tabName) {{
@@ -641,10 +781,13 @@ def generate_52_week_dashboard():
 
             mainEl.innerHTML = `
                 <div class="main-header">
-                    <div>
-                        <h2 style="font-size: 1.5rem;">第 ${{data.week_num}} 週訓練報告與內容 (W${{String(data.week_num).padStart(2, '0')}})</h2>
-                        <div style="color: var(--text-muted); font-size: 0.88rem; margin-top: 4px;">
-                            週期：${{data.monday}} – ${{data.sunday}} ｜ 階段：<strong style="color: #38BDF8;">${{data.phase}}</strong>
+                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                        <button class="sidebar-toggle-btn" onclick="toggleSidebar()"><span style="font-size: 1.1em;">📅</span> 週次選單 ☰</button>
+                        <div>
+                            <h2 style="font-size: 1.4rem;">第 ${{data.week_num}} 週訓練報告與內容 (W${{String(data.week_num).padStart(2, '0')}})</h2>
+                            <div style="color: var(--text-muted); font-size: 0.88rem; margin-top: 4px;">
+                                週期：${{data.monday}} – ${{data.sunday}} ｜ 階段：<strong style="color: #38BDF8;">${{data.phase}}</strong>
+                            </div>
                         </div>
                     </div>
                     <span class="badge-status ${{data.status_tag === 'Current' ? 'badge-current' : data.status_tag === 'Past' ? 'badge-past' : 'badge-future'}}" style="font-size: 0.85rem; padding: 5px 12px;">
