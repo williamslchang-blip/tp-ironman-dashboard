@@ -65,12 +65,8 @@ def parse_articles_md_to_body_html(md_content: str, include_home_link: bool = Fa
             if current_cat in articles_by_cat and articles_by_cat[current_cat]:
                 articles_by_cat[current_cat][-1]["meta"] += f"<br>{stripped}"
         elif stripped.startswith("> "):
-            clean_line = stripped[2:].strip()
-            clean_line = re.sub(r'<a name="[^"]*"></a>', '', clean_line)
-            clean_line = re.sub(r'💡\s*\*\*【原文中譯與重點摘要】\*\*\s*(\*\([^)]*\)\*[:：]?)?', '', clean_line)
-            clean_line = clean_line.strip()
-            if clean_line and current_cat in articles_by_cat and articles_by_cat[current_cat]:
-                articles_by_cat[current_cat][-1]["desc"] += f" {clean_line}"
+            if current_cat in articles_by_cat and articles_by_cat[current_cat]:
+                articles_by_cat[current_cat][-1]["desc"] += f" {stripped[2:]}"
 
     summary_html = ""
     if summary_lines:
@@ -79,7 +75,6 @@ def parse_articles_md_to_body_html(md_content: str, include_home_link: bool = Fa
         summary_html = summary_html.replace("### ", "<h3 style='color:#38BDF8; margin-top:16px; margin-bottom:8px;'>").replace("\n", "<br>")
 
     articles_cards_html = ""
-    art_counter = 1
     for cat, arts in articles_by_cat.items():
         if not arts:
             continue
@@ -95,27 +90,17 @@ def parse_articles_md_to_body_html(md_content: str, include_home_link: bool = Fa
 
             match = re.search(r"https?://[^\)]+", art["title_raw"])
             url = match.group(0) if match else "#"
-            art_card_id = f"art-card-{art_counter}"
-            art_counter += 1
-
-            zh_btn_html = f'<a href="weekly_articles.html#{art_card_id}" target="_blank" class="art-btn art-btn-zh">📖 開啟中文摘要新頁面 ↗</a>' if not include_home_link else f'<button type="button" onclick="toggleZhSummary(\'{art_card_id}\')" class="art-btn art-btn-zh" id="btn-zh-{art_card_id}">📖 高亮本篇中文摘要 ✨</button>'
 
             articles_cards_html += f"""
-                <div class="art-card" id="{art_card_id}">
+                <div class="art-card">
                     <div class="art-title">{title_html}</div>
                     <div class="art-meta">{meta_html}</div>
-                    <div class="art-desc-box" id="desc-{art_card_id}">
-                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
-                            <span>💡 【原文中譯與重點摘要】</span>
-                            <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
-                        </div>
-                        <div class="art-desc-text">
-                            {desc_text if desc_text else '（本篇提供標題與主題導覽，點擊「閱讀外網原始文章」可造訪原網站閱讀完整內容。）'}
-                        </div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px;">💡 【繁體中文重點摘要】</div>
+                        {desc_text if desc_text else '點擊下方連結可閱讀外網原始全文內容。'}
                     </div>
-                    <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
-                        <a href="{url}" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        {zh_btn_html}
+                    <div class="art-footer">
+                        <a href="{url}" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
                     </div>
                 </div>"""
         articles_cards_html += """
@@ -329,30 +314,34 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
             margin-bottom: 12px;
             line-height: 1.5;
         }}
-        .art-desc-box {{
+        .art-desc {{
             font-size: 0.9rem;
             color: #CBD5E1;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(56, 189, 248, 0.25);
-            padding: 14px;
-            border-radius: 10px;
+            background: rgba(15, 23, 42, 0.5);
+            padding: 12px;
+            border-radius: 8px;
             margin-bottom: 16px;
             flex: 1;
             line-height: 1.6;
-            transition: all 0.3s ease;
         }}
-        .art-desc-box.highlighted {{
-            background: rgba(6, 182, 212, 0.18);
-            border-color: #06B6D4;
-            box-shadow: 0 0 16px rgba(6, 182, 212, 0.35);
+        .art-footer {{
+            display: flex;
+            justify-content: flex-end;
         }}
-        .art-btn-zh.active {{
-            background: #10B981;
-            color: #FFFFFF;
-            box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+        .art-btn {{
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            color: var(--accent-cyan);
+            padding: 8px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
         }}
-        .art-btn-zh {{
-            cursor: pointer;
+        .art-btn:hover {{
+            background: var(--accent-cyan);
+            color: #0F172A;
         }}
         .ext-link {{
             color: #38BDF8;
@@ -379,28 +368,6 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
 
         {body_content_html}
     </div>
-
-    <script>
-    function toggleZhSummary(cardId) {{
-        const descBox = document.getElementById('desc-' + cardId);
-        const btn = document.getElementById('btn-zh-' + cardId);
-        if (!descBox) return;
-        if (descBox.classList.contains('highlighted')) {{
-            descBox.classList.remove('highlighted');
-            if (btn) {{
-                btn.classList.remove('active');
-                btn.innerHTML = '📖 原文中譯與重點摘要';
-            }}
-        }} else {{
-            descBox.classList.add('highlighted');
-            if (btn) {{
-                btn.classList.add('active');
-                btn.innerHTML = '📖 高亮中文摘要中 ✨';
-            }}
-            descBox.scrollIntoView({{ behavior: 'smooth', block: 'nearest' }});
-        }}
-    }}
-    </script>
 </body>
 </html>
 """

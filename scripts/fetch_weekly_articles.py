@@ -166,40 +166,37 @@ def translate_text(text, sl='en', tl='zh-TW'):
     if not text_clean:
         return ""
         
-    chunks = [text_clean[i:i+350] for i in range(0, len(text_clean), 350)]
-    translated_chunks = []
-    
     url = "https://translate.googleapis.com/translate_a/single"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-        "Content-Type": "application/x-www-form-urlencoded"
+    params = {
+        "client": "gtx",
+        "sl": sl,
+        "tl": tl,
+        "dt": "t",
+        "q": text_clean
     }
     
-    for chunk in chunks:
-        if not chunk.strip():
-            continue
+    for retry in range(2):
         try:
-            params = urllib.parse.urlencode({
-                "client": "gtx",
-                "sl": sl,
-                "tl": tl,
-                "dt": "t",
-                "q": chunk
-            }).encode("utf-8")
-            req = urllib.request.Request(url, data=params, headers=headers, method="POST")
+            full_url = url + "?" + urllib.parse.urlencode(params)
+            req = urllib.request.Request(full_url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
             with urllib.request.urlopen(req, timeout=10) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
+                translations = []
                 if data and isinstance(data, list) and data[0]:
                     for item in data[0]:
                         if item and item[0]:
-                            translated_chunks.append(item[0])
-            time.sleep(0.03)
+                            translations.append(item[0])
+                time.sleep(0.1)
+                res = "".join(translations)
+                if res:
+                    return res
         except Exception as e:
-            print(f"Translation chunk error: {e}")
-            translated_chunks.append(chunk)
-            
-    res_str = "".join(translated_chunks)
-    return res_str if res_str else text
+            if retry == 0:
+                time.sleep(0.5)
+            else:
+                print(f"Translation error: {e}")
+                
+    return text_clean
 
 def generate_report(articles, days_back=7):
     # Group by category
@@ -452,10 +449,9 @@ def generate_report(articles, days_back=7):
     output_filepath_md_zh = OUTPUT_DIR / output_filename_md_zh
     
     with open(output_filepath_md_zh, "w", encoding="utf-8") as f:
-        f.write(f"# 鐵人三項當週新知與文章整理 (W{week_num:02d}) - 中文翻譯與重點摘要版\n\n")
-        f.write(f"本報告彙整過去 {days_back} 天內全球權威鐵人三項與運動科學網站最新發表文章，提供繁體中文重點摘要與雙重文章連結。\n")
+        f.write(f"# 鐵人三項當週新知與文章整理 (W{week_num:02d}) - 中文翻譯版\n\n")
+        f.write(f"本報告彙整了過去 {days_back} 天內，全球權威鐵人三項與運動科學網站的最新發表文章並翻譯為繁體中文。\n")
         f.write(f"**生成時間**：{today.strftime('%Y-%m-%d %H:%M:%S')} | **來源網站**：Slowtwitch, Triathlete, 220 Triathlon, TrainingPeaks, Joe Friel\n\n")
-        f.write(f"> 💡 **版權聲明與翻譯說明**：本報告依據著作權法合理使用原則，提供重點中文翻譯與觀點摘要，不提供逐字翻譯整篇受版權保護之文章。如需閱讀完整原文內容，請透過「閱讀外網原始文章」連結存取。\n\n")
         
         f.write("## 目錄\n")
         for cat in categories_order:
@@ -463,7 +459,6 @@ def generate_report(articles, days_back=7):
             f.write(f"- [{cat}](#{cat.lower().replace(' ', '-').replace('(', '').replace(')', '')}) ({count} 篇)\n")
         f.write("\n---\n\n")
         
-        art_counter = 1
         for cat in categories_order:
             anchor_name = cat.lower().replace(' ', '-').replace('(', '').replace(')', '')
             f.write(f"## <a name=\"{anchor_name}\"></a>{cat}\n\n")
@@ -477,15 +472,9 @@ def generate_report(articles, days_back=7):
                 f.write(f"### 🔗 [{art['title_zh']}]({art['link']})\n")
                 f.write(f"**英文原名**: *{art['title_en']}*\n\n")
                 f.write(f"**來源**: {art['source']} | **日期**: {local_time}\n\n")
-                f.write(f"📌 **文章雙重連結**：\n")
-                f.write(f"- 🌐 **[閱讀外網原始文章 ↗]({art['link']})**\n")
-                f.write(f"- 📖 **[閱讀原文中譯與重點摘要](#art-zh-{art_counter})**\n\n")
                 if art["description_zh"]:
-                    clean_desc = art['description_zh'].strip().replace("\r\n", "\n")
-                    quoted_desc = "\n> ".join(clean_desc.split("\n"))
-                    f.write(f"> <a name=\"art-zh-{art_counter}\"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*：\n> {quoted_desc}\n\n")
+                    f.write(f"> {art['description_zh']}\n\n")
                 f.write("---\n\n")
-                art_counter += 1
         
         f.write("\n---\n\n")
         f.write(summary_text)
