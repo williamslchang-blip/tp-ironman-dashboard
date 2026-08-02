@@ -24,7 +24,7 @@ try {
 
     # 4. 自動同步推送到 GitHub，達成線上網站 100% 全自動更新
     if (Test-Path "$root\.git") {
-        git -C $root add docs/ outputs/ logs/ data/ raw/ 2>&1 | Out-Null
+        git -C $root add docs/ outputs/ logs/ data/ scripts/ PROJECT_STATUS.md README.md 2>&1 | Out-Null
         git -C $root commit -m "Auto update weekly reports and 52-week dashboard" 2>&1 | Out-Null
         git -C $root push origin main 2>&1 | Out-Null
         Add-Content -Encoding UTF8 -LiteralPath $log -Value "$(Get-Date -Format s) GIT_PUSH OK Site updated live on GitHub Pages"

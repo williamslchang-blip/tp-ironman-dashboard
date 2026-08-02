@@ -323,9 +323,20 @@ def build(monday):
     if not has_mon_tue:
         font(analysis_p.add_run("⚠️ 提醒：由於今日剛啟用「每日行事曆快取系統」，上週一部分（週一/週二）的歷史數據在 TrainingPeaks Webcal 串流中已失效，本次執行率可能偏低。從下週一開始，系統將透過每日快取產出完整無缺的計畫執行率對比報告！\n"), 10, True, "9C3D10")
         
-    font(analysis_p.add_run(f"1. 游泳量達 {last_week_stats['Swim']['actual_dist']:.2f} km，這有助於奠定強大的水域自信，在 226 比賽中能以低能耗起水。\n"))
-    font(analysis_p.add_run(f"2. 單車順利完成長騎，累計 {last_week_stats['Bike']['actual_dist']:.2f} km，有氧耐力良好。\n"))
-    font(analysis_p.add_run(f"3. 跑步狀況：上週跑步共完成 {last_week_stats['Run']['sessions']} 次（累計 {last_week_stats['Run']['actual_dist']:.2f} km）。轉換跑與長跑步頻節奏保持良好，請繼續維持肌肉衝擊適應。"))
+    swim_s = last_week_stats['Swim']
+    bike_s = last_week_stats['Bike']
+    run_s = last_week_stats['Run']
+    str_s = last_week_stats['Strength']
+
+    swim_txt = f"1. 游泳狀況：上週游泳共完成 {swim_s['sessions']} 次（累計 {swim_s['actual_dist']:.2f} km / {swim_s['actual_time']:.2f} 小時），達計劃時間之 {swim_s['pct_time']:.1f}%。這有助於奠定強大的水域自信，在 226 比賽中能以低能耗起水。\n" if swim_s['sessions'] > 0 else "1. 游泳狀況：上週未紀錄游泳訓練，建議本週維持基本水感練習。\n"
+    bike_txt = f"2. 單車狀況：上週單車共完成 {bike_s['sessions']} 次（累計 {bike_s['actual_dist']:.2f} km / {bike_s['actual_time']:.2f} 小時），達計劃時間之 {bike_s['pct_time']:.1f}%。有氧耐力與瓦數輸出保持穩定。\n" if bike_s['sessions'] > 0 else "2. 單車狀況：上週未紀錄單車騎乘，建議本週恢復長騎課表以維持功率與耐力。\n"
+    run_txt = f"3. 跑步狀況：上週跑步共完成 {run_s['sessions']} 次（累計 {run_s['actual_dist']:.2f} km / {run_s['actual_time']:.2f} 小時），達計劃時間之 {run_s['pct_time']:.1f}%。轉換跑與長跑步頻節奏保持良好，請繼續維持肌肉衝擊適應。\n" if run_s['sessions'] > 0 else "3. 跑步狀況：上週未紀錄跑步訓練，本週請注意漸進恢復跑量與步頻感受。\n"
+    str_txt = f"4. 肌力狀況：上週肌力共完成 {str_s['sessions']} 次（累計 {str_s['actual_time']:.2f} 小時），達計劃時間之 {str_s['pct_time']:.1f}%。核心與下肢單腿穩定性維持良好，有效支援騎跑表現。" if str_s['sessions'] > 0 else "4. 肌力狀況：上週未紀錄肌力訓練，本週請按課表執行主課與短課，以預防運動傷害。"
+
+    font(analysis_p.add_run(swim_txt))
+    font(analysis_p.add_run(bike_txt))
+    font(analysis_p.add_run(run_txt))
+    font(analysis_p.add_run(str_txt))
     
     # ------------------ SECTION 2 ------------------
     doc.add_paragraph("二、 226 完賽成績分析與預估", style="Heading 1")
