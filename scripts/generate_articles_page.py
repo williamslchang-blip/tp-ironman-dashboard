@@ -98,6 +98,8 @@ def parse_articles_md_to_body_html(md_content: str, include_home_link: bool = Fa
             art_card_id = f"art-card-{art_counter}"
             art_counter += 1
 
+            zh_btn_html = f'<a href="weekly_articles.html#{art_card_id}" target="_blank" class="art-btn art-btn-zh">📖 開啟中文摘要新頁面 ↗</a>' if not include_home_link else f'<button type="button" onclick="toggleZhSummary(\'{art_card_id}\')" class="art-btn art-btn-zh" id="btn-zh-{art_card_id}">📖 高亮本篇中文摘要 ✨</button>'
+
             articles_cards_html += f"""
                 <div class="art-card" id="{art_card_id}">
                     <div class="art-title">{title_html}</div>
@@ -108,12 +110,12 @@ def parse_articles_md_to_body_html(md_content: str, include_home_link: bool = Fa
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
                         <div class="art-desc-text">
-                            {desc_text if desc_text else '（本篇提供標題與主題導覽，點擊下方「閱讀外網原始文章」可造訪原網站閱讀完整內容。）'}
+                            {desc_text if desc_text else '（本篇提供標題與主題導覽，點擊「閱讀外網原始文章」可造訪原網站閱讀完整內容。）'}
                         </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="{url}" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <button type="button" onclick="toggleZhSummary('{art_card_id}')" class="art-btn art-btn-zh" id="btn-zh-{art_card_id}">📖 原文中譯與重點摘要</button>
+                        {zh_btn_html}
                     </div>
                 </div>"""
         articles_cards_html += """

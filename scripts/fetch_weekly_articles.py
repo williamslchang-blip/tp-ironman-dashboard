@@ -158,30 +158,48 @@ def translate_text(text, sl='en', tl='zh-TW'):
     if not text:
         return ""
     import urllib.parse
+    import urllib.request
     import json
     import time
+    
+    text_clean = text.strip()
+    if not text_clean:
+        return ""
+        
+    chunks = [text_clean[i:i+350] for i in range(0, len(text_clean), 350)]
+    translated_chunks = []
+    
     url = "https://translate.googleapis.com/translate_a/single"
-    params = {
-        "client": "gtx",
-        "sl": sl,
-        "tl": tl,
-        "dt": "t",
-        "q": text
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "Content-Type": "application/x-www-form-urlencoded"
     }
-    try:
-        full_url = url + "?" + urllib.parse.urlencode(params)
-        req = urllib.request.Request(full_url, headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-            translations = []
-            for item in data[0]:
-                if item[0]:
-                    translations.append(item[0])
-            time.sleep(0.05)  # Politeness delay
-            return "".join(translations)
-    except Exception as e:
-        print(f"Translation error: {e}")
-        return text
+    
+    for chunk in chunks:
+        if not chunk.strip():
+            continue
+        try:
+            params = urllib.parse.urlencode({
+                "client": "gtx",
+                "sl": sl,
+                "tl": tl,
+                "dt": "t",
+                "q": chunk
+            }).encode("utf-8")
+            req = urllib.request.Request(url, data=params, headers=headers, method="POST")
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+                if data and isinstance(data, list) and data[0]:
+                    for item in data[0]:
+                        if item and item[0]:
+                            translated_chunks.append(item[0])
+            time.sleep(0.03)
+        except Exception as e:
+            print(f"Translation chunk error: {e}")
+            translated_chunks.append(chunk)
+            
+    res_str = "".join(translated_chunks)
+    return res_str if res_str else text
 
 def generate_report(articles, days_back=7):
     # Group by category
