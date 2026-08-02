@@ -463,7 +463,9 @@ def generate_report(articles, days_back=7):
                 f.write(f"- 🌐 **[閱讀外網原始文章 ↗]({art['link']})**\n")
                 f.write(f"- 📖 **[閱讀原文中譯與重點摘要](#art-zh-{art_counter})**\n\n")
                 if art["description_zh"]:
-                    f.write(f"> <a name=\"art-zh-{art_counter}\"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*：\n> {art['description_zh']}\n\n")
+                    clean_desc = art['description_zh'].strip().replace("\r\n", "\n")
+                    quoted_desc = "\n> ".join(clean_desc.split("\n"))
+                    f.write(f"> <a name=\"art-zh-{art_counter}\"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*：\n> {quoted_desc}\n\n")
                 f.write("---\n\n")
                 art_counter += 1
         

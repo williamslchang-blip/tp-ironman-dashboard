@@ -970,6 +970,26 @@ def generate_52_week_dashboard():
 
         renderSidebar();
         renderMainContent(CURRENT_WEEK);
+
+        function toggleZhSummary(cardId) {
+            const descBox = document.getElementById('desc-' + cardId);
+            const btn = document.getElementById('btn-zh-' + cardId);
+            if (!descBox) return;
+            if (descBox.classList.contains('highlighted')) {
+                descBox.classList.remove('highlighted');
+                if (btn) {
+                    btn.classList.remove('active');
+                    btn.innerHTML = '📖 原文中譯與重點摘要';
+                }
+            } else {
+                descBox.classList.add('highlighted');
+                if (btn) {
+                    btn.classList.add('active');
+                    btn.innerHTML = '📖 高亮中文摘要中 ✨';
+                }
+                descBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
     </script>
 </body>
 </html>

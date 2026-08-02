@@ -65,8 +65,12 @@ def parse_articles_md_to_body_html(md_content: str, include_home_link: bool = Fa
             if current_cat in articles_by_cat and articles_by_cat[current_cat]:
                 articles_by_cat[current_cat][-1]["meta"] += f"<br>{stripped}"
         elif stripped.startswith("> "):
-            if current_cat in articles_by_cat and articles_by_cat[current_cat]:
-                articles_by_cat[current_cat][-1]["desc"] += f" {stripped[2:]}"
+            clean_line = stripped[2:].strip()
+            clean_line = re.sub(r'<a name="[^"]*"></a>', '', clean_line)
+            clean_line = re.sub(r'💡\s*\*\*【原文中譯與重點摘要】\*\*\s*(\*\([^)]*\)\*[:：]?)?', '', clean_line)
+            clean_line = clean_line.strip()
+            if clean_line and current_cat in articles_by_cat and articles_by_cat[current_cat]:
+                articles_by_cat[current_cat][-1]["desc"] += f" {clean_line}"
 
     summary_html = ""
     if summary_lines:
@@ -98,16 +102,18 @@ def parse_articles_md_to_body_html(md_content: str, include_home_link: bool = Fa
                 <div class="art-card" id="{art_card_id}">
                     <div class="art-title">{title_html}</div>
                     <div class="art-meta">{meta_html}</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-{art_card_id}">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        {desc_text if desc_text else '點擊下方「閱讀外網原始文章」可造訪原網站閱讀完整全文內容。'}
+                        <div class="art-desc-text">
+                            {desc_text if desc_text else '（本篇提供標題與主題導覽，點擊下方「閱讀外網原始文章」可造訪原網站閱讀完整內容。）'}
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="{url}" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#{art_card_id}" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('{art_card_id}')" class="art-btn art-btn-zh" id="btn-zh-{art_card_id}">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>"""
         articles_cards_html += """
@@ -321,52 +327,30 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
             margin-bottom: 12px;
             line-height: 1.5;
         }}
-        .art-desc {{
+        .art-desc-box {{
             font-size: 0.9rem;
             color: #CBD5E1;
-            background: rgba(15, 23, 42, 0.5);
-            padding: 12px;
-            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            padding: 14px;
+            border-radius: 10px;
             margin-bottom: 16px;
             flex: 1;
             line-height: 1.6;
+            transition: all 0.3s ease;
         }}
-        .art-footer {{
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
+        .art-desc-box.highlighted {{
+            background: rgba(6, 182, 212, 0.18);
+            border-color: #06B6D4;
+            box-shadow: 0 0 16px rgba(6, 182, 212, 0.35);
         }}
-        .art-btn-orig {{
-            background: rgba(59, 130, 246, 0.15);
-            border: 1px solid rgba(59, 130, 246, 0.4);
-            color: #60A5FA;
-            padding: 8px 14px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.82rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }}
-        .art-btn-orig:hover {{
-            background: #3B82F6;
-            color: #FFFFFF;
-            transform: translateY(-1px);
-        }}
-        .art-btn-zh {{
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.4);
-            color: #34D399;
-            padding: 8px 14px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.82rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }}
-        .art-btn-zh:hover {{
+        .art-btn-zh.active {{
             background: #10B981;
             color: #FFFFFF;
-            transform: translateY(-1px);
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+        }}
+        .art-btn-zh {{
+            cursor: pointer;
         }}
         .ext-link {{
             color: #38BDF8;
@@ -393,6 +377,28 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
 
         {body_content_html}
     </div>
+
+    <script>
+    function toggleZhSummary(cardId) {{
+        const descBox = document.getElementById('desc-' + cardId);
+        const btn = document.getElementById('btn-zh-' + cardId);
+        if (!descBox) return;
+        if (descBox.classList.contains('highlighted')) {{
+            descBox.classList.remove('highlighted');
+            if (btn) {{
+                btn.classList.remove('active');
+                btn.innerHTML = '📖 原文中譯與重點摘要';
+            }}
+        }} else {{
+            descBox.classList.add('highlighted');
+            if (btn) {{
+                btn.classList.add('active');
+                btn.innerHTML = '📖 高亮中文摘要中 ✨';
+            }}
+            descBox.scrollIntoView({{ behavior: 'smooth', block: 'nearest' }});
+        }}
+    }}
+    </script>
 </body>
 </html>
 """
