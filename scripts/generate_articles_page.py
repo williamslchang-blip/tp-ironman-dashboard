@@ -75,6 +75,7 @@ def parse_articles_md_to_body_html(md_content: str, include_home_link: bool = Fa
         summary_html = summary_html.replace("### ", "<h3 style='color:#38BDF8; margin-top:16px; margin-bottom:8px;'>").replace("\n", "<br>")
 
     articles_cards_html = ""
+    art_counter = 1
     for cat, arts in articles_by_cat.items():
         if not arts:
             continue
@@ -90,17 +91,23 @@ def parse_articles_md_to_body_html(md_content: str, include_home_link: bool = Fa
 
             match = re.search(r"https?://[^\)]+", art["title_raw"])
             url = match.group(0) if match else "#"
+            art_card_id = f"art-card-{art_counter}"
+            art_counter += 1
 
             articles_cards_html += f"""
-                <div class="art-card">
+                <div class="art-card" id="{art_card_id}">
                     <div class="art-title">{title_html}</div>
                     <div class="art-meta">{meta_html}</div>
                     <div class="art-desc">
-                        <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.82rem; margin-bottom: 6px;">💡 【100字繁體中文重點摘要】</div>
-                        {desc_text if desc_text else '點擊下方連結可閱讀外網原始全文內容。'}
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+                            <span>💡 【原文中譯與重點摘要】</span>
+                            <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
+                        </div>
+                        {desc_text if desc_text else '點擊下方「閱讀外網原始文章」可造訪原網站閱讀完整全文內容。'}
                     </div>
-                    <div class="art-footer">
-                        <a href="{url}" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <a href="{url}" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
+                        <a href="#{art_card_id}" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
                     </div>
                 </div>"""
         articles_cards_html += """
@@ -327,22 +334,40 @@ def convert_md_to_full_html_articles(md_content: str, week_num: int, year: int) 
         .art-footer {{
             display: flex;
             justify-content: flex-end;
+            gap: 10px;
         }}
-        .art-btn {{
-            background: rgba(6, 182, 212, 0.15);
-            border: 1px solid rgba(6, 182, 212, 0.4);
-            color: var(--accent-cyan);
+        .art-btn-orig {
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            color: #60A5FA;
             padding: 8px 14px;
             border-radius: 8px;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             font-weight: 600;
             transition: all 0.2s ease;
-        }}
-        .art-btn:hover {{
-            background: var(--accent-cyan);
-            color: #0F172A;
-        }}
+        }
+        .art-btn-orig:hover {
+            background: #3B82F6;
+            color: #FFFFFF;
+            transform: translateY(-1px);
+        }
+        .art-btn-zh {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34D399;
+            padding: 8px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .art-btn-zh:hover {
+            background: #10B981;
+            color: #FFFFFF;
+            transform: translateY(-1px);
+        }
         .ext-link {{
             color: #38BDF8;
             text-decoration: none;
