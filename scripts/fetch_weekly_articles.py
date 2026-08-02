@@ -159,6 +159,8 @@ def translate_text(text, sl='en', tl='zh-TW'):
         return ""
     import urllib.parse
     import urllib.request
+    import re
+    import html
     import json
     import time
     
@@ -166,37 +168,61 @@ def translate_text(text, sl='en', tl='zh-TW'):
     if not text_clean:
         return ""
         
-    url = "https://translate.googleapis.com/translate_a/single"
-    params = {
-        "client": "gtx",
-        "sl": sl,
-        "tl": tl,
-        "dt": "t",
-        "q": text_clean
-    }
-    
-    for retry in range(2):
-        try:
-            full_url = url + "?" + urllib.parse.urlencode(params)
-            req = urllib.request.Request(full_url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
-            with urllib.request.urlopen(req, timeout=10) as resp:
-                data = json.loads(resp.read().decode("utf-8"))
-                translations = []
-                if data and isinstance(data, list) and data[0]:
-                    for item in data[0]:
-                        if item and item[0]:
-                            translations.append(item[0])
-                time.sleep(0.1)
-                res = "".join(translations)
+    # Engine 1: Google Mobile Web Endpoint (Most reliable, no 429 rate limits)
+    try:
+        url_m = f"https://translate.google.com/m?q={urllib.parse.quote(text_clean[:600])}&sl={sl}&tl={tl}"
+        req_m = urllib.request.Request(url_m, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"})
+        with urllib.request.urlopen(req_m, timeout=8) as resp_m:
+            content = resp_m.read().decode("utf-8", errors="ignore")
+            match = re.search(r'class="result-container">(.*?)</div>', content)
+            if match:
+                res = html.unescape(match.group(1)).strip()
                 if res:
+                    time.sleep(0.1)
                     return res
-        except Exception as e:
-            if retry == 0:
-                time.sleep(0.5)
-            else:
-                print(f"Translation error: {e}")
-                
+    except Exception:
+        pass
+
+    # Engine 2: Google Translate GTX Endpoint
+    try:
+        url = "https://translate.googleapis.com/translate_a/single"
+        params = {"client": "gtx", "sl": sl, "tl": tl, "dt": "t", "q": text_clean}
+        full_url = url + "?" + urllib.parse.urlencode(params)
+        req = urllib.request.Request(full_url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            translations = []
+            if data and isinstance(data, list) and data[0]:
+                for item in data[0]:
+                    if item and item[0]:
+                        translations.append(item[0])
+            time.sleep(0.1)
+            res = "".join(translations)
+            if res:
+                return res
+    except Exception:
+        pass
+
     return text_clean
+
+def make_3_bullet_summary_zh(title_zh, raw_desc, source_name, cat_name):
+    desc_translated = translate_text(raw_desc) if raw_desc else ""
+    desc_translated = clean_html(desc_translated)
+    
+    # Split by both English periods and Chinese full stops
+    raw_sentences = [s.strip() for s in re.split(r'[\.。.!！?？\n;；]+', desc_translated) if len(s.strip()) > 5]
+    
+    clean_sentences = []
+    for s in raw_sentences:
+        s_zh = translate_text(s)
+        if len(s_zh.strip()) > 5:
+            clean_sentences.append(s_zh.strip())
+        
+    b1 = clean_sentences[0] if len(clean_sentences) > 0 else f"深入探討《{title_zh}》的核心專業觀點與最新討論。"
+    b2 = clean_sentences[1] if len(clean_sentences) > 1 else f"分析來自 {source_name} 針對 {cat_name} 項目的關鍵訓練與器材建議。"
+    b3 = clean_sentences[2] if len(clean_sentences) > 2 else f"提供鐵人三項選手在實務備賽、運動防傷與體能恢復上的具體應用指導。"
+
+    return f"1. {b1}；\n2. {b2}；\n3. {b3}。"
 
 def generate_report(articles, days_back=7):
     # Group by category
@@ -369,9 +395,7 @@ def generate_report(articles, days_back=7):
                 except Exception:
                     pass
 
-            desc_zh = translate_text(raw_desc) if raw_desc else ""
-            if len(desc_zh) < 70:
-                desc_zh += f" 本文深入分析 {art['source']} 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。"
+            desc_bullets_zh = make_3_bullet_summary_zh(title_zh, raw_desc, art["source"], cat)
 
             translated_grouped[cat].append({
                 "title_zh": title_zh,
@@ -379,7 +403,7 @@ def generate_report(articles, days_back=7):
                 "link": art["link"],
                 "source": art["source"],
                 "pub_date": art["pub_date"],
-                "description_zh": desc_zh
+                "description_zh": desc_bullets_zh
             })
 
     # Helper function to generate sport summary
@@ -455,25 +479,30 @@ def generate_report(articles, days_back=7):
         
         f.write("## 目錄\n")
         for cat in categories_order:
-            count = len(translated_grouped[cat])
-            f.write(f"- [{cat}](#{cat.lower().replace(' ', '-').replace('(', '').replace(')', '')}) ({count} 篇)\n")
+            count = len(translated_grouped[cat][:3])
+            f.write(f"- [{cat}](#{cat.lower().replace(' ', '-').replace('(', '').replace(')', '')}) ({count} 篇精選)\n")
         f.write("\n---\n\n")
         
         for cat in categories_order:
             anchor_name = cat.lower().replace(' ', '-').replace('(', '').replace(')', '')
             f.write(f"## <a name=\"{anchor_name}\"></a>{cat}\n\n")
-            if not translated_grouped[cat]:
+            cat_arts = translated_grouped[cat][:3]
+            if not cat_arts:
                 f.write("*本週暫無此分類之最新文章.*\n\n")
                 continue
                 
-            translated_grouped[cat].sort(key=lambda x: x["pub_date"], reverse=True)
-            for art in translated_grouped[cat]:
+            cat_arts.sort(key=lambda x: x["pub_date"], reverse=True)
+            for art in cat_arts:
                 local_time = art["pub_date"].astimezone().strftime("%Y-%m-%d")
                 f.write(f"### 🔗 [{art['title_zh']}]({art['link']})\n")
                 f.write(f"**英文原名**: *{art['title_en']}*\n\n")
                 f.write(f"**來源**: {art['source']} | **日期**: {local_time}\n\n")
                 if art["description_zh"]:
-                    f.write(f"> {art['description_zh']}\n\n")
+                    f.write(f"> 💡 **【繁體中文 3 大重點摘要】**：\n")
+                    bullets = [b.strip() for b in art["description_zh"].split("\n") if b.strip()]
+                    for b in bullets:
+                        f.write(f"> - {b}\n")
+                    f.write("\n")
                 f.write("---\n\n")
         
         f.write("\n---\n\n")
@@ -532,7 +561,8 @@ def generate_report(articles, days_back=7):
         run_cat = p_cat.add_run(cat)
         apply_font(run_cat, 15, True, "1F4D78")
         
-        if not translated_grouped[cat]:
+        cat_arts = translated_grouped[cat][:3]
+        if not cat_arts:
             p_none = doc_zh.add_paragraph()
             p_none.paragraph_format.left_indent = Inches(0.2)
             run_none = p_none.add_run("* 本週暫無此分類之最新文章 *")
@@ -540,9 +570,9 @@ def generate_report(articles, days_back=7):
             run_none.italic = True
             continue
             
-        translated_grouped[cat].sort(key=lambda x: x["pub_date"], reverse=True)
+        cat_arts.sort(key=lambda x: x["pub_date"], reverse=True)
         
-        for art in translated_grouped[cat]:
+        for art in cat_arts:
             p_art = doc_zh.add_paragraph()
             p_art.paragraph_format.space_before = Pt(8)
             p_art.paragraph_format.space_after = Pt(2)
@@ -562,11 +592,19 @@ def generate_report(articles, days_back=7):
             run_eng.italic = True
             
             if art["description_zh"]:
-                p_desc = doc_zh.add_paragraph()
-                p_desc.paragraph_format.left_indent = Inches(0.25)
-                p_desc.paragraph_format.space_after = Pt(10)
-                run_desc = p_desc.add_run(art["description_zh"])
-                apply_font(run_desc, 9.5, False, "444444")
+                p_desc_head = doc_zh.add_paragraph()
+                p_desc_head.paragraph_format.left_indent = Inches(0.25)
+                p_desc_head.paragraph_format.space_after = Pt(2)
+                run_head = p_desc_head.add_run("💡 【繁體中文 3 大重點摘要】：")
+                apply_font(run_head, 9.5, True, "1F4D78")
+                
+                bullets = [b.strip() for b in art["description_zh"].split("\n") if b.strip()]
+                for b in bullets:
+                    p_b = doc_zh.add_paragraph(style="List Bullet")
+                    p_b.paragraph_format.left_indent = Inches(0.4)
+                    p_b.paragraph_format.space_after = Pt(2)
+                    run_b = p_b.add_run(b)
+                    apply_font(run_b, 9.5, False, "333333")
 
     # Helper function to append markdown summary to docx
     def append_markdown_summary_to_docx(doc, summary_text):

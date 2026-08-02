@@ -87,6 +87,16 @@ def parse_articles_md_to_body_html(md_content: str, include_home_link: bool = Fa
             title_html = md_link_to_html(art["title_raw"])
             meta_html = md_link_to_html(art["meta"])
             desc_text = art["desc"].strip()
+            bullets_html = ""
+            if desc_text:
+                items = re.split(r'\d+\.\s*', desc_text)
+                clean_items = [it.strip().rstrip('；').rstrip('。') for it in items if it.strip()]
+                if len(clean_items) >= 3:
+                    bullets_html = f"<div style='margin-bottom:6px;'>📌 <strong>1.</strong> {clean_items[0]}</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> {clean_items[1]}</div><div>📌 <strong>3.</strong> {clean_items[2]}</div>"
+                else:
+                    bullets_html = desc_text
+            else:
+                bullets_html = "點擊下方連結可閱讀外網原始全文內容。"
 
             match = re.search(r"https?://[^\)]+", art["title_raw"])
             url = match.group(0) if match else "#"
@@ -96,8 +106,10 @@ def parse_articles_md_to_body_html(md_content: str, include_home_link: bool = Fa
                     <div class="art-title">{title_html}</div>
                     <div class="art-meta">{meta_html}</div>
                     <div class="art-desc">
-                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px;">💡 【繁體中文重點摘要】</div>
-                        {desc_text if desc_text else '點擊下方連結可閱讀外網原始全文內容。'}
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            {bullets_html}
+                        </div>
                     </div>
                     <div class="art-footer">
                         <a href="{url}" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
