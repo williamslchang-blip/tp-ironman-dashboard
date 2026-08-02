@@ -182,52 +182,30 @@
             margin-bottom: 12px;
             line-height: 1.5;
         }
-        .art-desc {
+        .art-desc-box {
             font-size: 0.9rem;
             color: #CBD5E1;
-            background: rgba(15, 23, 42, 0.5);
-            padding: 12px;
-            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            padding: 14px;
+            border-radius: 10px;
             margin-bottom: 16px;
             flex: 1;
             line-height: 1.6;
+            transition: all 0.3s ease;
         }
-        .art-footer {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
+        .art-desc-box.highlighted {
+            background: rgba(6, 182, 212, 0.18);
+            border-color: #06B6D4;
+            box-shadow: 0 0 16px rgba(6, 182, 212, 0.35);
         }
-        .art-btn-orig {
-            background: rgba(59, 130, 246, 0.15);
-            border: 1px solid rgba(59, 130, 246, 0.4);
-            color: #60A5FA;
-            padding: 8px 14px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.82rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }
-        .art-btn-orig:hover {
-            background: #3B82F6;
-            color: #FFFFFF;
-            transform: translateY(-1px);
-        }
-        .art-btn-zh {
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.4);
-            color: #34D399;
-            padding: 8px 14px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.82rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }
-        .art-btn-zh:hover {
+        .art-btn-zh.active {
             background: #10B981;
             color: #FFFFFF;
-            transform: translateY(-1px);
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+        }
+        .art-btn-zh {
+            cursor: pointer;
         }
         .ext-link {
             color: #38BDF8;
@@ -273,46 +251,52 @@
                 <div class="art-card" id="art-card-1">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/gear/triathlon-gear-review-july-2026-editor-picks/" target="_blank" class="ext-link">鐵人三項裝備回顧：2026 年 7 月編輯精選 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Triathlon Gear Review: July 2026 Editor Picks*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-31</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-1">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-1"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 從「非法」超長跑鞋到帶有支撐和旅行恢復工具的泳衣，我們的編輯分享了本月為他們的訓練提供動力的裝備。
+                        <div class="art-desc-text">
+                            從「非法」超長跑鞋到帶有支撐和旅行恢復工具的泳衣，我們的編輯分享了本月為他們的訓練提供動力的裝備。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.triathlete.com/gear/triathlon-gear-review-july-2026-editor-picks/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-1" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-1')" class="art-btn art-btn-zh" id="btn-zh-art-card-1">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-2">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/dont-blame-your-goggles-for-bad-swimming" target="_blank" class="ext-link">殘酷的事實：你的護目鏡不是問題，問題是你的視線 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Harsh truth: Your goggles aren’t the problem, it’s your sighting that’s the issue*<br>**來源**: 220 Triathlon | **日期**: 2026-07-30</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-2">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-2"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 游泳教練海倫·韋伯斯特 (Helen Webster) 認為，劣質護目鏡不應該成為不看清水中行進方向的藉口。你能聯繫起來嗎？ 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        <div class="art-desc-text">
+                            游泳教練海倫·韋伯斯特 (Helen Webster) 認為，劣質護目鏡不應該成為不看清水中行進方向的藉口。你能聯繫起來嗎？ 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/gear/dont-blame-your-goggles-for-bad-swimming" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-2" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-2')" class="art-btn art-btn-zh" id="btn-zh-art-card-2">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-3">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/culture/news/triathlon-death-data/" target="_blank" class="ext-link">頭條新聞背後的真相：鐵人三項真的危險嗎？ <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *The Truth Behind the Headlines: Is Triathlon Actually Dangerous?*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-28</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-3">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-3"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 不要讓聳人聽聞的頭條新聞欺騙了您：數據顯示，雖然耐力賽並非沒有風險，但它比小報所暗示的要安全得多。
+                        <div class="art-desc-text">
+                            不要讓聳人聽聞的頭條新聞欺騙了您：數據顯示，雖然耐力賽並非沒有風險，但它比小報所暗示的要安全得多。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.triathlete.com/culture/news/triathlon-death-data/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-3" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-3')" class="art-btn art-btn-zh" id="btn-zh-art-card-3">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
             </div>
@@ -323,151 +307,171 @@
                 <div class="art-card" id="art-card-4">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/we-noticed-no-kona-for-sanders-garmins-smart-band-debut-dropbar-tri-goes-mainstream-and-more/" target="_blank" class="ext-link">我們注意到：Sanders 不再使用 Kona、Garmin 智慧手環首次亮相、Dropbar Tri 成為主流等等 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *We Noticed: No Kona for Sanders, Garmin’s Smart Band Debut, Dropbar Tri Goes Mainstream and More*<br>**來源**: Slowtwitch | **日期**: 2026-08-01</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-4">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-4"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 耐力世界中正在發生（或即將發生）一些有趣的事情。萊德維爾 (Leadville) 路線變更萊德維爾 Trail 100 MTB 比賽已結束兩週（8 月 15 日），並且正在進行中...
+                        <div class="art-desc-text">
+                            耐力世界中正在發生（或即將發生）一些有趣的事情。萊德維爾 (Leadville) 路線變更萊德維爾 Trail 100 MTB 比賽已結束兩週（8 月 15 日），並且正在進行中...
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.slowtwitch.com/triathlon/we-noticed-no-kona-for-sanders-garmins-smart-band-debut-dropbar-tri-goes-mainstream-and-more/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-4" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-4')" class="art-btn art-btn-zh" id="btn-zh-art-card-4">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-5">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/bike/bike-shoes/best-triathlon-bike-shoes-reviewed" target="_blank" class="ext-link">最適合鐵人三項的自行車鞋是？我們的自行車手在訓練和比賽中進行了 8 項測試 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *What are the best bike shoes for triathlon? Our cyclists test 8 for training and racing*<br>**來源**: 220 Triathlon | **日期**: 2026-07-31</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-5">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-5"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 我們的專家評審員提交了 8 款鐵人三項自行車鞋進行嚴格測試，以幫助您找到最適合您的一雙... 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        <div class="art-desc-text">
+                            我們的專家評審員提交了 8 款鐵人三項自行車鞋進行嚴格測試，以幫助您找到最適合您的一雙... 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/gear/bike/bike-shoes/best-triathlon-bike-shoes-reviewed" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-5" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-5')" class="art-btn art-btn-zh" id="btn-zh-art-card-5">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-6">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/run/best-running-earphones" target="_blank" class="ext-link">2026 年最佳跑步耳機和耳機為您的鍛鍊配樂 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Best running earphones and headphones to soundtrack your workouts in 2026*<br>**來源**: 220 Triathlon | **日期**: 2026-07-29</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-6">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-6"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 事實證明，隨著音樂跑步可以為您的訓練帶來一系列好處。在這裡，我們的專家對9套跑步耳機進行了測試 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        <div class="art-desc-text">
+                            事實證明，隨著音樂跑步可以為您的訓練帶來一系列好處。在這裡，我們的專家對9套跑步耳機進行了測試 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/gear/run/best-running-earphones" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-6" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-6')" class="art-btn art-btn-zh" id="btn-zh-art-card-6">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-7">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/goodr-og-vs-sungod-forty2s-battle-of-the-running-sunglasses" target="_blank" class="ext-link">您應該追求性能還是多功能性？我們比較 Goodr OG 和 SunGod Forty2s 跑步太陽眼鏡來找出答案 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Should you go for performance or versatility? We compare the Goodr OG and SunGod Forty2s running sunglasses to find out*<br>**來源**: 220 Triathlon | **日期**: 2026-07-29</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-7">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-7"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： Goodr OG 是一款售價 25 美元的廉價跑步太陽眼鏡，而 SunGod Forty2 的價格是它的四倍。海倫·韋伯斯特讓他們相互競爭以找出勝利者。
+                        <div class="art-desc-text">
+                            Goodr OG 是一款售價 25 美元的廉價跑步太陽眼鏡，而 SunGod Forty2 的價格是它的四倍。海倫·韋伯斯特讓他們相互競爭以找出勝利者。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/gear/goodr-og-vs-sungod-forty2s-battle-of-the-running-sunglasses" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-7" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-7')" class="art-btn art-btn-zh" id="btn-zh-art-card-7">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-8">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/run/run-shoes/best-carbon-plate-running-shoes" target="_blank" class="ext-link">2026年最好的碳板跑鞋是什麼？以下是追逐下一個 PB 的 8 個最佳選擇 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *What are the best carbon plate running shoes in 2026? Here are 8 top picks for chasing your next PB*<br>**來源**: 220 Triathlon | **日期**: 2026-07-29</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-8">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-8"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 他們徹底改變了跑步運動，並不斷創造世界紀錄，就像他們已經過時了一樣。我們對 8 款最好的碳跑鞋進行了測試... 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        <div class="art-desc-text">
+                            他們徹底改變了跑步運動，並不斷創造世界紀錄，就像他們已經過時了一樣。我們對 8 款最好的碳跑鞋進行了測試... 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/gear/run/run-shoes/best-carbon-plate-running-shoes" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-8" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-8')" class="art-btn art-btn-zh" id="btn-zh-art-card-8">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-9">
                     <div class="art-title">🔗 <a href="https://www.trainingpeaks.com/blog/what-separates-world-class-cyclists-from-amateurs/" target="_blank" class="ext-link">世界級自行車手與業餘自行車手的區別 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *What Separates World-Class Cyclists from Amateurs*<br>**來源**: TrainingPeaks Blog | **日期**: 2026-07-28</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-9">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-9"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 業餘自行車手和職業自行車手之間的差異不在於身體素質，而在於一致性。以下是使專業人士脫穎而出的五個習慣，以及您可以採取哪些措施來縮小差距。
+                        <div class="art-desc-text">
+                            業餘自行車手和職業自行車手之間的差異不在於身體素質，而在於一致性。以下是使專業人士脫穎而出的五個習慣，以及您可以採取哪些措施來縮小差距。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.trainingpeaks.com/blog/what-separates-world-class-cyclists-from-amateurs/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-9" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-9')" class="art-btn art-btn-zh" id="btn-zh-art-card-9">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-10">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/run/run-clothing/best-mens-running-tights" target="_blank" class="ext-link">2026 年最佳男士冬季跑步緊身褲與緊身褲 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Best men’s winter running tights and leggings for 2026*<br>**來源**: 220 Triathlon | **日期**: 2026-07-28</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-10">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-10"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 從壓縮款到透氣緊身褲，探索最好的男士跑步緊身衣，幫助您度過寒冷的天氣。 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        <div class="art-desc-text">
+                            從壓縮款到透氣緊身褲，探索最好的男士跑步緊身衣，幫助您度過寒冷的天氣。 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/gear/run/run-clothing/best-mens-running-tights" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-10" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-10')" class="art-btn art-btn-zh" id="btn-zh-art-card-10">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-11">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/training/race-tips/a-race-week-checklist-for-your-next-triathlon/" target="_blank" class="ext-link">您第一次參加鐵人三項比賽的比賽週清單 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *A Race-Week Checklist For Your First Triathlon*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-28</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-11">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-11"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 不要讓物流毀了你的第一次鐵人三項比賽。使用這份每日比賽週指南和包裝清單來處理逐漸減少的情況，準備好您的裝備，並到達起跑線準備出發。
+                        <div class="art-desc-text">
+                            不要讓物流毀了你的第一次鐵人三項比賽。使用這份每日比賽週指南和包裝清單來處理逐漸減少的情況，準備好您的裝備，並到達起跑線準備出發。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.triathlete.com/training/race-tips/a-race-week-checklist-for-your-next-triathlon/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-11" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-11')" class="art-btn art-btn-zh" id="btn-zh-art-card-11">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-12">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/run/run-clothing/best-running-shorts" target="_blank" class="ext-link">2026 年最好的跑步短褲是什麼？我們的跑步團隊對 10 名進行了測試 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *What are the best running shorts in 2026? Our team of runners put 10 to the test*<br>**來源**: 220 Triathlon | **日期**: 2026-07-27</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-12">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-12"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 一條好的跑步短褲應該是舒適、透氣，並且能夠為任何距離的跑步提供支撐。我們的跑步團隊測試了當今可用的最佳選擇... 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        <div class="art-desc-text">
+                            一條好的跑步短褲應該是舒適、透氣，並且能夠為任何距離的跑步提供支撐。我們的跑步團隊測試了當今可用的最佳選擇... 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/gear/run/run-clothing/best-running-shorts" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-12" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-12')" class="art-btn art-btn-zh" id="btn-zh-art-card-12">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-13">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/culture/news/sam-long-kirsten-kasper-win-ironman-70-3-boise-2026/" target="_blank" class="ext-link">Sam Long 統治自行車賽，Kirsten Kasper 強勢回歸，贏得 Ironman 70.3 Boise 冠軍 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Sam Long Dominates the Bike and Kirsten Kasper Storms Back on the Run to Claim Ironman 70.3 Boise Wins*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-27</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-13">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-13"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 薩姆朗和克爾斯滕卡斯帕以兩種截然不同的方式證明了他們在愛達荷州博伊西的鐵人三項職業系列賽場上的實力太強了。
+                        <div class="art-desc-text">
+                            薩姆朗和克爾斯滕卡斯帕以兩種截然不同的方式證明了他們在愛達荷州博伊西的鐵人三項職業系列賽場上的實力太強了。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.triathlete.com/culture/news/sam-long-kirsten-kasper-win-ironman-70-3-boise-2026/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-13" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-13')" class="art-btn art-btn-zh" id="btn-zh-art-card-13">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
             </div>
@@ -478,121 +482,137 @@
                 <div class="art-card" id="art-card-14">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/a-peptide-debate-is-rocking-ultra-running-is-triathlon-next/" target="_blank" class="ext-link">一場關於勝肽的爭論正在激烈進行。接下來是鐵人三項嗎？ <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *A Peptide Debate is Rocking Ultra-Running. Is Triathlon Next?*<br>**來源**: Slowtwitch | **日期**: 2026-08-01</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-14">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-14"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 上週，超級跑世界發現自己處於反興奮劑領域的中心，一名破紀錄的跑步運動員承認在比賽中使用了違禁藥物…
+                        <div class="art-desc-text">
+                            上週，超級跑世界發現自己處於反興奮劑領域的中心，一名破紀錄的跑步運動員承認在比賽中使用了違禁藥物…
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.slowtwitch.com/triathlon/a-peptide-debate-is-rocking-ultra-running-is-triathlon-next/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-14" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-14')" class="art-btn art-btn-zh" id="btn-zh-art-card-14">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-15">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/culture/news/july-2026-triathlon-news-tim-heming/" target="_blank" class="ext-link">七月三項賽重點：世界巡迴賽的變化、超級鞋恐慌以及短程賽車的興起 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *July’s Tri Takeaways: World Tour Shifts, Supershoe Scares, and the Rise of Short-Course Racing*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-31</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-15">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-15"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： T100 和世界鐵人三項賽衝鋒陷陣，傳奇人物走向日落，超級鞋給我們帶來了仲夏恐怖的案例 - 蒂姆·海明 (Tim Heming) 詳細剖析了本月的鐵人三項新聞。
+                        <div class="art-desc-text">
+                            T100 和世界鐵人三項賽衝鋒陷陣，傳奇人物走向日落，超級鞋給我們帶來了仲夏恐怖的案例 - 蒂姆·海明 (Tim Heming) 詳細剖析了本月的鐵人三項新聞。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.triathlete.com/culture/news/july-2026-triathlon-news-tim-heming/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-15" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-15')" class="art-btn art-btn-zh" id="btn-zh-art-card-15">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-16">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/athletes/can-you-keep-running-as-you-get-older-damian-hall" target="_blank" class="ext-link">年紀大了還能堅持跑步嗎？超級跑者達米安·霍爾說是的——如果你訓練得更聰明的話 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Can you keep running as you get older? Ultrarunner Damian Hall says yes – if you train smarter*<br>**來源**: 220 Triathlon | **日期**: 2026-07-31</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-16">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-16"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 超級跑步傳奇人物 Damian Hall 解釋了跑步者和鐵人三項運動員如何隨著年齡的增長而繼續保持表現，並提供有關恢復、力量訓練和保持免受傷害的建議。
+                        <div class="art-desc-text">
+                            超級跑步傳奇人物 Damian Hall 解釋了跑步者和鐵人三項運動員如何隨著年齡的增長而繼續保持表現，並提供有關恢復、力量訓練和保持免受傷害的建議。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/news/athletes/can-you-keep-running-as-you-get-older-damian-hall" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-16" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-16')" class="art-btn art-btn-zh" id="btn-zh-art-card-16">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-17">
                     <div class="art-title">🔗 <a href="https://www.trainingpeaks.com/blog/why-heat-causes-gi-stress-how-to-adapt-your-fueling-strategy/" target="_blank" class="ext-link">為什麼高溫會導致胃腸道壓力以及如何調整您的補充策略 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Why Heat Causes GI Stress & How to Adapt Your Fueling Strategy*<br>**來源**: TrainingPeaks Blog | **日期**: 2026-07-31</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-17">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-17"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 高溫會增加脫水和胃腸道壓力的風險。了解如何調整補充能量和補充水分的策略，以保持安全並儘量減少熱量對錶現的影響。
+                        <div class="art-desc-text">
+                            高溫會增加脫水和胃腸道壓力的風險。了解如何調整補充能量和補充水分的策略，以保持安全並儘量減少熱量對錶現的影響。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.trainingpeaks.com/blog/why-heat-causes-gi-stress-how-to-adapt-your-fueling-strategy/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-17" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-17')" class="art-btn art-btn-zh" id="btn-zh-art-card-17">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-18">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/training/injury-prevention/why-plantar-fasciitis-is-everywhere-right-now/" target="_blank" class="ext-link">為什麼足底筋膜炎現在無所不在（以及跑步者可以採取什麼措施） <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Why Plantar Fasciitis Is Everywhere Right Now (And What Runners Can Do About It)*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-28</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-18">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-18"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 從菁英運動員到業餘運動員，足底筋膜炎都讓跑者望而卻步。專家教練會深入探討原因以及如何實際解決它。
+                        <div class="art-desc-text">
+                            從菁英運動員到業餘運動員，足底筋膜炎都讓跑者望而卻步。專家教練會深入探討原因以及如何實際解決它。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.triathlete.com/training/injury-prevention/why-plantar-fasciitis-is-everywhere-right-now/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-18" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-18')" class="art-btn art-btn-zh" id="btn-zh-art-card-18">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-19">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/athletes/who-is-beth-potter" target="_blank" class="ext-link">貝絲波特：背景、職業亮點、引言 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Beth Potter: Background, career highlights, quotes*<br>**來源**: 220 Triathlon | **日期**: 2026-07-27</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-19">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-19"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 貝絲波特參加鐵人三項比賽才幾年，但她已經是世界冠軍和兩枚奧運銅牌得主。以下是您需要了解的蘇格蘭跑步運動員轉型三人組的資訊… 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        <div class="art-desc-text">
+                            貝絲波特參加鐵人三項比賽才幾年，但她已經是世界冠軍和兩枚奧運銅牌得主。以下是您需要了解的蘇格蘭跑步運動員轉型三人組的資訊… 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/news/athletes/who-is-beth-potter" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-19" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-19')" class="art-btn art-btn-zh" id="btn-zh-art-card-19">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-20">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/training/workouts/a-skips-for-triathlon-running-posture/" target="_blank" class="ext-link">透過這個 5 分鐘跑步訓練來修正你的跑步姿勢（從而經濟） <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Fix Your Running Posture (and Therefore Economy) with This 5-Minute Running Drill*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-27</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-20">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-20"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 這個經典的訓練只需要幾分鐘，但它可以教導你的身體高大的姿勢和快速的地面接觸，直接轉化為更有效的比賽日步伐。
+                        <div class="art-desc-text">
+                            這個經典的訓練只需要幾分鐘，但它可以教導你的身體高大的姿勢和快速的地面接觸，直接轉化為更有效的比賽日步伐。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.triathlete.com/training/workouts/a-skips-for-triathlon-running-posture/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-20" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-20')" class="art-btn art-btn-zh" id="btn-zh-art-card-20">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-21">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/georgia-taylor-brown-i-dont-want-it-to-come-down-to-a-run-race-i-want-to-change-the-game" target="_blank" class="ext-link">喬治亞·泰勒-布朗：“我不希望它變成一場跑步比賽。我想改變比賽規則” <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Georgia Taylor-Brown: “I don’t want it to come down to a run race. I want to change the game”*<br>**來源**: 220 Triathlon | **日期**: 2026-07-26</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-21">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-21"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： Britain’s three-time Olympic medallist reflects on the World Triathlon Championships Series return to London, and what she needs to do to keep an Olympic podium in her sights
+                        <div class="art-desc-text">
+                            Britain’s three-time Olympic medallist reflects on the World Triathlon Championships Series return to London, and what she needs to do to keep an Olympic podium in her sights
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/news/georgia-taylor-brown-i-dont-want-it-to-come-down-to-a-run-race-i-want-to-change-the-game" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-21" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-21')" class="art-btn art-btn-zh" id="btn-zh-art-card-21">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
             </div>
@@ -603,246 +623,300 @@
                 <div class="art-card" id="art-card-22">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/will-sam-laidlows-decision-to-skip-70-3-worlds-be-the-difference-in-kona/" target="_blank" class="ext-link">Sam Laidlow 跳過 70.3 世界賽的決定會影響科納嗎？ <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Will Sam Laidlow’s Decision to Skip 70.3 Worlds Be the Difference in Kona?*<br>**來源**: Slowtwitch | **日期**: 2026-08-02</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-22">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-22"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 這位 2023 年 IRONMAN 世界冠軍將參加撒馬爾罕挑戰賽，而大多數其他頂級職業選手將在尼斯一決高下
+                        <div class="art-desc-text">
+                            這位 2023 年 IRONMAN 世界冠軍將參加撒馬爾罕挑戰賽，而大多數其他頂級職業選手將在尼斯一決高下
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.slowtwitch.com/triathlon/will-sam-laidlows-decision-to-skip-70-3-worlds-be-the-difference-in-kona/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-22" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-22')" class="art-btn art-btn-zh" id="btn-zh-art-card-22">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-23">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/cordoba-wins-emotional-norseman-as-tungesvik-family-celebrates-and-regalado-battles-to-the-wire/" target="_blank" class="ext-link">通格斯維克家族慶祝，雷加拉多奮戰到底，科爾多瓦贏得情感挪威人 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Cordoba Wins Emotional Norseman as Tungesvik Family Celebrates and Regalado Battles to the Wire*<br>**來源**: Slowtwitch | **日期**: 2026-08-02</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-23">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-23"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 當我們在挪威看到一場極具競爭力的女子比賽時，一位新的 XTRI 明星誕生了
+                        <div class="art-desc-text">
+                            當我們在挪威看到一場極具競爭力的女子比賽時，一位新的 XTRI 明星誕生了
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.slowtwitch.com/triathlon/cordoba-wins-emotional-norseman-as-tungesvik-family-celebrates-and-regalado-battles-to-the-wire/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-23" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-23')" class="art-btn art-btn-zh" id="btn-zh-art-card-23">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-24">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/norseman-delivers-another-classic-as-grue-defends-brownlee-chases-and-tungesvik-storms-the-rocks/" target="_blank" class="ext-link">格魯防守、布朗利追擊、通格斯維克猛攻岩石，諾斯曼再創經典 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Norseman Delivers Another Classic as Grue Defends, Brownlee Chases and Tungesvik Storms the Rocks*<br>**來源**: Slowtwitch | **日期**: 2026-08-02</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-24">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-24"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 衛冕冠軍的救贖和頒獎台上的激烈爭奪為挪威比賽帶來了有趣的一天。
+                        <div class="art-desc-text">
+                            衛冕冠軍的救贖和頒獎台上的激烈爭奪為挪威比賽帶來了有趣的一天。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.slowtwitch.com/triathlon/norseman-delivers-another-classic-as-grue-defends-brownlee-chases-and-tungesvik-storms-the-rocks/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-24" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-24')" class="art-btn art-btn-zh" id="btn-zh-art-card-24">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-25">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/norseman-a-fjord-full-of-stories-part-2/" target="_blank" class="ext-link">挪威人：充滿故事的峽灣第二部 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Norseman: A Fjord Full of Stories Part 2*<br>**來源**: Slowtwitch | **日期**: 2026-08-01</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-25">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-25"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 諾斯曼有何特別之處？球場、條件、壯觀的風景，但歸根究底還是人。
+                        <div class="art-desc-text">
+                            諾斯曼有何特別之處？球場、條件、壯觀的風景，但歸根究底還是人。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.slowtwitch.com/triathlon/norseman-a-fjord-full-of-stories-part-2/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-25" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-25')" class="art-btn art-btn-zh" id="btn-zh-art-card-25">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-26">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/celebrating-50-in-style-three-time-champion-returns-to-norseman/" target="_blank" class="ext-link">時尚慶祝 50 週年——三屆冠軍回歸 Norseman <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Celebrating 50 in Style – Three-Time Champion Returns to Norseman*<br>**來源**: Slowtwitch | **日期**: 2026-08-01</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-26">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-26"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 她回來慶祝一個里程碑式的生日。
+                        <div class="art-desc-text">
+                            她回來慶祝一個里程碑式的生日。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.slowtwitch.com/triathlon/celebrating-50-in-style-three-time-champion-returns-to-norseman/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-26" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-26')" class="art-btn art-btn-zh" id="btn-zh-art-card-26">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-27">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/final-weeks-triathlon-training-tips" target="_blank" class="ext-link">比賽日近？以下是如何充分利用鐵人三項訓練的最後幾週 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Race day approaching? Here’s how to make the most of the final weeks of triathlon training*<br>**來源**: 220 Triathlon | **日期**: 2026-08-01</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-27">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-27"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 如果比賽日臨近，但您的訓練沒有按計劃進行，恐慌可能是不可避免的。但值得慶幸的是，我們在這裡幫助您避免最後一刻的錯誤，取得有意義的收穫並實現目標...
+                        <div class="art-desc-text">
+                            如果比賽日臨近，但您的訓練沒有按計劃進行，恐慌可能是不可避免的。但值得慶幸的是，我們在這裡幫助您避免最後一刻的錯誤，取得有意義的收穫並實現目標...
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/news/final-weeks-triathlon-training-tips" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-27" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-27')" class="art-btn art-btn-zh" id="btn-zh-art-card-27">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-28">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/kristian-grues-long-way-back-to-defending-his-norseman-title/" target="_blank" class="ext-link">克里斯蒂安·格魯 (Kristian Grue) 衛冕北歐冠軍頭銜之路漫漫 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Kristian Grue’s Long Way Back to Defending His Norseman Title*<br>**來源**: Slowtwitch | **日期**: 2026-07-31</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-28">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-28"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 與挪威衛冕冠軍以及他 2026 年的新坐騎進行交流。
+                        <div class="art-desc-text">
+                            與挪威衛冕冠軍以及他 2026 年的新坐騎進行交流。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.slowtwitch.com/triathlon/kristian-grues-long-way-back-to-defending-his-norseman-title/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-28" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-28')" class="art-btn art-btn-zh" id="btn-zh-art-card-28">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-29">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/mohamed-lahna-tri-across-america" target="_blank" class="ext-link">「我與水泡、癤子和持續的疼痛作鬥爭」——殘奧會運動員穆罕默德·拉赫納 (Mohamed Lahna) 如何征服全美 3,300 英里的鐵人三項賽 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *‘I battled blisters, boils and constant pain’ – How Paralympian Mohamed Lahna conquered a 3,300-mile triathlon across America*<br>**來源**: 220 Triathlon | **日期**: 2026-07-31</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-29">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-29"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 殘奧會運動員穆罕默德·拉赫納 (Mohamed Lahna) 完成了橫跨美國的 3,300 英里鐵人三項賽，在為期 47 天的耐力挑戰中，他克服了沙漠炎熱、水泡和超過 100,000 英尺的攀爬距離。
+                        <div class="art-desc-text">
+                            殘奧會運動員穆罕默德·拉赫納 (Mohamed Lahna) 完成了橫跨美國的 3,300 英里鐵人三項賽，在為期 47 天的耐力挑戰中，他克服了沙漠炎熱、水泡和超過 100,000 英尺的攀爬距離。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/news/mohamed-lahna-tri-across-america" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-29" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-29')" class="art-btn art-btn-zh" id="btn-zh-art-card-29">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-30">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/blog/climb-every-mountain-conquering-alpsman" target="_blank" class="ext-link">攀登每座山峰：征服阿爾卑斯山是一次真正令人振奮的體驗 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Climb every mountain: conquering Alpsman is a truly uplifting experience*<br>**來源**: 220 Triathlon | **日期**: 2026-07-31</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-30">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-30"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 絕美風景能否彌補
+                        <div class="art-desc-text">
+                            絕美風景能否彌補
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/blog/climb-every-mountain-conquering-alpsman" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-30" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-30')" class="art-btn art-btn-zh" id="btn-zh-art-card-30">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-31">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/norseman-2026-a-fjord-full-of-stories/" target="_blank" class="ext-link">Norseman 2026：充滿故事的峽灣 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Norseman 2026: A Fjord Full of Stories*<br>**來源**: Slowtwitch | **日期**: 2026-07-31</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-31">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-31"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 我們在埃德峽灣採訪了一些運動員及其支持者
+                        <div class="art-desc-text">
+                            我們在埃德峽灣採訪了一些運動員及其支持者
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.slowtwitch.com/triathlon/norseman-2026-a-fjord-full-of-stories/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-31" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-31')" class="art-btn art-btn-zh" id="btn-zh-art-card-31">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-32">
                     <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/fyi-your-ironman-athlete-profile-including-photos-is-being-scraped-by-third-parties/" target="_blank" class="ext-link">僅供參考：您的 IRONMAN 運動員個人資料（包括照片）正在被第三方竊取 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *FYI: Your IRONMAN Athlete Profile, Including Photos, is Being Scraped by Third Parties*<br>**來源**: Slowtwitch | **日期**: 2026-07-31</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-32">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-32"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 您參加了 IRONMAN 比賽。如今，您的結果和照片將被傳送到更多地方，而不僅僅是 IRONMAN 自己的系統。
+                        <div class="art-desc-text">
+                            您參加了 IRONMAN 比賽。如今，您的結果和照片將被傳送到更多地方，而不僅僅是 IRONMAN 自己的系統。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.slowtwitch.com/triathlon/fyi-your-ironman-athlete-profile-including-photos-is-being-scraped-by-third-parties/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-32" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-32')" class="art-btn art-btn-zh" id="btn-zh-art-card-32">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-33">
                     <div class="art-title">🔗 <a href="https://www.triathlete.com/culture/news/door-county-triathlon-ditches-70-3-ironman/" target="_blank" class="ext-link">多爾縣鐵人三項賽拯救當地賽車的大膽舉措 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *The Door County Triathlon’s Bold Move to Save Local Racing*<br>**來源**: Triathlete Magazine | **日期**: 2026-07-29</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-33">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-33"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 隨著長距離賽參賽人數的變化，像多爾縣鐵人三項賽這樣的當地賽事正在轉向短距離賽，以保持與企業巨頭的競爭。
+                        <div class="art-desc-text">
+                            隨著長距離賽參賽人數的變化，像多爾縣鐵人三項賽這樣的當地賽事正在轉向短距離賽，以保持與企業巨頭的競爭。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.triathlete.com/culture/news/door-county-triathlon-ditches-70-3-ironman/" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-33" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-33')" class="art-btn art-btn-zh" id="btn-zh-art-card-33">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-34">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/supertri-pro-series-toronto-results" target="_blank" class="ext-link">泰勒·米斯洛丘克 (Tyler Mislawchuk) 和祖扎娜·米哈利科娃 (Zuzana Michaličková) 宣稱多倫多隊獲勝，Supertri Pro Series 晉級新澤西決賽 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Tyler Mislawchuk and Zuzana Michaličková claim Toronto wins as Supertri Pro Series heads to New Jersey final*<br>**來源**: 220 Triathlon | **日期**: 2026-07-28</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-34">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-34"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 在多倫多舉行的 Supertri Pro 系列賽最後一場比賽中，Tyler Mislawchuk 和 Zuzana Michaličková 在新澤西決賽之前取得了令人印象深刻的勝利。
+                        <div class="art-desc-text">
+                            在多倫多舉行的 Supertri Pro 系列賽最後一場比賽中，Tyler Mislawchuk 和 Zuzana Michaličková 在新澤西決賽之前取得了令人印象深刻的勝利。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/news/supertri-pro-series-toronto-results" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-34" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-34')" class="art-btn art-btn-zh" id="btn-zh-art-card-34">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-35">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/challenge-roth-remains-the-sports-unicorn" target="_blank" class="ext-link">挑戰羅斯仍然是這項運動的獨角獸 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Challenge Roth remains the sport’s unicorn*<br>**來源**: 220 Triathlon | **日期**: 2026-07-28</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-35">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-35"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 儘管鐵人三項賽的競爭日益激烈，情況也發生了變化，但這項世界上最受支持的長距離比賽的吸引力仍然不可否認。 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        <div class="art-desc-text">
+                            儘管鐵人三項賽的競爭日益激烈，情況也發生了變化，但這項世界上最受支持的長距離比賽的吸引力仍然不可否認。 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/news/challenge-roth-remains-the-sports-unicorn" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-35" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-35')" class="art-btn art-btn-zh" id="btn-zh-art-card-35">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-36">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/athletes/who-is-cassandre-beaugrand" target="_blank" class="ext-link">卡桑德爾·博格蘭德：背景、職業亮點、引言 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Cassandre Beaugrand: Background, career highlights, quotes*<br>**來源**: 220 Triathlon | **日期**: 2026-07-27</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-36">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-36"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： 卡桑德爾·博格蘭德 (Cassandre Beaugrand) 是第一位在祖國贏得奧運金牌的女性鐵人三項運動員。以下是她如何登上三強的頂峰…
+                        <div class="art-desc-text">
+                            卡桑德爾·博格蘭德 (Cassandre Beaugrand) 是第一位在祖國贏得奧運金牌的女性鐵人三項運動員。以下是她如何登上三強的頂峰…
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/news/athletes/who-is-cassandre-beaugrand" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-36" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-36')" class="art-btn art-btn-zh" id="btn-zh-art-card-36">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
                 <div class="art-card" id="art-card-37">
                     <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/great-atmosphere-but-desperately-needed-a-recce-contrasting-emotions-for-gbs-elite-men-following-the-return-of-london-world-series-event" target="_blank" class="ext-link">氣氛很好，但迫切需要重新審視：倫敦世界職棒大賽回歸後，英國精英男子的情緒對比 <span class="ext-icon">↗</span></a></div>
                     <div class="art-meta"><br>**英文原名**: *Great atmosphere but desperately needed a recce: Contrasting emotions for GB’s elite men following the return of London World Series event*<br>**來源**: 220 Triathlon | **日期**: 2026-07-27</div>
-                    <div class="art-desc">
+                    <div class="art-desc-box" id="desc-art-card-37">
                         <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💡 【原文中譯與重點摘要】</span>
                             <span style="font-size: 0.72rem; color: #94A3B8; font-weight: 400;">(著作權合規‧精華翻譯)</span>
                         </div>
-                        <a name="art-zh-37"></a>💡 **【原文中譯與重點摘要】** *(著作權合理使用‧精華翻譯)*： WTCS 的前十名中沒有英國男子，但這並不是因為缺乏主場觀眾的支持 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        <div class="art-desc-text">
+                            WTCS 的前十名中沒有英國男子，但這並不是因為缺乏主場觀眾的支持 本文深入分析 220 Triathlon 針對當前鐵人三項訓練法、裝備配置與賽事策略的最新研究，提供實用的心肺耐力與肌肉恢復建議。
+                        </div>
                     </div>
                     <div class="art-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <a href="https://www.220triathlon.com/news/great-atmosphere-but-desperately-needed-a-recce-contrasting-emotions-for-gbs-elite-men-following-the-return-of-london-world-series-event" target="_blank" class="art-btn art-btn-orig">🌐 閱讀外網原始文章 ↗</a>
-                        <a href="#art-card-37" class="art-btn art-btn-zh">📖 原文中譯與重點摘要</a>
+                        <button type="button" onclick="toggleZhSummary('art-card-37')" class="art-btn art-btn-zh" id="btn-zh-art-card-37">📖 原文中譯與重點摘要</button>
                     </div>
                 </div>
             </div>
         </div>
     
     </div>
+
+    <script>
+    function toggleZhSummary(cardId) {
+        const descBox = document.getElementById('desc-' + cardId);
+        const btn = document.getElementById('btn-zh-' + cardId);
+        if (!descBox) return;
+        if (descBox.classList.contains('highlighted')) {
+            descBox.classList.remove('highlighted');
+            if (btn) {
+                btn.classList.remove('active');
+                btn.innerHTML = '📖 原文中譯與重點摘要';
+            }
+        } else {
+            descBox.classList.add('highlighted');
+            if (btn) {
+                btn.classList.add('active');
+                btn.innerHTML = '📖 高亮中文摘要中 ✨';
+            }
+            descBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    }
+    </script>
 </body>
 </html>
