@@ -82,4 +82,4 @@
   1. 生成《W32 第32週肌力訓練計畫與教練評語報告》 (Word/MD)。
   2. 依據最新規則，抓取過去 7 天全網共 36 篇最新新知文章（無刪減全數保留），並為每篇文章生成 100% 繁體中文 3 點條列摘要。
   3. 自動更新地端/Web 儀表板並發布推送到 GitHub Pages (`main -> main`)。
-- 2026-08-03 依使用者需求，更新 `scripts/generate_web_dashboard.py` 週期階段配置，將當週 (W32, 8/3-8/9) 訓練階段調整標示為 **Base 3-1**，並同步修訂後續 Base 3-2、Base 3-3 (Recovery)、Build Phase、Peak / Big Brick 等週期時程，即時重新生成網頁並 Push 至 GitHub Pages。
+- 2026-08-03 依使用者指示，確認並明確標註 IM226 / IM113 (70.3) 滾動完賽預估模型計算機制：明確顯示其採用**截至上週日（完整 4 週滾動窗口）**之實際運動數據進行動態試算，更新 `scripts/estimator_226.py` 與 `scripts/generate_web_dashboard.py` 頁面顯示文字，同步重新部署至 GitHub Pages。
