@@ -141,20 +141,22 @@ def generate_52_week_dashboard():
         if w < current_week_num:
             status_tag = "Past"
             status_label = "已完成"
-            phase = "Base / Build" if w <= 20 else "Peak Phase"
+            phase = "Base 1" if w <= 15 else ("Base 2" if w <= 27 else "Base 3")
         elif w == current_week_num:
             status_tag = "Current"
             status_label = "本週進行中"
-            phase = "Base 1-3"
+            phase = "Base 3-1"
         else:
             status_tag = "Future"
             status_label = "預計計畫"
-            if w in range(32, 35):
-                phase = "Build 2"
+            if w == 33:
+                phase = "Base 3-2"
+            elif w == 34:
+                phase = "Base 3-3 (Recovery)"
             elif w in range(35, 38):
-                phase = "Peak 1"
+                phase = "Build Phase"
             elif w in range(38, 41):
-                phase = "Big Brick Peak"
+                phase = "Peak / Big Brick"
             elif w in range(41, 44):
                 phase = "Taper Phase"
             elif w == 44:
