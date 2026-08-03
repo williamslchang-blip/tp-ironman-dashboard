@@ -192,6 +192,7 @@ def calculate_dynamic_226_estimate(target_monday: date) -> dict:
     mult_con = ref_703_mins * 2.28  # 11h58m
 
     return {
+        "window_date_range": f"{window_start:%Y/%m/%d} – {window_end:%Y/%m/%d} (截至上週日)",
         "rolling_4w_avg_run_km": round(avg_weekly_run_dist, 2),
         "rolling_4w_avg_bike_km": round(avg_weekly_bike_dist, 2),
         "rolling_4w_avg_swim_km": round(avg_weekly_swim_dist, 2),

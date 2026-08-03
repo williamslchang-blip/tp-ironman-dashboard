@@ -842,7 +842,7 @@ def generate_52_week_dashboard():
 
                     <!-- IM226 DYNAMIC ESTIMATE -->
                     <div class="section-box">
-                        <div class="section-title">🔮 IM226 滾動動態完賽時間預估 (該週數據試算)</div>
+                        <div class="section-title">🔮 IM226 滾動動態完賽時間預估 (採用截至上週 ${{est.window_date_range}} 數據試算)</div>
                         <div class="target-grid">
                             <div class="target-card target-opt">
                                 <div class="target-tag">🟢 樂觀目標 (高峰發揮 / 無抽筋)</div>
@@ -885,7 +885,7 @@ def generate_52_week_dashboard():
 
                     <!-- IM70.3 (113km) DYNAMIC ESTIMATE -->
                     <div class="section-box" style="margin-top: 20px;">
-                        <div class="section-title">🔮 IM70.3 (113km) 滾動動態完賽時間預估 (該週數據試算)</div>
+                        <div class="section-title">🔮 IM70.3 (113km) 滾動動態完賽時間預估 (採用截至上週 ${{est.window_date_range}} 數據試算)</div>
                         <div class="target-grid">
                             <div class="target-card target-opt">
                                 <div class="target-tag">🟢 樂觀目標 (高峰發揮 / 無抽筋)</div>
