@@ -479,14 +479,14 @@ def generate_report(articles, days_back=7):
         
         f.write("## 目錄\n")
         for cat in categories_order:
-            count = len(translated_grouped[cat][:3])
-            f.write(f"- [{cat}](#{cat.lower().replace(' ', '-').replace('(', '').replace(')', '')}) ({count} 篇精選)\n")
+            count = len(translated_grouped[cat])
+            f.write(f"- [{cat}](#{cat.lower().replace(' ', '-').replace('(', '').replace(')', '')}) ({count} 篇)\n")
         f.write("\n---\n\n")
         
         for cat in categories_order:
             anchor_name = cat.lower().replace(' ', '-').replace('(', '').replace(')', '')
             f.write(f"## <a name=\"{anchor_name}\"></a>{cat}\n\n")
-            cat_arts = translated_grouped[cat][:3]
+            cat_arts = translated_grouped[cat]
             if not cat_arts:
                 f.write("*本週暫無此分類之最新文章.*\n\n")
                 continue
@@ -561,7 +561,7 @@ def generate_report(articles, days_back=7):
         run_cat = p_cat.add_run(cat)
         apply_font(run_cat, 15, True, "1F4D78")
         
-        cat_arts = translated_grouped[cat][:3]
+        cat_arts = translated_grouped[cat]
         if not cat_arts:
             p_none = doc_zh.add_paragraph()
             p_none.paragraph_format.left_indent = Inches(0.2)

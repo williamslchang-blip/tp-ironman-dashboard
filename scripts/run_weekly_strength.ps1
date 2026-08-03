@@ -1,35 +1,33 @@
 $ErrorActionPreference = "Stop"
 $root = "C:\Users\User\Desktop\TP"
-$python = "C:\Users\User\AppData\Local\Programs\Python\Python311\python.exe"
-$tpScript = Join-Path $root "scripts\tp_weekly_strength.py"
-$artScript = Join-Path $root "scripts\fetch_weekly_articles.py"
-$logDir = Join-Path $root "logs"
+Set-Location $root
 
+$logDir = Join-Path $root "logs"
 New-Item -ItemType Directory -Force -Path $logDir | Out-Null
 $log = Join-Path $logDir "weekly_strength.log"
 
 try {
-    # 1. 執行 TrainingPeaks 週分析與肌力課表產出
-    $result1 = & $python $tpScript 2>&1
-    Add-Content -Encoding UTF8 -LiteralPath $log -Value "$(Get-Date -Format s) TP_ANALYSIS OK $result1"
-    
-    # 3. 自動更新地端網頁版儀表板與打包 (docs/index.html)
-    $dashScript = Join-Path $root "scripts\generate_web_dashboard.py"
-    $result3 = & $python $dashScript 2>&1
-    Add-Content -Encoding UTF8 -LiteralPath $log -Value "$(Get-Date -Format s) DASHBOARD_GEN OK $result3"
+    Write-Output "1. Generating weekly strength plan and analysis..."
+    python scripts/tp_weekly_strength.py
 
-    $pkgScript = Join-Path $root "scripts\package_for_web.py"
-    $result4 = & $python $pkgScript 2>&1
-    Add-Content -Encoding UTF8 -LiteralPath $log -Value "$(Get-Date -Format s) PKG_WEB OK $result4"
+    Write-Output "2. Fetching weekly articles and translating to Traditional Chinese..."
+    python scripts/fetch_weekly_articles.py
 
-    # 4. 自動同步推送到 GitHub，達成線上網站 100% 全自動更新
+    Write-Output "3. Generating web dashboard..."
+    python scripts/generate_web_dashboard.py
+
+    Write-Output "4. Packaging outputs for deployment..."
+    python scripts/package_for_web.py
+
     if (Test-Path "$root\.git") {
-        git -C $root add docs/ outputs/ logs/ data/ scripts/ PROJECT_STATUS.md README.md 2>&1 | Out-Null
-        git -C $root commit -m "Auto update weekly reports and 52-week dashboard" 2>&1 | Out-Null
-        git -C $root push origin main 2>&1 | Out-Null
-        Add-Content -Encoding UTF8 -LiteralPath $log -Value "$(Get-Date -Format s) GIT_PUSH OK Site updated live on GitHub Pages"
+        Write-Output "5. Pushing updates to GitHub..."
+        git add docs/ outputs/ logs/ data/ scripts/ PROJECT_STATUS.md README.md
+        git commit -m "Auto update weekly strength plan and articles"
+        git push origin main
+        Add-Content -Encoding UTF8 -LiteralPath $log -Value "$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss') GIT_PUSH OK Site updated live on GitHub Pages"
     }
+    Add-Content -Encoding UTF8 -LiteralPath $log -Value "$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss') MONDAY_SCRIPT OK"
 } catch {
-    Add-Content -Encoding UTF8 -LiteralPath $log -Value "$(Get-Date -Format s) ERROR $($_.Exception.Message)"
+    Add-Content -Encoding UTF8 -LiteralPath $log -Value "$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss') MONDAY_SCRIPT ERROR $($_.Exception.Message)"
     throw
 }
