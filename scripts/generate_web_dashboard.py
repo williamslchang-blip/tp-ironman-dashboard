@@ -181,17 +181,17 @@ def generate_52_week_dashboard():
         else:
             str_html = "<p style='color:var(--text-muted);'>該週尚未產生肌力訓練計畫與課表報告</p>"
 
-        # Target execution review report for current week (prefer current week if generated today, else previous week)
+        # Target execution review report for current week: '上週' for week w should be prev_w (w - 1)
         prev_w = w - 1 if w > 1 else 1
         prev_rev_file = WEEKLY_DIR / f"2026-W{prev_w:02d}_當週執行率回顧報告.md"
         curr_rev_file = WEEKLY_DIR / f"2026-W{w:02d}_當週執行率回顧報告.md"
         
-        if curr_rev_file.exists():
-            rev_html = simple_md_to_html(curr_rev_file.read_text(encoding="utf-8"))
-            rev_target = w
-        elif prev_rev_file.exists():
+        if prev_rev_file.exists():
             rev_html = simple_md_to_html(prev_rev_file.read_text(encoding="utf-8"))
             rev_target = prev_w
+        elif curr_rev_file.exists():
+            rev_html = simple_md_to_html(curr_rev_file.read_text(encoding="utf-8"))
+            rev_target = w
         else:
             rev_html = "<p style='color:var(--text-muted);'>上週執行率回顧報告將於週日晚上自動結算生成</p>"
             rev_target = prev_w
