@@ -653,7 +653,7 @@
     "actual_time": 199,
     "planned_dist": 0,
     "actual_dist": 89.24,
-    "last_synced": "2026-08-04T20:00:11.340725",
+    "last_synced": "2026-08-06T03:10:20.327703",
     "original_plan": {
       "planned_time": 210,
       "planned_dist": 0
@@ -698,7 +698,7 @@
     "actual_time": 79,
     "planned_dist": 14.0,
     "actual_dist": 11.53,
-    "last_synced": "2026-08-04T20:00:11.340725",
+    "last_synced": "2026-08-06T03:10:20.327703",
     "original_plan": {
       "planned_time": 80,
       "planned_dist": 14.0
@@ -740,10 +740,10 @@
     "uid": "20260805_Swim_Swim甜甜課表_80_0",
     "type": "Swim",
     "planned_time": 80,
-    "actual_time": 0,
+    "actual_time": 65,
     "planned_dist": 0,
-    "actual_dist": 0,
-    "last_synced": "2026-08-04T20:00:11.340725",
+    "actual_dist": 3.3,
+    "last_synced": "2026-08-06T03:10:20.327703",
     "original_plan": {
       "planned_time": 80,
       "planned_dist": 0
@@ -758,7 +758,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-04T20:00:11.340725",
+    "last_synced": "2026-08-06T03:10:20.327703",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 0
@@ -773,7 +773,7 @@
     "actual_time": 0,
     "planned_dist": 5.0,
     "actual_dist": 0,
-    "last_synced": "2026-08-04T20:00:11.340725",
+    "last_synced": "2026-08-06T03:10:20.327703",
     "original_plan": {
       "planned_time": 30,
       "planned_dist": 5.0
@@ -788,7 +788,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-04T20:00:11.340725",
+    "last_synced": "2026-08-06T03:10:20.327703",
     "original_plan": {
       "planned_time": 80,
       "planned_dist": 0
@@ -863,7 +863,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-04T20:00:11.340725",
+    "last_synced": "2026-08-06T03:10:20.327703",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -878,7 +878,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-04T20:00:11.340725",
+    "last_synced": "2026-08-06T03:10:20.327703",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -893,7 +893,7 @@
     "actual_time": 84,
     "planned_dist": 11.2,
     "actual_dist": 11.58,
-    "last_synced": "2026-08-04T20:00:11.340725",
+    "last_synced": "2026-08-06T03:10:20.327703",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 11.2
@@ -908,9 +908,39 @@
     "actual_time": 30,
     "planned_dist": 0,
     "actual_dist": 7.45,
-    "last_synced": "2026-08-04T20:00:11.340725",
+    "last_synced": "2026-08-06T03:10:20.327703",
     "original_plan": {
       "planned_time": 0,
+      "planned_dist": 0
+    }
+  },
+  "20260808_Bike_Bike3_180_0": {
+    "date": "2026-08-08",
+    "summary": "Bike: 3",
+    "uid": "20260808_Bike_Bike3_180_0",
+    "type": "Bike",
+    "planned_time": 180,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-08-06T03:10:20.327703",
+    "original_plan": {
+      "planned_time": 180,
+      "planned_dist": 0
+    }
+  },
+  "20260809_Bike_Bike5_300_0": {
+    "date": "2026-08-09",
+    "summary": "Bike: 5",
+    "uid": "20260809_Bike_Bike5_300_0",
+    "type": "Bike",
+    "planned_time": 300,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-08-06T03:10:20.327703",
+    "original_plan": {
+      "planned_time": 300,
       "planned_dist": 0
     }
   }
