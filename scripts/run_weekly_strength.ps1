@@ -22,9 +22,14 @@ try {
     if (Test-Path "$root\.git") {
         Write-Output "5. Pushing updates to GitHub..."
         git add docs/ outputs/ logs/ data/ scripts/ PROJECT_STATUS.md README.md
-        git commit -m "Auto update weekly strength plan and articles"
-        git push origin main
-        Add-Content -Encoding UTF8 -LiteralPath $log -Value "$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss') GIT_PUSH OK Site updated live on GitHub Pages"
+        $status = git status --porcelain
+        if ($status) {
+            git commit -m "Auto update weekly strength plan and articles"
+            git push origin main
+            Add-Content -Encoding UTF8 -LiteralPath $log -Value "$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss') GIT_PUSH OK Site updated live on GitHub Pages"
+        } else {
+            Write-Output "No changes to commit."
+        }
     }
     Add-Content -Encoding UTF8 -LiteralPath $log -Value "$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss') MONDAY_SCRIPT OK"
 } catch {

@@ -84,4 +84,8 @@
   3. 自動更新地端/Web 儀表板並發布推送到 GitHub Pages (`main -> main`)。
 - 2026-08-03 依使用者指示，確認並明確標註 IM226 / IM113 (70.3) 滾動完賽預估模型計算機制：明確顯示其採用**截至上週日（完整 4 週滾動窗口）**之實際運動數據進行動態試算，更新 `scripts/estimator_226.py` 與 `scripts/generate_web_dashboard.py` 頁面顯示文字，同步重新部署至 GitHub Pages。
 - 2026-08-03 修復網頁儀表板「上週執行率回顧」頁籤判斷邏輯 Bug：當查看本週 (W32) 時，系統優先載入完整已結算之上週 (W31) 執行率回顧報告，頁籤按鈕與標題正確顯示為 `📈 上週 (W31) 執行率回顧`，已重新生成網頁並部署至 GitHub Pages。
+- 2026-08-06
+- 2026-08-06 已建立並配置 **Codex 子 Agent (`codex`)** 專責處理自動化腳本與排程任務執行；由主 Agent (Antigravity) 進行監督與產出檢驗。
+- 2026-08-06 修復 PowerShell 排程腳本 (`run_weekly_strength.ps1`, `run_sunday_report.ps1`, `run_daily_update.ps1`) 於無檔案變更時執行 `git commit` 拋出 Exit Code 1 的錯誤，全面提升自動化工作排程穩定度。
+
 

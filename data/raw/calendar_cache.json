@@ -770,10 +770,10 @@
     "uid": "20260806_Run_Run轉換30分_30_5.0",
     "type": "Run",
     "planned_time": 30,
-    "actual_time": 0,
+    "actual_time": 29,
     "planned_dist": 5.0,
-    "actual_dist": 0,
-    "last_synced": "2026-08-06T03:10:20.327703",
+    "actual_dist": 4.56,
+    "last_synced": "2026-08-06T09:56:13.794746",
     "original_plan": {
       "planned_time": 30,
       "planned_dist": 5.0
@@ -788,7 +788,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T03:10:20.327703",
+    "last_synced": "2026-08-06T09:56:13.794746",
     "original_plan": {
       "planned_time": 80,
       "planned_dist": 0
@@ -863,7 +863,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T03:10:20.327703",
+    "last_synced": "2026-08-06T09:56:13.794746",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -878,7 +878,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T03:10:20.327703",
+    "last_synced": "2026-08-06T09:56:13.794746",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -908,7 +908,7 @@
     "actual_time": 30,
     "planned_dist": 0,
     "actual_dist": 7.45,
-    "last_synced": "2026-08-06T03:10:20.327703",
+    "last_synced": "2026-08-06T09:56:13.794746",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -923,7 +923,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T03:10:20.327703",
+    "last_synced": "2026-08-06T09:56:13.794746",
     "original_plan": {
       "planned_time": 180,
       "planned_dist": 0
@@ -938,9 +938,84 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T03:10:20.327703",
+    "last_synced": "2026-08-06T09:56:13.794746",
     "original_plan": {
       "planned_time": 300,
+      "planned_dist": 0
+    }
+  },
+  "20260731_Bike_BikeLSD_210_0": {
+    "date": "2026-07-31",
+    "summary": "Bike: LSD",
+    "uid": "20260731_Bike_BikeLSD_210_0",
+    "type": "Bike",
+    "planned_time": 210,
+    "actual_time": 199,
+    "planned_dist": 0,
+    "actual_dist": 89.24,
+    "last_synced": "2026-08-06T09:56:13.794746",
+    "original_plan": {
+      "planned_time": 210,
+      "planned_dist": 0
+    }
+  },
+  "20260801_Run_Run有氧打底心率上限145bpm_80_14.0": {
+    "date": "2026-08-01",
+    "summary": "Run: 有氧打底 心率上限145bpm",
+    "uid": "20260801_Run_Run有氧打底心率上限145bpm_80_14.0",
+    "type": "Run",
+    "planned_time": 80,
+    "actual_time": 79,
+    "planned_dist": 14.0,
+    "actual_dist": 11.53,
+    "last_synced": "2026-08-06T09:56:13.794746",
+    "original_plan": {
+      "planned_time": 80,
+      "planned_dist": 14.0
+    }
+  },
+  "20260803_Run_RunRunning_90_11.2": {
+    "date": "2026-08-03",
+    "summary": "Run: Running",
+    "uid": "20260803_Run_RunRunning_90_11.2",
+    "type": "Run",
+    "planned_time": 90,
+    "actual_time": 84,
+    "planned_dist": 11.2,
+    "actual_dist": 11.58,
+    "last_synced": "2026-08-06T09:56:13.794746",
+    "original_plan": {
+      "planned_time": 90,
+      "planned_dist": 11.2
+    }
+  },
+  "20260804_Swim_Swim甜甜課表_80_0": {
+    "date": "2026-08-04",
+    "summary": "Swim: 甜甜課表",
+    "uid": "20260804_Swim_Swim甜甜課表_80_0",
+    "type": "Swim",
+    "planned_time": 80,
+    "actual_time": 65,
+    "planned_dist": 0,
+    "actual_dist": 3.3,
+    "last_synced": "2026-08-06T09:56:13.794746",
+    "original_plan": {
+      "planned_time": 80,
+      "planned_dist": 0
+    }
+  },
+  "20260805_Bike_BikeTEMPO930X8_90_0": {
+    "date": "2026-08-05",
+    "summary": "Bike: TEMPO 9'30 X 8",
+    "uid": "20260805_Bike_BikeTEMPO930X8_90_0",
+    "type": "Bike",
+    "planned_time": 90,
+    "actual_time": 196,
+    "planned_dist": 0,
+    "actual_dist": 59.67,
+    "last_synced": "2026-08-06T09:56:13.794746",
+    "original_plan": {
+      "planned_time": 90,
       "planned_dist": 0
     }
   }
