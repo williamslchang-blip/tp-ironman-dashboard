@@ -743,7 +743,7 @@
     "actual_time": 65,
     "planned_dist": 0,
     "actual_dist": 3.3,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 80,
       "planned_dist": 0
@@ -758,7 +758,7 @@
     "actual_time": 196,
     "planned_dist": 0,
     "actual_dist": 59.67,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 0
@@ -773,7 +773,7 @@
     "actual_time": 29,
     "planned_dist": 5.0,
     "actual_dist": 4.56,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 30,
       "planned_dist": 5.0
@@ -788,7 +788,7 @@
     "actual_time": 67,
     "planned_dist": 0,
     "actual_dist": 3.4,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 80,
       "planned_dist": 0
@@ -863,7 +863,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -878,7 +878,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -893,7 +893,7 @@
     "actual_time": 84,
     "planned_dist": 11.2,
     "actual_dist": 11.58,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 11.2
@@ -908,7 +908,7 @@
     "actual_time": 30,
     "planned_dist": 0,
     "actual_dist": 7.45,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -923,7 +923,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 180,
       "planned_dist": 0
@@ -938,7 +938,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 300,
       "planned_dist": 0
@@ -1028,7 +1028,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -1043,7 +1043,7 @@
     "actual_time": 0,
     "planned_dist": 11.6,
     "actual_dist": 0,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 100,
       "planned_dist": 11.6
@@ -1058,7 +1058,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 0
@@ -1073,7 +1073,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 0
@@ -1103,7 +1103,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 0
@@ -1118,7 +1118,7 @@
     "actual_time": 0,
     "planned_dist": 23.0,
     "actual_dist": 0,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 180,
       "planned_dist": 23.0
@@ -1133,10 +1133,55 @@
     "actual_time": 0,
     "planned_dist": 4.2,
     "actual_dist": 0,
-    "last_synced": "2026-08-07T09:44:36.978939",
+    "last_synced": "2026-08-07T20:00:12.039171",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 4.2
+    }
+  },
+  "20260813_Bike_BikeTEMPO930X8或外騎_90_0": {
+    "date": "2026-08-13",
+    "summary": "Bike: TEMPO 9'30 X 8 ( 或外騎 )",
+    "uid": "20260813_Bike_BikeTEMPO930X8或外騎_90_0",
+    "type": "Bike",
+    "planned_time": 90,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-08-07T20:00:12.039171",
+    "original_plan": {
+      "planned_time": 90,
+      "planned_dist": 0
+    }
+  },
+  "20260813_Run_Run轉換30分_30_5.0": {
+    "date": "2026-08-13",
+    "summary": "Run: 轉換30分",
+    "uid": "20260813_Run_Run轉換30分_30_5.0",
+    "type": "Run",
+    "planned_time": 30,
+    "actual_time": 0,
+    "planned_dist": 5.0,
+    "actual_dist": 0,
+    "last_synced": "2026-08-07T20:00:12.039171",
+    "original_plan": {
+      "planned_time": 30,
+      "planned_dist": 5.0
+    }
+  },
+  "20260815_Bike_BikeLSD5全程IF075070150140W_300_0": {
+    "date": "2026-08-15",
+    "summary": "Bike: LSD 5 全程 (IF 0.75-0.70 /150~140W)",
+    "uid": "20260815_Bike_BikeLSD5全程IF075070150140W_300_0",
+    "type": "Bike",
+    "planned_time": 300,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-08-07T20:00:12.039171",
+    "original_plan": {
+      "planned_time": 300,
+      "planned_dist": 0
     }
   }
 }
