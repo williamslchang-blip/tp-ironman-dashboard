@@ -89,4 +89,4 @@
 - 2026-08-06 修復 PowerShell 排程腳本 (`run_weekly_strength.ps1`, `run_sunday_report.ps1`, `run_daily_update.ps1`) 於無檔案變更時執行 `git commit` 拋出 Exit Code 1 的錯誤，全面提升自動化工作排程穩定度。
 - 2026-08-07
 - 2026-08-07 成功手動觸發並完成 TP 自動化流程 (`scripts/run_daily_update.ps1`)：完成 TrainingPeaks 行事曆事件同步、當週 (W32) 累計執行率報告更新、互動式網頁儀表板重新生成、靜態網頁打包並順利推送至 GitHub Pages。
-- 2026-08-07 同步 TrainingPeaks ATP (#plan) 官方 Period 階段命名格式：將網頁與排程階段名稱更新為 `Base 3 - Week 1`、`Base 3 - Week 2`、`Base 3 - Week 3 (Recovery)`、`Build 1 - Week 1`...等結構，並重新生成儀表板上傳 GitHub Pages。
+- 2026-08-07 同步 TrainingPeaks ATP (#plan) 官方 Period 階段命名格式：更新為「4 週一循環（3 週負荷 + 1 週恢復）」結構：`Base 3 - Week 1` (W32)、`Base 3 - Week 2` (W33)、`Base 3 - Week 3` (W34)、`Base 3 - Week 4 (Recovery)` (W35)，接續 `Build 1 - Week 1~4 (Recovery)`，已重新打包上傳 GitHub Pages。
