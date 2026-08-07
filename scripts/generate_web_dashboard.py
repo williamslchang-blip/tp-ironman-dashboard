@@ -141,26 +141,47 @@ def generate_52_week_dashboard():
         if w < current_week_num:
             status_tag = "Past"
             status_label = "已完成"
-            phase = "Base 1" if w <= 15 else ("Base 2" if w <= 27 else "Base 3")
+            if w <= 15:
+                phase = "Base 1"
+            elif w <= 27:
+                phase = "Base 2"
+            elif w == 28:
+                phase = "Base 2 - Week 1"
+            elif w == 29:
+                phase = "Base 2 - Week 2"
+            elif w == 30:
+                phase = "Base 2 - Week 3"
+            elif w == 31:
+                phase = "Base 2 - Week 4 (Recovery)"
+            else:
+                phase = "Base Phase"
         elif w == current_week_num:
             status_tag = "Current"
             status_label = "本週進行中"
-            phase = "Base 3-1"
+            phase = "Base 3 - Week 1"
         else:
             status_tag = "Future"
             status_label = "預計計畫"
             if w == 33:
-                phase = "Base 3-2"
+                phase = "Base 3 - Week 2"
             elif w == 34:
-                phase = "Base 3-3 (Recovery)"
-            elif w in range(35, 38):
-                phase = "Build Phase"
-            elif w in range(38, 41):
-                phase = "Peak / Big Brick"
+                phase = "Base 3 - Week 3 (Recovery)"
+            elif w == 35:
+                phase = "Build 1 - Week 1"
+            elif w == 36:
+                phase = "Build 1 - Week 2"
+            elif w == 37:
+                phase = "Build 1 - Week 3 (Recovery)"
+            elif w == 38:
+                phase = "Peak - Week 1"
+            elif w == 39:
+                phase = "Peak - Week 2"
+            elif w == 40:
+                phase = "Peak - Week 3 (Big Brick)"
             elif w in range(41, 44):
-                phase = "Taper Phase"
+                phase = f"Taper - Week {w - 40}"
             elif w == 44:
-                phase = "Ironman Race Week 🏆"
+                phase = "Race Week 🏆"
             else:
                 phase = "Off-Season / Maintenance"
 
