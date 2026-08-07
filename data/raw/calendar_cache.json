@@ -698,7 +698,7 @@
     "actual_time": 79,
     "planned_dist": 14.0,
     "actual_dist": 11.53,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 80,
       "planned_dist": 14.0
@@ -743,7 +743,7 @@
     "actual_time": 65,
     "planned_dist": 0,
     "actual_dist": 3.3,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 80,
       "planned_dist": 0
@@ -758,7 +758,7 @@
     "actual_time": 196,
     "planned_dist": 0,
     "actual_dist": 59.67,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 0
@@ -773,7 +773,7 @@
     "actual_time": 29,
     "planned_dist": 5.0,
     "actual_dist": 4.56,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 30,
       "planned_dist": 5.0
@@ -785,10 +785,10 @@
     "uid": "20260807_Swim_Swim甜甜課表_80_0",
     "type": "Swim",
     "planned_time": 80,
-    "actual_time": 0,
+    "actual_time": 67,
     "planned_dist": 0,
-    "actual_dist": 0,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "actual_dist": 3.4,
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 80,
       "planned_dist": 0
@@ -863,7 +863,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -878,7 +878,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -893,7 +893,7 @@
     "actual_time": 84,
     "planned_dist": 11.2,
     "actual_dist": 11.58,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 11.2
@@ -908,7 +908,7 @@
     "actual_time": 30,
     "planned_dist": 0,
     "actual_dist": 7.45,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -923,7 +923,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 180,
       "planned_dist": 0
@@ -938,7 +938,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 300,
       "planned_dist": 0
@@ -1028,7 +1028,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -1043,7 +1043,7 @@
     "actual_time": 0,
     "planned_dist": 11.6,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 100,
       "planned_dist": 11.6
@@ -1058,7 +1058,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 0
@@ -1073,7 +1073,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 0
@@ -1088,7 +1088,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 270,
       "planned_dist": 0
@@ -1103,7 +1103,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 0
@@ -1118,7 +1118,7 @@
     "actual_time": 0,
     "planned_dist": 23.0,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 180,
       "planned_dist": 23.0
@@ -1133,7 +1133,7 @@
     "actual_time": 0,
     "planned_dist": 4.2,
     "actual_dist": 0,
-    "last_synced": "2026-08-06T20:01:25.575556",
+    "last_synced": "2026-08-07T09:31:44.601021",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 4.2
