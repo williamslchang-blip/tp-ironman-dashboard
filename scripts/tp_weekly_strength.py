@@ -424,32 +424,108 @@ def build(monday):
                     font(run, 9.5, row_index == 0)
                     
     # ------------------ SECTION 4 ------------------
-    doc.add_paragraph("四、 肌力訓練動作內容", style="Heading 1")
-    main_a = [
-        ("分腿蹲 (Split Squat)", "3 組 × 6–8 下／邊 (強化單腿力量與平衡)"),
-        ("羅馬尼亞硬舉 (RDL)", "3 組 × 6–8 下 (強化臀大肌與大腿後側膕繩肌)"),
-        ("單腳硬舉 (Single Leg RDL)", "2 組 × 6–8 下／邊 (訓練腳踝與髖關節穩定)"),
-        ("側棒式 (Side Plank)", "2 組 × 30–45 秒／邊 (強化核心側向抗側彎能力)"),
-        ("死蟲式 (Dead bug)", "2 組 × 8–10 下／邊 (核心抗伸展能力)"),
-        ("提踵 (Calf Raises)", "3 組 × 12–15 下 (加強小腿與跟腱強度)")
-    ]
-    main_b = [
-        ("臀推或橋式 (Hip Thrust)", "3 組 × 8–10 下 (活化並強化臀大肌)"),
-        ("登階 (Step-up)", "3 組 × 6–8 下／邊 (模仿跑步推蹬與單腳穩定)"),
-        ("帕羅夫壓 (Pallof press)", "2 組 × 10–12 下／邊 (核心抗旋轉能力)"),
-        ("怪獸走 (Monster Walk)", "2 組 × 10–15 步／邊 (激活臀中肌，防止膝外翻)"),
-        ("離心提踵 (Eccentric Calf)", "3 組 × 8–12 下 (預防跟腱炎，加強推蹬剛性)"),
-        ("髖屈肌伸展 (Hip Flexor Stretch)", "2 組 × 30 秒／邊 (舒緩久坐與騎車的緊繃)")
-    ]
-    short = [
-        ("死蟲式 (Dead bug)", "2 組 × 8–10 下／邊"),
-        ("側棒式 (Side Plank)", "2 組 × 30 秒／邊"),
-        ("鳥狗式 (Bird dog)", "2 組 × 8 下／邊 (強化對側核心控制)"),
-        ("彈力帶側走 (Band Walk)", "2 組 × 10–15 步／邊"),
-        ("單腳提踵 (Single Calf Raise)", "2 組 × 12–15 下／邊")
-    ]
-    
-    exercise_table(doc, f"主課 {variant} (週一與週四執行)", main_a if variant == "A" else main_b)
+    iso_week = monday.isocalendar().week
+    if iso_week <= 30:
+        phase_num = 1
+        phase_title = "第一階段：解剖適應與防傷基礎期 (Weeks 27–30)"
+        main_a = [
+            ("分腿蹲 (Split Squat)", "3 組 × 6–8 下／邊 (強化單腿力量與平衡)"),
+            ("羅馬尼亞硬舉 (RDL)", "3 組 × 6–8 下 (強化臀大肌與大腿後側膕繩肌)"),
+            ("單腳硬舉 (Single Leg RDL)", "2 組 × 6–8 下／邊 (訓練腳踝與髖關節穩定)"),
+            ("側棒式 (Side Plank)", "2 組 × 30–45 秒／邊 (強化核心側向抗側彎能力)"),
+            ("死蟲式 (Dead bug)", "2 組 × 8–10 下／邊 (核心抗伸展能力)"),
+            ("提踵 (Calf Raises)", "3 組 × 12–15 下 (加強小腿與跟腱強度)")
+        ]
+        main_b = [
+            ("臀推或橋式 (Hip Thrust)", "3 組 × 8–10 下 (活化並強化臀大肌)"),
+            ("登階 (Step-up)", "3 組 × 6–8 下／邊 (模仿跑步推蹬與單腳穩定)"),
+            ("帕羅夫壓 (Pallof press)", "2 組 × 10–12 下／邊 (核心抗旋轉能力)"),
+            ("怪獸走 (Monster Walk)", "2 組 × 10–15 步／邊 (激活臀中肌，防止膝外翻)"),
+            ("離心提踵 (Eccentric Calf)", "3 組 × 8–12 下 (預防跟腱炎，加強推蹬剛性)"),
+            ("髖屈肌伸展 (Hip Flexor Stretch)", "2 組 × 30 秒／邊 (舒緩久坐與騎車的緊繃)")
+        ]
+        short = [
+            ("死蟲式 (Dead bug)", "2 組 × 8–10 下／邊"),
+            ("側棒式 (Side Plank)", "2 組 × 30 秒／邊"),
+            ("鳥狗式 (Bird dog)", "2 組 × 8 下／邊 (強化對側核心控制)"),
+            ("彈力帶側走 (Band Walk)", "2 組 × 10–15 步／邊"),
+            ("單腳提踵 (Single Calf Raise)", "2 組 × 12–15 下／邊")
+        ]
+    elif iso_week <= 34:
+        phase_num = 2
+        phase_title = "第二階段：力量進階與單腿爆發期 (Weeks 31–34)"
+        main_a = [
+            ("保加利亞分腿蹲 (Bulgarian Split Squat)", "3 組 × 6–8 下／邊 (大幅提升單腿負重與髖關節伸展)"),
+            ("負重羅馬尼亞硬舉 (Barbell/DB RDL)", "3 組 × 6 下 (強化後側鏈拉力與下背保護)"),
+            ("哥薩克深蹲 (Cossack Squat)", "2 組 × 6–8 下／邊 (強化內收肌與髖關節多維度活動度)"),
+            ("側棒式抬腿 (Side Plank w/ Leg Lift)", "2 組 × 8–10 下／邊 (動態強化臀中肌與抗側彎)"),
+            ("抗拉力帶鳥狗式 (Resisted Bird-Dog)", "2組 × 8–10 下／邊 (加強對側核心傳導)"),
+            ("單腳離心提踵 (Single Calf Drop)", "3 組 × 10–12 下／邊 (提升跟腱剛性與跑步推蹬耐受)")
+        ]
+        main_b = [
+            ("單腿臀推 (Single-leg Hip Thrust)", "3 組 × 8–10 下／邊 (活化臀大肌單側獨立輸出)"),
+            ("負重登階加提膝 (Weighted Step-up w/ Knee Drive)", "3 組 × 6–8 下／邊 (完全模擬跑步推蹬與擺腿機制)"),
+            ("壺鈴搖擺 (Kettlebell Swing)", "3 組 × 12–15 下 (訓練髖關節快速伸展爆發力)"),
+            ("站姿帕羅夫壓帶轉體 (Pallof Press w/ Rotation)", "2 組 × 10 下／邊 (動態抗旋轉與軀幹穩定)"),
+            ("懸吊/滾輪核心抗伸展 (Ab Wheel Rollout)", "2 組 × 8–10 下 (強化前側腹直肌與深層核心)"),
+            ("站姿彈力帶提膝 (Band Hip Flexor Drive)", "2 組 × 12 下／邊 (強化長跑擺腿抗疲勞能力)")
+        ]
+        short = [
+            ("滾輪核心抗伸展 (Ab Wheel Rollout)", "2 組 × 8 下"),
+            ("側棒式轉體 (Side Plank Threading)", "2 組 × 8 下／邊"),
+            ("單腿硬舉靜態支撐 (Single Leg RDL Hold)", "2 組 × 20 秒／邊"),
+            ("彈力帶怪獸走+深蹲 (Band Walk to Squat)", "2 組 × 12 步"),
+            ("負重單腳提踵 (Weighted Single Calf Raise)", "2 組 × 10–12 下／邊")
+        ]
+    elif iso_week <= 38:
+        phase_num = 3
+        phase_title = "第三階段：鐵人專項耐力與神經傳導期 (Weeks 35–38)"
+        main_a = [
+            ("跳躍登階 / 爆發分腿蹲 (Plyometric Split Jump)", "3 組 × 5 下／邊 (提升神經快縮與跑姿彈性)"),
+            ("高次數羅馬尼亞硬舉 (RDL)", "3 組 × 10–12 下 (強化肌耐力與跑後段抗衰退能力)"),
+            ("單腳硬舉加提膝 (Single Leg RDL to Knee Drive)", "3 組 × 6–8 下／邊 (整合跑步全週期連結)"),
+            ("側棒式轉體抬腿 (Dynamic Side Plank Threading)", "2 組 × 8 下／邊 (極限抗側彎與動態穩定)"),
+            ("死蟲式加抗力球 (Deadbug w/ Stability Ball)", "2 組 × 10 下／邊 (強化核心協調性)"),
+            ("提踵加跳躍 (Calf Pogo Jumps)", "3 組 × 15 秒 (提升腳踝跟腱彈性反應)")
+        ]
+        main_b = [
+            ("單腿負重臀推 (Weighted Single Hip Thrust)", "3 組 × 8 下／邊 (建立強大爬坡與騎車推蹬功率)"),
+            ("高箱登階 (High Step-Up)", "3 組 × 8 下／邊 (加深髖關節屈曲肌群刺激)"),
+            ("地雷管旋轉 / 帕羅夫旋轉 (Landmine Rotation)", "2 組 × 10 下／邊 (轉化核心剛性至跑步擺臂)"),
+            ("彈力帶橫向快速走 (Speed Band Walk)", "2 組 × 15 步／邊 (維繫髖關節外展肌群高頻率)"),
+            ("離心提踵 (Eccentric Calf)", "3 組 × 10 下 (強化跟腱韌性)"),
+            ("髖屈肌拉伸與活化 (Hip Flexor Stretch & Drive)", "2 組 × 30 秒／邊")
+        ]
+        short = [
+            ("死蟲式 (Dead bug)", "2 組 × 10 下／邊"),
+            ("側棒式 (Side Plank)", "2 組 × 40 秒／邊"),
+            ("鳥狗式 (Bird dog)", "2 組 × 10 下／邊"),
+            ("彈力帶側走 (Band Walk)", "2 組 × 15 步／邊"),
+            ("單腳提踵 (Single Calf Raise)", "2 組 × 15 下／邊")
+        ]
+    else:
+        phase_num = 4
+        phase_title = "第四階段：賽前減量與神經活化期 (Weeks 39+)"
+        main_a = [
+            ("輕量分腿蹲 (Light Split Squat)", "2 組 × 5 下／邊 (神經活化不累積疲勞)"),
+            ("輕量單腳硬舉 (Light Single Leg RDL)", "2 組 × 5 下／邊 (本體感覺維繫)"),
+            ("側棒式 (Side Plank)", "2 組 × 20 秒／邊 (核心維力)"),
+            ("提踵 (Calf Raises)", "2 組 × 10 下 (腳踝喚醒)")
+        ]
+        main_b = [
+            ("輕量橋式 (Light Hip Bridge)", "2 組 × 8 下 (臀肌喚醒)"),
+            ("輕量登階 (Light Step-up)", "2 組 × 5 下／邊 (動作路徑複習)"),
+            ("帕羅夫壓 (Pallof press)", "2 組 × 8 下／邊 (核心穩定)"),
+            ("髖屈肌伸展 (Hip Flexor Stretch)", "2 組 × 30 秒／邊 (全身放鬆)")
+        ]
+        short = [
+            ("死蟲式 (Dead bug)", "2 組 × 6 下／邊"),
+            ("側棒式 (Side Plank)", "2 組 × 20 秒／邊"),
+            ("鳥狗式 (Bird dog)", "2 組 × 6 下／邊")
+        ]
+
+    doc.add_paragraph(f"四、 肌力訓練動作內容 ({phase_title})", style="Heading 1")
+    exercise_table(doc, f"主課 {variant} (週一與週四執行 - {phase_title.split(' ')[0]})", main_a if variant == "A" else main_b)
     exercise_table(doc, "短課模板 (週三執行)", short)
     
     note = doc.add_paragraph()
