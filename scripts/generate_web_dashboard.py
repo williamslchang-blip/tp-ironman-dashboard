@@ -165,19 +165,19 @@ def generate_52_week_dashboard():
             if w == 33:
                 phase = "Base 3 - Week 2"
             elif w == 34:
-                phase = "Base 3 - Week 3 (Recovery)"
+                phase = "Base 3 - Week 3"
             elif w == 35:
-                phase = "Build 1 - Week 1"
+                phase = "Base 3 - Week 4 (Recovery)"
             elif w == 36:
-                phase = "Build 1 - Week 2"
+                phase = "Build 1 - Week 1"
             elif w == 37:
-                phase = "Build 1 - Week 3 (Recovery)"
+                phase = "Build 1 - Week 2"
             elif w == 38:
-                phase = "Peak - Week 1"
+                phase = "Build 1 - Week 3"
             elif w == 39:
-                phase = "Peak - Week 2"
+                phase = "Build 1 - Week 4 (Recovery)"
             elif w == 40:
-                phase = "Peak - Week 3 (Big Brick)"
+                phase = "Peak Phase (Big Brick)"
             elif w in range(41, 44):
                 phase = f"Taper - Week {w - 40}"
             elif w == 44:
