@@ -87,5 +87,5 @@
 - 2026-08-06
 - 2026-08-06 已建立並配置 **Codex 子 Agent (`codex`)** 專責處理自動化腳本與排程任務執行；由主 Agent (Antigravity) 進行監督與產出檢驗。
 - 2026-08-06 修復 PowerShell 排程腳本 (`run_weekly_strength.ps1`, `run_sunday_report.ps1`, `run_daily_update.ps1`) 於無檔案變更時執行 `git commit` 拋出 Exit Code 1 的錯誤，全面提升自動化工作排程穩定度。
-
-
+- 2026-08-07
+- 2026-08-07 成功手動觸發並完成 TP 自動化流程 (`scripts/run_daily_update.ps1`)：完成 TrainingPeaks 行事曆事件同步、當週 (W32) 累計執行率報告更新、互動式網頁儀表板重新生成、靜態網頁打包並順利推送至 GitHub Pages。
