@@ -743,7 +743,7 @@
     "actual_time": 65,
     "planned_dist": 0,
     "actual_dist": 3.3,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.483208",
     "original_plan": {
       "planned_time": 80,
       "planned_dist": 0
@@ -758,7 +758,7 @@
     "actual_time": 196,
     "planned_dist": 0,
     "actual_dist": 59.67,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.483208",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 0
@@ -773,7 +773,7 @@
     "actual_time": 29,
     "planned_dist": 5.0,
     "actual_dist": 4.56,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.483208",
     "original_plan": {
       "planned_time": 30,
       "planned_dist": 5.0
@@ -788,7 +788,7 @@
     "actual_time": 67,
     "planned_dist": 0,
     "actual_dist": 3.4,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.483208",
     "original_plan": {
       "planned_time": 80,
       "planned_dist": 0
@@ -878,7 +878,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.484245",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -893,7 +893,7 @@
     "actual_time": 84,
     "planned_dist": 11.2,
     "actual_dist": 11.58,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.483208",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 11.2
@@ -908,7 +908,7 @@
     "actual_time": 30,
     "planned_dist": 0,
     "actual_dist": 7.45,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.483208",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -923,7 +923,7 @@
     "actual_time": 180,
     "planned_dist": 0,
     "actual_dist": 90.84,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.484245",
     "original_plan": {
       "planned_time": 180,
       "planned_dist": 0
@@ -938,7 +938,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.484245",
     "original_plan": {
       "planned_time": 300,
       "planned_dist": 0
@@ -1028,7 +1028,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.484245",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -1043,7 +1043,7 @@
     "actual_time": 0,
     "planned_dist": 11.6,
     "actual_dist": 0,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.484245",
     "original_plan": {
       "planned_time": 100,
       "planned_dist": 11.6
@@ -1103,7 +1103,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.484245",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 0
@@ -1133,7 +1133,7 @@
     "actual_time": 0,
     "planned_dist": 4.2,
     "actual_dist": 0,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.484245",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 4.2
@@ -1148,7 +1148,7 @@
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.484245",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 0
@@ -1163,7 +1163,7 @@
     "actual_time": 0,
     "planned_dist": 5.0,
     "actual_dist": 0,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.484245",
     "original_plan": {
       "planned_time": 30,
       "planned_dist": 5.0
@@ -1193,7 +1193,7 @@
     "actual_time": 44,
     "planned_dist": 0,
     "actual_dist": 6.82,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.484245",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -1208,10 +1208,70 @@
     "actual_time": 5,
     "planned_dist": 0,
     "actual_dist": 0.36,
-    "last_synced": "2026-08-08T15:24:35.233346",
+    "last_synced": "2026-08-08T21:11:27.484245",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
+    }
+  },
+  "20260812_Swim_Swim甜甜課表_80_0": {
+    "date": "2026-08-12",
+    "summary": "Swim: 甜甜課表",
+    "uid": "20260812_Swim_Swim甜甜課表_80_0",
+    "type": "Swim",
+    "planned_time": 80,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-08-08T21:11:27.484245",
+    "original_plan": {
+      "planned_time": 80,
+      "planned_dist": 0
+    }
+  },
+  "20260814_Swim_Swim甜甜課表_80_0": {
+    "date": "2026-08-14",
+    "summary": "Swim: 甜甜課表",
+    "uid": "20260814_Swim_Swim甜甜課表_80_0",
+    "type": "Swim",
+    "planned_time": 80,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-08-08T21:11:27.484245",
+    "original_plan": {
+      "planned_time": 80,
+      "planned_dist": 0
+    }
+  },
+  "20260815_Bike_BikeLSD45全程IF0807_270_0": {
+    "date": "2026-08-15",
+    "summary": "Bike: LSD 4.5 全程 (IF 0.8-0.7",
+    "uid": "20260815_Bike_BikeLSD45全程IF0807_270_0",
+    "type": "Bike",
+    "planned_time": 270,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-08-08T21:11:27.484245",
+    "original_plan": {
+      "planned_time": 270,
+      "planned_dist": 0
+    }
+  },
+  "20260816_Run_Run福和橋河濱明德宮補水則返_150_23.0": {
+    "date": "2026-08-16",
+    "summary": "Run: 福和橋～河濱～明德宮（補水則返）",
+    "uid": "20260816_Run_Run福和橋河濱明德宮補水則返_150_23.0",
+    "type": "Run",
+    "planned_time": 150,
+    "actual_time": 0,
+    "planned_dist": 23.0,
+    "actual_dist": 0,
+    "last_synced": "2026-08-08T21:11:27.484245",
+    "original_plan": {
+      "planned_time": 150,
+      "planned_dist": 23.0
     }
   }
 }
