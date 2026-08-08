@@ -90,3 +90,9 @@
 - 2026-08-07
 - 2026-08-07 成功手動觸發並完成 TP 自動化流程 (`scripts/run_daily_update.ps1`)：完成 TrainingPeaks 行事曆事件同步、當週 (W32) 累計執行率報告更新、互動式網頁儀表板重新生成、靜態網頁打包並順利推送至 GitHub Pages。
 - 2026-08-07 同步 TrainingPeaks ATP (#plan) 官方 Period 階段命名格式：更新為「4 週一循環（3 週負荷 + 1 週恢復）」結構：`Base 3 - Week 1` (W32)、`Base 3 - Week 2` (W33)、`Base 3 - Week 3` (W34)、`Base 3 - Week 4 (Recovery)` (W35)，接續 `Build 1 - Week 1~4 (Recovery)`，已重新打包上傳 GitHub Pages。
+- 2026-08-08
+- 2026-08-08 由 Codex / Antigravity 自動化觸發與更新 TP 紀錄：成功從 TrainingPeaks Live iCal 串接最新運動數據（新增 8/8 週六 3 小時 90.84 km 單車長騎與 44 分鐘 6.82 km 跑步紀錄）。
+- 2026-08-08 當週 (W32) 時間執行率躍升至 57.3% (游泳 59.7%、單車 64.7%、跑步 43.4%)。
+- 2026-08-08 自動化重構 Markdown/Word 當週執行率報告 (`2026-W32_當週執行率回顧報告.md` / `.docx`) 與 52 週 Web 儀表板，並已順利 Commit 與 Commit Push 至 GitHub (`main -> main`) 自動更新 GitHub Pages 網站。
+- 2026-08-08 驗證 Windows Task Scheduler 三項自動化工作排程 (`TP_Daily_8PM_Update`, `TP_Monday_Schedule_Fetch`, `TP_Sunday_Execution_Report`) 運作正常且持續 Ready 排程發布中。
+
