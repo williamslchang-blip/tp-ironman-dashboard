@@ -55,7 +55,7 @@ def sync():
     try:
         request = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
         with urllib.request.urlopen(request, timeout=30) as response:
-            text = response.read().decode("utf-8-sig")
+            text = response.read().decode("utf-8")
     except Exception as e:
         print("Error fetching calendar:", e)
         return
@@ -75,6 +75,9 @@ def sync():
                 
     print(f"Fetched {len(events)} events from TP.")
     
+    live_uids = set()
+    min_live_date = None
+    max_live_date = None
     updated_count = 0
     new_count = 0
     
@@ -84,8 +87,14 @@ def sync():
             continue
         dt_str = raw_start[:8]
         dt = datetime.strptime(dt_str, "%Y%m%d").date()
+        if min_live_date is None or dt < min_live_date:
+            min_live_date = dt
+        if max_live_date is None or dt > max_live_date:
+            max_live_date = dt
+
         summary = ev.get("SUMMARY", "")
         desc = ev.get("DESCRIPTION", "")
+        tp_uid = ev.get("UID", "").strip()
         
         # Parse times/distances
         planned_time = 0
@@ -126,8 +135,8 @@ def sync():
         elif "Day Off" in summary:
             w_type = "Day Off"
             
-        clean_sum = re.sub(r'[^a-zA-Z0-9\u4e00-\u9fa5]', '', summary).strip()
-        uid = f"{dt_str}_{w_type}_{clean_sum}_{planned_time}_{planned_dist}"
+        uid = tp_uid if tp_uid else f"{dt_str}_{w_type}_{planned_time}_{planned_dist}"
+        live_uids.add(uid)
             
         event_data = {
             "date": str(dt),
@@ -141,38 +150,86 @@ def sync():
             "last_synced": datetime.now().isoformat()
         }
         
-        # In cache, let's see if we already have it
         if uid in cache:
-            # Update only if actual_time or actual_dist changed or if it was empty
             old = cache[uid]
-            # Save the original plan if not saved yet
-            if "original_plan" not in old:
-                old["original_plan"] = {
-                    "planned_time": old.get("planned_time", planned_time),
-                    "planned_dist": old.get("planned_dist", planned_dist)
-                }
-            
-            # Update actuals and current values
-            old["actual_time"] = actual_time if actual_time > 0 else old.get("actual_time", 0)
-            old["actual_dist"] = actual_dist if actual_dist > 0 else old.get("actual_dist", 0)
-            old["summary"] = summary
-            old["last_synced"] = event_data["last_synced"]
+            orig_pt = old.get("original_plan", {}).get("planned_time", old.get("planned_time", planned_time))
+            orig_pd = old.get("original_plan", {}).get("planned_dist", old.get("planned_dist", planned_dist))
+            event_data["original_plan"] = {
+                "planned_time": orig_pt if orig_pt > 0 else planned_time,
+                "planned_dist": orig_pd if orig_pd > 0 else planned_dist
+            }
+            cache[uid].update(event_data)
             updated_count += 1
         else:
-            # New event
+            # Check if old cache had legacy entry on same date & type
+            orig_pt = planned_time
+            orig_pd = planned_dist
+            for old_k, old_v in cache.items():
+                if old_v.get("date") == str(dt) and old_v.get("type") == w_type:
+                    old_orig_pt = old_v.get("original_plan", {}).get("planned_time", old_v.get("planned_time", 0))
+                    old_orig_pd = old_v.get("original_plan", {}).get("planned_dist", old_v.get("planned_dist", 0))
+                    if old_orig_pt > 0 and orig_pt == 0:
+                        orig_pt = old_orig_pt
+                    if old_orig_pd > 0 and orig_pd == 0:
+                        orig_pd = old_orig_pd
             event_data["original_plan"] = {
-                "planned_time": planned_time,
-                "planned_dist": planned_dist
+                "planned_time": orig_pt,
+                "planned_dist": orig_pd
             }
             cache[uid] = event_data
             new_count += 1
-            
+
+    # Cleanup stale / deleted planned events from live date range
+    to_delete = set()
+    if min_live_date:
+        for k, v in list(cache.items()):
+            try:
+                ev_date = date.fromisoformat(v["date"])
+                if ev_date >= min_live_date:
+                    if k not in live_uids:
+                        if v.get("actual_time", 0) == 0 and v.get("actual_dist", 0) == 0:
+                            to_delete.add(k)
+                        elif not re.match(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", k, re.I):
+                            same_live = [l_k for l_k in live_uids if cache.get(l_k, {}).get("date") == v["date"] and cache.get(l_k, {}).get("type") == v["type"]]
+                            if same_live:
+                                to_delete.add(k)
+            except Exception:
+                pass
+
+    # Deduplicate past events (before min_live_date)
+    past_keys = [k for k, v in cache.items() if date.fromisoformat(v["date"]) < min_live_date]
+    grouped_past = {}
+    for k in past_keys:
+        v = cache[k]
+        group_key = (v["date"], v["type"])
+        grouped_past.setdefault(group_key, []).append(k)
+
+    for group_key, k_list in grouped_past.items():
+        if len(k_list) > 1:
+            has_completed = [k for k in k_list if cache[k].get("actual_time", 0) > 0]
+            if has_completed:
+                for k in k_list:
+                    if cache[k].get("actual_time", 0) == 0 and cache[k].get("actual_dist", 0) == 0:
+                        to_delete.add(k)
+                seen_act = set()
+                for k in has_completed:
+                    act_tuple = (cache[k].get("actual_time", 0), cache[k].get("actual_dist", 0))
+                    if act_tuple in seen_act:
+                        to_delete.add(k)
+                    else:
+                        seen_act.add(act_tuple)
+
+    for k in to_delete:
+        if k in cache:
+            del cache[k]
+
     # Save cache
     CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
     with open(CACHE_FILE, "w", encoding="utf-8") as f:
         json.dump(cache, f, ensure_ascii=False, indent=2)
         
-    print(f"Sync complete. New events added: {new_count}. Cache updated: {updated_count}.")
+    print(f"Sync complete. New: {new_count}, Updated: {updated_count}, Cleaned/Deleted: {len(to_delete)}. Total active events in cache: {len(cache)}.")
 
 if __name__ == "__main__":
     sync()
+

@@ -95,4 +95,9 @@
 - 2026-08-08 當週 (W32) 時間執行率躍升至 57.3% (游泳 59.7%、單車 64.7%、跑步 43.4%)。
 - 2026-08-08 自動化重構 Markdown/Word 當週執行率報告 (`2026-W32_當週執行率回顧報告.md` / `.docx`) 與 52 週 Web 儀表板，並已順利 Commit 與 Commit Push 至 GitHub (`main -> main`) 自動更新 GitHub Pages 網站。
 - 2026-08-08 驗證 Windows Task Scheduler 三項自動化工作排程 (`TP_Daily_8PM_Update`, `TP_Monday_Schedule_Fetch`, `TP_Sunday_Execution_Report`) 運作正常且持續 Ready 排程發布中。
+- 2026-08-09
+- 2026-08-09 修復 `scripts/sync_calendar.py` 舊版複合 Key 導致 TrainingPeaks 課表改名、微調或刪除時於 `calendar_cache.json` 累積過期舊計畫的 Bug。現已全面採用 TP 官方原生 GUID `UID` 作為唯一 Key，並新增刪除/替換課表自動清理機制。
+- 2026-08-09 成功完成快取數據去重與校正：W32 計畫時間由原本重複加總的 30.2 小時恢復為真實 TP 預定計畫時數 15.4 小時（實際完成 13.7 小時，時間執行率正確提升至 88.8%），W33 預計計畫時數亦同步校正為 16.3 小時。
+- 2026-08-09 重新產出《W32 當週執行率回顧報告》(Word/MD)、地端互動式 52 週 Web 儀表板 (`outputs/index.html`) 並完成 `docs/` 部署包更新。
+
 
