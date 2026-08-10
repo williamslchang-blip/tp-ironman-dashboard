@@ -141,45 +141,59 @@ def generate_52_week_dashboard():
         if w < current_week_num:
             status_tag = "Past"
             status_label = "已完成"
+        elif w == current_week_num:
+            status_tag = "Current"
+            status_label = "本週進行中"
+        else:
+            status_tag = "Future"
+            status_label = "預計計畫"
+
+        # Dynamic phase lookup from Monday's event summary (e.g. Base 3-2) or fallback mapping
+        monday_events = [ev for ev in events if ev.get("date") == str(w_monday)]
+        phase = None
+        for ev in monday_events:
+            summary = ev.get("summary", "")
+            match = re.search(r"\b(Base|Build)\s*(\d+)-(\d+)\b", summary, re.IGNORECASE)
+            if match:
+                phase_type = match.group(1).capitalize()
+                phase_cycle = match.group(2)
+                phase_week = match.group(3)
+                phase = f"{phase_type} {phase_cycle}-{phase_week}"
+                break
+
+        if not phase:
             if w <= 15:
                 phase = "Base 1"
             elif w <= 27:
                 phase = "Base 2"
             elif w == 28:
-                phase = "Base 2 - Week 1"
+                phase = "Base 2-1"
             elif w == 29:
-                phase = "Base 2 - Week 2"
+                phase = "Base 2-2"
             elif w == 30:
-                phase = "Base 2 - Week 3"
+                phase = "Base 2-3"
             elif w == 31:
-                phase = "Base 2 - Week 4 (Recovery)"
-            else:
-                phase = "Base Phase"
-        elif w == current_week_num:
-            status_tag = "Current"
-            status_label = "本週進行中"
-            phase = "Base 3 - Week 1"
-        else:
-            status_tag = "Future"
-            status_label = "預計計畫"
-            if w == 33:
-                phase = "Base 3 - Week 2"
+                phase = "Base 2-4 (Recovery)"
+            elif w == 32:
+                phase = "Base 3-1"
+            elif w == 33:
+                phase = "Base 3-2"
             elif w == 34:
-                phase = "Base 3 - Week 3"
+                phase = "Base 3-3"
             elif w == 35:
-                phase = "Base 3 - Week 4 (Recovery)"
+                phase = "Base 3-4 (Recovery)"
             elif w == 36:
-                phase = "Build 1 - Week 1"
+                phase = "Build 1-1"
             elif w == 37:
-                phase = "Build 1 - Week 2"
+                phase = "Build 1-2"
             elif w == 38:
-                phase = "Build 1 - Week 3"
+                phase = "Build 1-3"
             elif w == 39:
-                phase = "Build 1 - Week 4 (Recovery)"
+                phase = "Build 1-4 (Recovery)"
             elif w == 40:
-                phase = "Peak Phase (Big Brick)"
-            elif w in range(41, 44):
-                phase = f"Taper - Week {w - 40}"
+                phase = "Peak Phase"
+            elif 41 <= w <= 43:
+                phase = f"Taper {w - 40}"
             elif w == 44:
                 phase = "Race Week 🏆"
             else:
