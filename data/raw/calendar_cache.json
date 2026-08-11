@@ -929,36 +929,6 @@
       "planned_dist": 0
     }
   },
-  "c6987ff5-b834-4a32-98cd-d6f982095c94": {
-    "date": "2026-08-06",
-    "summary": "Bike: TEMPO 9'30 X 8",
-    "uid": "c6987ff5-b834-4a32-98cd-d6f982095c94",
-    "type": "Bike",
-    "planned_time": 90,
-    "actual_time": 196,
-    "planned_dist": 0,
-    "actual_dist": 59.67,
-    "last_synced": "2026-08-09T20:48:23.198842",
-    "original_plan": {
-      "planned_time": 90,
-      "planned_dist": 0
-    }
-  },
-  "34756209-0208-432e-8c62-6ba79909756b": {
-    "date": "2026-08-06",
-    "summary": "Run: 轉換30分",
-    "uid": "34756209-0208-432e-8c62-6ba79909756b",
-    "type": "Run",
-    "planned_time": 30,
-    "actual_time": 29,
-    "planned_dist": 5.0,
-    "actual_dist": 4.56,
-    "last_synced": "2026-08-09T20:48:23.198842",
-    "original_plan": {
-      "planned_time": 30,
-      "planned_dist": 5.0
-    }
-  },
   "9457512c-9907-456d-8fc5-1d8c8085b22c": {
     "date": "2026-08-07",
     "summary": "Swim: 甜甜課表",
@@ -1032,36 +1002,6 @@
     "original_plan": {
       "planned_time": 300,
       "planned_dist": 0
-    }
-  },
-  "0939076b-a208-4ef3-8c95-ffbdaa9a5e45": {
-    "date": "2026-08-06",
-    "summary": "Bike: TEMPO 9'30 X 8",
-    "uid": "0939076b-a208-4ef3-8c95-ffbdaa9a5e45",
-    "type": "Bike",
-    "planned_time": 90,
-    "actual_time": 196,
-    "planned_dist": 0,
-    "actual_dist": 59.67,
-    "last_synced": "2026-08-10T12:43:04.543108",
-    "original_plan": {
-      "planned_time": 90,
-      "planned_dist": 0
-    }
-  },
-  "655a1aab-34b7-4216-b924-ebcf9447e1df": {
-    "date": "2026-08-06",
-    "summary": "Run: 轉換30分",
-    "uid": "655a1aab-34b7-4216-b924-ebcf9447e1df",
-    "type": "Run",
-    "planned_time": 30,
-    "actual_time": 29,
-    "planned_dist": 5.0,
-    "actual_dist": 4.56,
-    "last_synced": "2026-08-10T12:43:04.543108",
-    "original_plan": {
-      "planned_time": 30,
-      "planned_dist": 5.0
     }
   },
   "65b9dc81-301a-49eb-ae87-43802e349c63": {
@@ -1139,36 +1079,6 @@
       "planned_dist": 0
     }
   },
-  "4072b82c-57da-4165-b562-757faab757c2": {
-    "date": "2026-08-06",
-    "summary": "Bike: TEMPO 9'30 X 8",
-    "uid": "4072b82c-57da-4165-b562-757faab757c2",
-    "type": "Bike",
-    "planned_time": 90,
-    "actual_time": 196,
-    "planned_dist": 0,
-    "actual_dist": 59.67,
-    "last_synced": "2026-08-10T20:00:11.469432",
-    "original_plan": {
-      "planned_time": 90,
-      "planned_dist": 0
-    }
-  },
-  "ba225252-bbe5-4cdc-8087-b0acbcb7f39c": {
-    "date": "2026-08-06",
-    "summary": "Run: 轉換30分",
-    "uid": "ba225252-bbe5-4cdc-8087-b0acbcb7f39c",
-    "type": "Run",
-    "planned_time": 30,
-    "actual_time": 29,
-    "planned_dist": 5.0,
-    "actual_dist": 4.56,
-    "last_synced": "2026-08-10T20:00:11.469432",
-    "original_plan": {
-      "planned_time": 30,
-      "planned_dist": 5.0
-    }
-  },
   "57312013-0dea-4b49-964a-038ae059156c": {
     "date": "2026-08-07",
     "summary": "Swim: 甜甜課表",
@@ -1244,181 +1154,241 @@
       "planned_dist": 0
     }
   },
-  "d8ce0945-455b-46f0-abcb-26f4dc39b836": {
-    "date": "2026-08-10",
-    "summary": "Day Off: Base 3-2 Day Off",
-    "uid": "d8ce0945-455b-46f0-abcb-26f4dc39b836",
-    "type": "Day Off",
-    "planned_time": 0,
-    "actual_time": 0,
+  "b3149f2b-d15e-4eeb-89e3-93bdb2cd5268": {
+    "date": "2026-08-07",
+    "summary": "Swim: 甜甜課表",
+    "uid": "b3149f2b-d15e-4eeb-89e3-93bdb2cd5268",
+    "type": "Swim",
+    "planned_time": 80,
+    "actual_time": 67,
     "planned_dist": 0,
-    "actual_dist": 0,
-    "last_synced": "2026-08-10T20:00:11.469432",
+    "actual_dist": 3.4,
+    "last_synced": "2026-08-11T20:00:11.521477",
+    "original_plan": {
+      "planned_time": 80,
+      "planned_dist": 0
+    }
+  },
+  "0bc6a7e7-07cf-4e7d-85c4-8dc5be8657f3": {
+    "date": "2026-08-08",
+    "summary": "Bike: 3",
+    "uid": "0bc6a7e7-07cf-4e7d-85c4-8dc5be8657f3",
+    "type": "Bike",
+    "planned_time": 180,
+    "actual_time": 180,
+    "planned_dist": 0,
+    "actual_dist": 90.84,
+    "last_synced": "2026-08-11T20:00:11.521477",
+    "original_plan": {
+      "planned_time": 180,
+      "planned_dist": 0
+    }
+  },
+  "592fb250-1fa2-492b-af2c-0b24d3987d3e": {
+    "date": "2026-08-08",
+    "summary": "Run: Running",
+    "uid": "592fb250-1fa2-492b-af2c-0b24d3987d3e",
+    "type": "Run",
+    "planned_time": 0,
+    "actual_time": 44,
+    "planned_dist": 0,
+    "actual_dist": 6.82,
+    "last_synced": "2026-08-11T20:00:11.521477",
+    "original_plan": {
+      "planned_time": 75,
+      "planned_dist": 12.0
+    }
+  },
+  "19e6d75e-de61-4071-b59a-23908d9317be": {
+    "date": "2026-08-08",
+    "summary": "Walk: Walking",
+    "uid": "19e6d75e-de61-4071-b59a-23908d9317be",
+    "type": "Other",
+    "planned_time": 0,
+    "actual_time": 5,
+    "planned_dist": 0,
+    "actual_dist": 0.36,
+    "last_synced": "2026-08-11T20:00:11.522264",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
     }
   },
-  "a48e6538-2543-43ba-ac7f-949f3526e3fe": {
+  "becd91d5-44da-450a-8c28-ece5b0458ba0": {
+    "date": "2026-08-09",
+    "summary": "Bike: 5",
+    "uid": "becd91d5-44da-450a-8c28-ece5b0458ba0",
+    "type": "Bike",
+    "planned_time": 300,
+    "actual_time": 121,
+    "planned_dist": 0,
+    "actual_dist": 52.43,
+    "last_synced": "2026-08-11T20:00:11.522264",
+    "original_plan": {
+      "planned_time": 300,
+      "planned_dist": 0
+    }
+  },
+  "d2d86bea-5d81-49a2-bfa6-daa3bbdc448f": {
+    "date": "2026-08-10",
+    "summary": "Day Off: Base 3-2 Day Off",
+    "uid": "d2d86bea-5d81-49a2-bfa6-daa3bbdc448f",
+    "type": "Day Off",
+    "planned_time": 0,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "last_synced": "2026-08-11T20:00:11.522264",
+    "original_plan": {
+      "planned_time": 0,
+      "planned_dist": 0
+    }
+  },
+  "2e397bcb-70df-4de5-9f48-2c03c94029e3": {
     "date": "2026-08-11",
-    "summary": "Run",
-    "uid": "a48e6538-2543-43ba-ac7f-949f3526e3fe",
+    "summary": "Run: Running",
+    "uid": "2e397bcb-70df-4de5-9f48-2c03c94029e3",
     "type": "Run",
     "planned_time": 90,
-    "actual_time": 0,
+    "actual_time": 86,
     "planned_dist": 11.6,
-    "actual_dist": 0,
-    "last_synced": "2026-08-10T20:00:11.469432",
+    "actual_dist": 11.92,
+    "last_synced": "2026-08-11T20:00:11.522264",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 11.6
     }
   },
-  "4b1a4607-9f0b-4c56-bfc9-aa16f8cebccd": {
-    "date": "2026-08-11",
-    "summary": "Bike: VO2 Max 5x1",
-    "uid": "4b1a4607-9f0b-4c56-bfc9-aa16f8cebccd",
-    "type": "Bike",
-    "planned_time": 60,
-    "actual_time": 0,
-    "planned_dist": 0,
-    "actual_dist": 0,
-    "last_synced": "2026-08-10T20:00:11.469432",
-    "original_plan": {
-      "planned_time": 60,
-      "planned_dist": 0
-    }
-  },
-  "dff08503-86db-44be-8dcf-94d1646a2124": {
+  "b97c5c29-e2eb-48cb-85e9-372659fcb8ba": {
     "date": "2026-08-12",
     "summary": "Swim: 甜甜課表",
-    "uid": "dff08503-86db-44be-8dcf-94d1646a2124",
+    "uid": "b97c5c29-e2eb-48cb-85e9-372659fcb8ba",
     "type": "Swim",
     "planned_time": 80,
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-10T20:00:11.469432",
+    "last_synced": "2026-08-11T20:00:11.522264",
     "original_plan": {
       "planned_time": 80,
       "planned_dist": 0
     }
   },
-  "6b523252-747d-48bf-b445-da7b7883de0b": {
+  "76ae8509-1b4d-412f-a923-abddea37e71c": {
     "date": "2026-08-13",
     "summary": "Bike: TEMPO 9'30 X 8 ( 或外騎 )",
-    "uid": "6b523252-747d-48bf-b445-da7b7883de0b",
+    "uid": "76ae8509-1b4d-412f-a923-abddea37e71c",
     "type": "Bike",
     "planned_time": 90,
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-10T20:00:11.469432",
+    "last_synced": "2026-08-11T20:00:11.522264",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 0
     }
   },
-  "79795c68-461a-4625-b6b2-8fa23e79a9d9": {
+  "61211b86-694e-4083-bf65-fc817d003caa": {
     "date": "2026-08-13",
     "summary": "Run: 轉換20分",
-    "uid": "79795c68-461a-4625-b6b2-8fa23e79a9d9",
+    "uid": "61211b86-694e-4083-bf65-fc817d003caa",
     "type": "Run",
     "planned_time": 20,
     "actual_time": 0,
     "planned_dist": 3.0,
     "actual_dist": 0,
-    "last_synced": "2026-08-10T20:00:11.469432",
+    "last_synced": "2026-08-11T20:00:11.522264",
     "original_plan": {
       "planned_time": 20,
       "planned_dist": 3.0
     }
   },
-  "90e4ca0f-41ad-4d97-a52c-ab9e9299dfb4": {
+  "da8bc0f5-f0eb-4c77-af69-a085d77d88e0": {
     "date": "2026-08-14",
     "summary": "Swim: 甜甜課表",
-    "uid": "90e4ca0f-41ad-4d97-a52c-ab9e9299dfb4",
+    "uid": "da8bc0f5-f0eb-4c77-af69-a085d77d88e0",
     "type": "Swim",
     "planned_time": 80,
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-10T20:00:11.469432",
+    "last_synced": "2026-08-11T20:00:11.522264",
     "original_plan": {
       "planned_time": 80,
       "planned_dist": 0
     }
   },
-  "f89c6f18-7046-4d32-bbb8-b7624116cdd0": {
+  "e88c808e-1403-4929-89a4-174aa46464f3": {
     "date": "2026-08-15",
     "summary": "Bike: LSD 4.5 全程 (IF 0.8-0.7",
-    "uid": "f89c6f18-7046-4d32-bbb8-b7624116cdd0",
+    "uid": "e88c808e-1403-4929-89a4-174aa46464f3",
     "type": "Bike",
     "planned_time": 270,
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-10T20:00:11.469432",
+    "last_synced": "2026-08-11T20:00:11.522264",
     "original_plan": {
       "planned_time": 270,
       "planned_dist": 0
     }
   },
-  "1de6682e-db04-4c42-993a-e452dc660968": {
+  "53a5e035-cf80-47b5-8b4b-c02973b05992": {
     "date": "2026-08-15",
     "summary": "Run: 轉換90分",
-    "uid": "1de6682e-db04-4c42-993a-e452dc660968",
+    "uid": "53a5e035-cf80-47b5-8b4b-c02973b05992",
     "type": "Run",
     "planned_time": 90,
     "actual_time": 0,
     "planned_dist": 14.0,
     "actual_dist": 0,
-    "last_synced": "2026-08-10T20:00:11.469432",
+    "last_synced": "2026-08-11T20:00:11.522264",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 14.0
     }
   },
-  "a5acbd95-c078-44b8-8438-b3e341a4dfe5": {
+  "3a255c03-63d4-41c9-9ada-8ceb4d8d28fe": {
     "date": "2026-08-16",
     "summary": "Run: 福和橋～河濱～明德宮（補水則返）",
-    "uid": "a5acbd95-c078-44b8-8438-b3e341a4dfe5",
+    "uid": "3a255c03-63d4-41c9-9ada-8ceb4d8d28fe",
     "type": "Run",
     "planned_time": 150,
     "actual_time": 0,
     "planned_dist": 23.0,
     "actual_dist": 0,
-    "last_synced": "2026-08-10T20:00:11.469432",
+    "last_synced": "2026-08-11T20:00:11.522264",
     "original_plan": {
       "planned_time": 150,
       "planned_dist": 23.0
     }
   },
-  "9a856ba3-629b-426f-b512-083d3065e66f": {
+  "1046b74e-515f-4231-acae-91c72ccf5d94": {
     "date": "2026-08-16",
     "summary": "Swim: 4200",
-    "uid": "9a856ba3-629b-426f-b512-083d3065e66f",
+    "uid": "1046b74e-515f-4231-acae-91c72ccf5d94",
     "type": "Swim",
     "planned_time": 90,
     "actual_time": 0,
     "planned_dist": 4.2,
     "actual_dist": 0,
-    "last_synced": "2026-08-10T20:00:11.470434",
+    "last_synced": "2026-08-11T20:00:11.522264",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 4.2
     }
   },
-  "4ddfb418-1979-4214-a435-ddc96f2bc530": {
+  "cc56b042-669b-49bb-98de-7f922b91b1c7": {
     "date": "2026-11-01",
     "summary": "B: IMKT",
-    "uid": "4ddfb418-1979-4214-a435-ddc96f2bc530",
+    "uid": "cc56b042-669b-49bb-98de-7f922b91b1c7",
     "type": "Other",
     "planned_time": 0,
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-10T20:00:11.470434",
+    "last_synced": "2026-08-11T20:00:11.522264",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
