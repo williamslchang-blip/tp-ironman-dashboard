@@ -929,21 +929,6 @@
       "planned_dist": 0
     }
   },
-  "9457512c-9907-456d-8fc5-1d8c8085b22c": {
-    "date": "2026-08-07",
-    "summary": "Swim: 甜甜課表",
-    "uid": "9457512c-9907-456d-8fc5-1d8c8085b22c",
-    "type": "Swim",
-    "planned_time": 80,
-    "actual_time": 67,
-    "planned_dist": 0,
-    "actual_dist": 3.4,
-    "last_synced": "2026-08-09T20:48:23.198842",
-    "original_plan": {
-      "planned_time": 80,
-      "planned_dist": 0
-    }
-  },
   "eb4b88b8-caf6-4b92-bb74-f113026521d3": {
     "date": "2026-08-08",
     "summary": "Bike: 3",
@@ -1001,21 +986,6 @@
     "last_synced": "2026-08-09T20:48:23.198842",
     "original_plan": {
       "planned_time": 300,
-      "planned_dist": 0
-    }
-  },
-  "65b9dc81-301a-49eb-ae87-43802e349c63": {
-    "date": "2026-08-07",
-    "summary": "Swim: 甜甜課表",
-    "uid": "65b9dc81-301a-49eb-ae87-43802e349c63",
-    "type": "Swim",
-    "planned_time": 80,
-    "actual_time": 67,
-    "planned_dist": 0,
-    "actual_dist": 3.4,
-    "last_synced": "2026-08-10T12:43:04.543108",
-    "original_plan": {
-      "planned_time": 80,
       "planned_dist": 0
     }
   },
@@ -1079,21 +1049,6 @@
       "planned_dist": 0
     }
   },
-  "57312013-0dea-4b49-964a-038ae059156c": {
-    "date": "2026-08-07",
-    "summary": "Swim: 甜甜課表",
-    "uid": "57312013-0dea-4b49-964a-038ae059156c",
-    "type": "Swim",
-    "planned_time": 80,
-    "actual_time": 67,
-    "planned_dist": 0,
-    "actual_dist": 3.4,
-    "last_synced": "2026-08-10T20:00:11.469432",
-    "original_plan": {
-      "planned_time": 80,
-      "planned_dist": 0
-    }
-  },
   "822e9753-9dc5-471e-8bee-44f408e2e4fd": {
     "date": "2026-08-08",
     "summary": "Bike: 3",
@@ -1151,21 +1106,6 @@
     "last_synced": "2026-08-10T20:00:11.469432",
     "original_plan": {
       "planned_time": 300,
-      "planned_dist": 0
-    }
-  },
-  "b3149f2b-d15e-4eeb-89e3-93bdb2cd5268": {
-    "date": "2026-08-07",
-    "summary": "Swim: 甜甜課表",
-    "uid": "b3149f2b-d15e-4eeb-89e3-93bdb2cd5268",
-    "type": "Swim",
-    "planned_time": 80,
-    "actual_time": 67,
-    "planned_dist": 0,
-    "actual_dist": 3.4,
-    "last_synced": "2026-08-11T20:00:11.521477",
-    "original_plan": {
-      "planned_time": 80,
       "planned_dist": 0
     }
   },
@@ -1229,21 +1169,6 @@
       "planned_dist": 0
     }
   },
-  "d2d86bea-5d81-49a2-bfa6-daa3bbdc448f": {
-    "date": "2026-08-10",
-    "summary": "Day Off: Base 3-2 Day Off",
-    "uid": "d2d86bea-5d81-49a2-bfa6-daa3bbdc448f",
-    "type": "Day Off",
-    "planned_time": 0,
-    "actual_time": 0,
-    "planned_dist": 0,
-    "actual_dist": 0,
-    "last_synced": "2026-08-11T20:00:11.522264",
-    "original_plan": {
-      "planned_time": 0,
-      "planned_dist": 0
-    }
-  },
   "2e397bcb-70df-4de5-9f48-2c03c94029e3": {
     "date": "2026-08-11",
     "summary": "Run: Running",
@@ -1259,136 +1184,226 @@
       "planned_dist": 11.6
     }
   },
-  "b97c5c29-e2eb-48cb-85e9-372659fcb8ba": {
-    "date": "2026-08-12",
-    "summary": "Swim: 甜甜課表",
-    "uid": "b97c5c29-e2eb-48cb-85e9-372659fcb8ba",
-    "type": "Swim",
-    "planned_time": 80,
+  "317fe19a-7879-4885-ba24-0aa5b83b9434": {
+    "date": "2026-08-08",
+    "summary": "Bike: 3",
+    "uid": "317fe19a-7879-4885-ba24-0aa5b83b9434",
+    "type": "Bike",
+    "planned_time": 180,
+    "actual_time": 180,
+    "planned_dist": 0,
+    "actual_dist": 90.84,
+    "last_synced": "2026-08-12T20:00:11.578262",
+    "original_plan": {
+      "planned_time": 180,
+      "planned_dist": 0
+    }
+  },
+  "62c2689b-64a5-455f-9898-33d30c090dba": {
+    "date": "2026-08-08",
+    "summary": "Run: Running",
+    "uid": "62c2689b-64a5-455f-9898-33d30c090dba",
+    "type": "Run",
+    "planned_time": 0,
+    "actual_time": 44,
+    "planned_dist": 0,
+    "actual_dist": 6.82,
+    "last_synced": "2026-08-12T20:00:11.579254",
+    "original_plan": {
+      "planned_time": 75,
+      "planned_dist": 12.0
+    }
+  },
+  "b4ced3fa-9cdc-41ec-a3ea-cc726d54d8ad": {
+    "date": "2026-08-08",
+    "summary": "Walk: Walking",
+    "uid": "b4ced3fa-9cdc-41ec-a3ea-cc726d54d8ad",
+    "type": "Other",
+    "planned_time": 0,
+    "actual_time": 5,
+    "planned_dist": 0,
+    "actual_dist": 0.36,
+    "last_synced": "2026-08-12T20:00:11.579254",
+    "original_plan": {
+      "planned_time": 0,
+      "planned_dist": 0
+    }
+  },
+  "90ad495b-61cb-4b99-9a8d-1b3acfd6d4c5": {
+    "date": "2026-08-09",
+    "summary": "Bike: 5",
+    "uid": "90ad495b-61cb-4b99-9a8d-1b3acfd6d4c5",
+    "type": "Bike",
+    "planned_time": 300,
+    "actual_time": 121,
+    "planned_dist": 0,
+    "actual_dist": 52.43,
+    "last_synced": "2026-08-12T20:00:11.579254",
+    "original_plan": {
+      "planned_time": 300,
+      "planned_dist": 0
+    }
+  },
+  "1a8fe266-ca10-4ace-9819-94af7c3e2ddf": {
+    "date": "2026-08-10",
+    "summary": "Day Off: Base 3-2 Day Off",
+    "uid": "1a8fe266-ca10-4ace-9819-94af7c3e2ddf",
+    "type": "Day Off",
+    "planned_time": 0,
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-11T20:00:11.522264",
+    "last_synced": "2026-08-12T20:00:11.579254",
+    "original_plan": {
+      "planned_time": 0,
+      "planned_dist": 0
+    }
+  },
+  "7ce49401-1322-41e8-86d3-c79b9e073d59": {
+    "date": "2026-08-11",
+    "summary": "Run: Running",
+    "uid": "7ce49401-1322-41e8-86d3-c79b9e073d59",
+    "type": "Run",
+    "planned_time": 90,
+    "actual_time": 86,
+    "planned_dist": 11.6,
+    "actual_dist": 11.92,
+    "last_synced": "2026-08-12T20:00:11.579254",
+    "original_plan": {
+      "planned_time": 90,
+      "planned_dist": 11.6
+    }
+  },
+  "99e093e6-5664-48ba-a0e2-5b49c62b4afa": {
+    "date": "2026-08-12",
+    "summary": "Swim: 甜甜課表",
+    "uid": "99e093e6-5664-48ba-a0e2-5b49c62b4afa",
+    "type": "Swim",
+    "planned_time": 80,
+    "actual_time": 66,
+    "planned_dist": 0,
+    "actual_dist": 3.3,
+    "last_synced": "2026-08-12T20:00:11.579254",
     "original_plan": {
       "planned_time": 80,
       "planned_dist": 0
     }
   },
-  "76ae8509-1b4d-412f-a923-abddea37e71c": {
+  "5a7bcd49-dd01-4142-a825-ce54e5c7b1c1": {
     "date": "2026-08-13",
     "summary": "Bike: TEMPO 9'30 X 8 ( 或外騎 )",
-    "uid": "76ae8509-1b4d-412f-a923-abddea37e71c",
+    "uid": "5a7bcd49-dd01-4142-a825-ce54e5c7b1c1",
     "type": "Bike",
     "planned_time": 90,
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-11T20:00:11.522264",
+    "last_synced": "2026-08-12T20:00:11.579254",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 0
     }
   },
-  "61211b86-694e-4083-bf65-fc817d003caa": {
+  "f8f0c06a-57d3-47a1-8391-0978f9e8c000": {
     "date": "2026-08-13",
     "summary": "Run: 轉換20分",
-    "uid": "61211b86-694e-4083-bf65-fc817d003caa",
+    "uid": "f8f0c06a-57d3-47a1-8391-0978f9e8c000",
     "type": "Run",
     "planned_time": 20,
     "actual_time": 0,
     "planned_dist": 3.0,
     "actual_dist": 0,
-    "last_synced": "2026-08-11T20:00:11.522264",
+    "last_synced": "2026-08-12T20:00:11.579254",
     "original_plan": {
       "planned_time": 20,
       "planned_dist": 3.0
     }
   },
-  "da8bc0f5-f0eb-4c77-af69-a085d77d88e0": {
+  "51c2a216-bf75-4c5e-8dae-a138735cce74": {
     "date": "2026-08-14",
     "summary": "Swim: 甜甜課表",
-    "uid": "da8bc0f5-f0eb-4c77-af69-a085d77d88e0",
+    "uid": "51c2a216-bf75-4c5e-8dae-a138735cce74",
     "type": "Swim",
     "planned_time": 80,
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-11T20:00:11.522264",
+    "last_synced": "2026-08-12T20:00:11.579254",
     "original_plan": {
       "planned_time": 80,
       "planned_dist": 0
     }
   },
-  "e88c808e-1403-4929-89a4-174aa46464f3": {
+  "20fcaf75-ffda-4e4d-bb93-728496251fd7": {
     "date": "2026-08-15",
     "summary": "Bike: LSD 4.5 全程 (IF 0.8-0.7",
-    "uid": "e88c808e-1403-4929-89a4-174aa46464f3",
+    "uid": "20fcaf75-ffda-4e4d-bb93-728496251fd7",
     "type": "Bike",
     "planned_time": 270,
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-11T20:00:11.522264",
+    "last_synced": "2026-08-12T20:00:11.579254",
     "original_plan": {
       "planned_time": 270,
       "planned_dist": 0
     }
   },
-  "53a5e035-cf80-47b5-8b4b-c02973b05992": {
+  "20d907e4-3001-49e4-9ece-db4c0c3afb8f": {
     "date": "2026-08-15",
     "summary": "Run: 轉換90分",
-    "uid": "53a5e035-cf80-47b5-8b4b-c02973b05992",
+    "uid": "20d907e4-3001-49e4-9ece-db4c0c3afb8f",
     "type": "Run",
     "planned_time": 90,
     "actual_time": 0,
     "planned_dist": 14.0,
     "actual_dist": 0,
-    "last_synced": "2026-08-11T20:00:11.522264",
+    "last_synced": "2026-08-12T20:00:11.579254",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 14.0
     }
   },
-  "3a255c03-63d4-41c9-9ada-8ceb4d8d28fe": {
+  "7f475b62-d8fa-4743-976f-3fab0535a45d": {
     "date": "2026-08-16",
     "summary": "Run: 福和橋～河濱～明德宮（補水則返）",
-    "uid": "3a255c03-63d4-41c9-9ada-8ceb4d8d28fe",
+    "uid": "7f475b62-d8fa-4743-976f-3fab0535a45d",
     "type": "Run",
     "planned_time": 150,
     "actual_time": 0,
     "planned_dist": 23.0,
     "actual_dist": 0,
-    "last_synced": "2026-08-11T20:00:11.522264",
+    "last_synced": "2026-08-12T20:00:11.579254",
     "original_plan": {
       "planned_time": 150,
       "planned_dist": 23.0
     }
   },
-  "1046b74e-515f-4231-acae-91c72ccf5d94": {
+  "54d7f455-da64-4edb-9a60-3c321148f792": {
     "date": "2026-08-16",
     "summary": "Swim: 4200",
-    "uid": "1046b74e-515f-4231-acae-91c72ccf5d94",
+    "uid": "54d7f455-da64-4edb-9a60-3c321148f792",
     "type": "Swim",
     "planned_time": 90,
     "actual_time": 0,
     "planned_dist": 4.2,
     "actual_dist": 0,
-    "last_synced": "2026-08-11T20:00:11.522264",
+    "last_synced": "2026-08-12T20:00:11.579254",
     "original_plan": {
       "planned_time": 90,
       "planned_dist": 4.2
     }
   },
-  "cc56b042-669b-49bb-98de-7f922b91b1c7": {
+  "4e655565-94d1-4b40-b380-4e2f27875eee": {
     "date": "2026-11-01",
     "summary": "B: IMKT",
-    "uid": "cc56b042-669b-49bb-98de-7f922b91b1c7",
+    "uid": "4e655565-94d1-4b40-b380-4e2f27875eee",
     "type": "Other",
     "planned_time": 0,
     "actual_time": 0,
     "planned_dist": 0,
     "actual_dist": 0,
-    "last_synced": "2026-08-11T20:00:11.522264",
+    "last_synced": "2026-08-12T20:00:11.579254",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
