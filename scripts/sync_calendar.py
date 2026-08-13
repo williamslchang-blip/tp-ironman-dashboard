@@ -122,6 +122,21 @@ def sync():
             if unit == "m" or (not unit and "Swim" in summary):
                 actual_dist /= 1000.0
                 
+        speed = 0.0
+        pace = ""
+        speed_match = re.search(r"Speed:\s*([\d\.]+)\s*(km/h|mph)?", desc, re.I)
+        pace_match = re.search(r"Pace:\s*([\d\.]+)\s*(min/km|min/mi)?", desc, re.I)
+        if speed_match:
+            speed = float(speed_match.group(1))
+        if pace_match:
+            pace_val = float(pace_match.group(1))
+            mins = int(pace_val)
+            secs = int(round((pace_val - mins) * 60))
+            if secs == 60:
+                mins += 1
+                secs = 0
+            pace = f"{mins}:{secs:02d} /km"
+
         w_type = "Other"
         if "Swim" in summary:
             w_type = "Swim"
@@ -143,6 +158,8 @@ def sync():
             "actual_time": actual_time,
             "planned_dist": planned_dist,
             "actual_dist": actual_dist,
+            "speed": speed,
+            "pace": pace
         })
 
     # Reconstruct cache into new_cache with stable keys: YYYY-MM-DD_{type}_{idx}
@@ -183,6 +200,8 @@ def sync():
                 "actual_time": ev["actual_time"],
                 "planned_dist": ev["planned_dist"],
                 "actual_dist": ev["actual_dist"],
+                "speed": ev.get("speed", 0.0),
+                "pace": ev.get("pace", ""),
                 "last_synced": datetime.now().isoformat(),
                 "original_plan": {
                     "planned_time": orig_pt,

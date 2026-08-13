@@ -102,6 +102,87 @@ def load_cache():
     return {}
 
 
+def build_daily_feedback_cards(events):
+    completed = [ev for ev in events if ev.get("actual_time", 0) > 0 or ev.get("actual_dist", 0) > 0]
+    completed.sort(key=lambda x: (x.get("date", ""), x.get("type", "")), reverse=True)
+    
+    if not completed:
+        return "<p style='color:var(--text-muted); font-size:0.88rem; margin-top:6px;'>當週尚無已執行完畢之課表紀錄。系統將於您完成 TrainingPeaks 課表並上傳更新後，自動顯示個別訓練成果建議與注意事項。</p>"
+        
+    cards_html = []
+    weekdays_zh = "一二三四五六日"
+    
+    for ev in completed:
+        try:
+            ev_date = date.fromisoformat(ev["date"])
+            wday_str = weekdays_zh[ev_date.weekday()]
+            date_disp = f"{ev_date:%m/%d} (週{wday_str})"
+        except Exception:
+            date_disp = ev.get("date", "")
+            
+        t = ev.get("type", "Other")
+        summary = ev.get("summary", "")
+        at = ev.get("actual_time", 0)
+        pt = ev.get("original_plan", {}).get("planned_time", ev.get("planned_time", 0))
+        ad = ev.get("actual_dist", 0)
+        pd = ev.get("original_plan", {}).get("planned_dist", ev.get("planned_dist", 0))
+        speed = ev.get("speed", 0.0)
+        pace = ev.get("pace", "")
+        
+        icon = "🚴‍♂️" if t == "Bike" else "🏃‍♂️" if t == "Run" else "🏊‍♂️" if t == "Swim" else "🏋️‍♂️" if t == "Strength" else "📌"
+        color = "#38BDF8" if t == "Bike" else "#F59E0B" if t == "Run" else "#22D3EE" if t == "Swim" else "#10B981"
+        
+        pct_str = f"完成率 {(at/pt*100):.0f}%" if pt > 0 else "已紀錄完成"
+        
+        metrics_parts = []
+        metrics_parts.append(f"⏱️ 實際時間：<strong>{at:.0f} 分 ({(at/60.0):.2f} hr)</strong>")
+        if ad > 0:
+            metrics_parts.append(f"📏 實際距離：<strong>{ad:.2f} km</strong>")
+        if speed > 0 and t == "Bike":
+            metrics_parts.append(f"⚡ 平均時速：<strong>{speed:.2f} km/h</strong>")
+        if pace and t == "Run":
+            metrics_parts.append(f"👟 平均配速：<strong>{pace}</strong>")
+        if speed > 0 and t == "Swim":
+            swim_pace_mins = 6.0 / speed if speed > 0 else 0
+            swim_m = int(swim_pace_mins)
+            swim_s = int(round((swim_pace_mins - swim_m)*60))
+            if swim_s == 60: swim_m += 1; swim_s = 0
+            metrics_parts.append(f"🏊 划水配速：<strong>{swim_m}:{swim_s:02d} /100m</strong>")
+            
+        metrics_html = " ｜ ".join(metrics_parts)
+        
+        if t == "Bike":
+            advice = f"<strong>【單車強度與功率紀律】</strong> 實際完成 {ad:.2f} km (時間 {at/60.0:.2f}h)。對比 <strong>Sub-11 藍圖 (5h30m / 140W-145W)</strong>：本次訓練耐力扎實。注意事項：長騎或 Tempo 區間衝刺時請嚴格守住 174W (85% FTP) 上限，切勿冒進衝瓦以防耗損全馬雙腿剛性；下車前 10–15km 主動降瓦至 123W-133W 冷卻有氧，騎乘中每小時補給 60-90g 碳水與 600-900ml 電解質。"
+        elif t == "Run":
+            advice = f"<strong>【跑步配速與落地剛性】</strong> 實際完成 {ad:.2f} km (時間 {at:.0f}分)。對比 <strong>Sub-11 藍圖 (4h00m / 5:41/km)</strong>：節奏掌控穩定。注意事項：請維持步頻 175–180 bpm 減輕膝關節負擔；跑後 30 分鐘內請補給 25g 蛋白質與碳水，修復肌纖維，為週末 LSD 與 90 分鐘轉換跑奠定衝擊剛性。"
+        elif t == "Swim":
+            advice = f"<strong>【划水效率與低心率有氧】</strong> 實際完成 {ad:.2f} km (時間 {at:.0f}分)。對比 <strong>Sub-11 藍圖 (1h12m / 1:53/100m)</strong>：划水水感良好。注意事項：維持放鬆 Zone 1-2 低心率划水，出水前保持平穩定位 (Sighting)，將核心體力完整留給單車與全馬。"
+        elif t == "Strength":
+            advice = f"<strong>【下肢安定與核心底座】</strong> 肌力訓練順利完成。注意事項：專注單腳硬舉與核心抗旋轉安定，為單車 140W-145W 出巡與路跑落地衝擊提供穩固底座。"
+        else:
+            advice = f"課表執行順利完成！請注意補充水分與充足睡眠恢復。"
+            
+        card = f"""
+        <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-left: 4px solid {color}; border-radius: 10px; padding: 14px 18px; margin-bottom: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 0.96rem; color: #F8FAFC;">
+                    {icon} <span style="color: {color};">{date_disp}</span> {summary}
+                </div>
+                <span style="font-size: 0.76rem; background: rgba(56, 189, 248, 0.15); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 3px 8px; border-radius: 6px; font-weight: 600;">{pct_str}</span>
+            </div>
+            <div style="font-size: 0.86rem; color: #CBD5E1; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+                {metrics_html}
+            </div>
+            <div style="font-size: 0.88rem; color: #E2E8F0; line-height: 1.6; background: rgba(30, 41, 59, 0.5); padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                💡 {advice}
+            </div>
+        </div>
+        """
+        cards_html.append(card)
+        
+    return "\n".join(cards_html)
+
+
 def generate_52_week_dashboard():
     today = date.today()
     current_year = today.year
@@ -256,6 +337,7 @@ def generate_52_week_dashboard():
             curr_d += timedelta(days=1)
 
         est_snap = calculate_dynamic_226_estimate(w_monday)
+        daily_feedback_html = build_daily_feedback_cards(events)
 
         weeks_data[w] = {
             "week_num": w,
@@ -274,6 +356,7 @@ def generate_52_week_dashboard():
             "run_km": round(run_dist, 2),
             "daily_schedule": daily_schedule,
             "estimator": est_snap,
+            "daily_feedback_html": daily_feedback_html,
             "art_html": art_html,
             "str_html": str_html,
             "rev_html": rev_html,
@@ -873,6 +956,12 @@ def generate_52_week_dashboard():
                             <div class="kpi-val">${{data.swim_km}} km</div>
                             <div style="font-size: 0.78rem; color: var(--accent-cyan); margin-top: 4px;">滾動均量 ${{est.rolling_4w_avg_swim_km}} km/週</div>
                         </div>
+                    </div>
+
+                    <!-- DAILY WORKOUT ACCOMPLISHMENTS & COACH FEEDBACK -->
+                    <div class="section-box">
+                        <div class="section-title">📋 每日最新訓練成果解析與教練隨堂建議 (對比 Sub-11 10:54 藍圖)</div>
+                        <div>${{data.daily_feedback_html}}</div>
                     </div>
 
                     <!-- IM226 DYNAMIC ESTIMATE -->
