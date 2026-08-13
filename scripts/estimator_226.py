@@ -59,11 +59,11 @@ def calculate_dynamic_226_estimate(target_monday: date) -> dict:
 
     exec_rate = (total_actual_time / total_planned_time * 100) if total_planned_time > 0 else 80.0
 
-    # Base Targets for FTP ~205W Cohort (PB 11:38:24)
-    base_swim_mins = 70.0
-    base_transitions_mins = 12.0
-    base_bike_mins = 345.0  # 5h45m
-    base_run_mins = 255.0   # 4h15m
+    # Sub-11 Target Blueprint (Total 10h54m: Swim 1h12m, T1 6m, Bike 5h30m, T2 6m, Run 4h00m)
+    base_swim_mins = 72.0   # 1h12m (1:53/100m)
+    base_transitions_mins = 12.0  # T1 6m + T2 6m
+    base_bike_mins = 330.0  # 5h30m (32.7 km/h, Target 140W-145W)
+    base_run_mins = 240.0   # 4h00m (5:41/km)
 
     # 1. Run Durability Factor (Target: 35km/wk, 1.5 long/brick runs per week)
     run_vol_ratio = min(1.0, avg_weekly_run_dist / 35.0)
