@@ -3,6 +3,7 @@ import re
 import json
 from datetime import datetime, date, timedelta
 from pathlib import Path
+from collections import defaultdict
 
 ROOT = Path(r"C:\Users\User\Desktop\TP")
 CONFIG = ROOT / "config" / "trainingpeaks_calendar_url.txt"
@@ -73,13 +74,12 @@ def sync():
             if key in {"DTSTART", "SUMMARY", "DESCRIPTION", "UID"}:
                 current[key] = clean(line.split(":", 1)[1])
                 
-    print(f"Fetched {len(events)} events from TP.")
+    print(f"Fetched {len(events)} events from TP live feed.")
     
-    live_uids = set()
+    # Parse live events
+    live_events_by_slot = defaultdict(list)
     min_live_date = None
     max_live_date = None
-    updated_count = 0
-    new_count = 0
     
     for ev in events:
         raw_start = ev.get("DTSTART", "")
@@ -96,7 +96,6 @@ def sync():
         desc = ev.get("DESCRIPTION", "")
         tp_uid = ev.get("UID", "").strip()
         
-        # Parse times/distances
         planned_time = 0
         actual_time = 0
         planned_dist = 0
@@ -135,101 +134,106 @@ def sync():
         elif "Day Off" in summary:
             w_type = "Day Off"
             
-        uid = tp_uid if tp_uid else f"{dt_str}_{w_type}_{planned_time}_{planned_dist}"
-        live_uids.add(uid)
-            
-        event_data = {
+        live_events_by_slot[(str(dt), w_type)].append({
             "date": str(dt),
             "summary": summary,
-            "uid": uid,
+            "tp_uid": tp_uid,
             "type": w_type,
             "planned_time": planned_time,
             "actual_time": actual_time,
             "planned_dist": planned_dist,
             "actual_dist": actual_dist,
-            "last_synced": datetime.now().isoformat()
-        }
+        })
+
+    # Reconstruct cache into new_cache with stable keys: YYYY-MM-DD_{type}_{idx}
+    new_cache = {}
+    processed_live_slots = set()
+    
+    # 1. Process Live Events
+    for (dt_s, w_type), ev_list in sorted(live_events_by_slot.items()):
+        processed_live_slots.add((dt_s, w_type))
+        # Sort events deterministically (by summary, planned_time, actual_time)
+        ev_list.sort(key=lambda x: (x["summary"], x["planned_time"], x["actual_time"]))
         
-        if uid in cache:
-            old = cache[uid]
-            orig_pt = old.get("original_plan", {}).get("planned_time", old.get("planned_time", planned_time))
-            orig_pd = old.get("original_plan", {}).get("planned_dist", old.get("planned_dist", planned_dist))
-            event_data["original_plan"] = {
-                "planned_time": orig_pt if orig_pt > 0 else planned_time,
-                "planned_dist": orig_pd if orig_pd > 0 else planned_dist
-            }
-            cache[uid].update(event_data)
-            updated_count += 1
-        else:
-            # Check if old cache had legacy entry on same date & type
-            orig_pt = planned_time
-            orig_pd = planned_dist
+        for idx, ev in enumerate(ev_list):
+            stable_key = f"{dt_s}_{w_type}_{idx}"
+            
+            # Find existing candidate in old cache to preserve original_plan
+            orig_pt = ev["planned_time"]
+            orig_pd = ev["planned_dist"]
+            
+            # Search old cache for matching entry on dt_s and w_type
             for old_k, old_v in cache.items():
-                if old_v.get("date") == str(dt) and old_v.get("type") == w_type:
+                if old_v.get("date") == dt_s and old_v.get("type") == w_type:
                     old_orig_pt = old_v.get("original_plan", {}).get("planned_time", old_v.get("planned_time", 0))
                     old_orig_pd = old_v.get("original_plan", {}).get("planned_dist", old_v.get("planned_dist", 0))
-                    if old_orig_pt > 0 and orig_pt == 0:
+                    if old_orig_pt > 0:
                         orig_pt = old_orig_pt
-                    if old_orig_pd > 0 and orig_pd == 0:
+                    if old_orig_pd > 0:
                         orig_pd = old_orig_pd
-            event_data["original_plan"] = {
-                "planned_time": orig_pt,
-                "planned_dist": orig_pd
+                    break
+                    
+            event_data = {
+                "date": dt_s,
+                "summary": ev["summary"],
+                "uid": stable_key,
+                "tp_uid": ev["tp_uid"],
+                "type": w_type,
+                "planned_time": ev["planned_time"],
+                "actual_time": ev["actual_time"],
+                "planned_dist": ev["planned_dist"],
+                "actual_dist": ev["actual_dist"],
+                "last_synced": datetime.now().isoformat(),
+                "original_plan": {
+                    "planned_time": orig_pt,
+                    "planned_dist": orig_pd
+                }
             }
-            cache[uid] = event_data
-            new_count += 1
+            new_cache[stable_key] = event_data
 
-    # Cleanup stale / deleted planned events from live date range
-    to_delete = set()
-    if min_live_date:
-        for k, v in list(cache.items()):
-            try:
-                ev_date = date.fromisoformat(v["date"])
-                if ev_date >= min_live_date:
-                    if k not in live_uids:
-                        if v.get("actual_time", 0) == 0 and v.get("actual_dist", 0) == 0:
-                            to_delete.add(k)
-                        elif not re.match(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", k, re.I):
-                            same_live = [l_k for l_k in live_uids if cache.get(l_k, {}).get("date") == v["date"] and cache.get(l_k, {}).get("type") == v["type"]]
-                            if same_live:
-                                to_delete.add(k)
-            except Exception:
-                pass
+    # 2. Process non-live historical/future events from old cache
+    old_by_slot = defaultdict(list)
+    for old_k, old_v in cache.items():
+        dt_s = old_v.get("date")
+        w_type = old_v.get("type", "Other")
+        if not dt_s:
+            continue
+        ev_date = date.fromisoformat(dt_s)
+        
+        # Skip events within live date range that were NOT in live feed (unless completed)
+        if min_live_date and min_live_date <= ev_date <= max_live_date:
+            if (dt_s, w_type) not in processed_live_slots:
+                # Unexecuted planned event deleted from TP -> omit
+                if old_v.get("actual_time", 0) == 0 and old_v.get("actual_dist", 0) == 0:
+                    continue
+                    
+        old_by_slot[(dt_s, w_type)].append(old_v)
 
-    # Deduplicate past events (before min_live_date)
-    past_keys = [k for k, v in cache.items() if date.fromisoformat(v["date"]) < min_live_date]
-    grouped_past = {}
-    for k in past_keys:
-        v = cache[k]
-        group_key = (v["date"], v["type"])
-        grouped_past.setdefault(group_key, []).append(k)
-
-    for group_key, k_list in grouped_past.items():
-        if len(k_list) > 1:
-            has_completed = [k for k in k_list if cache[k].get("actual_time", 0) > 0]
-            if has_completed:
-                for k in k_list:
-                    if cache[k].get("actual_time", 0) == 0 and cache[k].get("actual_dist", 0) == 0:
-                        to_delete.add(k)
-                seen_act = set()
-                for k in has_completed:
-                    act_tuple = (cache[k].get("actual_time", 0), cache[k].get("actual_dist", 0))
-                    if act_tuple in seen_act:
-                        to_delete.add(k)
-                    else:
-                        seen_act.add(act_tuple)
-
-    for k in to_delete:
-        if k in cache:
-            del cache[k]
+    for (dt_s, w_type), ev_list in sorted(old_by_slot.items()):
+        if (dt_s, w_type) in processed_live_slots:
+            continue  # Already updated from live feed
+            
+        # Deduplicate multiple legacy entries for the same slot
+        unique_events = {}
+        for ev in ev_list:
+            key_sig = (ev.get("summary"), ev.get("actual_time", 0), ev.get("actual_dist", 0), ev.get("planned_time", 0), ev.get("planned_dist", 0))
+            if key_sig not in unique_events or ev.get("last_synced", "") > unique_events[key_sig].get("last_synced", ""):
+                unique_events[key_sig] = ev
+                
+        sorted_evs = sorted(unique_events.values(), key=lambda x: (x.get("summary", ""), x.get("planned_time", 0)))
+        for idx, ev in enumerate(sorted_evs):
+            stable_key = f"{dt_s}_{w_type}_{idx}"
+            ev["uid"] = stable_key
+            new_cache[stable_key] = ev
 
     # Save cache
     CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
     with open(CACHE_FILE, "w", encoding="utf-8") as f:
-        json.dump(cache, f, ensure_ascii=False, indent=2)
+        json.dump(new_cache, f, ensure_ascii=False, indent=2)
         
-    print(f"Sync complete. New: {new_count}, Updated: {updated_count}, Cleaned/Deleted: {len(to_delete)}. Total active events in cache: {len(cache)}.")
+    print(f"Sync complete. Total clean events in cache: {len(new_cache)}.")
 
 if __name__ == "__main__":
     sync()
+
 
