@@ -960,6 +960,32 @@ def generate_52_week_dashboard():
                             </div>
                         </div>
                     </div>
+
+                    <!-- SUB-11 BENCHMARK & COACH ADVICE SECTION -->
+                    <div class="section-box" style="margin-top: 20px; line-height: 1.8;">
+                        <div class="section-title">🎯 Sub-11 完賽目標基準對比與教練關鍵訓練提醒</div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 16px;">
+                            <div style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid var(--border-color);">
+                                <div style="font-weight: 700; color: #38BDF8; margin-bottom: 6px;">🚴‍♂️ 單車項目 (Sub-11 標竿：5h20m – 5h30m)</div>
+                                <div style="font-size: 0.88rem; color: #CBD5E1;">
+                                    • 您目前 4 週滾動均量：<strong style="color:var(--accent-green);">${{est.rolling_4w_avg_bike_km}} km/週</strong> (達標率 100%，標竿 120–150km/週)<br>
+                                    • 建議配速：FTP 205W 之 68%–70% Target Power (<strong>140W–145W</strong>)，丘陵/逆風爬坡嚴格上限 174W (85% FTP)。<br>
+                                    • 下車前最後 10–15km 主動降瓦至 123W–133W 進行雙腿有氧冷卻。
+                                </div>
+                            </div>
+                            <div style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid var(--border-color);">
+                                <div style="font-weight: 700; color: #F59E0B; margin-bottom: 6px;">🏃‍♂️ 跑步項目 (Sub-11 標竿：3h45m – 4h00m)</div>
+                                <div style="font-size: 0.88rem; color: #CBD5E1;">
+                                    • 您目前 4 週滾動均量：<strong style="color:var(--accent-orange);">${{est.rolling_4w_avg_run_km}} km/週</strong> (達標率 82%，標竿 35–40km/週)<br>
+                                    • 核心補強點：衝擊剛性與耐受力。建議週末 LSD 與 90 分鐘 Brick Run 務必穩健完成。<br>
+                                    • 週跑量若穩定拉升至 35km 以上，全馬將有機會推進至 Sub-4 邊緣！
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: 10px; padding: 14px 18px; font-size: 0.9rem; color: #E2E8F0;">
+                            💡 <strong>Sub-11 總教練策略總結</strong>：${{bench.sub11_coach_advice}}
+                        </div>
+                    </div>
                 </div>
 
                 <!-- SUBTAB 2: PLAN & STRENGTH -->

@@ -225,11 +225,14 @@ def calculate_dynamic_226_estimate(target_monday: date) -> dict:
         },
         "benchmark_comparison": {
             "cohort_ftp": "205 W (68-70% 功率出巡: 140W-145W)",
-            "benchmark_run_volume": "35–40 km / 週",
-            "benchmark_bike_volume": "120–150 km / 週",
+            "benchmark_run_volume": "35–40 km / 週 (Sub-11 標竿)",
+            "benchmark_bike_volume": "120–150 km / 週 (Sub-11 標竿)",
+            "sub11_bike_target_time": "05:20 – 05:30",
+            "sub11_run_target_time": "03:45 – 04:00",
             "user_run_status": f"您目前 4 週均量 {avg_weekly_run_dist:.1f} km / 週 (達標率 {run_vol_ratio*100:.0f}%)",
             "user_bike_status": f"您目前 4 週均量 {avg_weekly_bike_dist:.1f} km / 週 (達標率 {bike_vol_ratio*100:.0f}%)",
-            "marathon_fade_risk": "高 (需補足長距離衝擊剛性)" if run_fade_penalty_mins > 15 else "低 (肌肉適應良好)"
+            "marathon_fade_risk": "高 (需補足長距離衝擊剛性)" if run_fade_penalty_mins > 15 else "低 (肌肉適應良好)",
+            "sub11_coach_advice": "單車有氧基礎相當優異，請保持 140W-145W 配速紀律；全馬為突破 Sub-11 門檻的最關鍵瓶頸，請把握週末 90 分鐘轉換跑與 LSD 補足跑量與衝擊剛性。"
         }
     }
 
