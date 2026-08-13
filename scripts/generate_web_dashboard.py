@@ -148,19 +148,41 @@ def build_daily_feedback_cards(events):
             swim_s = int(round((swim_pace_mins - swim_m)*60))
             if swim_s == 60: swim_m += 1; swim_s = 0
             metrics_parts.append(f"🏊 划水配速：<strong>{swim_m}:{swim_s:02d} /100m</strong>")
+
+        # Specific Rich TP metrics for 2026-08-13 Bike & Run
+        if ev.get("date") == "2026-08-13" and t == "Bike":
+            metrics_parts.append("💓 均心率：<strong style='color:#F43F5E;'>105 bpm</strong> (Zone 1-2 佔 97.2%)")
+            metrics_parts.append("⛰️ 總爬升：<strong style='color:#38BDF8;'>1,135 m</strong> (最高海拔 811m)")
+            metrics_parts.append("📊 訓練壓力：<strong>108.4 hrTSS</strong> (IF 0.54)")
+            metrics_parts.append("😊 體感：<strong>5/5 (滿分)</strong>")
+            advice = (
+                "<strong>【極佳有氧效率與低心率控瓦】</strong> 在高達 1,135m 總爬升的山路陡坡騎乘中，平均心率控制在極低穩定的 105 bpm (Zone 1-2 涵蓋率達 97.2%)！展現高超的脂肪氧化能力與有氧耐力底子。<br>"
+                "⚠️ <strong>【陡坡心率與功率控防】</strong> 第 11-12 圈長陡坡出現瞬間心率 187 bpm。比賽日 (平路/微起伏賽道) 請恪守「陡坡降齒比、守住 174W (85% FTP) 上限」紀律，防止心率暴衝耗盡糖原。下車前 10–15km 主動降瓦至 123W-133W 冷卻有氧，每小時補給 60-90g 碳水與 600-900ml 電解質。"
+            )
+        elif ev.get("date") == "2026-08-13" and t == "Run":
+            metrics_parts.append("👟 均配速：<strong style='color:#F59E0B;'>5:39 /km</strong> (Sub-11 標竿 5:41)")
+            metrics_parts.append("💓 均心率：<strong>167 bpm</strong>")
+            metrics_parts.append("⚡ 平均功率：<strong>275 W</strong>")
+            metrics_parts.append("👣 步頻：<strong style='color:#10B981;'>170 bpm</strong> (最高 184)")
+            metrics_parts.append("⏱️ 觸地時間：<strong style='color:#38BDF8;'>262 ms</strong>")
+            metrics_parts.append("📐 垂直比：<strong style='color:#A855F7;'>8.0%</strong> (極佳推進效率)")
+            advice = (
+                "🎯 <strong>【完美擊中 Sub-11 全馬標竿】</strong> 單車 60.99km 下車後直接跑出 5:39/km 平均配速，精準擊中 Sub-11 全馬 4 小時完賽 (5:41/km) 目標線！分段配速 5:31 -> 5:18 -> 5:04/km 穩健漸進。<br>"
+                "⚡ <strong>【神經傳導與轉向效率優異】</strong> 觸地時間僅 262 ms，垂直比 8.0% (&lt;10% 最佳推進率)，證明單車有氧控心率得當，下車雙腿完全無麻痺僵硬感。長距離轉換跑時請注意前 5 公里穩在 5:40-5:45/km，心率巡航在 155-165 bpm，為後續保留彈性。"
+            )
+        else:
+            if t == "Bike":
+                advice = f"<strong>【單車強度與功率紀律】</strong> 實際完成 {ad:.2f} km (時間 {at/60.0:.2f}h)。對比 <strong>Sub-11 藍圖 (5h30m / 140W-145W)</strong>：本次訓練耐力扎實。注意事項：長騎或 Tempo 區間衝刺時請嚴格守住 174W (85% FTP) 上限，切勿冒進衝瓦以防耗損全馬雙腿剛性；下車前 10–15km 主動降瓦至 123W-133W 冷卻有氧，騎乘中每小時補給 60-90g 碳水與 600-900ml 電解質。"
+            elif t == "Run":
+                advice = f"<strong>【跑步配速與落地剛性】</strong> 實際完成 {ad:.2f} km (時間 {at:.0f}分)。對比 <strong>Sub-11 藍圖 (4h00m / 5:41/km)</strong>：節奏掌控穩定。注意事項：請維持步頻 175–180 bpm 減輕膝關節負擔；跑後 30 分鐘內請補給 25g 蛋白質與碳水，修復肌纖維，為週末 LSD 與 90 分鐘轉換跑奠定衝擊剛性。"
+            elif t == "Swim":
+                advice = f"<strong>【划水效率與低心率有氧】</strong> 實際完成 {ad:.2f} km (時間 {at:.0f}分)。對比 <strong>Sub-11 藍圖 (1h12m / 1:53/100m)</strong>：划水水感良好。注意事項：維持放鬆 Zone 1-2 低心率划水，出水前保持平穩定位 (Sighting)，將核心體力完整留給單車與全馬。"
+            elif t == "Strength":
+                advice = f"<strong>【下肢安定與核心底座】</strong> 肌力訓練順利完成。注意事項：專注單腳硬舉與核心抗旋轉安定，為單車 140W-145W 出巡與路跑落地衝擊提供穩固底座。"
+            else:
+                advice = f"課表執行順利完成！請注意補充水分與充足睡眠恢復。"
             
         metrics_html = " ｜ ".join(metrics_parts)
-        
-        if t == "Bike":
-            advice = f"<strong>【單車強度與功率紀律】</strong> 實際完成 {ad:.2f} km (時間 {at/60.0:.2f}h)。對比 <strong>Sub-11 藍圖 (5h30m / 140W-145W)</strong>：本次訓練耐力扎實。注意事項：長騎或 Tempo 區間衝刺時請嚴格守住 174W (85% FTP) 上限，切勿冒進衝瓦以防耗損全馬雙腿剛性；下車前 10–15km 主動降瓦至 123W-133W 冷卻有氧，騎乘中每小時補給 60-90g 碳水與 600-900ml 電解質。"
-        elif t == "Run":
-            advice = f"<strong>【跑步配速與落地剛性】</strong> 實際完成 {ad:.2f} km (時間 {at:.0f}分)。對比 <strong>Sub-11 藍圖 (4h00m / 5:41/km)</strong>：節奏掌控穩定。注意事項：請維持步頻 175–180 bpm 減輕膝關節負擔；跑後 30 分鐘內請補給 25g 蛋白質與碳水，修復肌纖維，為週末 LSD 與 90 分鐘轉換跑奠定衝擊剛性。"
-        elif t == "Swim":
-            advice = f"<strong>【划水效率與低心率有氧】</strong> 實際完成 {ad:.2f} km (時間 {at:.0f}分)。對比 <strong>Sub-11 藍圖 (1h12m / 1:53/100m)</strong>：划水水感良好。注意事項：維持放鬆 Zone 1-2 低心率划水，出水前保持平穩定位 (Sighting)，將核心體力完整留給單車與全馬。"
-        elif t == "Strength":
-            advice = f"<strong>【下肢安定與核心底座】</strong> 肌力訓練順利完成。注意事項：專注單腳硬舉與核心抗旋轉安定，為單車 140W-145W 出巡與路跑落地衝擊提供穩固底座。"
-        else:
-            advice = f"課表執行順利完成！請注意補充水分與充足睡眠恢復。"
             
         card = f"""
         <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-left: 4px solid {color}; border-radius: 10px; padding: 14px 18px; margin-bottom: 12px;">
@@ -170,10 +192,10 @@ def build_daily_feedback_cards(events):
                 </div>
                 <span style="font-size: 0.76rem; background: rgba(56, 189, 248, 0.15); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 3px 8px; border-radius: 6px; font-weight: 600;">{pct_str}</span>
             </div>
-            <div style="font-size: 0.86rem; color: #CBD5E1; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+            <div style="font-size: 0.86rem; color: #CBD5E1; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.1); line-height: 1.8;">
                 {metrics_html}
             </div>
-            <div style="font-size: 0.88rem; color: #E2E8F0; line-height: 1.6; background: rgba(30, 41, 59, 0.5); padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+            <div style="font-size: 0.88rem; color: #E2E8F0; line-height: 1.7; background: rgba(30, 41, 59, 0.5); padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
                 💡 {advice}
             </div>
         </div>
