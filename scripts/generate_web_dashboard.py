@@ -964,7 +964,15 @@ def generate_52_week_dashboard():
                     <!-- SUB-11 BENCHMARK & COACH ADVICE SECTION -->
                     <div class="section-box" style="margin-top: 20px; line-height: 1.8;">
                         <div class="section-title">🎯 Sub-11 完賽目標基準對比與教練關鍵訓練提醒</div>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 16px;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 16px;">
+                            <div style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid var(--border-color);">
+                                <div style="font-weight: 700; color: #22D3EE; margin-bottom: 6px;">🏊‍♂️ 游泳項目 (Sub-11 標竿：1h05m – 1h10m)</div>
+                                <div style="font-size: 0.88rem; color: #CBD5E1;">
+                                    • 您目前 4 週滾動均量：<strong style="color:var(--accent-cyan);">${{est.rolling_4w_avg_swim_km}} km/週</strong> (達標率 100%，標竿 7.0–9.0km/週)<br>
+                                    • 配速目標：維持 1:42 – 1:50 / 100m 定速划水，定位 (Sighting) 動作保持流暢。<br>
+                                    • 比賽策略：保持輕鬆有氧游，勿急躁拼出水，保留核心體力予單車與全馬。
+                                </div>
+                            </div>
                             <div style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid var(--border-color);">
                                 <div style="font-weight: 700; color: #38BDF8; margin-bottom: 6px;">🚴‍♂️ 單車項目 (Sub-11 標竿：5h20m – 5h30m)</div>
                                 <div style="font-size: 0.88rem; color: #CBD5E1;">
