@@ -1108,7 +1108,12 @@ def generate_52_week_dashboard():
 
                     <!-- IM226 DYNAMIC ESTIMATE -->
                     <div class="section-box">
-                        <div class="section-title">🔮 IM226 滾動動態完賽時間預估 (採用截至上週 ${{est.window_date_range}} 數據試算)</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-bottom: 14px;">
+                            <div class="section-title" style="margin-bottom:0;">🔮 IM226 綜合多模型動態完賽預估 (截至上週 ${{est.window_date_range}})</div>
+                            <div style="font-size:0.8rem; background:rgba(56,189,248,0.12); color:#38BDF8; padding:4px 10px; border-radius:20px; border:1px solid rgba(56,189,248,0.3);">
+                                🧬 演算法：CSS水速 + BBS物理力學 + Couzens功率 + VDOT/Runalyze馬拉松準備度 (${{est.marathon_shape_score}}%)
+                            </div>
+                        </div>
                         <div class="target-grid">
                             <div class="target-card target-opt">
                                 <div class="target-tag">🟢 樂觀目標 (高峰發揮 / 無抽筋)</div>
@@ -1151,7 +1156,7 @@ def generate_52_week_dashboard():
 
                     <!-- IM70.3 (113km) DYNAMIC ESTIMATE -->
                     <div class="section-box" style="margin-top: 20px;">
-                        <div class="section-title">🔮 IM70.3 (113km) 滾動動態完賽時間預估 (採用截至上週 ${{est.window_date_range}} 數據試算)</div>
+                        <div class="section-title">🔮 IM70.3 (113km) 綜合多模型動態完賽預估 (截至上週 ${{est.window_date_range}})</div>
                         <div class="target-grid">
                             <div class="target-card target-opt">
                                 <div class="target-tag">🟢 樂觀目標 (高峰發揮 / 無抽筋)</div>
@@ -1188,6 +1193,30 @@ def generate_52_week_dashboard():
                                     <div style="display:flex; justify-content:space-between;"><span>⏱️ T2 轉換區</span><strong>${{est.con_splits_703.t2}}</strong></div>
                                     <div style="display:flex; justify-content:space-between;"><span>🏃 跑步 21.1km</span><strong>${{est.con_splits_703.run}}</strong></div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TRIRATING LANGKAWI EXTREME WEATHER & HILLS FORECAST -->
+                    <div class="section-box" style="margin-top: 20px; border-left: 4px solid #EC4899; background: rgba(236, 72, 153, 0.05);">
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-bottom: 10px;">
+                            <div class="section-title" style="margin-bottom:0; color:#F472B6;">🏝️ 11 月馬來西亞蘭卡威 (Langkawi 226km) 高溫爬坡特化預估</div>
+                            <div style="font-size:0.8rem; background:rgba(236,72,153,0.15); color:#F472B6; padding:4px 10px; border-radius:20px; border:1px solid rgba(236,72,153,0.3);">
+                                賽道修正加成：${{est.langkawi_estimate.heat_climbing_penalty}}
+                            </div>
+                        </div>
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 12px;">
+                            <div style="background: rgba(15, 23, 42, 0.6); padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(236, 72, 153, 0.2);">
+                                <div style="font-size:0.8rem; color:#F472B6; font-weight:700;">🟢 蘭卡威樂觀目標</div>
+                                <div style="font-size:1.15rem; font-weight:800; color:#F8FAFC; margin-top:4px;">${{est.langkawi_estimate.optimistic}}</div>
+                            </div>
+                            <div style="background: rgba(15, 23, 42, 0.6); padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(236, 72, 153, 0.2);">
+                                <div style="font-size:0.8rem; color:#F472B6; font-weight:700;">🟠 蘭卡威中性目標</div>
+                                <div style="font-size:1.15rem; font-weight:800; color:#F8FAFC; margin-top:4px;">${{est.langkawi_estimate.neutral}}</div>
+                            </div>
+                            <div style="background: rgba(15, 23, 42, 0.6); padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(236, 72, 153, 0.2);">
+                                <div style="font-size:0.8rem; color:#F472B6; font-weight:700;">🔴 蘭卡威保守目標</div>
+                                <div style="font-size:1.15rem; font-weight:800; color:#F8FAFC; margin-top:4px;">${{est.langkawi_estimate.conservative}}</div>
                             </div>
                         </div>
                     </div>

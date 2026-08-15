@@ -114,11 +114,12 @@
   1. 於 `generate_execution_report.py` 新增「三、 教練視角綜合解析與後續建議」（涵蓋執行亮點、關鍵配速紀律、賽後恢復與補給指南），同步輸出至 MD/Word 報告。
   2. 於 `generate_web_dashboard.py` 整合豐富生理指標（NP 功率、均心率、踏頻、左右平衡、有氧解離率 Pw:HR、觸地時間、垂直比）至每日成果卡片，並於總覽頁頂部新增獨立「🧭 教練視角綜合解析與後續建議」區塊。
   3. 已重新打包部署並推送到 GitHub Pages 線上網站。
-- 2026-08-15 同步更新週五 (8/14) 游泳課表（3.30 km / 1:08:46，89.2 sTSS，IF 0.92，均心率 140 bpm，解離率 4.12%），新增深度水感與 Sub-11 游泳配速解析至 Web 儀表板，並同步重新打包推送至 GitHub Pages。
-
-
-
-
+- 2026-08-15 全面升級完賽時間預估演算法為「多模型綜合混合預估引擎（Hybrid Engine）」：
+  1. 游泳：整合 CSS (Critical Swim Speed) 臨界水速與開放水域/防寒衣係數。
+  2. 單車：整合 Best Bike Split (BBS) 物理力學模型、Couzens/Friel FTP 205W 瓦數區間 (226: 0.69 IF / 113: 0.80 IF) 與長騎耐力衰退因子。
+  3. 跑步：整合 Jack Daniels VDOT 理論值、鐵人下車疲勞衰退 (Bike-to-Run) 與 Runalyze/Vickers 馬拉松準備度指數 (Marathon Shape %)。
+  4. 賽道環境：導入 TriRating 賽道環境特化係數，於儀表板新增 11 月馬來西亞蘭卡威 (Langkawi 226km) 高溫高濕與陡坡專屬完賽時間預估卡片。
+  5. 核心腳本 `scripts/estimator_226.py` 與 `scripts/generate_web_dashboard.py` 全面更新，完成 52 週 Web 儀表板重新生成與 `docs/` 部署包打包。
 
 
 
