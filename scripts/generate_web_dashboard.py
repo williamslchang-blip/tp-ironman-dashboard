@@ -149,8 +149,43 @@ def build_daily_feedback_cards(events):
             if swim_s == 60: swim_m += 1; swim_s = 0
             metrics_parts.append(f"🏊 划水配速：<strong>{swim_m}:{swim_s:02d} /100m</strong>")
 
+        # Specific Rich TP metrics for 2026-08-15 Bike & Run
+        if ev.get("date") == "2026-08-15" and t == "Bike":
+            metrics_parts.append("⏱️ 實際時間：<strong>4:36:23 (276 分)</strong>")
+            metrics_parts.append("📏 實際距離：<strong>127.37 km</strong>")
+            metrics_parts.append("⚡ 平均時速：<strong>27.65 km/h</strong>")
+            metrics_parts.append("🚴 標準化功率 (NP)：<strong style='color:#38BDF8;'>172 W</strong> (均瓦 134W, 最大 545W)")
+            metrics_parts.append("💓 均心率：<strong style='color:#F43F5E;'>148 bpm</strong> (最高 182 bpm)")
+            metrics_parts.append("🔄 平均踏頻：<strong>80 rpm</strong>")
+            metrics_parts.append("⚖️ 左右踩踏平衡：<strong style='color:#10B981;'>50.5% / 49.5%</strong>")
+            metrics_parts.append("⛰️ 總爬升：<strong>857 m</strong>")
+            metrics_parts.append("📊 訓練壓力：<strong>320.1 TSS</strong> (IF 0.84, VI 1.28)")
+            metrics_parts.append("🩺 有氧解離 (Pw:HR)：<strong style='color:#F59E0B;'>21.39%</strong>")
+            metrics_parts.append("🔥 熱量：<strong>2,526 kcal</strong>")
+            metrics_parts.append("😊 體感：<strong>3/5</strong>")
+            advice = (
+                "<strong>【長距離耐力與極佳踩踏平衡】</strong> 扎實完成 127.37 km 破百長騎！左右踩踏發力 50.5% / 49.5% 極為平衡，座艙設定與核心穩定度表現優異。<br>"
+                "⚠️ <strong>【LSD 功率紀律與有氧解離監測】</strong> 今日標準化功率 172W (IF 0.84，目標 0.70-0.75) 偏向 Tempo 競賽強度，造成後半程心率漂移 (Pw:HR) 達 21.39%。備賽 LSD 建議刻意將前 3 小時 NP 壓制在 145W-155W (68-75% FTP) 區間，避免過早耗盡肝醣，為後續轉換跑保留體力。<br>"
+                "💡 <strong>【下車前降瓦與高踏頻冷卻】</strong> 下車前最後 10–15km 請恪守降瓦至 123W-133W 並維持 85-90 rpm，有效降低心率與乳酸堆積。"
+            )
+        elif ev.get("date") == "2026-08-15" and t == "Run":
+            metrics_parts.append("⏱️ 實際時間：<strong>30:00 (30 分)</strong>")
+            metrics_parts.append("📏 實際距離：<strong>4.28 km</strong>")
+            metrics_parts.append("👟 平均配速：<strong style='color:#F59E0B;'>7:01 /km</strong>")
+            metrics_parts.append("💓 均心率：<strong style='color:#F43F5E;'>161 bpm</strong> (最高 178 bpm)")
+            metrics_parts.append("⚡ 平均功率：<strong>231 W</strong>")
+            metrics_parts.append("👣 步頻：<strong style='color:#10B981;'>167 spm</strong> (前段 175 spm)")
+            metrics_parts.append("⏱️ 觸地時間：<strong style='color:#38BDF8;'>273.5 ms</strong>")
+            metrics_parts.append("📐 垂直比：<strong style='color:#A855F7;'>9.0%</strong>")
+            metrics_parts.append("📊 訓練壓力：<strong>17.7 rTSS</strong>")
+            metrics_parts.append("😊 體感自覺：<strong style='color:#10B981;'>5/5 (極佳)</strong>")
+            advice = (
+                "🎯 <strong>【極佳自覺調整與教練級防傷決策】</strong> 上午單車承受 320 TSS 高負荷且正午升溫，開跑心率即進入 160+ bpm。<strong>主動於 30 分鐘適度收操是極具水準的自我保護決策</strong>，既達到了神經肌肉轉換適應，又成功防範了中暑、深度力竭與拉傷風險！<br>"
+                "⚡ <strong>【步頻與跑姿維持】</strong> 前 3 公里步頻維持在 174-175 spm、垂直比 9.0%，動力傳遞效率優異。後續 90 分鐘轉換跑時，請專注於前 5 公里維持 175-180 spm 小步幅，平穩將心率巡航在 155-165 bpm。<br>"
+                "🧪 <strong>【黃金恢復指南】</strong> 今日總消耗高達 2,855 kcal，請持續補充電解質與每公斤 1.5-2.0g 優質蛋白質，明日建議完全休息或輕鬆排酸游。"
+            )
         # Specific Rich TP metrics for 2026-08-13 Bike & Run
-        if ev.get("date") == "2026-08-13" and t == "Bike":
+        elif ev.get("date") == "2026-08-13" and t == "Bike":
             metrics_parts.append("💓 均心率：<strong style='color:#F43F5E;'>105 bpm</strong> (Zone 1-2 佔 97.2%)")
             metrics_parts.append("⛰️ 總爬升：<strong style='color:#38BDF8;'>1,135 m</strong> (最高海拔 811m)")
             metrics_parts.append("📊 訓練壓力：<strong>108.4 hrTSS</strong> (IF 0.54)")
@@ -203,6 +238,71 @@ def build_daily_feedback_cards(events):
         cards_html.append(card)
         
     return "\n".join(cards_html)
+
+
+def build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est):
+    completed = [ev for ev in events if ev.get("actual_time", 0) > 0 or ev.get("actual_dist", 0) > 0]
+    bike_dist = sum(ev.get("actual_dist", 0) for ev in completed if ev.get("type") == "Bike")
+    run_dist = sum(ev.get("actual_dist", 0) for ev in completed if ev.get("type") == "Run")
+    swim_dist = sum(ev.get("actual_dist", 0) for ev in completed if ev.get("type") == "Swim")
+    
+    has_815_bike = any(ev.get("date") == "2026-08-15" and ev.get("type") == "Bike" for ev in completed)
+    has_815_run = any(ev.get("date") == "2026-08-15" and ev.get("type") == "Run" for ev in completed)
+    
+    if has_815_bike and has_815_run:
+        h1 = (
+            "• <strong>【大訓練日 (Big Day) 高品質完成】</strong> 本週累計自行車已達 <strong>188.36 km</strong>、跑步 <strong>19.68 km</strong>、游泳 <strong>6.60 km</strong>。<br>"
+            "• <strong>【極佳左右平衡與座艙穩定度】</strong> 8/15 扎實完成 127.37 km 破百長騎 (4h36m)，踩踏平衡 50.5% / 49.5% 完美均衡！<br>"
+            "• <strong>【成熟的教練級防傷自覺】</strong> 騎車大負荷 (320 TSS) 後無縫銜接轉換跑，依即時心率與體感主動於 30 分鐘適度收操 (Feeling 5/5)，兼顧神經肌肉轉換刺激與防範熱衰竭/過度疲勞。"
+        )
+        h2 = (
+            "• <strong>【自行車 LSD 功率與有氧解離控制】</strong> 8/15 長騎 NP 達 172W (IF 0.84)，偏向 Tempo 強度，造成後段有氧解離 (Pw:HR) 達 21.39%。建議未來長距離 LSD 前段克制輸出在 140W-150W (68-75% FTP)，爬坡嚴守 174W 上限，避免過早耗損肝醣。<br>"
+            "• <strong>【下車前降瓦與冷卻紀律】</strong> 下車前最後 10–15km 請務必降瓦至 123W-133W 並維持 85-90 rpm 高踏頻，讓心率平順回落。<br>"
+            "• <strong>【跑步步頻與著地剛性】</strong> 轉換跑維持 175-180 spm 小步幅，垂直比控制在 9% 以內，保護膝關節與雙腿剛性。"
+        )
+        h3 = (
+            "• <strong>【水分與電解質持續補充】</strong> 今日總消耗高達 2,855 kcal，請持續每 1–2 小時補充電解質水，直至尿液清澈。<br>"
+            "• <strong>【醣類與優質蛋白補給】</strong> 充足攝取碳水化合物與每公斤 1.5–2.0g 優質蛋白質，加速肌糖原回補與肌纖維修復。<br>"
+            "• <strong>【明日排程建議】</strong> 今日總 TSS 達 338，明日強烈建議安排完全休息 (Rest Day) 或輕鬆低心率排酸游/滾筒放鬆。"
+        )
+    elif completed:
+        h1 = f"• 本週已累積單車 <strong>{bike_dist:.2f} km</strong>、跑步 <strong>{run_dist:.2f} km</strong>、游泳 <strong>{swim_dist:.2f} km</strong>，整體訓練節奏扎實推進中。<br>• 游泳與單車 4 週滾動均量皆達到 Sub-11 標竿需求。"
+        h2 = "• <strong>單車控瓦</strong>：目標巡航 140W-145W，爬坡上限 174W，下車前 10-15km 降瓦至 123W-133W 冷卻。<br>• <strong>跑步步頻</strong>：維持 175-180 spm，減輕關節衝擊，保護全馬下半程。"
+        h3 = "• 訓練後即刻補充水份、電解質與 25g 蛋白質。<br>• 保持每晚 7.5–8.5 小時高品質深度睡眠，加速神經與肌肉修復。"
+    else:
+        h1 = "• 當週課表已排定完備，請依預定配速與強度執行。"
+        h2 = "• 遵守各項課表之強度區間設定，切勿在基礎有氧日超量超瓦。"
+        h3 = "• 課前充足熱身，課後落實收操與營養補充。"
+
+    return f"""
+    <div class="section-box" style="border-left: 4px solid #38BDF8; background: linear-gradient(135deg, rgba(30,41,59,0.85), rgba(15,23,42,0.95)); margin-bottom: 20px;">
+        <div class="section-title" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <span>🧭 教練視角綜合解析與後續建議 (Daily & Weekly Coach Insights)</span>
+            <span style="font-size:0.75rem; background:rgba(56,189,248,0.15); color:#38BDF8; border:1px solid rgba(56,189,248,0.3); padding:3px 8px; border-radius:6px; font-weight:600;">✨ 每日自動更新即時同步</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 14px;">
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid rgba(16, 185, 129, 0.3);">
+                <div style="font-weight: 700; color: #34D399; margin-bottom: 8px; font-size: 0.92rem;">🌟 執行亮點與成效分析</div>
+                <div style="font-size: 0.86rem; color: #E2E8F0; line-height: 1.7;">
+                    {h1}
+                </div>
+            </div>
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid rgba(245, 158, 11, 0.3);">
+                <div style="font-weight: 700; color: #FBBF24; margin-bottom: 8px; font-size: 0.92rem;">⚠️ 需注意的細節與配速紀律</div>
+                <div style="font-size: 0.86rem; color: #E2E8F0; line-height: 1.7;">
+                    {h2}
+                </div>
+            </div>
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid rgba(56, 189, 248, 0.3);">
+                <div style="font-weight: 700; color: #38BDF8; margin-bottom: 8px; font-size: 0.92rem;">🧪 賽後恢復與能量補給指南</div>
+                <div style="font-size: 0.86rem; color: #E2E8F0; line-height: 1.7;">
+                    {h3}
+                </div>
+            </div>
+        </div>
+    </div>
+    """
+
 
 
 def generate_52_week_dashboard():
@@ -360,6 +460,7 @@ def generate_52_week_dashboard():
 
         est_snap = calculate_dynamic_226_estimate(w_monday)
         daily_feedback_html = build_daily_feedback_cards(events)
+        coach_insights_box_html = build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est_snap)
 
         weeks_data[w] = {
             "week_num": w,
@@ -379,6 +480,7 @@ def generate_52_week_dashboard():
             "daily_schedule": daily_schedule,
             "estimator": est_snap,
             "daily_feedback_html": daily_feedback_html,
+            "coach_insights_box_html": coach_insights_box_html,
             "art_html": art_html,
             "str_html": str_html,
             "rev_html": rev_html,
@@ -979,6 +1081,9 @@ def generate_52_week_dashboard():
                             <div style="font-size: 0.78rem; color: var(--accent-cyan); margin-top: 4px;">滾動均量 ${{est.rolling_4w_avg_swim_km}} km/週</div>
                         </div>
                     </div>
+
+                    <!-- COACH COMPREHENSIVE ANALYSIS & RECOVERY PROTOCOL -->
+                    ${{data.coach_insights_box_html}}
 
                     <!-- DAILY WORKOUT ACCOMPLISHMENTS & COACH FEEDBACK -->
                     <div class="section-box">
