@@ -184,6 +184,21 @@ def build_daily_feedback_cards(events):
                 "⚡ <strong>【步頻與跑姿維持】</strong> 前 3 公里步頻維持在 174-175 spm、垂直比 9.0%，動力傳遞效率優異。後續 90 分鐘轉換跑時，請專注於前 5 公里維持 175-180 spm 小步幅，平穩將心率巡航在 155-165 bpm。<br>"
                 "🧪 <strong>【黃金恢復指南】</strong> 今日總消耗高達 2,855 kcal，請持續補充電解質與每公斤 1.5-2.0g 優質蛋白質，明日建議完全休息或輕鬆排酸游。"
             )
+        elif ev.get("date") == "2026-08-14" and t == "Swim":
+            metrics_parts.append("⏱️ 實際時間：<strong>1:08:46 (68.8 分)</strong>")
+            metrics_parts.append("📏 實際距離：<strong>3,300 m (3.30 km)</strong>")
+            metrics_parts.append("🏊 均速配速：<strong style='color:#22D3EE;'>2:05 /100m</strong> (最快 1:45 /100m)")
+            metrics_parts.append("💓 均心率：<strong style='color:#F43F5E;'>140 bpm</strong> (最高 181 bpm, Z2-Z3 佔 63%)")
+            metrics_parts.append("🔄 划水頻率：<strong style='color:#10B981;'>27 spm</strong> (最高 30 spm)")
+            metrics_parts.append("📊 訓練壓力：<strong>89.2 sTSS</strong> (IF 0.92)")
+            metrics_parts.append("🔥 熱量：<strong>772 kcal</strong>")
+            metrics_parts.append("🩺 有氧解離 (Pa:HR)：<strong>4.12%</strong> (極佳有氧穩定性)")
+            metrics_parts.append("😊 體感自覺：<strong style='color:#10B981;'>5/5 (極佳)</strong>")
+            advice = (
+                "🎯 <strong>【扎實高量有氧划水與極佳水感】</strong> 順利吃下 3,300m 甜甜主課表（1小時08分）！划頻穩定維持在 27 spm，有氧解離率僅 4.12%（&lt;5% 優秀標準），顯示在長距離游程中身體流線型與核心浮力維持得非常好，無明顯下沉或阻力增加現象。<br>"
+                "🏊‍♂️ <strong>【對標 Sub-11 標竿 (1h12m / 1:53/100m)】</strong> 今日主課混合了分解動作 (Drill) 與定速游，均速 2:05/100m，高峰衝刺游出 1:45/100m。進入賽前 Build/Peak 週期時，可逐步增加 100m/200m 巡航配速游比重，目標鎖定在 1:48–1:53/100m 節奏，出水前保持低心率定位，將最佳腿力完整留給單車與全馬。<br>"
+                "💡 <strong>【連續大週課表銜接】</strong> 週五游完 3.3km 後隔日即順利銜接週六 127km 長騎與轉換跑，展現非常充沛的體能庫存。"
+            )
         # Specific Rich TP metrics for 2026-08-13 Bike & Run
         elif ev.get("date") == "2026-08-13" and t == "Bike":
             metrics_parts.append("💓 均心率：<strong style='color:#F43F5E;'>105 bpm</strong> (Zone 1-2 佔 97.2%)")
