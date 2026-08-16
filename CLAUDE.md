@@ -6,6 +6,10 @@
 
 - 專案名稱：Trainingpeak運動記錄分析
 - 專案目標：追蹤運動成效與達成 **IM226 Sub-11 完賽目標藍圖** (總目標 **10:54:00**：游泳 1h12m | T1 6m | 單車 5h30m / 140W-145W | T2 6m | 全馬 4h00m / 5:41km)
+- 賽事階層定位：
+  1. **2026 賽事 B (前哨實戰檢驗 / Tune-up & Test Race)**：2026 年 11 月 **IRONMAN 70.3 墾丁 (Kenting 70.3)** (`https://www.ironman.com/races/im703-kenting/course`)
+  2. **2026 主要賽事 A (Main Target Race A)**：2026 年 11 月 **IRONMAN 馬來西亞蘭卡威 (Langkawi 226km)**
+  3. **2027 主要賽事 (Ultimate Main Target Race)**：2027 年 **IRONMAN 澎湖 (Penghu 226km)** (`https://www.ironman.com/races/im-penghu/course#swim`)
 - 主要資料來源：TrainingPeaks
 - 使用者：自己研究用
 

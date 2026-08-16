@@ -212,7 +212,7 @@ def calculate_dynamic_226_estimate(target_monday: date) -> dict:
     }
 
     # -------------------------------------------------------------
-    # 8. 🌡️ TRIRATING LANGKAWI (EXTREME HEAT & HILLS) MODIFIER
+    # 8.1 🏝️ 2026 RACE A: TRIRATING LANGKAWI 226KM (HEAT & HILLS)
     # -------------------------------------------------------------
     langkawi_penalty_opt = 55.0
     langkawi_penalty_neu = 72.0
@@ -221,6 +221,30 @@ def calculate_dynamic_226_estimate(target_monday: date) -> dict:
     langkawi_opt_mins = opt_mins + langkawi_penalty_opt
     langkawi_neu_mins = neu_mins + langkawi_penalty_neu
     langkawi_con_mins = con_mins + langkawi_penalty_con
+
+    # -------------------------------------------------------------
+    # 8.2 🌊 2026 RACE B (TUNE-UP / TEST): IRONMAN 70.3 KENTING (2026/11)
+    # -------------------------------------------------------------
+    # Kenting 70.3: Little Bay M-shape swim, Provincial Hwy 26 / P153 rolling + Downhill Wind (落山風), Shexing run
+    kenting_penalty_opt = 6.0
+    kenting_penalty_neu = 9.0
+    kenting_penalty_con = 15.0
+
+    kenting_opt_mins = opt_mins_703 + kenting_penalty_opt
+    kenting_neu_mins = neu_mins_703 + kenting_penalty_neu
+    kenting_con_mins = con_mins_703 + kenting_penalty_con
+
+    # -------------------------------------------------------------
+    # 8.3 🏆 2027 ULTIMATE MAIN TARGET: IRONMAN PENGHU 226KM (2027)
+    # -------------------------------------------------------------
+    # Penghu 226: Shili 2 laps swim, Great Bridge 3 laps with strong Monsoon Crosswinds (強側逆風), Guanyinting 4 laps run
+    penghu_penalty_opt = 16.0
+    penghu_penalty_neu = 24.0
+    penghu_penalty_con = 38.0
+
+    penghu_opt_mins = opt_mins + penghu_penalty_opt
+    penghu_neu_mins = neu_mins + penghu_penalty_neu
+    penghu_con_mins = con_mins + penghu_penalty_con
 
     # -------------------------------------------------------------
     # 9. CROSS-VALIDATION FORMULAS (Riegel, 70.3 Multiplier, VDOT)
@@ -264,10 +288,28 @@ def calculate_dynamic_226_estimate(target_monday: date) -> dict:
         "neu_splits_703": neu_splits_703,
         "con_splits_703": con_splits_703,
         "langkawi_estimate": {
+            "title": "IRONMAN 馬來西亞蘭卡威 (2026 主要賽事 A)",
             "optimistic": f"{format_minutes(langkawi_opt_mins - 10.0)} – {format_minutes(langkawi_opt_mins + 10.0)} (中位: {format_minutes(langkawi_opt_mins)})",
             "neutral": f"{format_minutes(langkawi_neu_mins - 15.0)} – {format_minutes(langkawi_neu_mins + 15.0)} (中位: {format_minutes(langkawi_neu_mins)})",
             "conservative": f"{format_minutes(langkawi_con_mins - 20.0)} – {format_minutes(langkawi_con_mins + 25.0)} (中位: {format_minutes(langkawi_con_mins)})",
-            "heat_climbing_penalty": f"+{int(langkawi_penalty_neu)} 分鐘 (高溫 34°C/濕度 90% + 單車爬升 1,500m)"
+            "heat_climbing_penalty": f"+{int(langkawi_penalty_neu)} 分鐘 (高溫 34°C/濕度 90% + 單車爬升 1,500m)",
+            "role": "2026 年度主要賽事 A 🏆"
+        },
+        "kenting_703_estimate": {
+            "title": "IRONMAN 70.3 墾丁 (2026 賽事 B 前哨檢驗)",
+            "optimistic": f"{format_minutes(kenting_opt_mins - 5.0)} – {format_minutes(kenting_opt_mins + 5.0)} (中位: {format_minutes(kenting_opt_mins)})",
+            "neutral": f"{format_minutes(kenting_neu_mins - 6.0)} – {format_minutes(kenting_neu_mins + 6.0)} (中位: {format_minutes(kenting_neu_mins)})",
+            "conservative": f"{format_minutes(kenting_con_mins - 8.0)} – {format_minutes(kenting_con_mins + 10.0)} (中位: {format_minutes(kenting_con_mins)})",
+            "course_modifier": f"+{int(kenting_penalty_neu)} 分鐘 (小灣 M 字海泳 + 台26落山風/起伏 + 社頂路跑)",
+            "role": "2026 賽事 B 實戰檢驗 (Tune-up & Test Race)"
+        },
+        "penghu_226_estimate": {
+            "title": "IRONMAN 澎湖 (2027 年度終極主要賽事 🏆)",
+            "optimistic": f"{format_minutes(penghu_opt_mins - 8.0)} – {format_minutes(penghu_opt_mins + 8.0)} (中位: {format_minutes(penghu_opt_mins)})",
+            "neutral": f"{format_minutes(penghu_neu_mins - 12.0)} – {format_minutes(penghu_neu_mins + 12.0)} (中位: {format_minutes(penghu_neu_mins)})",
+            "conservative": f"{format_minutes(penghu_con_mins - 15.0)} – {format_minutes(penghu_con_mins + 20.0)} (中位: {format_minutes(penghu_con_mins)})",
+            "course_modifier": f"+{int(penghu_penalty_neu)} 分鐘 (跨海大橋 3 圈強烈東北季風/側逆風 + 觀音亭 4 圈全馬)",
+            "role": "2027 年度主要賽事 (終極對標 Sub-11 10:54 藍圖)"
         },
         "formulas": {
             "hybrid_engine": "結合 CSS 臨界水速 + BBS 物理力學 + Couzens 功率區間 + VDOT/Runalyze 馬拉松準備度 + TP 執行率",

@@ -1246,26 +1246,95 @@ def generate_52_week_dashboard():
                         </div>
                     </div>
 
-                    <!-- TRIRATING LANGKAWI EXTREME WEATHER & HILLS FORECAST -->
-                    <div class="section-box" style="margin-top: 20px; border-left: 4px solid #EC4899; background: rgba(236, 72, 153, 0.05);">
-                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-bottom: 10px;">
-                            <div class="section-title" style="margin-bottom:0; color:#F472B6;">🏝️ 11 月馬來西亞蘭卡威 (Langkawi 226km) 高溫爬坡特化預估</div>
-                            <div style="font-size:0.8rem; background:rgba(236,72,153,0.15); color:#F472B6; padding:4px 10px; border-radius:20px; border:1px solid rgba(236,72,153,0.3);">
-                                賽道修正加成：${{est.langkawi_estimate.heat_climbing_penalty}}
+                    <!-- TARGET RACES HIERARCHY & COURSE SPECIFIC PREDICTIONS -->
+                    <div class="section-box" style="margin-top: 20px; border-left: 4px solid #38BDF8; background: linear-gradient(135deg, rgba(30,41,59,0.7), rgba(15,23,42,0.9));">
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-bottom: 12px; gap:8px;">
+                            <div class="section-title" style="margin-bottom:0; color:#38BDF8;">🏁 目標賽事階層與賽道特化完賽預估 (Target Races Hierarchy)</div>
+                            <div style="font-size:0.8rem; background:rgba(56,189,248,0.15); color:#38BDF8; padding:4px 12px; border-radius:20px; border:1px solid rgba(56,189,248,0.3); font-weight:600;">
+                                🎯 2026 墾丁 (B) ➔ 2026 蘭卡威 (A) ➔ 2027 澎湖 (終極主要賽事)
                             </div>
                         </div>
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 12px;">
-                            <div style="background: rgba(15, 23, 42, 0.6); padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(236, 72, 153, 0.2);">
-                                <div style="font-size:0.8rem; color:#F472B6; font-weight:700;">🟢 蘭卡威樂觀目標</div>
-                                <div style="font-size:1.15rem; font-weight:800; color:#F8FAFC; margin-top:4px;">${{est.langkawi_estimate.optimistic}}</div>
+
+                        <!-- 1. 2026 RACE B: KENTING 70.3 -->
+                        <div style="background: rgba(14, 165, 233, 0.06); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+                                <div>
+                                    <span style="font-size:1.02rem; font-weight:800; color:#38BDF8;">🌊 2026 賽事 B (實戰前哨檢驗)：IRONMAN 70.3 墾丁</span>
+                                    <a href="https://www.ironman.com/races/im703-kenting/course" target="_blank" style="margin-left:8px; font-size:0.78rem; color:#0284C7; text-decoration:none; background:rgba(56,189,248,0.15); padding:2px 8px; border-radius:4px; border:1px solid rgba(56,189,248,0.3);">🔗 官方賽道路線 ↗</a>
+                                </div>
+                                <span style="font-size:0.76rem; background:rgba(56,189,248,0.15); color:#38BDF8; padding:3px 8px; border-radius:6px; font-weight:600;">修正加成：${{est.kenting_703_estimate.course_modifier}}</span>
                             </div>
-                            <div style="background: rgba(15, 23, 42, 0.6); padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(236, 72, 153, 0.2);">
-                                <div style="font-size:0.8rem; color:#F472B6; font-weight:700;">🟠 蘭卡威中性目標</div>
-                                <div style="font-size:1.15rem; font-weight:800; color:#F8FAFC; margin-top:4px;">${{est.langkawi_estimate.neutral}}</div>
+                            <div style="font-size:0.84rem; color:#CBD5E1; margin-bottom:10px; line-height:1.6;">
+                                <strong>賽事任務</strong>：作為 11 月蘭卡威主要賽事 A 之前的實戰檢驗 (Tune-up / Test Race)。重點測試小灣 M 型海泳水感、台26/屏153落山風側逆風巡航穩定度與 T1/T2 轉換跑配速。
                             </div>
-                            <div style="background: rgba(15, 23, 42, 0.6); padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(236, 72, 153, 0.2);">
-                                <div style="font-size:0.8rem; color:#F472B6; font-weight:700;">🔴 蘭卡威保守目標</div>
-                                <div style="font-size:1.15rem; font-weight:800; color:#F8FAFC; margin-top:4px;">${{est.langkawi_estimate.conservative}}</div>
+                            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                                <div style="background: rgba(15, 23, 42, 0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(56, 189, 248, 0.25);">
+                                    <div style="font-size:0.76rem; color:#38BDF8; font-weight:700;">🟢 墾丁樂觀目標 (破5:15)</div>
+                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px;">${{est.kenting_703_estimate.optimistic}}</div>
+                                </div>
+                                <div style="background: rgba(15, 23, 42, 0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.25);">
+                                    <div style="font-size:0.76rem; color:#FBBF24; font-weight:700;">🟠 墾丁中性目標 (穩定配速)</div>
+                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px;">${{est.kenting_703_estimate.neutral}}</div>
+                                </div>
+                                <div style="background: rgba(15, 23, 42, 0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.25);">
+                                    <div style="font-size:0.76rem; color:#F87171; font-weight:700;">🔴 墾丁保守目標 (落山風掉速)</div>
+                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px;">${{est.kenting_703_estimate.conservative}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. 2026 RACE A: LANGKAWI 226KM -->
+                        <div style="background: rgba(236, 72, 153, 0.06); border: 1px solid rgba(236, 72, 153, 0.3); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+                                <div>
+                                    <span style="font-size:1.02rem; font-weight:800; color:#F472B6;">🏝️ 2026 主要賽事 A：IRONMAN 馬來西亞蘭卡威 (226km)</span>
+                                </div>
+                                <span style="font-size:0.76rem; background:rgba(236,72,153,0.15); color:#F472B6; padding:3px 8px; border-radius:6px; font-weight:600;">修正加成：${{est.langkawi_estimate.heat_climbing_penalty}}</span>
+                            </div>
+                            <div style="font-size:0.84rem; color:#CBD5E1; margin-bottom:10px; line-height:1.6;">
+                                <strong>賽事任務</strong>：2026 年度主要賽事 A 🏆。挑戰高溫 (34°C)、高濕 (90%) 熱帶賽道與單車 1,500m 爬坡，嚴格執行散熱降溫、每小時 700-900ml 電解質補給與爬坡守住 174W 瓦數上限紀律。
+                            </div>
+                            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                                <div style="background: rgba(15, 23, 42, 0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(236, 72, 153, 0.25);">
+                                    <div style="font-size:0.76rem; color:#F472B6; font-weight:700;">🟢 蘭卡威樂觀目標</div>
+                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px;">${{est.langkawi_estimate.optimistic}}</div>
+                                </div>
+                                <div style="background: rgba(15, 23, 42, 0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.25);">
+                                    <div style="font-size:0.76rem; color:#FBBF24; font-weight:700;">🟠 蘭卡威中性目標</div>
+                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px;">${{est.langkawi_estimate.neutral}}</div>
+                                </div>
+                                <div style="background: rgba(15, 23, 42, 0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.25);">
+                                    <div style="font-size:0.76rem; color:#F87171; font-weight:700;">🔴 蘭卡威保守目標</div>
+                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px;">${{est.langkawi_estimate.conservative}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. 2027 ULTIMATE MAIN TARGET: PENGHU 226KM -->
+                        <div style="background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px; padding: 14px 16px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+                                <div>
+                                    <span style="font-size:1.02rem; font-weight:800; color:#34D399;">🏆 2027 年度主要賽事 (終極對標 Sub-11)：IRONMAN 澎湖 (226km)</span>
+                                    <a href="https://www.ironman.com/races/im-penghu/course#swim" target="_blank" style="margin-left:8px; font-size:0.78rem; color:#10B981; text-decoration:none; background:rgba(16,185,129,0.15); padding:2px 8px; border-radius:4px; border:1px solid rgba(16,185,129,0.3);">🔗 官方賽道路線 ↗</a>
+                                </div>
+                                <span style="font-size:0.76rem; background:rgba(16,185,129,0.15); color:#34D399; padding:3px 8px; border-radius:6px; font-weight:600;">修正加成：${{est.penghu_226_estimate.course_modifier}}</span>
+                            </div>
+                            <div style="font-size:0.84rem; color:#CBD5E1; margin-bottom:10px; line-height:1.6;">
+                                <strong>賽事任務</strong>：2027 年度終極主要賽事 🏆。全面擊中 <strong>IM226 Sub-11 完賽目標藍圖 (10:54:00)</strong>！以扎實的有氧空力巡航（140W-145W）抗衡跨海大橋 3 圈強烈東北季風，全馬路跑守住 5:41/km (4h00m)，完美達成 Sub-11 歷史里程碑。
+                            </div>
+                            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                                <div style="background: rgba(15, 23, 42, 0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.3);">
+                                    <div style="font-size:0.76rem; color:#34D399; font-weight:700;">🟢 澎湖樂觀目標 (Sub-11 破標)</div>
+                                    <div style="font-size:1.05rem; font-weight:800; color:#34D399; margin-top:2px;">${{est.penghu_226_estimate.optimistic}}</div>
+                                </div>
+                                <div style="background: rgba(15, 23, 42, 0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.25);">
+                                    <div style="font-size:0.76rem; color:#FBBF24; font-weight:700;">🟠 澎湖中性目標 (穩健發揮)</div>
+                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px;">${{est.penghu_226_estimate.neutral}}</div>
+                                </div>
+                                <div style="background: rgba(15, 23, 42, 0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.25);">
+                                    <div style="font-size:0.76rem; color:#F87171; font-weight:700;">🔴 澎湖保守目標 (強逆風抗衡)</div>
+                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px;">${{est.penghu_226_estimate.conservative}}</div>
+                                </div>
                             </div>
                         </div>
                     </div>

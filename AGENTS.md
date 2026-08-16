@@ -2,10 +2,18 @@
 
 本文件提供 Codex 與 Claude Code 共用規則。
 
-## 專案目標
+## 專案目標與賽事體系 (Race Hierarchy & Targets)
 
-- 追蹤運動成效
-- 預估與達成 **IM226 Sub-11 完賽目標藍圖** (總目標 **10:54:00**：游泳 1h12m | T1 6m | 單車 5h30m / 140W-145W | T2 6m | 全馬 4h00m / 5:41km)
+- 追蹤運動成效與達成 **IM226 Sub-11 完賽目標藍圖** (總目標 **10:54:00**：游泳 1h12m | T1 6m | 單車 5h30m / 140W-145W | T2 6m | 全馬 4h00m / 5:41km)
+- **賽事體系階層定位**：
+  1. **2026 賽事 B (實戰前哨檢驗 / Tune-up & Test Race)**：2026 年 11 月 **IRONMAN 70.3 墾丁 (Kenting 70.3)**
+     - 官方路線：`https://www.ironman.com/races/im703-kenting/course`
+     - 任務：檢驗落山風/側逆風騎乘穩定度、小灣海泳水感、轉換區流暢度與 21.1km 轉換跑配速，為蘭卡威賽事 A 做最後校準。
+  2. **2026 主要賽事 A (Main Target Race A)**：2026 年 11 月 **IRONMAN 馬來西亞蘭卡威 (Langkawi 226km)**
+     - 任務：挑戰高溫 (34°C)/高濕 (90%) 與單車 1,500m 爬坡，嚴格落實散熱控心率與補水補電解質。
+  3. **2027 主要賽事 (Ultimate Main Target Race)**：2027 年 **IRONMAN 澎湖 (Penghu 226km)**
+     - 官方路線：`https://www.ironman.com/races/im-penghu/course#swim`
+     - 任務：2027 年度終極目標！全面實踐 Sub-11 (10:54) 完賽藍圖，抗衡跨海大橋 3 圈強烈東北季風與觀音亭 4 圈全馬。
 
 ## 工作原則
 
