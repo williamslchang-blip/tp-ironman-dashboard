@@ -179,7 +179,11 @@ def build_report(target_date: date):
         f.write("### 1. 執行亮點 (Execution Highlights)\n")
         f.write(f"- **高質量耐力里程累積**：當週已累積自行車 **{bike_act_km:.2f} km**、跑步 **{run_act_km:.2f} km**、游泳 **{swim_act_km:.2f} km**，整體時間執行率達 **{overall_completion:.1f}%**。\n")
         if bike_act_km >= 90:
-            f.write("- **長距離單車扎實完成**：順利完成大里程長騎課表，左右踩踏發力極為均衡（50.5% / 49.5%），座艙設定與核心肌群支撐展現高度穩定性。\n")
+            f.write("- **長距離單車扎實完成**：順利完成 127.37 km 破百長騎課表，左右踩踏發力極為均衡（50.5% / 49.5%），座艙設定與核心肌群支撐展現高度穩定性。\n")
+        if run_act_km >= 30:
+            f.write("- **山道爬坡長跑與漸速巡航**：8/16 順利完成 17.52 km 長跑（總爬升 +327m），平路河濱漸速至 5:26/km，上坡穩健控心率並自覺補水折返，下坡迅速拉高步頻至 180+ spm 平穩收尾。\n")
+        if swim_act_km >= 8:
+            f.write("- **超長距離雙主課穩定巡航**：8/16 游泳實游 4,100m，包含雙組 1,600m 自由式持續游，以 1:56~1:58/100m 高度一致的均速與 140 bpm 穩定心率順利吃下，展現極佳的長距離巡航水感。\n")
         if any("轉換" in ev["summary"] or (ev["type"] == "Run" and ev["actual_time"] <= 45 and ev["actual_time"] > 0) for ev in sorted_events):
             f.write("- **極佳的自我防護與疲勞決策**：在長距離高負荷後無縫銜接轉換跑，並依據身體即時心率與體感自覺（Feeling 5/5）彈性調整收操時機，既達到神經肌肉轉換刺激，又有效預防過度疲勞與熱傷害。\n")
         f.write("\n")
@@ -187,12 +191,13 @@ def build_report(target_date: date):
         f.write("### 2. 需注意的細節與配速紀律 (Key Watchpoints & Power Pacing)\n")
         f.write("- **自行車長距離 (LSD) 功率控制**：對標 Sub-11 藍圖 (5h30m / 140W-145W)，長距離 LSD 前段請務必克制輸出（目標區間 140W-150W），爬坡嚴守 174W (85% FTP) 上限，避免有氧解離 (Pw:HR) 過大耗損跑步雙腿剛性。\n")
         f.write("- **下車前降瓦冷卻**：下車前最後 10–15 公里主動降瓦至 123W–133W，並維持 85–90 rpm 高踏頻，讓心率下降並促進乳酸代謝。\n")
-        f.write("- **跑步步頻與著地剛性**：跑步維持 175–180 spm 小步幅高步頻，觸地時間控制在 <270ms，垂直比 <9%，減輕膝蓋與下肢關節衝擊。\n\n")
+        f.write("- **跑步步頻與著地剛性**：跑步維持 175–180 spm 小步幅高步頻，觸地時間控制在 <270ms，垂直比 <9%，減輕膝蓋與下肢關節衝擊。\n")
+        f.write("- **游泳巡航手感定型**：保持放鬆 Zone 1-2 低心率划水，出水前保持平穩定位 (Sighting)，目標直指 Sub-11 1:12:00 (1:53/100m) 配速線。\n\n")
         
         f.write("### 3. 恢復與能量補給指南 (Recovery & Fueling Protocol)\n")
         f.write("- **補水與電解質**：高溫與大消耗訓練後，持續每 1–2 小時補充含電解質飲品，直至尿液顏色恢復清淡。\n")
         f.write("- **醣類與蛋白質補充**：長課表後請充足補充碳水化合物與每公斤體重 1.5–2.0g 優質蛋白質，促進肌糖原快速回補與肌纖維修復。\n")
-        f.write("- **排程建議**：若當日或前日累積 TSS 超過 300，次日務必以完全休息 (Rest Day) 或低心率排酸輕鬆游/滾筒伸展為主。\n\n")
+        f.write("- **排程建議**：週末雙大日累積負荷高，週一請務必以完全休息 (Rest Day) 或低心率排酸輕鬆游/滾筒伸展為主。\n\n")
             
     print(f"Markdown report generated: {md_path}")
     
@@ -318,6 +323,10 @@ def build_report(target_date: date):
     p1_body.add_run(f"• 當週累積自行車 {bike_act_km:.2f} km、跑步 {run_act_km:.2f} km、游泳 {swim_act_km:.2f} km，整體時間執行率達 {overall_completion:.1f}%。\n")
     if bike_act_km >= 90:
         p1_body.add_run("• 長距離單車扎實完成，左右踩踏發力極為平衡 (50.5% / 49.5%)，座艙穩定度高。\n")
+    if run_act_km >= 30:
+        p1_body.add_run("• 8/16 順利完成 17.52 km 長跑（總爬升 +327m），平路河濱漸速至 5:26/km，上坡穩健控心率並自覺補水折返，下坡迅速拉高步頻收尾。\n")
+    if swim_act_km >= 8:
+        p1_body.add_run("• 8/16 游泳實游 4,100m，雙組 1,600m 自由式持續游繳出 1:56~1:58/100m 高度一致均速與 140 bpm 穩定心率，水感極佳。\n")
     p1_body.add_run("• 在高負荷訓練後無縫銜接轉換跑，並依據即時心率與體感自覺彈性調整，兼顧神經肌肉適應與傷害防範。\n")
     
     p2 = doc.add_paragraph()
@@ -326,13 +335,14 @@ def build_report(target_date: date):
     p2_body.add_run("• 自行車長距離 (LSD) 功率控制：對標 Sub-11 藍圖 (5h30m / 140W-145W)，前段請克制輸出，爬坡嚴守 174W (85% FTP) 上限，避免有氧解離過大。\n")
     p2_body.add_run("• 下車前最後 10–15 公里主動降瓦至 123W–133W 並維持高踏頻，加速乳酸代謝。\n")
     p2_body.add_run("• 跑步維持 175–180 spm 步頻與短觸地時間，保護關節與下半程剛性。\n")
+    p2_body.add_run("• 游泳巡航手感定型：維持放鬆 Zone 1-2 低心率划水，出水前保持平穩定位，直指 Sub-11 1:12:00 (1:53/100m) 配速線。\n")
     
     p3 = doc.add_paragraph()
     font(p3.add_run("3. 恢復與能量補給指南 (Recovery & Fueling Protocol)"), 12, True, "2E74B5")
     p3_body = doc.add_paragraph()
     p3_body.add_run("• 持續每 1–2 小時補充含電解質飲品，直至尿液顏色恢復清淡。\n")
     p3_body.add_run("• 訓練後充足補充碳水化合物與每公斤體重 1.5–2.0g 優質蛋白質。\n")
-    p3_body.add_run("• 單日累積 TSS 超過 300 時，次日請以完全休息或低心率排酸為主。\n")
+    p3_body.add_run("• 週末連續雙大日累積負荷高，週一請務必以完全休息 (Rest Day) 或低心率排酸輕鬆游/滾筒伸展為主。\n")
 
     doc.save(docx_path)
     print(f"DOCX report generated: {docx_path}")

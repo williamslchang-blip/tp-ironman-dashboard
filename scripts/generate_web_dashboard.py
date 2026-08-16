@@ -149,8 +149,39 @@ def build_daily_feedback_cards(events):
             if swim_s == 60: swim_m += 1; swim_s = 0
             metrics_parts.append(f"🏊 划水配速：<strong>{swim_m}:{swim_s:02d} /100m</strong>")
 
+        # Specific Rich TP metrics for 2026-08-16 Run & Swim
+        if ev.get("date") == "2026-08-16" and t == "Run":
+            metrics_parts.append("⏱️ 實際時間：<strong>2:04:32 (124.5 分)</strong>")
+            metrics_parts.append("📏 實際距離：<strong>17.52 km</strong>")
+            metrics_parts.append("👟 平均配速：<strong style='color:#F59E0B;'>7:06 /km</strong> (等效 6:35 /km)")
+            metrics_parts.append("💓 均心率：<strong style='color:#F43F5E;'>149 bpm</strong> (最高 172 bpm, Z1-Z2 佔 99.9%)")
+            metrics_parts.append("⚡ 平均功率：<strong>226 W</strong> (最高 380 W)")
+            metrics_parts.append("👣 平均步頻：<strong style='color:#10B981;'>155 spm</strong> (下坡 176-184 spm)")
+            metrics_parts.append("⛰️ 總爬升：<strong style='color:#38BDF8;'>+327 m</strong> / -279 m (最高海拔 286.6m)")
+            metrics_parts.append("📊 訓練壓力：<strong>86.4 rTSS</strong> (IF 0.61)")
+            metrics_parts.append("🔥 熱量：<strong>1,201 kcal</strong>")
+            metrics_parts.append("😊 體感自覺：<strong style='color:#10B981;'>5/5 (滿分)</strong>")
+            advice = (
+                "🎯 <strong>【平路漸速與山道爬坡兼備的長距離有氧】</strong> 今日完成 17.52 km 長跑，總爬升達 +327m。前段平路河濱（Lap 1~8）配速由 6:42/km 順暢提速至 5:26/km（功率 240~287W），熱身與巡航節奏非常優秀。<br>"
+                "⛰️ <strong>【明德宮陡坡有氧控制與自覺補水折返】</strong> 上坡路段（8~13km）坡度達 4%~8.5%，心率妥善控制在 131~163 bpm，不盲目衝瓦；並於明德宮適時補水後折返，是極具經驗的防熱衰與補給決策。下坡段（13~17km）迅速拉高步頻至 176~184 spm，平穩收尾。<br>"
+                "💡 <strong>【對標 Sub-11 全馬 4 小時 (5:41/km)】</strong> 本次長跑在包含 300+ 公尺爬升下全有氧區間（Z1-Z2 佔 99.9%）完成，奠定極佳的下肢抗疲勞肌耐力。"
+            )
+        elif ev.get("date") == "2026-08-16" and t == "Swim":
+            metrics_parts.append("⏱️ 實際時間：<strong>1:25:35 (85.6 分, 游動 1:07:18)</strong>")
+            metrics_parts.append("📏 實際距離：<strong>4,100 m (4.10 km)</strong>")
+            metrics_parts.append("🏊 均速配速：<strong style='color:#22D3EE;'>2:05 /100m</strong> (主課巡航 1:56~1:58 /100m)")
+            metrics_parts.append("💓 均心率：<strong style='color:#F43F5E;'>134 bpm</strong> (最高 163 bpm, Z1-Z2 佔 65%, Z3 佔 34%)")
+            metrics_parts.append("🔄 划水頻率：<strong style='color:#10B981;'>25 spm</strong> (最高 28 spm)")
+            metrics_parts.append("📊 訓練壓力：<strong>110.4 sTSS</strong> (IF 0.92)")
+            metrics_parts.append("🔥 熱量：<strong>733 kcal</strong>")
+            metrics_parts.append("😊 體感自覺：<strong style='color:#10B981;'>3/5 (扎實)</strong>")
+            advice = (
+                "🏊‍♂️ <strong>【超長距離雙主課穩定巡航】</strong> 完成 4,100m 高量游泳課表！包含 800m 扎實技術分解練習 (Drill) 與兩組 1,600m（合計 3,200m）主項巡航。第一組 1,600m 耗時 31分11秒（均速 <strong>1'56\" /100m</strong>，心率 140 bpm），第二組 1,600m 耗時 31分41秒（均速 <strong>1'58\" /100m</strong>，心率 142 bpm），兩大段配速與划頻（25 spm）展現極致一致性！<br>"
+                "🎯 <strong>【精準對標 Sub-11 游泳藍圖 (1h12m / 1:53/100m)】</strong> 1,600m 連續長游在 140 bpm 低心率下輕鬆維持破 2 分台（1'56\"~1'58\"/100m），證明 3.8km 全程可在低於乳酸閾值的極省力狀態游在 1:12-1:15 區間出水，完美保護後續單車與全馬體力。<br>"
+                "🧪 <strong>【週日雙項累積近 200 TSS 之恢復指引】</strong> 上午跑、游雙課表合計 196.8 TSS，全週累積游泳 10.7km、單車 188.4km、跑步 37.2km，整體負荷圓滿達標。建議晚間補足碳水與優質蛋白質，針對小腿與肩背進行滾筒放鬆，準備迎接週一的恢復日。"
+            )
         # Specific Rich TP metrics for 2026-08-15 Bike & Run
-        if ev.get("date") == "2026-08-15" and t == "Bike":
+        elif ev.get("date") == "2026-08-15" and t == "Bike":
             metrics_parts.append("⏱️ 實際時間：<strong>4:36:23 (276 分)</strong>")
             metrics_parts.append("📏 實際距離：<strong>127.37 km</strong>")
             metrics_parts.append("⚡ 平均時速：<strong>27.65 km/h</strong>")
@@ -261,10 +292,28 @@ def build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est):
     run_dist = sum(ev.get("actual_dist", 0) for ev in completed if ev.get("type") == "Run")
     swim_dist = sum(ev.get("actual_dist", 0) for ev in completed if ev.get("type") == "Swim")
     
+    has_816_run = any(ev.get("date") == "2026-08-16" and ev.get("type") == "Run" for ev in completed)
+    has_816_swim = any(ev.get("date") == "2026-08-16" and ev.get("type") == "Swim" for ev in completed)
     has_815_bike = any(ev.get("date") == "2026-08-15" and ev.get("type") == "Bike" for ev in completed)
     has_815_run = any(ev.get("date") == "2026-08-15" and ev.get("type") == "Run" for ev in completed)
     
-    if has_815_bike and has_815_run:
+    if has_816_run and has_816_swim:
+        h1 = (
+            "• <strong>【W33 大量週圓滿結算 (Big Weekend)】</strong> 全週累計游泳 <strong>10.70 km</strong>、自行車 <strong>188.36 km</strong>、跑步 <strong>37.20 km</strong>，總訓練時間突破 16 小時，總 TSS 突破 650，有氧底層極為厚實。<br>"
+            "• <strong>【週日跑游雙主項高水準發揮】</strong> 8/16 清晨完成 17.52 km（含明德宮 +327m 爬坡，平路漸速至 5:26/km）；上午接續 4,100m 游泳，雙 1,600m 主項巡航繳出 1:56~1:58/100m 絕佳均速與 140 bpm 低心率！<br>"
+            "• <strong>【極佳左右平衡與配速穩定性】</strong> 8/15 破百長騎 127.37 km（左右平衡 50.5%/49.5%）與 8/16 雙 1,600m 連續長游均展現頂尖的體能一致性。"
+        )
+        h2 = (
+            "• <strong>【長騎控瓦與有氧解離防線】</strong> 8/15 長騎 NP 172W (IF 0.84) 偏向競賽強度，未來長距離 LSD 前 3 小時務必壓制在 140W-150W (68-75% FTP)，下車前 10-15km 主動降瓦冷卻。<br>"
+            "• <strong>【山道長跑心率與步頻轉換】</strong> 上坡路段維持 131-163 bpm 控心率、下坡迅速拉高步頻至 176-184 spm 減少煞車衝擊，對標 Sub-11 全馬 4 小時 (5:41/km) 節奏。<br>"
+            "• <strong>【游泳長距離 1:53 巡航手感】</strong> 雙 1,600m 巡航在 140 bpm 游出 1:56-1:58/100m，可於後續課表逐步加入 100/200m 巡航配速游，目標直指 1:48-1:53/100m。"
+        )
+        h3 = (
+            "• <strong>【週末雙大日深度修復】</strong> 連續兩天高強度與高量訓練累積近 540 TSS，請持續補充水分、電解質與每公斤 1.5–2.0g 優質蛋白質。<br>"
+            "• <strong>【下肢與肩背肌群放鬆】</strong> 重點針對小腿阿基里斯腱、臀大肌、肩關節與闊背肌進行滾筒放鬆與深層伸展。<br>"
+            "• <strong>【週一恢復日排程】</strong> 週一安排完全休息 (Rest Day) 或低心率排酸輕鬆游/滾筒活動度，讓神經與肌肉充分吸收本週超量訓練。"
+        )
+    elif has_815_bike and has_815_run:
         h1 = (
             "• <strong>【大訓練日 (Big Day) 高品質完成】</strong> 本週累計自行車已達 <strong>188.36 km</strong>、跑步 <strong>19.68 km</strong>、游泳 <strong>6.60 km</strong>。<br>"
             "• <strong>【極佳左右平衡與座艙穩定度】</strong> 8/15 扎實完成 127.37 km 破百長騎 (4h36m)，踩踏平衡 50.5% / 49.5% 完美均衡！<br>"
