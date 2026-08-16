@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>當週鐵人新知與運動科學綜合整理 (W33)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0F172A;
+            --bg-card: #1E293B;
+            --bg-card-hover: #334155;
+            --accent-cyan: #06B6D4;
+            --accent-blue: #3B82F6;
+            --accent-green: #10B981;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --border-color: #334155;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 30px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .top-header {
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 28px 36px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .top-header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #38BDF8, #818CF8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .top-header .sub {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+        .btn-back {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            color: #FFF;
+            padding: 10px 18px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
+            transition: transform 0.2s;
+        }
+        .btn-back:hover { transform: translateY(-2px); }
+
+        /* STICKY QUICK JUMP NAV BAR */
+        .nav-quick-bar {
+            position: sticky;
+            top: 15px;
+            z-index: 100;
+            background: rgba(30, 41, 59, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 14px;
+            padding: 12px 20px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow-x: auto;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+        }
+        .nav-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #38BDF8;
+            white-space: nowrap;
+        }
+        .nav-chip {
+            padding: 7px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
+        }
+        .chip-home { background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); color: #FFF; border-color: transparent; }
+        .chip-summary { background: rgba(56, 189, 248, 0.15); color: #38BDF8; border-color: rgba(56, 189, 248, 0.4); }
+        .chip-swim { background: rgba(6, 182, 212, 0.15); color: #22D3EE; border-color: rgba(6, 182, 212, 0.4); }
+        .chip-bike { background: rgba(59, 130, 246, 0.15); color: #60A5FA; border-color: rgba(59, 130, 246, 0.4); }
+        .chip-run { background: rgba(245, 158, 11, 0.15); color: #FBBF24; border-color: rgba(245, 158, 11, 0.4); }
+        .chip-recovery { background: rgba(16, 185, 129, 0.15); color: #34D399; border-color: rgba(16, 185, 129, 0.4); }
+        .nav-chip:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+
+        /* SUMMARY BOX */
+        .summary-box {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 24px rgba(6, 182, 212, 0.15);
+            scroll-margin-top: 90px;
+        }
+        .summary-box h2 {
+            font-size: 1.35rem;
+            color: #38BDF8;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* CATEGORY & ARTICLES GRID */
+        .cat-group {
+            margin-bottom: 36px;
+        }
+        .cat-header {
+            font-size: 1.3rem;
+            color: #38BDF8;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+            scroll-margin-top: 90px;
+        }
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 20px;
+        }
+        .art-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+        }
+        .art-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        .art-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #F8FAFC;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        .art-title a {
+            color: #38BDF8;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .art-title a:hover { color: var(--accent-cyan); text-decoration: underline; }
+        .art-meta {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        .art-desc {
+            font-size: 0.9rem;
+            color: #CBD5E1;
+            background: rgba(15, 23, 42, 0.5);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            flex: 1;
+            line-height: 1.6;
+        }
+        .art-footer {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .art-btn {
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            color: var(--accent-cyan);
+            padding: 8px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .art-btn:hover {
+            background: var(--accent-cyan);
+            color: #0F172A;
+        }
+        .ext-link {
+            color: #38BDF8;
+            text-decoration: none;
+        }
+        .ext-link:hover {
+            text-decoration: underline;
+        }
+        .ext-icon {
+            font-size: 0.8em;
+            color: var(--accent-cyan);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-header">
+            <div>
+                <h1>當週鐵人新知與運動科學綜合整理 (W33)</h1>
+                <div class="sub">彙整權威網站：Slowtwitch, Triathlete, 220 Triathlon, TrainingPeaks, Joe Friel | 附外網原始連結</div>
+            </div>
+            <a href="index.html" class="btn-back">⬅️ 返回 52 週儀表板主頁</a>
+        </div>
+
+        
+        <!-- QUICK JUMP CATEGORY NAV BAR -->
+        <div class="nav-quick-bar">
+            <span class="nav-label">⚡ 分類快速導覽：</span>
+            <a href="index.html" class="nav-chip chip-home">🏠 返回 52 週儀表板主頁</a>
+            <a href="#summary" class="nav-chip chip-summary">🌟 綜合重點 SUMMARY</a>
+            <a href="#swim" class="nav-chip chip-swim">🏊 游泳 SWIM</a>
+            <a href="#bike" class="nav-chip chip-bike">🚴 騎車 BIKE</a>
+            <a href="#run" class="nav-chip chip-run">🏃 跑步 RUN</a>
+            <a href="#recovery" class="nav-chip chip-recovery">🥗 補給及恢復 RECOVERY</a>
+        </div>
+
+        <div class="summary-box" id="summary"><h2>🌟 五、 當週各項運動新知綜合整理重點</h2><div><br><h3 style='color:#38BDF8; margin-top:16px; margin-bottom:8px;'>游泳 (Swimming)核心要點<br>* **「我喜歡這裡的氛圍！」Jonas Schomburg（德國）在卡爾馬首次贏得鐵人三項賽冠軍**：1. 在科納舉行的一場激動人心的鐵人三項世界冠軍資格賽決賽中，喬納斯·肖姆伯格（Jonas Shomburg）在比賽中取得領先，並以7小時22分57秒的令人印象深刻的成績贏得了他的第一場鐵人三項比賽；<br>2. 分析來自 220 Triathlon 針對 游泳 (Swimming) 項目的關鍵訓練與器材建議。；<br>3. 提供鐵人三項選手在實務備賽、運動防傷與體能恢復上的具體應用指導。。<br>* **利茲鐵人三項賽因擔心湖水品質而取消游泳**：1. 鐵人三項今天宣布，明天在利茲舉行的比賽將沒有游泳比賽，今天的練習游泳也將被取消；<br>2. 近期消息發布之際，人們對 Waterloo Lak 的品質感到擔憂…；<br>3. 提供鐵人三項選手在實務備賽、運動防傷與體能恢復上的具體應用指導。。<br>* **厭倦了相同的運動程序？這些快速游泳、騎自行車、跑步訓練可產生實際速度**：1. 透過這些經專家批准的訓練來改變您的季度訓練，挑戰您的身體並刷新您的思維；<br>2. 閱讀全文：厭了相同的運動項目；<br>3. 這些快速游泳、騎自行車…。<br><br><h3 style='color:#38BDF8; margin-top:16px; margin-bottom:8px;'>騎車 (Cycling)核心要點<br>* **騎乘營養：提高表現的最簡單的轉變**：1. 這不是配方補充劑；<br>2. 或騎自行車創作的碳水化合物；<br>3. 這可能只是你星期二吃的東西。<br>* **最適合運動的電解質是？我們測試最適合運動員的補水粉和片劑**：1. 運動時補充身體消耗量是鐵人三項運動員必須考慮的重要因素，但肥胖者該有多少消耗量，您如何知道要購買哪些呢？；<br>2. 我們嘗試並測試了 10 種方法來幫助您；<br>3. 提供鐵人三項選手在實務備賽、運動防傷與體能恢復上的具體應用指導。。<br>* **免費 3 個月鐵人三項基礎訓練計畫：從頭開始打造您的鐵人三項體能**：1. 有征服鋼鐵人的計劃嗎；<br>2. 德莫特·海耶斯說，那就不要忽視你的基礎；<br>3. 這是為期3個月的鐵人三項基礎訓練計劃，可幫助您為起跑線做好準備。<br><br><h3 style='color:#38BDF8; margin-top:16px; margin-bottom:8px;'>跑步 (Running)核心要點<br>* **「我飛出去了。我真的感覺很好！」Julie Derron 追趕 Kate Waugh 在溫哥華奪得 T100 職業賽季首場勝利**：1. 瑞士名將朱莉婭·德隆（Julia Derron）（瑞士）追趕回歸的英國T100世界冠軍凱特·沃（Kate Waugh）（英國），在溫哥華取得了本賽季首個T100勝利；<br>2. 喬治亞‧泰勒-布朗 (Georgia Taylor-Brown)；<br>3. 提供鐵人三項選手在實務備賽、運動防傷與體能恢復上的具體應用指導。。<br><br><h3 style='color:#38BDF8; margin-top:16px; margin-bottom:8px;'>補給與恢復 (Fueling & Recovery)核心要點<br>* **「今天天氣真好，風很大！」勞拉·菲利普 (Laura Philipp) 領先卡爾瑪 (Ironman Kalmar) 18 分鐘獲勝**：1. 德國選手勞拉·菲利普（Laura Philipp）在卡爾瑪鐵人三項賽上表演了頑強的毅力，在幾個月後的鐵人三項世界冠軍賽上表演了她的力量；<br>2. 卡爾瑪鋼鐵人提供了一個重要的時刻；<br>3. 提供鐵人三項選手在實務備賽、運動防傷與體能恢復上的具體應用指導。。<br>* **Julie Derron 贏得 2026 年溫哥華 T100 比賽 — 照片回顧比賽**：1. 照片中回顧了激動人心的一天比賽；<br>2. 朱莉·德隆（Julie Derron）贏得2026年溫哥華T100比賽——照片中的比賽回顧一文首次出現在Slowtwitch News上；<br>3. 提供鐵人三項選手在實務備賽、運動防傷與體能恢復上的具體應用指導。。<br>* **閃電般的鐵人三項卡爾瑪為勞拉·菲利普和喬納斯·朔姆堡贏得勝利預覽出色的科納形式**：1. 在一場破紀錄、擠滿觀眾的比賽中，勞拉·菲利普和喬納斯·朔姆伯格上演了一場令人難忘的表演，創造了歷史上最快的兩場鐵人三項錶演，並展示了世界冠軍；<br>2. 分析來自 Triathlete Magazine 針對 補給與恢復 (Fueling & Recovery) 項目的關鍵訓練與器材建議。；<br>3. 提供鐵人三項選手在實務備賽、運動防傷與體能恢復上的具體應用指導。。<br><br></div></div>
+
+        
+        <div class="cat-group">
+            <h2 class="cat-header" id="swim">游泳 (Swimming) (6 篇)</h2>
+            <div class="articles-grid">
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/ironman-kalmar-men-results" target="_blank" class="ext-link">「我喜歡這裡的氛圍！」Jonas Schomburg（德國）在卡爾馬首次贏得鐵人三項賽冠軍 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *“I love the atmosphere here!”Jonas Schomburg (DEU) takes first Ironman win in Kalmar*<br>**來源**: 220 Triathlon | **日期**: 2026-08-16</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 在科納舉行的一場激動人心的鐵人三項世界冠軍資格賽決賽中，喬納斯·肖姆伯格（Jonas Shomburg）在比賽中取得領先，並以7小時22分57秒的令人印象深刻的成績贏得了他的第一場鐵人三項比賽； -</div><div>📌 <strong>3.</strong> 分析來自 220 Triathlon 針對 游泳 (Swimming) 項目的關鍵訓練與器材建議。； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/news/ironman-kalmar-men-results" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/ironman-leeds-swim-cancelled" target="_blank" class="ext-link">利茲鐵人三項賽因擔心湖水品質而取消游泳 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Ironman Leeds cancel swim over concerns about water quality in the lake*<br>**來源**: 220 Triathlon | **日期**: 2026-08-15</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 鐵人三項今天宣布，明天在利茲舉行的比賽將沒有游泳比賽，今天的練習游泳也將被取消； -</div><div>📌 <strong>3.</strong> 近期消息發布之際，人們對 Waterloo Lak 的品質感到擔憂…； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/news/ironman-leeds-swim-cancelled" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.triathlete.com/training/workouts/midseason-triathlon-drills-for-speed/" target="_blank" class="ext-link">厭倦了相同的運動程序？這些快速游泳、騎自行車、跑步訓練可產生實際速度 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Tired of the Same Workout Routines? These Quick Swim, Bike, Run Drills Produce Actual Speed*<br>**來源**: Triathlete Magazine | **日期**: 2026-08-13</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 透過這些經專家批准的訓練來改變您的季度訓練，挑戰您的身體並刷新您的思維； -</div><div>📌 <strong>3.</strong> 閱讀全文：厭了相同的運動項目； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.triathlete.com/training/workouts/midseason-triathlon-drills-for-speed/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/swim/wetsuits/orca-athlex-flex-v2-vs-blueseventy-fusion" target="_blank" class="ext-link">如何挑選合適的鐵人三項潛水衣？我們比較 Orca Athlex Flex V2 和 Blueseventy Fusion 以找出答案 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *How do you pick the right triathlon wetsuit? We compare the Orca Athlex Flex V2 and Blueseventy Fusion to find out*<br>**來源**: 220 Triathlon | **日期**: 2026-08-13</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 我們將望遠鏡中檔潛水衣進行了比較，看看訓練您應該為鐵人三項和比賽投資哪一款； -</div><div>📌 <strong>3.</strong> 分析來自 220 Triathlon 針對 游泳 (Swimming) 項目的關鍵訓練與器材建議。； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/gear/swim/wetsuits/orca-athlex-flex-v2-vs-blueseventy-fusion" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/lucy-charles-barclay-waterproof-swimming-headphones" target="_blank" class="ext-link">「音樂是我完成工作的重要組成部分。」露西·查爾斯·巴克萊透露防水耳機是她的秘密訓練武器 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *“Music is a big part of how I get through the work.” Lucy Charles-Barclay reveals how waterproof headphones are her secret training weapon*<br>**來源**: 220 Triathlon | **日期**: 2026-08-13</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 美人魚露西查爾斯-巴克利游泳訓練技巧而聞名，但她分享了聆聽音樂如何真正幫助她完成； -</div><div>📌 <strong>3.</strong> 鐵人三項冠軍正在與H20 Audio合作； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/news/lucy-charles-barclay-waterproof-swimming-headphones" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/swim/training-kit/best-swimming-watches" target="_blank" class="ext-link">適合游泳的手錶有哪些？我們測試泳池訓練和開放水域游泳的最佳選擇 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *What are the best watches for swimming? We test the top options for pool training and open-water swims*<br>**來源**: 220 Triathlon | **日期**: 2026-08-12</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 我們的專家測試人員對九款最好的游泳手錶進行了測試，以幫助您找到適合您的訓練和預算的部分； -</div><div>📌 <strong>3.</strong> 分析來自 220 Triathlon 針對 游泳 (Swimming) 項目的關鍵訓練與器材建議。； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/gear/swim/training-kit/best-swimming-watches" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cat-group">
+            <h2 class="cat-header" id="bike">騎車 (Cycling) (12 篇)</h2>
+            <div class="articles-grid">
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.trainingpeaks.com/blog/cycling-nutrition-the-simplest-shift-that-improves-performance/" target="_blank" class="ext-link">騎乘營養：提高表現的最簡單的轉變 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Cycling Nutrition: The Simplest Shift that Improves Performance*<br>**來源**: TrainingPeaks Blog | **日期**: 2026-08-15</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 這不是配方補充劑； -</div><div>📌 <strong>3.</strong> 或騎自行車創作的碳水化合物； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.trainingpeaks.com/blog/cycling-nutrition-the-simplest-shift-that-improves-performance/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/nutrition/drinks/best-electrolyte-drink-tablets-reviewed" target="_blank" class="ext-link">最適合運動的電解質是？我們測試最適合運動員的補水粉和片劑 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *What are the best electrolytes for sport? We test the best hydration powders and tablets for athletes*<br>**來源**: 220 Triathlon | **日期**: 2026-08-15</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 運動時補充身體消耗量是鐵人三項運動員必須考慮的重要因素，但肥胖者該有多少消耗量，您如何知道要購買哪些呢？； -</div><div>📌 <strong>3.</strong> 我們嘗試並測試了 10 種方法來幫助您； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/gear/nutrition/drinks/best-electrolyte-drink-tablets-reviewed" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/training/training-plans/free-3-month-ironman-base-training-plan" target="_blank" class="ext-link">免費 3 個月鐵人三項基礎訓練計畫：從頭開始打造您的鐵人三項體能 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Free 3-month Ironman base training plan: Build your Ironman fitness from the ground up*<br>**來源**: 220 Triathlon | **日期**: 2026-08-14</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 有征服鋼鐵人的計劃嗎； -</div><div>📌 <strong>3.</strong> 德莫特·海耶斯說，那就不要忽視你的基礎； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/training/training-plans/free-3-month-ironman-base-training-plan" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/training/nutrition-training/what-are-the-benefits-of-fasted-training" target="_blank" class="ext-link">禁食訓練有哪些好處（和缺點）？教練分享你需要知道的一切 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *What are the benefits (and disadvantages) of fasted training? Coach shares all you need to know*<br>**來源**: 220 Triathlon | **日期**: 2026-08-14</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 教練喬爾·伊諾克（Joel Enoch）解釋了您需要了解的有關禁食鍛煉的所有信息，以及它們是否適合鐵人三項訓練和比賽； -</div><div>📌 <strong>3.</strong> 分析來自 220 Triathlon 針對 騎車 (Cycling) 項目的關鍵訓練與器材建議。； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/training/nutrition-training/what-are-the-benefits-of-fasted-training" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/training/training-plans/free-6-week-olympic-distance-training-plan" target="_blank" class="ext-link">免費 6 週奧運鐵人三項訓練計畫：在有限的時間內增強您的多項運動健身能力 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Free 6-week Olympic triathlon training plan: Supercharge your multisport fitness on limited time*<br>**來源**: 220 Triathlon | **日期**: 2026-08-13</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 經驗豐富的鐵人三項訓練德莫特·海耶斯為這次緊迫的運動員分享了他參加六週的奧運鐵人三項訓練計劃； -</div><div>📌 <strong>3.</strong> 分析來自 220 Triathlon 針對 騎車 (Cycling) 項目的關鍵訓練與器材建議。； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/training/training-plans/free-6-week-olympic-distance-training-plan" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.triathlete.com/training/anti-aging-hyrox-for-triathletes/" target="_blank" class="ext-link">Hyrox 對鐵人三項運動員的抗衰老魔力 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *The Anti-Aging Magic of Hyrox for Triathletes*<br>**來源**: Triathlete Magazine | **日期**: 2026-08-12</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 鐵人三項運動員發現、增強（而不僅僅是有氧引擎）是保持更強健、跑得更遠的秘訣； -</div><div>📌 <strong>3.</strong> 閱讀 Hyrox 為鐵人三項運動員提供抗氧化劑的完整文章； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.triathlete.com/training/anti-aging-hyrox-for-triathletes/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.triathlete.com/gear/regna-custom-tri-kit-review/" target="_blank" class="ext-link">我很高，她很小——這款 575 美元的 AI 設計鐵三角套件真的適合每個人嗎？ <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *I’m Tall, She’s Small – Can This $575 AI-Designed Tri Kit Really Fit Everyone?*<br>**來源**: Triathlete Magazine | **日期**: 2026-08-12</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 為了完美的貼合，575美元的價格真的值得投資嗎？； -</div><div>📌 <strong>3.</strong> 我們對雷格納的人工智能三人套裝進行了最終的測試，它是否能夠結束擦傷的噩夢，並提供一套日間匹配套裝…； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.triathlete.com/gear/regna-custom-tri-kit-review/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/do-bigger-boobs-make-you-faster-cyclists" target="_blank" class="ext-link">胸部越大，騎腳踏車的速度就越快嗎？環法自行車賽女性襯墊胸罩爭議背後的科學依據 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Do bigger breasts make you a faster cyclist? The science behind the Tour de France Femmes padded-bra controversy*<br>**來源**: 220 Triathlon | **日期**: 2026-08-12</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 改變形狀可以讓你騎自行車更快嗎？； -</div><div>📌 <strong>3.</strong> 220鐵人三項調查環法自行車賽女性胸罩爭議背後的科學依據； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/gear/do-bigger-boobs-make-you-faster-cyclists" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/tri-tech/multisport-watches/best-garmin-watch-for-running" target="_blank" class="ext-link">2026 年最佳跑步追蹤與健康指標 Garmin 手錶 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Best Garmin watches for run tracking and health metrics in 2026*<br>**來源**: 220 Triathlon | **日期**: 2026-08-12</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 正在尋找 Garmin 手錶來追蹤您的跑步並改善您的訓練； -</div><div>📌 <strong>3.</strong> 我們測試了該系列，為您帶來我們最喜歡的模型，從簡單的跑步手錶到功能豐富的插圖運動選擇； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/gear/tri-tech/multisport-watches/best-garmin-watch-for-running" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.triathlete.com/gear/therabot-massager-review/" target="_blank" class="ext-link">高科技按摩還是價格過高的噪音？我們對 500 美元 Therabot 機器人按摩器的評論 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *High-Tech Massage or Overpriced Noise? Our Review of the $500 Therabot Robot Massager*<br>**來源**: Triathlete Magazine | **日期**: 2026-08-11</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> Therabot承諾輕鬆、免持恢復，但它能實現嗎？； -</div><div>📌 <strong>3.</strong> 我們測試了這款價值 500 美元的機器人按摩器，看看它的性能是否符合科幻小說的宣傳； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.triathlete.com/gear/therabot-massager-review/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.triathlete.com/culture/news/patrick-lange-retirement-interview/" target="_blank" class="ext-link">帕特里克·蘭格 (Patrick Lange) 談 40 歲生日、退休以及回歸鐵人三項運動的根源 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Patrick Lange on Turning 40, Retirement, and Returning to His Triathlon Roots*<br>**來源**: Triathlete Magazine | **日期**: 2026-08-10</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 從他第一次騎著大型自行車參加比賽，到在大島獲得三個冠軍，帕特里克·蘭格討論了他在鐵人三項賽首秀現場宣告了人生的“完整”時刻，以及； -</div><div>📌 <strong>3.</strong> 分析來自 Triathlete Magazine 針對 騎車 (Cycling) 項目的關鍵訓練與器材建議。； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.triathlete.com/culture/news/patrick-lange-retirement-interview/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/gear/run/run-clothing/best-running-shorts" target="_blank" class="ext-link">2026 年最好的跑步短褲是什麼？我們的跑者團隊測試了 10 款最受歡迎的跑步產品 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *What are the best running shorts in 2026? Our team of runners put 10 favourites to the test*<br>**來源**: 220 Triathlon | **日期**: 2026-08-10</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 一條好的跑步長度應該是舒適、導電的，並且能夠為任何距離的跑步提供支撐； -</div><div>📌 <strong>3.</strong> 我們的跑步團隊測試了可行的最佳選擇； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/gear/run/run-clothing/best-running-shorts" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cat-group">
+            <h2 class="cat-header" id="run">跑步 (Running) (1 篇)</h2>
+            <div class="articles-grid">
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/t100-vancouver-pro-womens-race" target="_blank" class="ext-link">「我飛出去了。我真的感覺很好！」Julie Derron 追趕 Kate Waugh 在溫哥華奪得 T100 職業賽季首場勝利 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *“I was flying out there. I really felt good!” Julie Derron chases down Kate Waugh to take first T100 pro season win in Vancouver*<br>**來源**: 220 Triathlon | **日期**: 2026-08-16</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 瑞士名將朱莉婭·德隆（Julia Derron）（瑞士）追趕回歸的英國T100世界冠軍凱特·沃（Kate Waugh）（英國），在溫哥華取得了本賽季首個T100勝利； -</div><div>📌 <strong>3.</strong> 喬治亞‧泰勒-布朗 (Georgia Taylor-Brown)； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/news/t100-vancouver-pro-womens-race" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cat-group">
+            <h2 class="cat-header" id="recovery">補給與恢復 (Fueling & Recovery) (19 篇)</h2>
+            <div class="articles-grid">
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/ironman-kalmar-womens-race" target="_blank" class="ext-link">「今天天氣真好，風很大！」勞拉·菲利普 (Laura Philipp) 領先卡爾瑪 (Ironman Kalmar) 18 分鐘獲勝 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *“It was pretty, pretty windy out there today!” Laura Philipp dominates Ironman Kalmar to win by 18 minutes*<br>**來源**: 220 Triathlon | **日期**: 2026-08-16</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 德國選手勞拉·菲利普（Laura Philipp）在卡爾瑪鐵人三項賽上表演了頑強的毅力，在幾個月後的鐵人三項世界冠軍賽上表演了她的力量； -</div><div>📌 <strong>3.</strong> 卡爾瑪鋼鐵人提供了一個重要的時刻； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/news/ironman-kalmar-womens-race" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/julie-derron-wins-t100-vancouver-2026-race-recap-in-photos/" target="_blank" class="ext-link">Julie Derron 贏得 2026 年溫哥華 T100 比賽 — 照片回顧比賽 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Julie Derron Wins T100 Vancouver 2026 — Race Recap in Photos*<br>**來源**: Slowtwitch | **日期**: 2026-08-16</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 照片中回顧了激動人心的一天比賽； -</div><div>📌 <strong>3.</strong> 朱莉·德隆（Julie Derron）贏得2026年溫哥華T100比賽——照片中的比賽回顧一文首次出現在Slowtwitch News上； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.slowtwitch.com/triathlon/julie-derron-wins-t100-vancouver-2026-race-recap-in-photos/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.triathlete.com/culture/news/laura-philipp-and-jonas-schomburg-win-2026-ironman-kalmar-results/" target="_blank" class="ext-link">閃電般的鐵人三項卡爾瑪為勞拉·菲利普和喬納斯·朔姆堡贏得勝利預覽出色的科納形式 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Lightning-Fast Ironman Kalmar Wins for Laura Philipp and Jonas Schomburg Preview Exceptional Kona Form*<br>**來源**: Triathlete Magazine | **日期**: 2026-08-16</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 在一場破紀錄、擠滿觀眾的比賽中，勞拉·菲利普和喬納斯·朔姆伯格上演了一場令人難忘的表演，創造了歷史上最快的兩場鐵人三項錶演，並展示了世界冠軍； -</div><div>📌 <strong>3.</strong> 分析來自 Triathlete Magazine 針對 補給與恢復 (Fueling & Recovery) 項目的關鍵訓練與器材建議。； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.triathlete.com/culture/news/laura-philipp-and-jonas-schomburg-win-2026-ironman-kalmar-results/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/ironman-kalmar-2026-schomburgs-first-title-philipp-breaks-course-record/" target="_blank" class="ext-link">IRONMAN Kalmar 2026：Schomburg 的第一個冠軍頭銜，Philipp 打破賽道記錄 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *IRONMAN Kalmar 2026: Schomburg’s First Title, Philipp Breaks Course Record*<br>**來源**: Slowtwitch | **日期**: 2026-08-15</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 這是德國統治瑞典的一天； -</div><div>📌 <strong>3.</strong> IRONMAN Kalmar 2026：Schomburg 的第一個冠軍，Philipp 打破球場記錄的帖子首次出現在 Slowtwitch News 上； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.slowtwitch.com/triathlon/ironman-kalmar-2026-schomburgs-first-title-philipp-breaks-course-record/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/training/training-plans/dave-scott-s-strength-and-conditioning-training-plan-for-triathletes" target="_blank" class="ext-link">鐵人三項運動員自由力量訓練計畫：與六屆鐵人三項世界冠軍一起增強力量 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Free strength training plan for triathletes: Build strength alongside six-time Ironman world champion*<br>**來源**: 220 Triathlon | **日期**: 2026-08-15</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 六屆鐵人三項世界冠軍戴夫·斯科特推薦這些SC練習，您可以在家中使用最少的設備進行； -</div><div>📌 <strong>3.</strong> 分析來自 220 Triathlon 針對 補給與恢復 (Fueling & Recovery) 項目的關鍵訓練與器材建議。； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/training/training-plans/dave-scott-s-strength-and-conditioning-training-plan-for-triathletes" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/parkinsons-isnt-going-to-win-one-more-for-david-walker-at-t100-vancouver/" target="_blank" class="ext-link">帕金森氏症不會獲勝：大衛沃克 (David Walker) 在溫哥華 T100 的比賽中再勝一籌 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Parkinson’s Isn’t Going to Win: One More for David Walker at T100 Vancouver*<br>**來源**: Slowtwitch | **日期**: 2026-08-15</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 這位76歲的老人確定帕金森氏症不會在他康復後告訴他，他回來參加最後一次鐵人三項比賽； -</div><div>📌 <strong>3.</strong> 帕金森氏症不會觸發：大衛沃克（David Walker）在T100溫哥華首場比賽中再獲殊榮； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.slowtwitch.com/triathlon/parkinsons-isnt-going-to-win-one-more-for-david-walker-at-t100-vancouver/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.slowtwitch.com/cycling/the-2026-leadville-100-mtb-cometh/" target="_blank" class="ext-link">2026 年萊德維爾 100 登山車賽即將到來 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *The 2026 Leadville 100 MTB Cometh*<br>**來源**: Slowtwitch | **日期**: 2026-08-15</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 第32屆「跨越天空的競賽」將於本週末回歸； -</div><div>📌 <strong>3.</strong> 貼文《The 2026 Leadville 100 MTB Cometh》首次出現在 Slowtwitch News 上； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.slowtwitch.com/cycling/the-2026-leadville-100-mtb-cometh/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/three-roads-to-the-start-line-paula-findlay-georgia-taylor-brown-and-kate-waugh-on-racing-t100-vancouver/" target="_blank" class="ext-link">通往起跑線的三條路：Paula Findlay、Georgia Taylor-Brown 和 Kate Waugh 談 Racing T100 溫哥華 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Three Roads to the Start Line: Paula Findlay, Georgia Taylor-Brown and Kate Waugh on Racing T100 Vancouver*<br>**來源**: Slowtwitch | **日期**: 2026-08-15</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 三名運動員，三個時間線，一個星期六在溫哥華，所有這些都立即測試； -</div><div>📌 <strong>3.</strong> 通往起跑線的三條路：Paula Findlay、Georgia Taylor-Brown 和 Kate Waugh 談 Racing T100 V； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.slowtwitch.com/triathlon/three-roads-to-the-start-line-paula-findlay-georgia-taylor-brown-and-kate-waugh-on-racing-t100-vancouver/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/best-uk-olympic-distance-triathlons" target="_blank" class="ext-link">英國最好的奧運鐵人三項賽有哪些？我們對前 10 場比賽進行評級，幫助您做好下個賽季的準備 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *What are the best Olympic triathlons in the UK? We rate our top 10 races to get your teeth into next season*<br>**來源**: 220 Triathlon | **日期**: 2026-08-14</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 正在尋找標準距離鐵人三項賽來讓您的雙腳沉浸在鐵人三項的世界中嗎？； -</div><div>📌 <strong>3.</strong> 我們挑選了英國最好的10場奧運鐵人三項賽，以及一些上賽季的歐洲外卡選手； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/news/best-uk-olympic-distance-triathlons" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.triathlete.com/training/tips-for-training-in-hot-weather/" target="_blank" class="ext-link">鐵人三項運動員在炎熱天氣下安全（有效）訓練的指南 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *The Triathlete’s Guide to Safely (and Effectively) Training in Hot Weather*<br>**來源**: Triathlete Magazine | **日期**: 2026-08-14</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 不要讓炎熱的三伏天破壞你的訓練； -</div><div>📌 <strong>3.</strong> 使用這些技巧可以在夏季安全有效地進行訓練； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.triathlete.com/training/tips-for-training-in-hot-weather/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.slowtwitch.com/triathlon/who-and-how-to-watch-t100-vancouver-this-weekend/" target="_blank" class="ext-link">誰以及如何觀看本週末溫哥華 T100 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Who and How to Watch T100 Vancouver This Weekend*<br>**來源**: Slowtwitch | **日期**: 2026-08-14</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 我們將預選本週末在溫哥華 T100 舉辦的一場有趣的職業比賽； -</div><div>📌 <strong>3.</strong> 誰以及如何觀看本週末溫哥華 T100 的帖子首次出現在 Slowtwitch News 上； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.slowtwitch.com/triathlon/who-and-how-to-watch-t100-vancouver-this-weekend/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.slowtwitch.com/gravel/why-gravel-is-the-perfect-second-sport-for-triathletes/" target="_blank" class="ext-link">為什麼碎石路是鐵人三項運動員的完美第二運動 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Why Gravel Is the Perfect Second Sport for Triathletes*<br>**來源**: Slowtwitch | **日期**: 2026-08-13</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 為什麼碎石路是鐵人三項運動員的完美第二運動一文首次出現在Slowtwitch新聞上； -</div><div>📌 <strong>3.</strong> 分析來自 Slowtwitch 針對 補給與恢復 (Fueling & Recovery) 項目的關鍵訓練與器材建議。； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.slowtwitch.com/gravel/why-gravel-is-the-perfect-second-sport-for-triathletes/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/training/training-plans/free-8-week-winter-base-strength-training-plan" target="_blank" class="ext-link">免費8週冬季肌力訓練計畫：增強鐵人三項的力量與爆發力 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Free 8-week winter strength training plan: Supercharge your strength and power for triathlon*<br>**來源**: 220 Triathlon | **日期**: 2026-08-13</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 今年冬天，透過德莫特·海耶斯的免費八週肌力訓練計畫奠定了您的基礎，並準備好開始您新的、最好的賽車賽季； -</div><div>📌 <strong>3.</strong> 分析來自 220 Triathlon 針對 補給與恢復 (Fueling & Recovery) 項目的關鍵訓練與器材建議。； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/training/training-plans/free-8-week-winter-base-strength-training-plan" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.triathlete.com/nutrition/liquid-only-fueling-plan-for-triathlon/" target="_blank" class="ext-link">僅液體燃料是您下一次鐵人三項公關的秘密嗎？ <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Is Liquid-Only Fueling the Secret to Your Next Triathlon PR?*<br>**來源**: Triathlete Magazine | **日期**: 2026-08-13</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 一些鐵人三項運動員正在放棄時尚和咀嚼物品來簡化比賽日常的營養； -</div><div>📌 <strong>3.</strong> 運動營養師Matt Kadey講解如何掌握僅喝液體的方法，以改善破壞健康並達到巔峰運動； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.triathlete.com/nutrition/liquid-only-fueling-plan-for-triathlon/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.slowtwitch.com/training/forget-the-1-gains-go-after-10-breakthroughs/" target="_blank" class="ext-link">忘記 1% 的收益：追求 10% 的突破 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Forget the 1% Gains: Go After 10% Breakthroughs*<br>**來源**: Slowtwitch | **日期**: 2026-08-13</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 這些訓練、技術和重複技巧可能是你下次突破的關鍵； -</div><div>📌 <strong>3.</strong> 忘記1%的收益：追求10%的突破首先出現在Slowtwitch News上； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.slowtwitch.com/training/forget-the-1-gains-go-after-10-breakthroughs/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.slowtwitch.com/industry/retail-pricing-practices-in-u-s-might-be-forced-to-change-due-to-california-lawsuits/" target="_blank" class="ext-link">由於加州訴訟，美國的零售定價實踐可能被迫改變 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Retail Pricing Practices in U.S. Might be Forced to Change Due to California Lawsuits*<br>**來源**: Slowtwitch | **日期**: 2026-08-12</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 繼上個月提起兩起訴訟，指控兩個大品牌有欺詐性定價行為後，零售定價行為正在接受新的審查； -</div><div>📌 <strong>3.</strong> 零售定價實踐； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.slowtwitch.com/industry/retail-pricing-practices-in-u-s-might-be-forced-to-change-due-to-california-lawsuits/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.slowtwitch.com/training/are-kettlebells-a-hack-for-triathlon-strength-training/" target="_blank" class="ext-link">壺鈴是鐵人三項肌力訓練的技巧嗎？ <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Are Kettlebells a Hack for Triathlon Strength Training?*<br>**來源**: Slowtwitch | **日期**: 2026-08-12</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 如果您買了不起的家庭健身設備，一個兩個壺鈴就可以了； -</div><div>📌 <strong>3.</strong> 壺鈴是鐵人三項肌力訓練的技巧嗎； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.slowtwitch.com/training/are-kettlebells-a-hack-for-triathlon-strength-training/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.triathlete.com/culture/news/70-3-worlds-pro-start-list-2026/" target="_blank" class="ext-link">2026 年 Ironman 70.3 世界錦標賽：職業選手出發名單和觀看方式 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *2026 Ironman 70.3 World Championship: Pro Start Lists and How to Watch*<br>**來源**: Triathlete Magazine | **日期**: 2026-08-11</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 3場世界賽將有全明星陣容，包括露西·查爾斯·巴克萊、泰勒·尼布、克里斯蒂安·布魯門費爾特等； -</div><div>📌 <strong>3.</strong> 查看女子和男子的完整出發名單和比賽號碼； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.triathlete.com/culture/news/70-3-worlds-pro-start-list-2026/" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+                <div class="art-card">
+                    <div class="art-title">🔗 <a href="https://www.220triathlon.com/news/is-triathlon-a-one-and-done-sport-our-readers-have-their-say" target="_blank" class="ext-link">鐵人三項是一項「一勞永逸」的運動嗎？ 220 位鐵人三項讀者發表意見 <span class="ext-icon">↗</span></a></div>
+                    <div class="art-meta"><br>**英文原名**: *Is triathlon a ‘one and done’ sport? 220 Triathlon readers have their say*<br>**來源**: 220 Triathlon | **日期**: 2026-08-10</div>
+                    <div class="art-desc">
+                        <div style="font-weight: 700; color: #38BDF8; font-size: 0.85rem; margin-bottom: 8px;">💡 【繁體中文 3 大重點摘要】</div>
+                        <div style="line-height: 1.6; color: #E2E8F0; font-size: 0.88rem;">
+                            <div style='margin-bottom:6px;'>📌 <strong>1.</strong> 💡 **【繁體中文 3 大重點摘要】**： -</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> 鐵人三項運動中是否存在「一勞永逸」的文化； -</div><div>📌 <strong>3.</strong> 如果有，這很重要嗎？； -</div>
+                        </div>
+                    </div>
+                    <div class="art-footer">
+                        <a href="https://www.220triathlon.com/news/is-triathlon-a-one-and-done-sport-our-readers-have-their-say" target="_blank" class="art-btn">🔗 閱讀外網原始文章 ↗</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</body>
+</html>
