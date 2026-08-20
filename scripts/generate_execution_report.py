@@ -162,9 +162,30 @@ def build_report(target_date: date):
         # Sort events by date
         sorted_events = sorted(week_events, key=lambda x: x["date"])
         for ev in sorted_events:
-            status = "✅ 已完成" if ev["actual_time"] > 0 or ev["actual_dist"] > 0 else "❌ 未執行"
-            if ev["type"] == "Day Off":
-                status = "休息日"
+            pt = ev["planned_time"]
+            at = ev["actual_time"]
+            if at > 0 or ev["actual_dist"] > 0:
+                if pt == 0 and ev["planned_dist"] == 0:
+                    status = "✨ 動態排酸 (Grade A)"
+                elif pt > 0:
+                    pct = (at / pt * 100)
+                    if pct >= 95 and pct <= 105:
+                        status = f"✅ 精準達標 ({pct:.0f}%, A+)"
+                    elif pct > 105:
+                        status = f"⚡ 超額完成 ({pct:.0f}%, A)"
+                    elif pct >= 75:
+                        status = f"🟢 良好達標 ({pct:.0f}%, A-)"
+                    elif pct >= 50:
+                        status = f"🟠 自覺調整 ({pct:.0f}%, B+)"
+                    else:
+                        status = f"🔴 提早中止 ({pct:.0f}%, C)"
+                else:
+                    status = "✅ 扎實完成 (Grade A)"
+            elif ev["type"] == "Day Off":
+                status = "⏸️ 完全休息日"
+            else:
+                status = "❌ 未執行/待排程"
+
             dist_p = f"{ev['planned_dist']:.2f} km" if ev["type"] not in ["Strength", "Day Off"] else "-"
             dist_a = f"{ev['actual_dist']:.2f} km" if ev["type"] not in ["Strength", "Day Off"] else "-"
             wday = "一二三四五六日"[ev["date"].weekday()]
@@ -176,28 +197,33 @@ def build_report(target_date: date):
         run_act_km = stats_summary["Run"]["actual_dist"]
         swim_act_km = stats_summary["Swim"]["actual_dist"]
         
-        f.write("### 1. 執行亮點 (Execution Highlights)\n")
-        f.write(f"- **高質量耐力里程累積**：當週已累積自行車 **{bike_act_km:.2f} km**、跑步 **{run_act_km:.2f} km**、游泳 **{swim_act_km:.2f} km**，整體時間執行率達 **{overall_completion:.1f}%**。\n")
-        if bike_act_km >= 90:
-            f.write("- **長距離單車扎實完成**：順利完成 127.37 km 破百長騎課表，左右踩踏發力極為均衡（50.5% / 49.5%），座艙設定與核心肌群支撐展現高度穩定性。\n")
-        if run_act_km >= 30:
-            f.write("- **山道爬坡長跑與漸速巡航**：8/16 順利完成 17.52 km 長跑（總爬升 +327m），平路河濱漸速至 5:26/km，上坡穩健控心率並自覺補水折返，下坡迅速拉高步頻至 180+ spm 平穩收尾。\n")
-        if swim_act_km >= 8:
-            f.write("- **超長距離雙主課穩定巡航**：8/16 游泳實游 4,100m，包含雙組 1,600m 自由式持續游，以 1:56~1:58/100m 高度一致的均速與 140 bpm 穩定心率順利吃下，展現極佳的長距離巡航水感。\n")
-        if any("轉換" in ev["summary"] or (ev["type"] == "Run" and ev["actual_time"] <= 45 and ev["actual_time"] > 0) for ev in sorted_events):
-            f.write("- **極佳的自我防護與疲勞決策**：在長距離高負荷後無縫銜接轉換跑，並依據身體即時心率與體感自覺（Feeling 5/5）彈性調整收操時機，既達到神經肌肉轉換刺激，又有效預防過度疲勞與熱傷害。\n")
+        f.write("### 1. 執行亮點與成效分析 (Execution Highlights & Milestone Analytics)\n")
+        f.write(f"- **當週高質量耐力里程累積**：已累積自行車 **{bike_act_km:.2f} km**、跑步 **{run_act_km:.2f} km**、游泳 **{swim_act_km:.2f} km**，整體時間執行率達 **{overall_completion:.1f}%**。\n")
+        if week_num == 34:
+            f.write("- **Base 3-3 調整週超補償節奏精準**：在歷經 W33 大量週後，本週落實體能吸收與神經超補償，課表質優且疲勞管理得當。\n")
+            f.write("- **週四單車 TEMPO 3x15 ＋ 轉換跑精準達標**：8/20 單車 85 分鐘 100% 達標 (NP 162W, 142 bpm)，TEMPO 區間精準鎖定在 155W-165W；下車後無縫銜接 28 分鐘 (3.66km) 轉換跑，高步頻 (176 spm) 與輕著地展現極佳的神經肌肉轉向適應力。\n")
+            f.write("- **週三甜甜泳課 3.15km 高效巡航**：8/19 游泳 63 分鐘游出 2:02/100m 均速，核心流線型支撐與水感推進力優異。\n")
+            f.write("- **週二 Z2 跑步成熟自覺收操**：8/18 跑步 57 分鐘 (9.45km, 6:06/km)，主動於 9.45km 適度收操防傷，既獲取有氧刺激又防範過度疲勞。\n")
+        else:
+            if bike_act_km >= 90:
+                f.write("- **長距離單車扎實完成**：順利完成 127.37 km 破百長騎課表，左右踩踏發力極為均衡（50.5% / 49.5%），座艙設定與核心肌群支撐展現高度穩定性。\n")
+            if run_act_km >= 30:
+                f.write("- **山道爬坡長跑與漸速巡航**：順利完成 17.52 km 長跑（總爬升 +327m），平路河濱漸速至 5:26/km，上坡穩健控心率並自覺補水折返，下坡迅速拉高步頻至 180+ spm 平穩收尾。\n")
+            if swim_act_km >= 8:
+                f.write("- **超長距離雙主課穩定巡航**：游泳實游 4,100m，包含雙組 1,600m 自由式持續游，以 1:56~1:58/100m 高度一致的均速與 140 bpm 穩定心率順利吃下，展現極佳的長距離巡航水感。\n")
+            if any("轉換" in ev["summary"] or (ev["type"] == "Run" and ev["actual_time"] <= 45 and ev["actual_time"] > 0) for ev in sorted_events):
+                f.write("- **極佳的自我防護與疲勞決策**：在長距離高負荷後無縫銜接轉換跑，並依據身體即時心率與體感自覺（Feeling 5/5）彈性調整收操時機，既達到神經肌肉轉換刺激，又有效預防過度疲勞與熱傷害。\n")
         f.write("\n")
         
-        f.write("### 2. 需注意的細節與配速紀律 (Key Watchpoints & Power Pacing)\n")
-        f.write("- **自行車長距離 (LSD) 功率控制**：對標 Sub-11 藍圖 (5h30m / 140W-145W)，長距離 LSD 前段請務必克制輸出（目標區間 140W-150W），爬坡嚴守 174W (85% FTP) 上限，避免有氧解離 (Pw:HR) 過大耗損跑步雙腿剛性。\n")
-        f.write("- **下車前降瓦冷卻**：下車前最後 10–15 公里主動降瓦至 123W–133W，並維持 85–90 rpm 高踏頻，讓心率下降並促進乳酸代謝。\n")
-        f.write("- **跑步步頻與著地剛性**：跑步維持 175–180 spm 小步幅高步頻，觸地時間控制在 <270ms，垂直比 <9%，減輕膝蓋與下肢關節衝擊。\n")
-        f.write("- **游泳巡航手感定型**：保持放鬆 Zone 1-2 低心率划水，出水前保持平穩定位 (Sighting)，目標直指 Sub-11 1:12:00 (1:53/100m) 配速線。\n\n")
+        f.write("### 2. 需注意的細節與配速/功率紀律 (Key Watchpoints & Power Pacing)\n")
+        f.write("- **自行車功率控制與有氧冷卻**：對標 Sub-11 藍圖 (5h30m / 140W-145W)，長距離 LSD 前段克制輸出在 140W-150W，TEMPO 課表守在 155W-165W，爬坡嚴守 174W (85% FTP) 上限；下車前最後 10–15 公里主動降瓦至 123W–133W 並維持 85–90 rpm 高踏頻冷卻。\n")
+        f.write("- **下車轉換跑步頻與著地剛性**：下車後跑步前 5 公里維持 175–180 spm 小步幅高步頻，觸地時間控制在 <270ms，垂直比 <9%，心率巡航在 145-155 bpm，保護膝蓋與全馬關節剛性。\n")
+        f.write("- **游泳長距離巡航手感定型**：保持放鬆 Zone 1-2 低心率划水與核心流線型，出水前練習抬頭定位 (Sighting) 節奏，目標直指 Sub-11 1:12:00 (1:53/100m) 配速線。\n\n")
         
         f.write("### 3. 恢復與能量補給指南 (Recovery & Fueling Protocol)\n")
-        f.write("- **補水與電解質**：高溫與大消耗訓練後，持續每 1–2 小時補充含電解質飲品，直至尿液顏色恢復清淡。\n")
-        f.write("- **醣類與蛋白質補充**：長課表後請充足補充碳水化合物與每公斤體重 1.5–2.0g 優質蛋白質，促進肌糖原快速回補與肌纖維修復。\n")
-        f.write("- **排程建議**：週末雙大日累積負荷高，週一請務必以完全休息 (Rest Day) 或低心率排酸輕鬆游/滾筒伸展為主。\n\n")
+        f.write("- **補水與電解質補充**：高溫與大消耗訓練後，持續每 1–2 小時補充含電解質飲品，直至尿液顏色恢復清澈淡黃。\n")
+        f.write("- **醣類與蛋白質黃金窗口**：課表後 30 分鐘內充足補充碳水化合物與每公斤體重 1.5–2.0g 優質蛋白質，促進肌糖原快速回補與肌纖維修復。\n")
+        f.write("- **睡眠管理與超補償**：維持每晚 8 小時優質深層睡眠，促進生長激素分泌以利神經系統吸收本週超補償效益。\n\n")
             
     print(f"Markdown report generated: {md_path}")
     
@@ -300,12 +326,32 @@ def build_report(target_date: date):
         dist_a_str = f" / {ev['actual_dist']:.2f}km" if ev["type"] not in ["Strength", "Day Off"] and ev["actual_dist"] > 0 else ""
         cells[4].text = f"{time_a_str}{dist_a_str}"
         
-        status = "✅ 已完成" if ev["actual_time"] > 0 or ev["actual_dist"] > 0 else "❌ 未執行"
-        if ev["type"] == "Day Off":
-            status = "休息日"
+        pt = ev["planned_time"]
+        at = ev["actual_time"]
+        if at > 0 or ev["actual_dist"] > 0:
+            if pt == 0 and ev["planned_dist"] == 0:
+                status = "✨ 動態排酸 (A)"
+            elif pt > 0:
+                pct = (at / pt * 100)
+                if pct >= 95 and pct <= 105:
+                    status = f"✅ 精準達標 ({pct:.0f}%, A+)"
+                elif pct > 105:
+                    status = f"⚡ 超額完成 ({pct:.0f}%, A)"
+                elif pct >= 75:
+                    status = f"🟢 良好達標 ({pct:.0f}%, A-)"
+                elif pct >= 50:
+                    status = f"🟠 自覺調整 ({pct:.0f}%, B+)"
+                else:
+                    status = f"🔴 提早中止 ({pct:.0f}%, C)"
+            else:
+                status = "✅ 扎實完成 (A)"
+        elif ev["type"] == "Day Off":
+            status = "⏸️ 完全休息日"
+        else:
+            status = "❌ 未執行/待排程"
         cells[5].text = status
         
-    table_geometry(table2, [1100, 3100, 1100, 1600, 1600, 1160])
+    table_geometry(table2, [1050, 2750, 1050, 1500, 1500, 1810])
     for row_idx, row in enumerate(table2.rows):
         if row_idx == 0: continue
         for col_idx, cell in enumerate(row.cells):
@@ -318,31 +364,36 @@ def build_report(target_date: date):
     # Section 3 in DOCX
     doc.add_paragraph("三、 教練視角綜合解析與後續建議", style="Heading 1")
     p1 = doc.add_paragraph()
-    font(p1.add_run("1. 執行亮點 (Execution Highlights)"), 12, True, "2E74B5")
+    font(p1.add_run("1. 執行亮點與成效分析 (Execution Highlights & Milestone Analytics)"), 12, True, "2E74B5")
     p1_body = doc.add_paragraph()
     p1_body.add_run(f"• 當週累積自行車 {bike_act_km:.2f} km、跑步 {run_act_km:.2f} km、游泳 {swim_act_km:.2f} km，整體時間執行率達 {overall_completion:.1f}%。\n")
-    if bike_act_km >= 90:
-        p1_body.add_run("• 長距離單車扎實完成，左右踩踏發力極為平衡 (50.5% / 49.5%)，座艙穩定度高。\n")
-    if run_act_km >= 30:
-        p1_body.add_run("• 8/16 順利完成 17.52 km 長跑（總爬升 +327m），平路河濱漸速至 5:26/km，上坡穩健控心率並自覺補水折返，下坡迅速拉高步頻收尾。\n")
-    if swim_act_km >= 8:
-        p1_body.add_run("• 8/16 游泳實游 4,100m，雙組 1,600m 自由式持續游繳出 1:56~1:58/100m 高度一致均速與 140 bpm 穩定心率，水感極佳。\n")
-    p1_body.add_run("• 在高負荷訓練後無縫銜接轉換跑，並依據即時心率與體感自覺彈性調整，兼顧神經肌肉適應與傷害防範。\n")
+    if week_num == 34:
+        p1_body.add_run("• Base 3-3 調整週超補償節奏精準：在歷經 W33 大量週後，本週落實體能吸收與神經超補償，課表質優且疲勞管理得當。\n")
+        p1_body.add_run("• 週四單車 TEMPO 3x15 ＋ 轉換跑精準達標：8/20 單車 85 分鐘 100% 達標 (NP 162W, 142 bpm)，TEMPO 區間精準鎖定在 155W-165W；下車後無縫銜接 28 分鐘 (3.66km) 轉換跑，高步頻 (176 spm) 與輕著地展現極佳的神經肌肉轉向適應力。\n")
+        p1_body.add_run("• 週三甜甜泳課 3.15km 高效巡航：8/19 游泳 63 分鐘游出 2:02/100m 均速，核心流線型支撐與水感推進力優異。\n")
+        p1_body.add_run("• 週二 Z2 跑步成熟自覺收操：8/18 跑步 57 分鐘 (9.45km, 6:06/km)，主動於 9.45km 適度收操防傷，既獲取有氧刺激又防範過度疲勞。\n")
+    else:
+        if bike_act_km >= 90:
+            p1_body.add_run("• 長距離單車扎實完成，左右踩踏發力極為平衡 (50.5% / 49.5%)，座艙穩定度高。\n")
+        if run_act_km >= 30:
+            p1_body.add_run("• 順利完成 17.52 km 長跑（總爬升 +327m），平路河濱漸速至 5:26/km，上坡穩健控心率並自覺補水折返，下坡迅速拉高步頻收尾。\n")
+        if swim_act_km >= 8:
+            p1_body.add_run("• 游泳實游 4,100m，雙組 1,600m 自由式持續游繳出 1:56~1:58/100m 高度一致均速與 140 bpm 穩定心率，水感極佳。\n")
+        p1_body.add_run("• 在高負荷訓練後無縫銜接轉換跑，並依據即時心率與體感自覺彈性調整，兼顧神經肌肉適應與傷害防範。\n")
     
     p2 = doc.add_paragraph()
-    font(p2.add_run("2. 需注意的細節與配速紀律 (Key Watchpoints & Power Pacing)"), 12, True, "2E74B5")
+    font(p2.add_run("2. 需注意的細節與配速/功率紀律 (Key Watchpoints & Power Pacing)"), 12, True, "2E74B5")
     p2_body = doc.add_paragraph()
-    p2_body.add_run("• 自行車長距離 (LSD) 功率控制：對標 Sub-11 藍圖 (5h30m / 140W-145W)，前段請克制輸出，爬坡嚴守 174W (85% FTP) 上限，避免有氧解離過大。\n")
-    p2_body.add_run("• 下車前最後 10–15 公里主動降瓦至 123W–133W 並維持高踏頻，加速乳酸代謝。\n")
-    p2_body.add_run("• 跑步維持 175–180 spm 步頻與短觸地時間，保護關節與下半程剛性。\n")
-    p2_body.add_run("• 游泳巡航手感定型：維持放鬆 Zone 1-2 低心率划水，出水前保持平穩定位，直指 Sub-11 1:12:00 (1:53/100m) 配速線。\n")
+    p2_body.add_run("• 自行車功率控制與有氧冷卻：對標 Sub-11 藍圖 (5h30m / 140W-145W)，長距離 LSD 前段克制輸出在 140W-150W，TEMPO 課表守在 155W-165W，爬坡嚴守 174W (85% FTP) 上限；下車前最後 10–15 公里主動降瓦至 123W–133W 並維持 85–90 rpm 高踏頻冷卻。\n")
+    p2_body.add_run("• 下車轉換跑步頻與著地剛性：下車後跑步前 5 公里維持 175–180 spm 小步幅高步頻，觸地時間控制在 <270ms，垂直比 <9%，心率巡航在 145-155 bpm，保護膝蓋與全馬關節剛性。\n")
+    p2_body.add_run("• 游泳長距離巡航手感定型：保持放鬆 Zone 1-2 低心率划水與核心流線型，出水前練習抬頭定位 (Sighting) 節奏，目標直指 Sub-11 1:12:00 (1:53/100m) 配速線。\n")
     
     p3 = doc.add_paragraph()
     font(p3.add_run("3. 恢復與能量補給指南 (Recovery & Fueling Protocol)"), 12, True, "2E74B5")
     p3_body = doc.add_paragraph()
-    p3_body.add_run("• 持續每 1–2 小時補充含電解質飲品，直至尿液顏色恢復清淡。\n")
-    p3_body.add_run("• 訓練後充足補充碳水化合物與每公斤體重 1.5–2.0g 優質蛋白質。\n")
-    p3_body.add_run("• 週末連續雙大日累積負荷高，週一請務必以完全休息 (Rest Day) 或低心率排酸輕鬆游/滾筒伸展為主。\n")
+    p3_body.add_run("• 補水與電解質補充：高溫與大消耗訓練後，持續每 1–2 小時補充含電解質飲品，直至尿液顏色恢復清澈淡黃。\n")
+    p3_body.add_run("• 醣類與蛋白質黃金窗口：課表後 30 分鐘內充足補充碳水化合物與每公斤體重 1.5–2.0g 優質蛋白質，促進肌糖原快速回補與肌纖維修復。\n")
+    p3_body.add_run("• 睡眠管理與超補償：維持每晚 8 小時優質深層睡眠，促進生長激素分泌以利神經系統吸收本週超補償效益。\n")
 
     doc.save(docx_path)
     print(f"DOCX report generated: {docx_path}")

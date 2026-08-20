@@ -128,156 +128,320 @@ def build_daily_feedback_cards(events):
         pd = ev.get("original_plan", {}).get("planned_dist", ev.get("planned_dist", 0))
         speed = ev.get("speed", 0.0)
         pace = ev.get("pace", "")
+        ev_d_str = ev.get("date", "")
         
         icon = "🚴‍♂️" if t == "Bike" else "🏃‍♂️" if t == "Run" else "🏊‍♂️" if t == "Swim" else "🏋️‍♂️" if t == "Strength" else "📌"
         color = "#38BDF8" if t == "Bike" else "#F59E0B" if t == "Run" else "#22D3EE" if t == "Swim" else "#10B981"
         
-        pct_str = f"完成率 {(at/pt*100):.0f}%" if pt > 0 else "已紀錄完成"
+        # Calculate completion rate and status/grade
+        time_pct = (at / pt * 100) if pt > 0 else None
+        dist_pct = (ad / pd * 100) if pd > 0 else None
         
-        metrics_parts = []
-        metrics_parts.append(f"⏱️ 實際時間：<strong>{at:.0f} 分 ({(at/60.0):.2f} hr)</strong>")
+        if pt == 0 and pd == 0:
+            status_chip = '<span class="badge-status-chip chip-recovery">✨ 動態排酸 / 加開課表</span>'
+            grade_chip = '<span class="badge-grade badge-grade-a">Grade A (恢復適應)</span>'
+            bar_time_w = 100
+            bar_time_color = "linear-gradient(90deg, #A855F7, #C084FC)"
+            time_comp_str = f"實際執行：<strong>{at:.0f} 分 ({(at/60.0):.2f} hr)</strong> ｜ 排程：動態恢復課表"
+        elif time_pct is not None:
+            if time_pct >= 95 and time_pct <= 105:
+                status_chip = f'<span class="badge-status-chip chip-achieved">✅ 精準達標 ({time_pct:.0f}%)</span>'
+                grade_chip = '<span class="badge-grade badge-grade-aplus">Grade A+ (卓越完備)</span>'
+                bar_time_color = "linear-gradient(90deg, #059669, #10B981)"
+            elif time_pct > 105:
+                status_chip = f'<span class="badge-status-chip chip-extended">⚡ 超額完成 ({time_pct:.0f}%)</span>'
+                grade_chip = '<span class="badge-grade badge-grade-a">Grade A (扎實超額)</span>'
+                bar_time_color = "linear-gradient(90deg, #0284C7, #38BDF8)"
+            elif time_pct >= 75 and time_pct < 95:
+                status_chip = f'<span class="badge-status-chip chip-achieved">🟢 良好達標 ({time_pct:.0f}%)</span>'
+                grade_chip = '<span class="badge-grade badge-grade-a">Grade A- (良好達標)</span>'
+                bar_time_color = "linear-gradient(90deg, #059669, #34D399)"
+            elif time_pct >= 50 and time_pct < 75:
+                if "轉換" in summary or "Z2" in summary or "Running" in summary:
+                    status_chip = f'<span class="badge-status-chip chip-partial">🟠 自覺保護收操 ({time_pct:.0f}%)</span>'
+                    grade_chip = '<span class="badge-grade badge-grade-bplus">Grade B+ (自覺保護良好)</span>'
+                else:
+                    status_chip = f'<span class="badge-status-chip chip-partial">🟠 部分達成 ({time_pct:.0f}%)</span>'
+                    grade_chip = '<span class="badge-grade badge-grade-b">Grade B (部分調整)</span>'
+                bar_time_color = "linear-gradient(90deg, #D97706, #FBBF24)"
+            else:
+                status_chip = f'<span class="badge-status-chip chip-under">🔴 提早中止/待補足 ({time_pct:.0f}%)</span>'
+                grade_chip = '<span class="badge-grade badge-grade-c">Grade C (需加強)</span>'
+                bar_time_color = "linear-gradient(90deg, #DC2626, #F87171)"
+            bar_time_w = min(int(time_pct), 100)
+            time_comp_str = f"計畫：<strong>{pt} 分</strong> ➔ 實際：<strong>{at:.0f} 分</strong> (達成率 <strong style='color:#F8FAFC;'>{time_pct:.1f}%</strong>)"
+        else:
+            status_chip = '<span class="badge-status-chip chip-achieved">✅ 已紀錄完成</span>'
+            grade_chip = '<span class="badge-grade badge-grade-a">Grade A (扎實完成)</span>'
+            bar_time_w = 100
+            bar_time_color = "linear-gradient(90deg, #059669, #10B981)"
+            time_comp_str = f"實際執行：<strong>{at:.0f} 分</strong>"
+
+        # Distance completeness row
+        dist_comp_html = ""
+        if pd > 0:
+            d_pct = (ad / pd * 100)
+            bar_d_w = min(int(d_pct), 100)
+            bar_d_color = "linear-gradient(90deg, #059669, #10B981)" if d_pct >= 90 else "linear-gradient(90deg, #0284C7, #38BDF8)" if d_pct > 105 else "linear-gradient(90deg, #D97706, #FBBF24)"
+            dist_comp_html = f"""
+            <div class="comp-row" style="margin-top:6px;">
+                <div class="comp-label-wrap">
+                    <span class="comp-label">📏 距離完備度</span>
+                    <span class="comp-val">計畫：<strong>{pd:.2f} km</strong> ➔ 實際：<strong>{ad:.2f} km</strong> (達成率 <strong style='color:#F8FAFC;'>{d_pct:.1f}%</strong>)</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-bar" style="width: {bar_d_w}%; background: {bar_d_color};"></div>
+                </div>
+            </div>
+            """
+        elif ad > 0:
+            dist_comp_html = f"""
+            <div class="comp-row" style="margin-top:4px;">
+                <div class="comp-label-wrap">
+                    <span class="comp-label">📏 實際累積里程</span>
+                    <span class="comp-val" style="color: #38BDF8;"><strong>{ad:.2f} km</strong></span>
+                </div>
+            </div>
+            """
+
+        # Metrics chips
+        metrics_chips = []
+        metrics_chips.append(f"<div class='metric-chip'>⏱️ 時間：<strong>{at:.0f} 分 ({(at/60.0):.2f}h)</strong></div>")
         if ad > 0:
-            metrics_parts.append(f"📏 實際距離：<strong>{ad:.2f} km</strong>")
+            metrics_chips.append(f"<div class='metric-chip'>📏 距離：<strong>{ad:.2f} km</strong></div>")
         if speed > 0 and t == "Bike":
-            metrics_parts.append(f"⚡ 平均時速：<strong>{speed:.2f} km/h</strong>")
+            metrics_chips.append(f"<div class='metric-chip'>⚡ 時速：<strong>{speed:.2f} km/h</strong></div>")
         if pace and t == "Run":
-            metrics_parts.append(f"👟 平均配速：<strong>{pace}</strong>")
+            metrics_chips.append(f"<div class='metric-chip' style='border-color:rgba(245,158,11,0.4);'>👟 配速：<strong style='color:#FBBF24;'>{pace}</strong></div>")
         if speed > 0 and t == "Swim":
             swim_pace_mins = 6.0 / speed if speed > 0 else 0
             swim_m = int(swim_pace_mins)
             swim_s = int(round((swim_pace_mins - swim_m)*60))
             if swim_s == 60: swim_m += 1; swim_s = 0
-            metrics_parts.append(f"🏊 划水配速：<strong>{swim_m}:{swim_s:02d} /100m</strong>")
+            metrics_chips.append(f"<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 划水均速：<strong style='color:#22D3EE;'>{swim_m}:{swim_s:02d} /100m</strong></div>")
 
-        # Specific Rich TP metrics for 2026-08-16 Run & Swim
-        if ev.get("date") == "2026-08-16" and t == "Run":
-            metrics_parts.append("⏱️ 實際時間：<strong>2:04:32 (124.5 分)</strong>")
-            metrics_parts.append("📏 實際距離：<strong>17.52 km</strong>")
-            metrics_parts.append("👟 平均配速：<strong style='color:#F59E0B;'>7:06 /km</strong> (等效 6:35 /km)")
-            metrics_parts.append("💓 均心率：<strong style='color:#F43F5E;'>149 bpm</strong> (最高 172 bpm, Z1-Z2 佔 99.9%)")
-            metrics_parts.append("⚡ 平均功率：<strong>226 W</strong> (最高 380 W)")
-            metrics_parts.append("👣 平均步頻：<strong style='color:#10B981;'>155 spm</strong> (下坡 176-184 spm)")
-            metrics_parts.append("⛰️ 總爬升：<strong style='color:#38BDF8;'>+327 m</strong> / -279 m (最高海拔 286.6m)")
-            metrics_parts.append("📊 訓練壓力：<strong>86.4 rTSS</strong> (IF 0.61)")
-            metrics_parts.append("🔥 熱量：<strong>1,201 kcal</strong>")
-            metrics_parts.append("😊 體感自覺：<strong style='color:#10B981;'>5/5 (滿分)</strong>")
-            advice = (
-                "🎯 <strong>【平路漸速與山道爬坡兼備的長距離有氧】</strong> 今日完成 17.52 km 長跑，總爬升達 +327m。前段平路河濱（Lap 1~8）配速由 6:42/km 順暢提速至 5:26/km（功率 240~287W），熱身與巡航節奏非常優秀。<br>"
-                "⛰️ <strong>【明德宮陡坡有氧控制與自覺補水折返】</strong> 上坡路段（8~13km）坡度達 4%~8.5%，心率妥善控制在 131~163 bpm，不盲目衝瓦；並於明德宮適時補水後折返，是極具經驗的防熱衰與補給決策。下坡段（13~17km）迅速拉高步頻至 176~184 spm，平穩收尾。<br>"
-                "💡 <strong>【對標 Sub-11 全馬 4 小時 (5:41/km)】</strong> 本次長跑在包含 300+ 公尺爬升下全有氧區間（Z1-Z2 佔 99.9%）完成，奠定極佳的下肢抗疲勞肌耐力。"
-            )
-        elif ev.get("date") == "2026-08-16" and t == "Swim":
-            metrics_parts.append("⏱️ 實際時間：<strong>1:25:35 (85.6 分, 游動 1:07:18)</strong>")
-            metrics_parts.append("📏 實際距離：<strong>4,100 m (4.10 km)</strong>")
-            metrics_parts.append("🏊 均速配速：<strong style='color:#22D3EE;'>2:05 /100m</strong> (主課巡航 1:56~1:58 /100m)")
-            metrics_parts.append("💓 均心率：<strong style='color:#F43F5E;'>134 bpm</strong> (最高 163 bpm, Z1-Z2 佔 65%, Z3 佔 34%)")
-            metrics_parts.append("🔄 划水頻率：<strong style='color:#10B981;'>25 spm</strong> (最高 28 spm)")
-            metrics_parts.append("📊 訓練壓力：<strong>110.4 sTSS</strong> (IF 0.92)")
-            metrics_parts.append("🔥 熱量：<strong>733 kcal</strong>")
-            metrics_parts.append("😊 體感自覺：<strong style='color:#10B981;'>3/5 (扎實)</strong>")
-            advice = (
-                "🏊‍♂️ <strong>【超長距離雙主課穩定巡航】</strong> 完成 4,100m 高量游泳課表！包含 800m 扎實技術分解練習 (Drill) 與兩組 1,600m（合計 3,200m）主項巡航。第一組 1,600m 耗時 31分11秒（均速 <strong>1'56\" /100m</strong>，心率 140 bpm），第二組 1,600m 耗時 31分41秒（均速 <strong>1'58\" /100m</strong>，心率 142 bpm），兩大段配速與划頻（25 spm）展現極致一致性！<br>"
-                "🎯 <strong>【精準對標 Sub-11 游泳藍圖 (1h12m / 1:53/100m)】</strong> 1,600m 連續長游在 140 bpm 低心率下輕鬆維持破 2 分台（1'56\"~1'58\"/100m），證明 3.8km 全程可在低於乳酸閾值的極省力狀態游在 1:12-1:15 區間出水，完美保護後續單車與全馬體力。<br>"
-                "🧪 <strong>【週日雙項累積近 200 TSS 之恢復指引】</strong> 上午跑、游雙課表合計 196.8 TSS，全週累積游泳 10.7km、單車 188.4km、跑步 37.2km，整體負荷圓滿達標。建議晚間補足碳水與優質蛋白質，針對小腿與肩背進行滾筒放鬆，準備迎接週一的恢復日。"
-            )
-        # Specific Rich TP metrics for 2026-08-15 Bike & Run
-        elif ev.get("date") == "2026-08-15" and t == "Bike":
-            metrics_parts.append("⏱️ 實際時間：<strong>4:36:23 (276 分)</strong>")
-            metrics_parts.append("📏 實際距離：<strong>127.37 km</strong>")
-            metrics_parts.append("⚡ 平均時速：<strong>27.65 km/h</strong>")
-            metrics_parts.append("🚴 標準化功率 (NP)：<strong style='color:#38BDF8;'>172 W</strong> (均瓦 134W, 最大 545W)")
-            metrics_parts.append("💓 均心率：<strong style='color:#F43F5E;'>148 bpm</strong> (最高 182 bpm)")
-            metrics_parts.append("🔄 平均踏頻：<strong>80 rpm</strong>")
-            metrics_parts.append("⚖️ 左右踩踏平衡：<strong style='color:#10B981;'>50.5% / 49.5%</strong>")
-            metrics_parts.append("⛰️ 總爬升：<strong>857 m</strong>")
-            metrics_parts.append("📊 訓練壓力：<strong>320.1 TSS</strong> (IF 0.84, VI 1.28)")
-            metrics_parts.append("🩺 有氧解離 (Pw:HR)：<strong style='color:#F59E0B;'>21.39%</strong>")
-            metrics_parts.append("🔥 熱量：<strong>2,526 kcal</strong>")
-            metrics_parts.append("😊 體感：<strong>3/5</strong>")
-            advice = (
-                "<strong>【長距離耐力與極佳踩踏平衡】</strong> 扎實完成 127.37 km 破百長騎！左右踩踏發力 50.5% / 49.5% 極為平衡，座艙設定與核心穩定度表現優異。<br>"
-                "⚠️ <strong>【LSD 功率紀律與有氧解離監測】</strong> 今日標準化功率 172W (IF 0.84，目標 0.70-0.75) 偏向 Tempo 競賽強度，造成後半程心率漂移 (Pw:HR) 達 21.39%。備賽 LSD 建議刻意將前 3 小時 NP 壓制在 145W-155W (68-75% FTP) 區間，避免過早耗盡肝醣，為後續轉換跑保留體力。<br>"
-                "💡 <strong>【下車前降瓦與高踏頻冷卻】</strong> 下車前最後 10–15km 請恪守降瓦至 123W-133W 並維持 85-90 rpm，有效降低心率與乳酸堆積。"
-            )
-        elif ev.get("date") == "2026-08-15" and t == "Run":
-            metrics_parts.append("⏱️ 實際時間：<strong>30:00 (30 分)</strong>")
-            metrics_parts.append("📏 實際距離：<strong>4.28 km</strong>")
-            metrics_parts.append("👟 平均配速：<strong style='color:#F59E0B;'>7:01 /km</strong>")
-            metrics_parts.append("💓 均心率：<strong style='color:#F43F5E;'>161 bpm</strong> (最高 178 bpm)")
-            metrics_parts.append("⚡ 平均功率：<strong>231 W</strong>")
-            metrics_parts.append("👣 步頻：<strong style='color:#10B981;'>167 spm</strong> (前段 175 spm)")
-            metrics_parts.append("⏱️ 觸地時間：<strong style='color:#38BDF8;'>273.5 ms</strong>")
-            metrics_parts.append("📐 垂直比：<strong style='color:#A855F7;'>9.0%</strong>")
-            metrics_parts.append("📊 訓練壓力：<strong>17.7 rTSS</strong>")
-            metrics_parts.append("😊 體感自覺：<strong style='color:#10B981;'>5/5 (極佳)</strong>")
-            advice = (
-                "🎯 <strong>【極佳自覺調整與教練級防傷決策】</strong> 上午單車承受 320 TSS 高負荷且正午升溫，開跑心率即進入 160+ bpm。<strong>主動於 30 分鐘適度收操是極具水準的自我保護決策</strong>，既達到了神經肌肉轉換適應，又成功防範了中暑、深度力竭與拉傷風險！<br>"
-                "⚡ <strong>【步頻與跑姿維持】</strong> 前 3 公里步頻維持在 174-175 spm、垂直比 9.0%，動力傳遞效率優異。後續 90 分鐘轉換跑時，請專注於前 5 公里維持 175-180 spm 小步幅，平穩將心率巡航在 155-165 bpm。<br>"
-                "🧪 <strong>【黃金恢復指南】</strong> 今日總消耗高達 2,855 kcal，請持續補充電解質與每公斤 1.5-2.0g 優質蛋白質，明日建議完全休息或輕鬆排酸游。"
-            )
-        elif ev.get("date") == "2026-08-14" and t == "Swim":
-            metrics_parts.append("⏱️ 實際時間：<strong>1:08:46 (68.8 分)</strong>")
-            metrics_parts.append("📏 實際距離：<strong>3,300 m (3.30 km)</strong>")
-            metrics_parts.append("🏊 均速配速：<strong style='color:#22D3EE;'>2:05 /100m</strong> (最快 1:45 /100m)")
-            metrics_parts.append("💓 均心率：<strong style='color:#F43F5E;'>140 bpm</strong> (最高 181 bpm, Z2-Z3 佔 63%)")
-            metrics_parts.append("🔄 划水頻率：<strong style='color:#10B981;'>27 spm</strong> (最高 30 spm)")
-            metrics_parts.append("📊 訓練壓力：<strong>89.2 sTSS</strong> (IF 0.92)")
-            metrics_parts.append("🔥 熱量：<strong>772 kcal</strong>")
-            metrics_parts.append("🩺 有氧解離 (Pa:HR)：<strong>4.12%</strong> (極佳有氧穩定性)")
-            metrics_parts.append("😊 體感自覺：<strong style='color:#10B981;'>5/5 (極佳)</strong>")
-            advice = (
-                "🎯 <strong>【扎實高量有氧划水與極佳水感】</strong> 順利吃下 3,300m 甜甜主課表（1小時08分）！划頻穩定維持在 27 spm，有氧解離率僅 4.12%（&lt;5% 優秀標準），顯示在長距離游程中身體流線型與核心浮力維持得非常好，無明顯下沉或阻力增加現象。<br>"
-                "🏊‍♂️ <strong>【對標 Sub-11 標竿 (1h12m / 1:53/100m)】</strong> 今日主課混合了分解動作 (Drill) 與定速游，均速 2:05/100m，高峰衝刺游出 1:45/100m。進入賽前 Build/Peak 週期時，可逐步增加 100m/200m 巡航配速游比重，目標鎖定在 1:48–1:53/100m 節奏，出水前保持低心率定位，將最佳腿力完整留給單車與全馬。<br>"
-                "💡 <strong>【連續大週課表銜接】</strong> 週五游完 3.3km 後隔日即順利銜接週六 127km 長騎與轉換跑，展現非常充沛的體能庫存。"
-            )
-        # Specific Rich TP metrics for 2026-08-13 Bike & Run
-        elif ev.get("date") == "2026-08-13" and t == "Bike":
-            metrics_parts.append("💓 均心率：<strong style='color:#F43F5E;'>105 bpm</strong> (Zone 1-2 佔 97.2%)")
-            metrics_parts.append("⛰️ 總爬升：<strong style='color:#38BDF8;'>1,135 m</strong> (最高海拔 811m)")
-            metrics_parts.append("📊 訓練壓力：<strong>108.4 hrTSS</strong> (IF 0.54)")
-            metrics_parts.append("😊 體感：<strong>5/5 (滿分)</strong>")
-            advice = (
-                "<strong>【極佳有氧效率與低心率控瓦】</strong> 在高達 1,135m 總爬升的山路陡坡騎乘中，平均心率控制在極低穩定的 105 bpm (Zone 1-2 涵蓋率達 97.2%)！展現高超的脂肪氧化能力與有氧耐力底子。<br>"
-                "⚠️ <strong>【陡坡心率與功率控防】</strong> 第 11-12 圈長陡坡出現瞬間心率 187 bpm。比賽日 (平路/微起伏賽道) 請恪守「陡坡降齒比、守住 174W (85% FTP) 上限」紀律，防止心率暴衝耗盡糖原。下車前 10–15km 主動降瓦至 123W-133W 冷卻有氧，每小時補給 60-90g 碳水與 600-900ml 電解質。"
-            )
-        elif ev.get("date") == "2026-08-13" and t == "Run":
-            metrics_parts.append("👟 均配速：<strong style='color:#F59E0B;'>5:39 /km</strong> (Sub-11 標竿 5:41)")
-            metrics_parts.append("💓 均心率：<strong>167 bpm</strong>")
-            metrics_parts.append("⚡ 平均功率：<strong>275 W</strong>")
-            metrics_parts.append("👣 步頻：<strong style='color:#10B981;'>170 bpm</strong> (最高 184)")
-            metrics_parts.append("⏱️ 觸地時間：<strong style='color:#38BDF8;'>262 ms</strong>")
-            metrics_parts.append("📐 垂直比：<strong style='color:#A855F7;'>8.0%</strong> (極佳推進效率)")
-            advice = (
-                "🎯 <strong>【完美擊中 Sub-11 全馬標竿】</strong> 單車 60.99km 下車後直接跑出 5:39/km 平均配速，精準擊中 Sub-11 全馬 4 小時完賽 (5:41/km) 目標線！分段配速 5:31 -> 5:18 -> 5:04/km 穩健漸進。<br>"
-                "⚡ <strong>【神經傳導與轉向效率優異】</strong> 觸地時間僅 262 ms，垂直比 8.0% (&lt;10% 最佳推進率)，證明單車有氧控心率得當，下車雙腿完全無麻痺僵硬感。長距離轉換跑時請注意前 5 公里穩在 5:40-5:45/km，心率巡航在 155-165 bpm，為後續保留彈性。"
-            )
+        # Specific Rich TP metrics and Coach Advice
+        if ev_d_str == "2026-08-20" and t == "Bike":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(56,189,248,0.4);'>🚴 標準化功率 (NP)：<strong style='color:#38BDF8;'>162 W</strong> (TEMPO 155-165W)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>142 bpm</strong> (最高 158 bpm, Z2-Z3 佔 94%)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔄 平均踏頻：<strong style='color:#10B981;'>86 rpm</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>78.5 TSS</strong> (IF 0.79)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 消耗熱量：<strong>820 kcal</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>5/5 (極佳)</strong></div>")
+            advice_p1 = "順利吃下 85 分鐘單車 TEMPO 3x15 主課！時間達成率 100% 精準達標。在 Base 3-3 調整週中精準執行 3 組 15 分鐘節奏瓦數，有效維持有氧引擎的抗乳酸耐受力，同時未累積過度神經疲勞。"
+            advice_p2 = "平均時速 24.78 km/h，踏頻穩定維持在 86 rpm 高效率轉速；NP 162W 精準落在 79% FTP 目標線，心率穩定巡航在 142 bpm (Zone 2-3)，完全無心率漂移暴衝現象，左右踩踏平衡良好。"
+            advice_p3 = "下車前落實降瓦冷卻 (125W-133W)，無縫切換至 T2 轉換跑，充分模擬鐵人賽道下車時的神經傳導與雙腿重力適應。對標 Sub-11 單車 (5h30m / 140-145W)，此 TEMPO 強度能確保在賽道逆風與緩坡時擁有充沛的超車與抗風瓦數儲備。"
+
+        elif ev_d_str == "2026-08-20" and t == "Run":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(245,158,11,0.4);'>👟 轉換配速：<strong style='color:#F59E0B;'>7:51 /km</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>145 bpm</strong> (Zone 2 有氧排酸)</div>")
+            metrics_chips.append("<div class='metric-chip'>👣 步頻：<strong style='color:#10B981;'>176 spm</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>⏱️ 觸地時間：<strong style='color:#38BDF8;'>268 ms</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>📐 垂直比：<strong style='color:#A855F7;'>8.4%</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>16.2 rTSS</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>5/5 (極佳)</strong></div>")
+            advice_p1 = "單車 TEMPO 85 分鐘下車後無縫換鞋出發，實際執行 28 分鐘 (3.66 km)，超越原定 20 分鐘 (3.0 km) 計畫，時間達成率 140%、距離達成率 122%。神經肌肉轉換順暢，下車雙腿重力適應極快。"
+            advice_p2 = "配速 7:51 /km 採取完全放鬆的低心率排酸巡航，均心率 145 bpm 穩健落在 Zone 2；步頻保持在 176 spm 高步頻小步幅，垂直比 8.4% (<9% 優秀)，有效吸收地面衝擊力並保護膝踝關節。"
+            advice_p3 = "單車接轉換跑是鐵人三項避免全馬後半程「雙腿發木抽筋」的最關鍵訓練。跑後 30 分鐘內請補給 25g 優質蛋白質與 50g 碳水化合物，配合滾筒放鬆小腿腓腸肌、比目魚肌與股四頭肌。"
+
+        elif ev_d_str == "2026-08-19" and t == "Swim":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 划水均速：<strong style='color:#22D3EE;'>2:02 /100m</strong> (2.95 km/h)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>136 bpm</strong> (Zone 2 低心率巡航)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔄 划水頻率：<strong style='color:#10B981;'>26 spm</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>76.5 sTSS</strong> (IF 0.88)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 消耗熱量：<strong>590 kcal</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>5/5 (極佳)</strong></div>")
+            advice_p1 = "用時 63 分鐘扎實吃下 3,150m (3.15 km) 甜甜主課，以 2:02/100m 高效率均速完成，在 Base 3-3 調整週中展現優秀的水中續航力與課表高完備度。"
+            advice_p2 = "划頻 26 spm 展現良好的水感延伸與划幅 (DPS)，心率維持在 136 bpm 扎實有氧區間；有氧解離率極低，長距離游程中身體流線型與核心浮力保持良好，無下沉阻力。"
+            advice_p3 = "對標 Sub-11 游泳藍圖 (1h12m / 1:53/100m)，甜甜課表之節奏間歇能持續優化 CSS 臨界水速。游後加強肩胛與闊背肌伸展，補充電解質水。"
+
+        elif ev_d_str == "2026-08-18" and t == "Run":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(245,158,11,0.4);'>👟 平均配速：<strong style='color:#F59E0B;'>6:06 /km</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>148 bpm</strong> (Zone 2 有氧耐力)</div>")
+            metrics_chips.append("<div class='metric-chip'>👣 平均步頻：<strong style='color:#10B981;'>172 spm</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>48.2 rTSS</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 消耗熱量：<strong>645 kcal</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>4/5 (良好)</strong></div>")
+            advice_p1 = "原定 90 分鐘 Z2 耐力跑，實際執行 57 分鐘 9.45 km（均速 6:06 /km，達成率 63% 時間 / 81.5% 距離）。在歷經 W33 大量週後之 Base 3-3 調整週，主動於 9.45km 適度收操是極具教練水準的防傷與疲勞管理決策。"
+            advice_p2 = "均速 6:06 /km 緊貼 Sub-11 全馬目標區間 (5:41/km)，心率 148 bpm 妥善控制在有氧 Zone 2；步頻 172 spm 保持穩定推進，既達到有氧粒線體刺激，又成功防範下肢深層累積疲勞。"
+            advice_p3 = "調整週以「體能吸收與神經超補償」為核心，切勿因體感尚可而盲目拼滿時間。課後加強小腿阿基里斯腱與足底筋膜滾筒放鬆。"
+
+        elif ev_d_str == "2026-08-17" and t == "Bike":
+            metrics_chips.append("<div class='metric-chip'>⚡ 平均時速：<strong>11.25 km/h</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>98 bpm</strong> (Zone 1 排酸動態恢復)</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>8.5 hrTSS</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>5/5 (極佳)</strong></div>")
+            advice_p1 = "在週一休息日進行 33 分鐘極低強度動態排酸騎 (6.24 km)，作為週末超大訓練日（8/15-8/16 破百長騎與雙長課）後的恢復潤滑。"
+            advice_p2 = "均心率僅 98 bpm，極低負荷促進微血管血液循環與乳酸代謝，完全無額外肌肉組織撕裂負擔。"
+            advice_p3 = "維持輕齒比與高迴轉，騎後配合全身筋膜滾筒與優質蛋白質攝取，為週二跑步重啟體能。"
+
+        elif ev_d_str == "2026-08-16" and t == "Run":
+            metrics_chips.append("<div class='metric-chip'>⏱️ 實際時間：<strong>2:04:32 (124.5 分)</strong></div>")
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(245,158,11,0.4);'>👟 平均配速：<strong style='color:#F59E0B;'>7:06 /km</strong> (等效 6:35 /km)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>149 bpm</strong> (最高 172 bpm, Z1-Z2 佔 99.9%)</div>")
+            metrics_chips.append("<div class='metric-chip'>⚡ 平均功率：<strong>226 W</strong> (最高 380 W)</div>")
+            metrics_chips.append("<div class='metric-chip'>👣 平均步頻：<strong style='color:#10B981;'>155 spm</strong> (下坡 176-184 spm)</div>")
+            metrics_chips.append("<div class='metric-chip'>⛰️ 總爬升：<strong style='color:#38BDF8;'>+327 m</strong> / -279 m</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>86.4 rTSS</strong> (IF 0.61)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 熱量：<strong>1,201 kcal</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>5/5 (滿分)</strong></div>")
+            advice_p1 = "今日完成 17.52 km 長跑，總爬升達 +327m。前段平路河濱（Lap 1~8）配速由 6:42/km 順暢提速至 5:26/km（功率 240~287W），熱身與巡航節奏非常優秀。"
+            advice_p2 = "上坡路段（8~13km）坡度達 4%~8.5%，心率妥善控制在 131~163 bpm，不盲目衝瓦；並於明德宮適時補水後折返，是極具經驗的防熱衰與補給決策。下坡段（13~17km）迅速拉高步頻至 176~184 spm，平穩收尾。"
+            advice_p3 = "對標 Sub-11 全馬 4 小時 (5:41/km)，本次長跑在包含 300+ 公尺爬升下全有氧區間（Z1-Z2 佔 99.9%）完成，奠定極佳的下肢抗疲勞肌耐力。"
+
+        elif ev_d_str == "2026-08-16" and t == "Swim":
+            metrics_chips.append("<div class='metric-chip'>⏱️ 實際時間：<strong>1:25:35 (85.6 分, 游動 1:07:18)</strong></div>")
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 均速配速：<strong style='color:#22D3EE;'>2:05 /100m</strong> (主課巡航 1:56~1:58 /100m)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>134 bpm</strong> (最高 163 bpm, Z1-Z2 佔 65%, Z3 佔 34%)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔄 划水頻率：<strong style='color:#10B981;'>25 spm</strong> (最高 28 spm)</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>110.4 sTSS</strong> (IF 0.92)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 熱量：<strong>733 kcal</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>3/5 (扎實)</strong></div>")
+            advice_p1 = "完成 4,100m 高量游泳課表！包含 800m 扎實技術分解練習 (Drill) 與兩組 1,600m（合計 3,200m）主項巡航。第一組 1,600m 耗時 31分11秒（均速 1'56\" /100m，心率 140 bpm），第二組 1,600m 耗時 31分41秒（均速 1'58\" /100m，心率 142 bpm），兩大段配速與划頻（25 spm）展現極致一致性！"
+            advice_p2 = "1,600m 連續長游在 140 bpm 低心率下輕鬆維持破 2 分台（1'56\"~1'58\"/100m），證明 3.8km 全程可在低於乳酸閾值的極省力狀態游在 1:12-1:15 區間出水，完美保護後續單車與全馬體力。"
+            advice_p3 = "上午跑、游雙課表合計 196.8 TSS，全週累積游泳 10.7km、單車 188.4km、跑步 37.2km，整體負荷圓滿達標。建議晚間補足碳水與優質蛋白質，針對小腿與肩背進行滾筒放鬆，準備迎接週一的恢復日。"
+
+        elif ev_d_str == "2026-08-15" and t == "Bike":
+            metrics_chips.append("<div class='metric-chip'>⏱️ 實際時間：<strong>4:36:23 (276 分)</strong></div>")
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(56,189,248,0.4);'>🚴 標準化功率 (NP)：<strong style='color:#38BDF8;'>172 W</strong> (均瓦 134W, 最大 545W)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>148 bpm</strong> (最高 182 bpm)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔄 平均踏頻：<strong>80 rpm</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>⚖️ 左右踩踏平衡：<strong style='color:#10B981;'>50.5% / 49.5%</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>⛰️ 總爬升：<strong>857 m</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>320.1 TSS</strong> (IF 0.84, VI 1.28)</div>")
+            metrics_chips.append("<div class='metric-chip'>🩺 有氧解離 (Pw:HR)：<strong style='color:#F59E0B;'>21.39%</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 熱量：<strong>2,526 kcal</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感：<strong>3/5</strong></div>")
+            advice_p1 = "扎實完成 127.37 km 破百長騎！左右踩踏發力 50.5% / 49.5% 極為平衡，座艙設定與核心穩定度表現優異。"
+            advice_p2 = "今日標準化功率 172W (IF 0.84，目標 0.70-0.75) 偏向 Tempo 競賽強度，造成後半程心率漂移 (Pw:HR) 達 21.39%。備賽 LSD 建議刻意將前 3 小時 NP 壓制在 145W-155W (68-75% FTP) 區間，避免過早耗盡肝醣，為後續轉換跑保留體力。"
+            advice_p3 = "下車前最後 10–15km 請恪守降瓦至 123W-133W 並維持 85-90 rpm，有效降低心率與乳酸堆積。"
+
+        elif ev_d_str == "2026-08-15" and t == "Run":
+            metrics_chips.append("<div class='metric-chip'>⏱️ 實際時間：<strong>30:00 (30 分)</strong></div>")
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(245,158,11,0.4);'>👟 平均配速：<strong style='color:#F59E0B;'>7:01 /km</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>161 bpm</strong> (最高 178 bpm)</div>")
+            metrics_chips.append("<div class='metric-chip'>⚡ 平均功率：<strong>231 W</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>👣 步頻：<strong style='color:#10B981;'>167 spm</strong> (前段 175 spm)</div>")
+            metrics_chips.append("<div class='metric-chip'>⏱️ 觸地時間：<strong style='color:#38BDF8;'>273.5 ms</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>📐 垂直比：<strong style='color:#A855F7;'>9.0%</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>17.7 rTSS</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>5/5 (極佳)</strong></div>")
+            advice_p1 = "上午單車承受 320 TSS 高負荷且正午升溫，開跑心率即進入 160+ bpm。主動於 30 分鐘適度收操是極具水準的自我保護決策，既達到了神經肌肉轉換適應，又成功防範了中暑、深度力竭與拉傷風險！"
+            advice_p2 = "前 3 公里步頻維持在 174-175 spm、垂直比 9.0%，動力傳遞效率優異。後續 90 分鐘轉換跑時，請專注於前 5 公里維持 175-180 spm 小步幅，平穩將心率巡航在 155-165 bpm。"
+            advice_p3 = "今日總消耗高達 2,855 kcal，請持續補充電解質與每公斤 1.5-2.0g 優質蛋白質，明日建議完全休息或輕鬆排酸游。"
+
+        elif ev_d_str == "2026-08-14" and t == "Swim":
+            metrics_chips.append("<div class='metric-chip'>⏱️ 實際時間：<strong>1:08:46 (68.8 分)</strong></div>")
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 均速配速：<strong style='color:#22D3EE;'>2:05 /100m</strong> (最快 1:45 /100m)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>140 bpm</strong> (最高 181 bpm, Z2-Z3 佔 63%)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔄 划水頻率：<strong style='color:#10B981;'>27 spm</strong> (最高 30 spm)</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>89.2 sTSS</strong> (IF 0.92)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 熱量：<strong>772 kcal</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>🩺 有氧解離 (Pa:HR)：<strong>4.12%</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>5/5 (極佳)</strong></div>")
+            advice_p1 = "順利吃下 3,300m 甜甜主課表（1小時08分）！划頻穩定維持在 27 spm，有氧解離率僅 4.12%（<5% 優秀標準），顯示在長距離游程中身體流線型與核心浮力維持得非常好，無明顯下沉或阻力增加現象。"
+            advice_p2 = "今日主課混合了分解動作 (Drill) 與定速游，均速 2:05/100m，高峰衝刺游出 1:45/100m。進入賽前 Build/Peak 週期時，可逐步增加 100m/200m 巡航配速游比重，目標鎖定在 1:48–1:53/100m 節奏。"
+            advice_p3 = "週五游完 3.3km 後隔日即順利銜接週六 127km 長騎與轉換跑，展現非常充沛的體能庫存。"
+
+        elif ev_d_str == "2026-08-13" and t == "Bike":
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>105 bpm</strong> (Zone 1-2 佔 97.2%)</div>")
+            metrics_chips.append("<div class='metric-chip'>⛰️ 總爬升：<strong style='color:#38BDF8;'>1,135 m</strong> (最高海拔 811m)</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>108.4 hrTSS</strong> (IF 0.54)</div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感：<strong>5/5 (滿分)</strong></div>")
+            advice_p1 = "在高達 1,135m 總爬升的山路陡坡騎乘中，平均心率控制在極低穩定的 105 bpm (Zone 1-2 涵蓋率達 97.2%)！展現高超的脂肪氧化能力與有氧耐力底子。"
+            advice_p2 = "第 11-12 圈長陡坡出現瞬間心率 187 bpm。比賽日 (平路/微起伏賽道) 請恪守「陡坡降齒比、守住 174W (85% FTP) 上限」紀律，防止心率暴衝耗盡糖原。"
+            advice_p3 = "下車前 10–15km 主動降瓦至 123W-133W 冷卻有氧，每小時補給 60-90g 碳水與 600-900ml 電解質。"
+
+        elif ev_d_str == "2026-08-13" and t == "Run":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(245,158,11,0.4);'>👟 均配速：<strong style='color:#F59E0B;'>5:39 /km</strong> (Sub-11 標竿 5:41)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong>167 bpm</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>⚡ 平均功率：<strong>275 W</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>👣 步頻：<strong style='color:#10B981;'>170 spm</strong> (最高 184)</div>")
+            metrics_chips.append("<div class='metric-chip'>⏱️ 觸地時間：<strong style='color:#38BDF8;'>262 ms</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>📐 垂直比：<strong style='color:#A855F7;'>8.0%</strong> (極佳推進效率)</div>")
+            advice_p1 = "單車 60.99km 下車後直接跑出 5:39/km 平均配速，精準擊中 Sub-11 全馬 4 小時完賽 (5:41/km) 目標線！分段配速 5:31 -> 5:18 -> 5:04/km 穩健漸進。"
+            advice_p2 = "觸地時間僅 262 ms，垂直比 8.0% (<10% 最佳推進率)，證明單車有氧控心率得當，下車雙腿完全無麻痺僵硬感。"
+            advice_p3 = "長距離轉換跑時請注意前 5 公里穩在 5:40-5:45/km，心率巡航在 155-165 bpm，為後續保留彈性。"
+
         else:
+            # Smart Dynamic Triathlon Coach Evaluation Engine
             if t == "Bike":
-                advice = f"<strong>【單車強度與功率紀律】</strong> 實際完成 {ad:.2f} km (時間 {at/60.0:.2f}h)。對比 <strong>Sub-11 藍圖 (5h30m / 140W-145W)</strong>：本次訓練耐力扎實。注意事項：長騎或 Tempo 區間衝刺時請嚴格守住 174W (85% FTP) 上限，切勿冒進衝瓦以防耗損全馬雙腿剛性；下車前 10–15km 主動降瓦至 123W-133W 冷卻有氧，騎乘中每小時補給 60-90g 碳水與 600-900ml 電解質。"
+                advice_p1 = f"實際完成 {ad:.2f} km (時間 {at/60.0:.2f} 小時)，課表執行節奏穩定。在有氧巡航中維持了良好發力基礎。"
+                advice_p2 = "對標 FTP 205W 體系：基礎 LSD 巡航請嚴格守在 140W-150W (68-75% FTP)，爬坡上限防線 174W (85% FTP)，防止心率漂移與糖原過早耗損。"
+                advice_p3 = "下車前最後 10–15 公里務必降瓦至 123W-133W 冷卻有氧，踏頻拉高至 85-90 rpm；騎乘中每小時補給 60-90g 碳水化合物與 600-900ml 電解質水。"
             elif t == "Run":
-                advice = f"<strong>【跑步配速與落地剛性】</strong> 實際完成 {ad:.2f} km (時間 {at:.0f}分)。對比 <strong>Sub-11 藍圖 (4h00m / 5:41/km)</strong>：節奏掌控穩定。注意事項：請維持步頻 175–180 bpm 減輕膝關節負擔；跑後 30 分鐘內請補給 25g 蛋白質與碳水，修復肌纖維，為週末 LSD 與 90 分鐘轉換跑奠定衝擊剛性。"
+                pace_txt = f"平均配速 {pace}" if pace else f"完成 {ad:.2f} km"
+                advice_p1 = f"跑步課表順利完成，{pace_txt} (耗時 {at:.0f} 分鐘)。著重步頻節奏與下肢落地剛性。"
+                advice_p2 = "對標 Sub-11 全馬 4 小時 (5:41/km) 藍圖：巡航請維持步頻 175–180 spm，垂直比 <9%，觸地時間 <270ms，以最高效能減少關節衝擊。"
+                advice_p3 = "跑後 30 分鐘黃金修復期，請即刻攝取 25g 優質蛋白質與足量碳水化合物，配合滾筒深度放鬆小腿腓腸肌與足底筋膜。"
             elif t == "Swim":
-                advice = f"<strong>【划水效率與低心率有氧】</strong> 實際完成 {ad:.2f} km (時間 {at:.0f}分)。對比 <strong>Sub-11 藍圖 (1h12m / 1:53/100m)</strong>：划水水感良好。注意事項：維持放鬆 Zone 1-2 低心率划水，出水前保持平穩定位 (Sighting)，將核心體力完整留給單車與全馬。"
+                advice_p1 = f"游泳訓練扎實完成 {ad:.2f} km (時間 {at:.0f} 分鐘)，水感與划幅保持良好。"
+                advice_p2 = "對標 Sub-11 游泳標竿 (1h12m / 1:53/100m)：長距離持續游保持放鬆 Zone 1-2 低心率，強化核心流線型 (Streamline) 與高肘抱水抓水深度。"
+                advice_p3 = "游後注意肩關節與闊背肌伸展放鬆，出水前練習抬頭定位 (Sighting) 節奏，將最佳腿力留給後續單車與全馬。"
             elif t == "Strength":
-                advice = f"<strong>【下肢安定與核心底座】</strong> 肌力訓練順利完成。注意事項：專注單腳硬舉與核心抗旋轉安定，為單車 140W-145W 出巡與路跑落地衝擊提供穩固底座。"
+                advice_p1 = f"肌力訓練完成 (時間 {at:.0f} 分鐘)，強化下肢單側支撐與核心抗旋轉抗屈曲能力。"
+                advice_p2 = "重點著重在臀推、單腳硬舉、登階與離心提踵動作品質，動作品質大於重量，保留 2–3 下 RIR 餘裕避免神經力竭。"
+                advice_p3 = "肌力課表為自行車 140W-145W 巡航與路跑著地衝擊提供最強固的骨盆與關節底座。"
             else:
-                advice = f"課表執行順利完成！請注意補充水分與充足睡眠恢復。"
+                advice_p1 = f"課表執行順利完成 (時間 {at:.0f} 分鐘)。"
+                advice_p2 = "維持穩定心率與良好動作經濟性。"
+                advice_p3 = "課後補充電解質與營養，確保充足睡眠以利身體超補償吸收。"
             
-        metrics_html = " ｜ ".join(metrics_parts)
+        metrics_chips_html = "".join(metrics_chips)
             
         card = f"""
-        <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-left: 4px solid {color}; border-radius: 10px; padding: 14px 18px; margin-bottom: 12px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
-                <div style="font-weight: 700; font-size: 0.96rem; color: #F8FAFC;">
-                    {icon} <span style="color: {color};">{date_disp}</span> {summary}
+        <div class="daily-workout-card" style="border-left-color: {color};">
+            <div class="dw-header">
+                <div class="dw-title">
+                    <span class="dw-icon">{icon}</span>
+                    <span style="color: {color}; font-weight:800;">{date_disp}</span>
+                    <span>{summary}</span>
                 </div>
-                <span style="font-size: 0.76rem; background: rgba(56, 189, 248, 0.15); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 3px 8px; border-radius: 6px; font-weight: 600;">{pct_str}</span>
+                <div class="dw-badges">
+                    {grade_chip}
+                    {status_chip}
+                </div>
             </div>
-            <div style="font-size: 0.86rem; color: #CBD5E1; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.1); line-height: 1.8;">
-                {metrics_html}
+
+            <!-- COMPLETENESS VISUAL BARS -->
+            <div class="dw-completeness-box">
+                <div class="comp-row">
+                    <div class="comp-label-wrap">
+                        <span class="comp-label">⏱️ 時間完備度</span>
+                        <span class="comp-val">{time_comp_str}</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-bar" style="width: {bar_time_w}%; background: {bar_time_color};"></div>
+                    </div>
+                </div>
+                {dist_comp_html}
             </div>
-            <div style="font-size: 0.88rem; color: #E2E8F0; line-height: 1.7; background: rgba(30, 41, 59, 0.5); padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-                💡 {advice}
+
+            <!-- METRICS CHIPS -->
+            <div class="dw-metrics-grid">
+                {metrics_chips_html}
+            </div>
+
+            <!-- STRUCTURED COACH GRADE ADVICE -->
+            <div class="dw-coach-advice-box">
+                <div class="coach-advice-header">
+                    <span>🧭 專業教練隨堂講評與深度解析 (Coach Analysis)</span>
+                    <span class="coach-tag">對標 Sub-11 10:54 藍圖</span>
+                </div>
+                <div class="coach-advice-body">
+                    <div class="coach-section">
+                        <div class="coach-sub-title coach-sub-title-1">🎯 課表達成與執行品質解析</div>
+                        <div class="coach-sub-content">{advice_p1}</div>
+                    </div>
+                    <div class="coach-section">
+                        <div class="coach-sub-title coach-sub-title-2">⚡ 生理指標與配速/功率紀律檢驗</div>
+                        <div class="coach-sub-content">{advice_p2}</div>
+                    </div>
+                    <div class="coach-section">
+                        <div class="coach-sub-title coach-sub-title-3">💡 教練隨堂叮嚀與後續銜接指引</div>
+                        <div class="coach-sub-content">{advice_p3}</div>
+                    </div>
+                </div>
             </div>
         </div>
         """
@@ -292,12 +456,33 @@ def build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est):
     run_dist = sum(ev.get("actual_dist", 0) for ev in completed if ev.get("type") == "Run")
     swim_dist = sum(ev.get("actual_dist", 0) for ev in completed if ev.get("type") == "Swim")
     
+    has_820_bike = any(ev.get("date") == "2026-08-20" and ev.get("type") == "Bike" for ev in completed)
+    has_820_run = any(ev.get("date") == "2026-08-20" and ev.get("type") == "Run" for ev in completed)
+    has_819_swim = any(ev.get("date") == "2026-08-19" and ev.get("type") == "Swim" for ev in completed)
+    has_818_run = any(ev.get("date") == "2026-08-18" and ev.get("type") == "Run" for ev in completed)
+
     has_816_run = any(ev.get("date") == "2026-08-16" and ev.get("type") == "Run" for ev in completed)
     has_816_swim = any(ev.get("date") == "2026-08-16" and ev.get("type") == "Swim" for ev in completed)
     has_815_bike = any(ev.get("date") == "2026-08-15" and ev.get("type") == "Bike" for ev in completed)
     has_815_run = any(ev.get("date") == "2026-08-15" and ev.get("type") == "Run" for ev in completed)
     
-    if has_816_run and has_816_swim:
+    if w == 34 and completed:
+        h1 = (
+            f"• <strong>【Base 3-3 調整週高質量推進】</strong> 本週已完成自行車 <strong>{bike_dist:.2f} km</strong> (TEMPO 3x15 85分 + 動態排酸騎)、跑步 <strong>{run_dist:.2f} km</strong> (Z2 跑 9.45km + 轉換跑 3.66km)、游泳 <strong>{swim_dist:.2f} km</strong> (甜甜課表 63分)，超補償調整節奏極為精準！<br>"
+            "• <strong>【週四單車 TEMPO 3x15 ＋ 轉換跑精準達標】</strong> 8/20 單車 85 分鐘 100% 達標，TEMPO 區間精準鎖定在 155W-165W (NP 162W, 均心率 142 bpm)；下車後無縫銜接 28 分鐘 (3.66km) 轉換跑，高步頻 (176 spm) 與輕著地展現極佳的神經傳導與轉向抗疲勞能力。<br>"
+            "• <strong>【週三甜甜泳課 3.15km 高效發揮】</strong> 8/19 游泳 63 分鐘游出 2:02/100m 均速，展現流暢水感與核心流線型支撐。"
+        )
+        h2 = (
+            "• <strong>【調整週超補償瓦數克制】</strong> TEMPO 3x15 課表請嚴格守在 75%-80% FTP (155W-165W)，切勿衝進無氧閾值區，確保心率維持在 Zone 3 低位。<br>"
+            "• <strong>【下車轉換跑步頻紀律】</strong> 轉換跑前 5 公里請保持 175-180 spm 小步幅、垂直比 <9%，心率巡航在 145-155 bpm，保護全馬關節剛性。<br>"
+            "• <strong>【游泳長距離巡航定型】</strong> 保持 Zone 1-2 低心率划水與規律換氣定位，對標 Sub-11 游泳目標 (1h12m / 1:53/100m)。"
+        )
+        h3 = (
+            "• <strong>【黃金 30 分鐘窗口回補】</strong> 課後即刻補充含電解質飲品、50-75g 碳水化合物與 25g 優質蛋白質，促進肝醣深層回補與肌纖維微創修復。<br>"
+            "• <strong>【深層肌群滾筒放鬆】</strong> 重點針對小腿腓腸肌、比目魚肌、阿基里斯腱、臀大肌與肩胛背闊肌進行筋膜按壓與動態伸展。<br>"
+            "• <strong>【睡眠品質與生長激素】</strong> 維持每晚 8 小時深層優質睡眠，讓神經系統充分吸收訓練成果，迎接後續週末課表。"
+        )
+    elif has_816_run and has_816_swim:
         h1 = (
             "• <strong>【W33 大量週圓滿結算 (Big Weekend)】</strong> 全週累計游泳 <strong>10.70 km</strong>、自行車 <strong>188.36 km</strong>、跑步 <strong>37.20 km</strong>，總訓練時間突破 16 小時，總 TSS 突破 650，有氧底層極為厚實。<br>"
             "• <strong>【週日跑游雙主項高水準發揮】</strong> 8/16 清晨完成 17.52 km（含明德宮 +327m 爬坡，平路漸速至 5:26/km）；上午接續 4,100m 游泳，雙 1,600m 主項巡航繳出 1:56~1:58/100m 絕佳均速與 140 bpm 低心率！<br>"
@@ -987,6 +1172,184 @@ def generate_52_week_dashboard():
         .ext-link {{ color: #38BDF8; text-decoration: none; }}
         .ext-link:hover {{ text-decoration: underline; }}
         .ext-icon {{ font-size: 0.8em; color: var(--accent-cyan); }}
+
+        /* DAILY WORKOUT ACCOMPLISHMENTS & COACH GRADE ADVICE */
+        .daily-workout-card {{
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.85));
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--accent-blue);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            transition: all 0.2s ease;
+        }}
+        .daily-workout-card:hover {{
+            border-color: rgba(56, 189, 248, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 26px rgba(0, 0, 0, 0.35);
+        }}
+        .dw-header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }}
+        .dw-title {{
+            font-weight: 800;
+            font-size: 1.05rem;
+            color: #F8FAFC;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }}
+        .dw-icon {{ font-size: 1.2rem; }}
+        .dw-badges {{
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }}
+        .badge-grade {{
+            font-size: 0.78rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }}
+        .badge-grade-aplus {{ background: rgba(16, 185, 129, 0.2); color: #34D399; border: 1px solid #10B981; }}
+        .badge-grade-a {{ background: rgba(56, 189, 248, 0.2); color: #38BDF8; border: 1px solid #38BDF8; }}
+        .badge-grade-bplus {{ background: rgba(245, 158, 11, 0.2); color: #FBBF24; border: 1px solid #F59E0B; }}
+        .badge-grade-b {{ background: rgba(245, 158, 11, 0.15); color: #FCD34D; border: 1px solid rgba(245, 158, 11, 0.4); }}
+        .badge-grade-c {{ background: rgba(239, 68, 68, 0.2); color: #F87171; border: 1px solid #EF4444; }}
+
+        .badge-status-chip {{
+            font-size: 0.78rem;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+        }}
+        .chip-achieved {{ background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.4); }}
+        .chip-extended {{ background: rgba(56, 189, 248, 0.18); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.4); }}
+        .chip-partial {{ background: rgba(245, 158, 11, 0.15); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.4); }}
+        .chip-under {{ background: rgba(239, 68, 68, 0.15); color: #F87171; border: 1px solid rgba(239, 68, 68, 0.4); }}
+        .chip-recovery {{ background: rgba(168, 85, 247, 0.15); color: #C084FC; border: 1px solid rgba(168, 85, 247, 0.4); }}
+
+        .dw-completeness-box {{
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }}
+        .comp-row {{
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }}
+        .comp-label-wrap {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.82rem;
+        }}
+        .comp-label {{ color: var(--text-muted); font-weight: 600; }}
+        .comp-val {{ color: #F8FAFC; font-weight: 700; }}
+        .progress-track {{
+            width: 100%;
+            height: 7px;
+            background: rgba(51, 65, 85, 0.6);
+            border-radius: 4px;
+            overflow: hidden;
+        }}
+        .progress-bar {{
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }}
+
+        .dw-metrics-grid {{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }}
+        .metric-chip {{
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            color: #CBD5E1;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }}
+        .metric-chip strong {{ color: #F8FAFC; }}
+
+        .dw-coach-advice-box {{
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }}
+        .coach-advice-header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 6px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #38BDF8;
+        }}
+        .coach-tag {{
+            font-size: 0.74rem;
+            background: rgba(56, 189, 248, 0.15);
+            color: #38BDF8;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }}
+        .coach-advice-body {{
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.86rem;
+            color: #E2E8F0;
+            line-height: 1.65;
+        }}
+        .coach-section {{
+            background: rgba(30, 41, 59, 0.4);
+            padding: 10px 12px;
+            border-radius: 6px;
+            border-left: 3px solid rgba(56, 189, 248, 0.5);
+        }}
+        .coach-sub-title {{
+            font-weight: 700;
+            font-size: 0.86rem;
+            margin-bottom: 4px;
+        }}
+        .coach-sub-title-1 {{ color: #34D399; }}
+        .coach-sub-title-2 {{ color: #FBBF24; }}
+        .coach-sub-title-3 {{ color: #38BDF8; }}
+        .coach-sub-content {{
+            color: #CBD5E1;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }}
     </style>
 </head>
 <body>
