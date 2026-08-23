@@ -154,6 +154,8 @@ def add_hyperlink(paragraph, url, text, color="1F4D78", size_pt=11, bold=True):
     paragraph._p.append(hyperlink)
     return hyperlink
 
+_TRANS_CACHE = {}
+
 def translate_text(text, sl='en', tl='zh-TW'):
     if not text:
         return ""
@@ -168,6 +170,9 @@ def translate_text(text, sl='en', tl='zh-TW'):
     if not text_clean:
         return ""
         
+    if text_clean in _TRANS_CACHE:
+        return _TRANS_CACHE[text_clean]
+        
     # Engine 1: Google Mobile Web Endpoint (Most reliable, no 429 rate limits)
     try:
         url_m = f"https://translate.google.com/m?q={urllib.parse.quote(text_clean[:600])}&sl={sl}&tl={tl}"
@@ -178,7 +183,7 @@ def translate_text(text, sl='en', tl='zh-TW'):
             if match:
                 res = html.unescape(match.group(1)).strip()
                 if res:
-                    time.sleep(0.1)
+                    _TRANS_CACHE[text_clean] = res
                     return res
     except Exception:
         pass
@@ -196,13 +201,14 @@ def translate_text(text, sl='en', tl='zh-TW'):
                 for item in data[0]:
                     if item and item[0]:
                         translations.append(item[0])
-            time.sleep(0.1)
             res = "".join(translations)
             if res:
+                _TRANS_CACHE[text_clean] = res
                 return res
     except Exception:
         pass
 
+    _TRANS_CACHE[text_clean] = text_clean
     return text_clean
 
 def make_3_bullet_summary_zh(title_zh, raw_desc, source_name, cat_name):
@@ -210,13 +216,7 @@ def make_3_bullet_summary_zh(title_zh, raw_desc, source_name, cat_name):
     desc_translated = clean_html(desc_translated)
     
     # Split by both English periods and Chinese full stops
-    raw_sentences = [s.strip() for s in re.split(r'[\.。.!！?？\n;；]+', desc_translated) if len(s.strip()) > 5]
-    
-    clean_sentences = []
-    for s in raw_sentences:
-        s_zh = translate_text(s)
-        if len(s_zh.strip()) > 5:
-            clean_sentences.append(s_zh.strip())
+    clean_sentences = [s.strip() for s in re.split(r'[\.。.!！?？\n;；]+', desc_translated) if len(s.strip()) > 5]
         
     b1 = clean_sentences[0] if len(clean_sentences) > 0 else f"深入探討《{title_zh}》的核心專業觀點與最新討論。"
     b2 = clean_sentences[1] if len(clean_sentences) > 1 else f"分析來自 {source_name} 針對 {cat_name} 項目的關鍵訓練與器材建議。"
@@ -224,7 +224,7 @@ def make_3_bullet_summary_zh(title_zh, raw_desc, source_name, cat_name):
 
     return f"1. {b1}；\n2. {b2}；\n3. {b3}。"
 
-def generate_report(articles, days_back=7):
+def generate_report(articles, days_back=7, target_date=None):
     # Group by category
     categories_order = [
         "游泳 (Swimming)",
@@ -241,7 +241,8 @@ def generate_report(articles, days_back=7):
         grouped[cat].append(art)
         
     today = datetime.now()
-    monday = today - timedelta(days=today.weekday())
+    anchor = target_date if target_date else today
+    monday = anchor - timedelta(days=anchor.weekday())
     week_num = monday.isocalendar().week
     
     # Ensure output dir exists
@@ -663,13 +664,16 @@ def generate_report(articles, days_back=7):
 
 def main():
     import argparse
+    from datetime import date
     parser = argparse.ArgumentParser()
     parser.add_argument("--days", type=int, default=7, help="Number of days to look back")
+    parser.add_argument("--week", help="該週任一天，格式 YYYY-MM-DD")
     args = parser.parse_args()
     
+    target_date = datetime.fromisoformat(args.week) if args.week else None
     articles = fetch_recent_articles(days_back=args.days)
     if articles:
-        report_path = generate_report(articles, days_back=args.days)
+        report_path = generate_report(articles, days_back=args.days, target_date=target_date)
         print(f"SUCCESS:{report_path}")
     else:
         print("NO_NEW_ARTICLES")
