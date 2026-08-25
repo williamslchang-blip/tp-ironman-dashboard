@@ -175,9 +175,13 @@ def sync():
         for idx, ev in enumerate(ev_list):
             stable_key = f"{dt_s}_{w_type}_{idx}"
             
-            # Find existing candidate in old cache to preserve original_plan
+            # Find existing candidate in old cache to preserve original_plan and completed actual metrics
             orig_pt = ev["planned_time"]
             orig_pd = ev["planned_dist"]
+            act_time = ev["actual_time"]
+            act_dist = ev["actual_dist"]
+            act_speed = ev.get("speed", 0.0)
+            act_pace = ev.get("pace", "")
             
             # Search old cache for matching entry on dt_s and w_type
             for old_k, old_v in cache.items():
@@ -188,6 +192,14 @@ def sync():
                         orig_pt = old_orig_pt
                     if old_orig_pd > 0:
                         orig_pd = old_orig_pd
+                    if act_time == 0 and old_v.get("actual_time", 0) > 0:
+                        act_time = old_v.get("actual_time", 0)
+                    if act_dist == 0 and old_v.get("actual_dist", 0) > 0:
+                        act_dist = old_v.get("actual_dist", 0)
+                    if act_speed == 0.0 and old_v.get("speed", 0.0) > 0.0:
+                        act_speed = old_v.get("speed", 0.0)
+                    if not act_pace and old_v.get("pace"):
+                        act_pace = old_v.get("pace")
                     break
                     
             event_data = {
@@ -197,11 +209,11 @@ def sync():
                 "tp_uid": ev["tp_uid"],
                 "type": w_type,
                 "planned_time": ev["planned_time"],
-                "actual_time": ev["actual_time"],
+                "actual_time": act_time,
                 "planned_dist": ev["planned_dist"],
-                "actual_dist": ev["actual_dist"],
-                "speed": ev.get("speed", 0.0),
-                "pace": ev.get("pace", ""),
+                "actual_dist": act_dist,
+                "speed": act_speed,
+                "pace": act_pace,
                 "last_synced": datetime.now().isoformat(),
                 "original_plan": {
                     "planned_time": orig_pt,
