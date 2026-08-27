@@ -221,7 +221,39 @@ def build_daily_feedback_cards(events):
             metrics_chips.append(f"<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 划水均速：<strong style='color:#22D3EE;'>{swim_m}:{swim_s:02d} /100m</strong></div>")
 
         # Specific Rich TP metrics and Coach Advice
-        if ev_d_str == "2026-08-20" and t == "Bike":
+        if ev_d_str == "2026-08-27" and t == "Bike":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(56,189,248,0.4);'>🚴 標準化功率 (NP)：<strong style='color:#38BDF8;'>148 W</strong> (TEMPO 56, 均瓦 143W)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>148 bpm</strong> (最高 165 bpm, Z2-Z3 佔 91.8%)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔄 平均踏頻：<strong style='color:#10B981;'>84 rpm</strong> (最高 94 rpm)</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>65.0 TSS</strong> (IF 0.72, VI 1.03)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 消耗熱量：<strong>616 kcal</strong> (做功 645.7 kJ)</div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>4/5 (良好)</strong></div>")
+            advice_p1 = "順利完成 75 分鐘單車 TEMPO 56 主課！時間達成率 100.2%、TSS 達成率 102.0% 精準達標。在 Base 3-4 減量與恢復吸收週中，精準執行 3 段漸進配瓦 (70% ➔ 80% ➔ 75% FTP) 完成高質量有氧引擎刺激。"
+            advice_p2 = "全程變異係數 VI 僅 1.03，踏頻穩定鎖定在 84 rpm 高效率迴轉；NP 148W 均勻輸出，心率主要分布在 Zone 2 與 Zone 3 (合計佔比超過 91%)，有氧動力鏈輸出極為扎實。"
+            advice_p3 = "主段 1 (144W, 142bpm)、主段 2 (164W, 156bpm)、主段 3 (155W, 159bpm) 展現良好階梯適應力。課後請落實下肢伸展與滾筒放鬆，補充蛋白質與水分，為明日游泳與週末長課奠定最佳體能狀態。"
+
+        elif ev_d_str == "2026-08-26" and t == "Run":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(245,158,11,0.4);'>👟 平均配速：<strong style='color:#F59E0B;'>6:34 /km</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>145 bpm</strong> (Zone 2 有氧耐力)</div>")
+            metrics_chips.append("<div class='metric-chip'>👣 平均步頻：<strong style='color:#10B981;'>174 spm</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>52.4 rTSS</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 消耗熱量：<strong>680 kcal</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>4/5 (良好)</strong></div>")
+            advice_p1 = "原定 60 分鐘 Z2 有氧跑 (8.4 km)，實際執行 64 分鐘 9.79 km，時間達成率 107%、距離達成率 116.5%，扎實超額完成。"
+            advice_p2 = "平均配速 6:34 /km，全程均心率穩健維持在 145 bpm (Zone 2 有氧耐力區間)，步頻穩定在 174 spm 高效率轉速，能量代謝與粒線體刺激效果優異。"
+            advice_p3 = "在減量吸收週中維持良好體能巡航，跑後配合足底與阿基里斯腱伸展，維持肌肉彈性。"
+
+        elif ev_d_str == "2026-08-25" and t == "Swim":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 划水均速：<strong style='color:#22D3EE;'>2:06 /100m</strong> (2.85 km/h)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>136 bpm</strong> (Zone 2 低心率巡航)</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>78.5 sTSS</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 消耗熱量：<strong>620 kcal</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>4/5 (良好)</strong></div>")
+            advice_p1 = "順利吃下 71 分鐘 3,400m 甜甜泳課！均速 2:06 /100m，在 Base 3-4 減量調整週中展現出色的水中流線型與划水延伸感。"
+            advice_p2 = "心率維持在 136 bpm 扎實有氧區間，長距離游程中身體浮力與核心穩定保持良好。"
+            advice_p3 = "對標 Sub-11 游泳目標 (1h12m / 1:53/100m)，甜甜課表之有氧耐力打底持續強化上半身肌耐力與水感。"
+
+        elif ev_d_str == "2026-08-20" and t == "Bike":
             metrics_chips.append("<div class='metric-chip' style='border-color:rgba(56,189,248,0.4);'>🚴 標準化功率 (NP)：<strong style='color:#38BDF8;'>162 W</strong> (TEMPO 155-165W)</div>")
             metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>142 bpm</strong> (最高 158 bpm, Z2-Z3 佔 94%)</div>")
             metrics_chips.append("<div class='metric-chip'>🔄 平均踏頻：<strong style='color:#10B981;'>86 rpm</strong></div>")
