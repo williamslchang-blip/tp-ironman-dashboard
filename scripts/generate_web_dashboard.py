@@ -221,7 +221,32 @@ def build_daily_feedback_cards(events):
             metrics_chips.append(f"<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 划水均速：<strong style='color:#22D3EE;'>{swim_m}:{swim_s:02d} /100m</strong></div>")
 
         # Specific Rich TP metrics and Coach Advice
-        if ev_d_str == "2026-08-27" and t == "Bike":
+        if ev_d_str == "2026-08-29" and t == "Bike":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(56,189,248,0.4);'>🚴 標準化功率 (NP)：<strong style='color:#38BDF8;'>171 W</strong> (長騎 3.5, 均瓦 117W, 最大 613W)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>129 bpm</strong> (最高 181 bpm, Z1-Z2 佔 80.0%)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔄 平均踏頻：<strong style='color:#10B981;'>78 rpm</strong> (最高 115 rpm)</div>")
+            metrics_chips.append("<div class='metric-chip'>⛰️ 總爬升：<strong style='color:#38BDF8;'>+677 m</strong> / -695 m</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>243.5 TSS</strong> (IF 0.83)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 消耗熱量：<strong>1,735 kcal</strong> (做功 1,436.3 kJ)</div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>3/5 (良好)</strong> ｜ RPE 4/10</div>")
+            advice_p1 = "順利完成 3 小時 49 分 (89.55 km) 長距離單車騎乘！時間達成率達 109.0%，在 Base 3-4 減量與恢復週期中扎實維持長距離耐力與節奏感儲備。"
+            advice_p2 = "標準化功率達 NP 171W (均瓦 117W, IF 0.83)，均心率 129 bpm 穩健控制在低有氧區間（Z1-Z2 佔比高達 80%），在 677m 爬升地形中展現良好的心肺耐力與踩踏輸出效率。"
+            advice_p3 = "騎乘結束後無縫銜接進行 40 分鐘 T2 轉換跑，充分發揮鐵人賽季關鍵的神經肌肉轉向適應。課後請落實下肢筋膜放鬆、補充電解質與高碳水營養。"
+
+        elif ev_d_str == "2026-08-29" and t == "Run":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(245,158,11,0.4);'>👟 轉換配速：<strong style='color:#F59E0B;'>6:39 /km</strong> (9.00 km/h)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>158 bpm</strong> (最高 169 bpm, Z2 佔 85.3%)</div>")
+            metrics_chips.append("<div class='metric-chip'>⚡ 平均功率：<strong>240 W</strong> (3.51 W/kg, 最大 477W)</div>")
+            metrics_chips.append("<div class='metric-chip'>👣 平均步頻：<strong style='color:#10B981;'>170 spm</strong> (最高 183 spm)</div>")
+            metrics_chips.append("<div class='metric-chip'>⏱️ 觸地時間：<strong style='color:#38BDF8;'>269.5 ms</strong> ｜ 垂直振幅 7.88 cm ｜ 垂直比 9.0%</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>26.1 rTSS</strong> (IF 0.60)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 消耗熱量：<strong>430 kcal</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>5/5 (極佳滿分)</strong> ｜ RPE 3/10</div>")
+            advice_p1 = "單車 89.55 km 下車後無縫換鞋出發，精準執行 39 分 49 秒 (5.98 km) 轉換跑，時間達成率 99.6% 完美達標！下車雙腿轉向適應力極佳，體感回饋給出滿分 5/5。"
+            advice_p2 = "平均配速 6:39 /km，均心率 158 bpm（85.3% 嚴格落在 Z2 耐力區間），平均功率 240W；平均步頻 170 spm，觸地時間 269.5 ms 與垂直比 9.0% 展現良好動態平衡，有效降低關節衝擊。"
+            advice_p3 = "兩項合計單日累積近 96 公里、4 小時 29 分、269.6 TSS 扎實刺激。課後 30 分鐘內請補足碳水化合物與優質蛋白質，配合全身伸展與滾筒放鬆，為明日打底訓練做好充沛準備。"
+
+        elif ev_d_str == "2026-08-27" and t == "Bike":
             metrics_chips.append("<div class='metric-chip' style='border-color:rgba(56,189,248,0.4);'>🚴 標準化功率 (NP)：<strong style='color:#38BDF8;'>148 W</strong> (TEMPO 56, 均瓦 143W)</div>")
             metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>148 bpm</strong> (最高 165 bpm, Z2-Z3 佔 91.8%)</div>")
             metrics_chips.append("<div class='metric-chip'>🔄 平均踏頻：<strong style='color:#10B981;'>84 rpm</strong> (最高 94 rpm)</div>")

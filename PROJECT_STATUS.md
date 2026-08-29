@@ -154,3 +154,13 @@
      - 更新 `generate_web_dashboard.py` 加入 8/27 單車 TEMPO 56、8/26 跑步及 8/25 游泳之專屬生理指標卡片與教練建議。
      - 重新編譯產出 W35 執行率回顧報告 (`.md` / `.docx`)、52 週 Web 儀表板 (`outputs/index.html`) 並打包部署至 `docs/`。
      - 推送更新至 GitHub main 分支以部署至 GitHub Pages 線上儀表板。
+- 2026-08-29
+- 2026-08-29 成功同步今日 (8/29) 週末 Brick 二項轉換雙課表數據：
+  1. **長距離單車 (3.5 / Bike Workout)**：3 小時 48 分 58 秒完成 89.55 km（均速 23.46 km/h，總爬升 +677m，NP 171W，均瓦 117W，均心率 129 bpm，均踏頻 78 rpm，TSS 243.5，IF 0.83，Z1-Z2 心率佔 80.0%，自覺 RPE 4/10）。
+  2. **二項轉換跑 (轉換40分 / Brick Run)**：39 分 49 秒完成 5.98 km（均速 6:39/km，均瓦 240W 3.51W/kg，均心率 158 bpm，均步頻 170 spm，觸地時間 269.5 ms，垂直比 9.0%，rTSS 26.1，IF 0.60，體感滿分 5/5）。
+  3. **W35 減量恢復週累積進度**：游泳 **6.45 km**、自行車 **133.82 km**、跑步 **20.43 km**，單日累積 269.6 TSS。
+  4. **成果更新與部署**：
+     - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py` 加入 8/29 專屬生理指標卡片、心率/功率區間與教練建議。
+     - 重新編譯產出 W35 當週執行率回顧報告 (`.md` / `.docx`)、52 週 Web 儀表板 (`outputs/index.html`) 並打包至 `docs/` 部署目錄。
+     - 執行 Git Commit & Push 至 GitHub Pages 線上網站 (`main -> main`)。
+
