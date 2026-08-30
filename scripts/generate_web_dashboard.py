@@ -221,7 +221,32 @@ def build_daily_feedback_cards(events):
             metrics_chips.append(f"<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 划水均速：<strong style='color:#22D3EE;'>{swim_m}:{swim_s:02d} /100m</strong></div>")
 
         # Specific Rich TP metrics and Coach Advice
-        if ev_d_str == "2026-08-29" and t == "Bike":
+        if ev_d_str == "2026-08-30" and t == "Run":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(245,158,11,0.4);'>👟 平均配速：<strong style='color:#F59E0B;'>7:02 /km</strong> (NGP 6:59 /km)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#10B981;'>131 bpm</strong> (最高 143 bpm, 控心率上限 140)</div>")
+            metrics_chips.append("<div class='metric-chip'>⚡ 平均功率：<strong>227 W</strong> (3.32 W/kg, 最大 273W)</div>")
+            metrics_chips.append("<div class='metric-chip'>👣 平均步頻：<strong style='color:#10B981;'>171 spm</strong> (最高 185 spm)</div>")
+            metrics_chips.append("<div class='metric-chip'>⏱️ 觸地時間：<strong style='color:#38BDF8;'>267.1 ms</strong> ｜ 垂直振幅 7.63 cm ｜ 垂直比 9.0%</div>")
+            metrics_chips.append("<div class='metric-chip'>📉 有氧脫鉤率：<strong style='color:#10B981;'>Pw:HR 3.12% ｜ Spd:HR 2.94%</strong> (&lt;5% 極佳穩定)</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>45.6 rTSS</strong> (IF 0.57)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 消耗熱量：<strong>709 kcal</strong> (做功 1,020 kJ)</div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>3/5 (良好)</strong> ｜ RPE 2/10</div>")
+            advice_p1 = "晨間精準完成 75 分鐘 (10.67 km) EASY 75 有氧耐力打底跑，時間達成率 100.0%！在 Base 3-4 減量與恢復吸收週中，嚴格落實低心率有氧基礎奠定。"
+            advice_p2 = "全程平均心率僅 131 bpm（嚴格壓制在 140 bpm 心率上限以下），均瓦 227W (3.32 W/kg)；平均步頻 171 spm，觸地時間 267 ms 與垂直比 9.0% 展現極佳的動態省力效益；脫鉤率 (Pw:HR 3.12% / Speed:HR 2.94%) 遠低於 5%，展現扎實的心肺基礎與抗疲勞能力。"
+            advice_p3 = "跑後休息約 1 小時無縫銜接長池游泳訓練，兩項課表能量配置極佳。請注意下肢足底、小腿與阿基里斯腱伸展，維持肌肉彈性以迎接下一階段 Build 週期。"
+
+        elif ev_d_str == "2026-08-30" and t == "Swim":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 划水均速：<strong style='color:#22D3EE;'>2:18 /100m</strong> (50m 長池, 主課雙 800m 達 1:56~1:57)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>129 bpm</strong> (最高 161 bpm, Z1-Z2 佔 71%)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔄 划手頻率：<strong style='color:#10B981;'>23 spm</strong> (最高 25 spm)</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>65.5 sTSS</strong> (IF 0.83)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 消耗熱量：<strong>618 kcal</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>3/5 (良好)</strong> ｜ RPE 2/10</div>")
+            advice_p1 = "晨跑後接續完成 50m 長池游泳課表，實游達 2,950m (67 分鐘)，距離達成率 113.5% 超額達標！在減量恢復週圓滿收尾。"
+            advice_p2 = "課表包含 200m 熱身、20 組 50m 技術 Drill 分解練習，以及 2 組 800m 長距離自由式主課表。主課第 1 組 800m 游出 1:56/100m (均心率 143 bpm)，第 2 組 800m 游出 1:57/100m (均心率 133 bpm)，配速極為均勻且後半段心率更顯從容，展現極佳水感與節奏掌控能力。"
+            advice_p3 = "今日雙課表單日累積達 13.62 公里、2 小時 22 分、111.1 TSS。今日課表為 Base 3-4 (Recovery Phase) 畫下完美句點，全週累積游泳 9.40 km、單車 133.82 km、跑步 31.10 km，體能儲備與超補償吸收極為完整！課後請補足碳水與蛋白質，充分睡眠以迎接下週進入 Build 1 強化期。"
+
+        elif ev_d_str == "2026-08-29" and t == "Bike":
             metrics_chips.append("<div class='metric-chip' style='border-color:rgba(56,189,248,0.4);'>🚴 標準化功率 (NP)：<strong style='color:#38BDF8;'>171 W</strong> (長騎 3.5, 均瓦 117W, 最大 613W)</div>")
             metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>129 bpm</strong> (最高 181 bpm, Z1-Z2 佔 80.0%)</div>")
             metrics_chips.append("<div class='metric-chip'>🔄 平均踏頻：<strong style='color:#10B981;'>78 rpm</strong> (最高 115 rpm)</div>")
@@ -523,7 +548,24 @@ def build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est):
     has_815_bike = any(ev.get("date") == "2026-08-15" and ev.get("type") == "Bike" for ev in completed)
     has_815_run = any(ev.get("date") == "2026-08-15" and ev.get("type") == "Run" for ev in completed)
     
-    if w == 34 and completed:
+    if w == 35 and completed:
+        h1 = (
+            f"• <strong>【Base 3-4 減量與超量吸收週圓滿結算】</strong> 全週累計游泳 <strong>{swim_dist:.2f} km</strong>、自行車 <strong>{bike_dist:.2f} km</strong>、跑步 <strong>{run_dist:.2f} km</strong>，在控制總負荷的前提下精準達成超補償吸收！<br>"
+            "• <strong>【8/30 跑游雙課表極佳有氧控制】</strong> 晨跑 10.67 km 均心率僅 131 bpm 完美壓制在 140 bpm 上限以下，脫鉤率 (Pw:HR 3.12% / Spd:HR 2.94%) 遠低於 5%；上午 50m 長池游泳 2,950m (含 20 組 Drill 與 2 組 800m @ 1:56~1:57/100m) 穩定展現流暢水感與核心流線型。<br>"
+            "• <strong>【8/29 長騎 89.55km ＋ 轉換跑 40 分鐘高質量完成】</strong> 長騎 3:49 (NP 171W, 均心 129 bpm) Z1-Z2 心率佔 80%；下車後無縫執行 39:49 轉換跑 (5.98km, 6:39/km, 均心 158 bpm, 步頻 170 spm)，體感滿分 5/5，完美模擬鐵人轉向適應！<br>"
+            "• <strong>【8/27 單車 TEMPO 56 (37.27km) ＋ 8/26 Z2 跑 9.79km 穩健巡航】</strong> 階梯式漸進瓦數與高步頻有氧打底，為 Base 3 奠定扎實底層。"
+        )
+        h2 = (
+            "• <strong>【減量週體能超補償後的轉換準備】</strong> Base 3-4 (Recovery) 圓滿落幕，體能與神經系統已充分修復並獲得超補償效益，準備迎接下週進入 Build 1 專項建構期。<br>"
+            "• <strong>【單車功率紀律】</strong> 維持巡航 140W-145W、爬坡上限 174W (85% FTP) 之鐵律，長騎下車前 10-15km 務必落實降瓦冷卻。<br>"
+            "• <strong>【跑步步頻與著地剛性】</strong> 維持 175-180 spm 小步幅與 <270ms 輕著地，保護膝踝關節與全馬抗衝擊能力。"
+        )
+        h3 = (
+            "• <strong>【週日收操與黃金修復】</strong> 今日雙課表完成後，請攝取高碳水化合物與每公斤 1.6–1.8g 優質蛋白質，配合全身筋膜滾筒放鬆。<br>"
+            "• <strong>【充足深層睡眠】</strong> 今晚爭取 8–8.5 小時優質深層睡眠，促進生長激素分泌，極大化超量恢復效果。<br>"
+            "• <strong>【迎接 Build 1 週期】</strong> 檢視身體各關節活動度與裝備狀況，做好心理與體能準備進入強度更高之 Build 週期。"
+        )
+    elif w == 34 and completed:
         h1 = (
             f"• <strong>【Base 3-3 調整週高質量推進】</strong> 本週已完成自行車 <strong>{bike_dist:.2f} km</strong> (TEMPO 3x15 85分 + 動態排酸騎)、跑步 <strong>{run_dist:.2f} km</strong> (Z2 跑 9.45km + 轉換跑 3.66km)、游泳 <strong>{swim_dist:.2f} km</strong> (甜甜課表 63分)，超補償調整節奏極為精準！<br>"
             "• <strong>【週四單車 TEMPO 3x15 ＋ 轉換跑精準達標】</strong> 8/20 單車 85 分鐘 100% 達標，TEMPO 區間精準鎖定在 155W-165W (NP 162W, 均心率 142 bpm)；下車後無縫銜接 28 分鐘 (3.66km) 轉換跑，高步頻 (176 spm) 與輕著地展現極佳的神經傳導與轉向抗疲勞能力。<br>"
