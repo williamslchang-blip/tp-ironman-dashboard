@@ -1497,7 +1497,7 @@ def generate_52_week_dashboard():
             <div class="sub">全網頁內容即時閱讀 & 地端資料分析</div>
         </div>
         <div class="sidebar-controls">
-            <button class="btn-current" onclick="selectWeek({current_week_num})">🎯 跳至本週 (W{current_week_num:02d})</button>
+            <button class="btn-current" onclick="selectWeek({current_week_num}, true)">🎯 跳至本週 (W{current_week_num:02d})</button>
         </div>
         <div class="week-list" id="weekList"></div>
     </div>
@@ -1547,8 +1547,9 @@ def generate_52_week_dashboard():
                 if (!data) continue;
 
                 const item = document.createElement('div');
+                item.id = `week-item-${{w}}`;
                 item.className = `week-item ${{w === selectedWeekNum ? 'active' : ''}}`;
-                item.onclick = () => selectWeek(w);
+                item.onclick = () => selectWeek(w, false);
 
                 let badgeClass = 'badge-future';
                 if (data.status_tag === 'Past') badgeClass = 'badge-past';
@@ -1565,10 +1566,25 @@ def generate_52_week_dashboard():
             }}
         }}
 
-        function selectWeek(wNum) {{
+        function scrollToActiveWeekItem() {{
+            const activeEl = document.getElementById(`week-item-${{selectedWeekNum}}`);
+            if (activeEl) {{
+                activeEl.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+            }}
+        }}
+
+        function selectWeek(wNum, scrollSidebar = true) {{
             selectedWeekNum = wNum;
             renderSidebar();
             renderMainContent(wNum);
+            checkUrlHash();
+            if (scrollSidebar) {{
+                setTimeout(scrollToActiveWeekItem, 60);
+            }}
+            const mainEl = document.getElementById('mainContent');
+            if (mainEl) {{
+                mainEl.scrollTo({{ top: 0, behavior: 'smooth' }});
+            }}
             if (window.innerWidth <= 768) {{
                 toggleMobileSidebar(false);
             }}
@@ -1578,8 +1594,24 @@ def generate_52_week_dashboard():
             document.querySelectorAll('.subtab-view').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.subtab-btn').forEach(el => el.classList.remove('active'));
             
-            document.getElementById('subview-' + tabName).classList.add('active');
-            event.currentTarget.classList.add('active');
+            const targetView = document.getElementById('subview-' + tabName);
+            if (targetView) targetView.classList.add('active');
+
+            const targetBtn = document.querySelector(`.subtab-btn[data-tab="${{tabName}}"]`);
+            if (targetBtn) targetBtn.classList.add('active');
+        }}
+
+        function checkUrlHash() {{
+            const hash = window.location.hash.toLowerCase().replace('#', '');
+            if (hash === 'swim' || hash === 'plan') {{
+                openSubtab('plan');
+            }} else if (hash === 'articles' || hash === 'article' || hash === 'news') {{
+                openSubtab('articles');
+            }} else if (hash === 'review' || hash === 'execution') {{
+                openSubtab('review');
+            }} else if (hash === 'recovery' || hash === 'overview') {{
+                openSubtab('overview');
+            }}
         }}
 
         function renderMainContent(wNum) {{
@@ -1624,10 +1656,10 @@ def generate_52_week_dashboard():
 
                 <!-- SUBNAV TABS FOR ONLINE READING -->
                 <div class="subnav-tabs">
-                    <button class="subtab-btn active" onclick="openSubtab('overview')">📊 當週總覽 & 226/113 完賽預估</button>
-                    <button class="subtab-btn" onclick="openSubtab('plan')">🏋️ 當週課表與肌力計畫</button>
-                    <button class="subtab-btn" onclick="openSubtab('articles')">📰 當週鐵人新知</button>
-                    <button class="subtab-btn" onclick="openSubtab('review')">📈 上週 (W${{data.prev_week_num}}) 執行率回顧</button>
+                    <button class="subtab-btn active" data-tab="overview" onclick="openSubtab('overview')">📊 當週總覽 & 226/113 完賽預估</button>
+                    <button class="subtab-btn" data-tab="plan" onclick="openSubtab('plan')">🏋️ 當週課表與肌力計畫</button>
+                    <button class="subtab-btn" data-tab="articles" onclick="openSubtab('articles')">📰 當週鐵人新知</button>
+                    <button class="subtab-btn" data-tab="review" onclick="openSubtab('review')">📈 上週 (W${{data.prev_week_num}}) 執行率回顧</button>
                 </div>
 
                 <!-- SUBTAB 1: OVERVIEW -->
@@ -1932,6 +1964,10 @@ def generate_52_week_dashboard():
 
         renderSidebar();
         renderMainContent(CURRENT_WEEK);
+        checkUrlHash();
+        setTimeout(scrollToActiveWeekItem, 120);
+
+        window.addEventListener('hashchange', checkUrlHash);
     </script>
 </body>
 </html>
