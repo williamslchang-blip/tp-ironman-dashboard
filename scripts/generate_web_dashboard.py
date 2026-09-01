@@ -221,7 +221,21 @@ def build_daily_feedback_cards(events):
             metrics_chips.append(f"<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 划水均速：<strong style='color:#22D3EE;'>{swim_m}:{swim_s:02d} /100m</strong></div>")
 
         # Specific Rich TP metrics and Coach Advice
-        if ev_d_str == "2026-08-30" and t == "Run":
+        if ev_d_str == "2026-09-01" and t == "Run":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(245,158,11,0.4);'>👟 平均配速：<strong style='color:#F59E0B;'>8:13 /km</strong> (NGP 6:07 /km ｜ 衝刺組 3:57~4:09 /km)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>147 bpm</strong> (最高 187 bpm, 恢復區 55m, 節奏/穩態 31m)</div>")
+            metrics_chips.append("<div class='metric-chip'>⚡ 平均功率：<strong>183 W</strong> (2.68 W/kg, 最大 451W, 間歇組 369~398W)</div>")
+            metrics_chips.append("<div class='metric-chip'>👣 平均步頻：<strong style='color:#10B981;'>113 spm</strong> (衝刺組 183~190 spm, 最高 200 spm)</div>")
+            metrics_chips.append("<div class='metric-chip'>⏱️ 觸地時間：<strong style='color:#38BDF8;'>278.4 ms</strong> (衝刺組 200~212 ms) ｜ 垂直振幅 7.34 cm ｜ 垂直比 9.0% (衝刺組 6.0~7.0%)</div>")
+            metrics_chips.append("<div class='metric-chip'>📉 有氧脫鉤率：<strong style='color:#10B981;'>Pw:HR -9.25% ｜ Spd:HR -6.87%</strong> (負脫鉤，心肺穩定無漂移)</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>78.96 rTSS</strong> (IF 0.653)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 消耗熱量：<strong>925 kcal</strong> (做功 1,088 kJ)</div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>5/5 (極佳)</strong> ｜ RPE 7/10</div>")
+            advice_p1 = "晨間扎實完成 1 小時 39 分 (12.04 km) 跑步課表！距離達成率 97.1%、時間達成率 116.5%，順利為 Build 1-1（第一建構期）開啟高質量的專項耐力與間歇神經刺激。"
+            advice_p2 = "主課表包含 6 組 400m 速度間歇（配速 3:57~4:09/km，平均功率 369W~398W，步頻 183~190 spm，垂直比低至 6.0~7.0% 展現極高動態經濟性）與接續的 TEMPO/Endurance 穩態巡航。均心率 147 bpm，脫鉤率呈現負值 (-9.25% Pw:HR / -6.87% Spd:HR)，顯示心肺適應力強，無心率漂移暴衝。"
+            advice_p3 = "今日 79 rTSS 深度刺激後，請即刻補充 25g 優質蛋白與碳水化合物。明日 (週三) 安排 90 分鐘甜甜泳課與核心短課肌力，下水前注意足底筋膜、小腿阿基里斯腱與小腿比目魚肌滾筒放鬆，利用水中浮力加速下肢排酸。"
+
+        elif ev_d_str == "2026-08-30" and t == "Run":
             metrics_chips.append("<div class='metric-chip' style='border-color:rgba(245,158,11,0.4);'>👟 平均配速：<strong style='color:#F59E0B;'>7:02 /km</strong> (NGP 6:59 /km)</div>")
             metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#10B981;'>131 bpm</strong> (最高 143 bpm, 控心率上限 140)</div>")
             metrics_chips.append("<div class='metric-chip'>⚡ 平均功率：<strong>227 W</strong> (3.32 W/kg, 最大 273W)</div>")
@@ -548,7 +562,23 @@ def build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est):
     has_815_bike = any(ev.get("date") == "2026-08-15" and ev.get("type") == "Bike" for ev in completed)
     has_815_run = any(ev.get("date") == "2026-08-15" and ev.get("type") == "Run" for ev in completed)
     
-    if w == 35 and completed:
+    if w == 36 and completed:
+        h1 = (
+            f"• <strong>【Build 1-1 第一建構期旗開得勝】</strong> 第 36 週正式邁入 Build 1 專項建構期，週二跑步課表扎實吃下 <strong>{run_dist:.2f} km (99 分鐘)</strong>，單日累積 <strong>79 rTSS</strong>，專項速度與耐力建構起步極佳！<br>"
+            "• <strong>【9/01 跑步 12.04km 間歇與節奏高質量發揮】</strong> 包含 6 組 400m 速度間歇（配速 3:57~4:09/km、均瓦 369-398W、步頻 183-190 spm、垂直比 6-7% 頂尖經濟性）與接續節奏跑，均心率 147 bpm，脫鉤率 (-9.25% Pw:HR) 展現優異抗疲勞與心肺底層！<br>"
+            "• <strong>【神經肌肉快速招募與經濟性】</strong> 觸地時間在衝刺段低至 200-212ms，展現極佳的下肢剛性與推蹬效率。"
+        )
+        h2 = (
+            "• <strong>【Build 1 專項建構期配速與功率紀律】</strong> 本週單車時數達 9.75 小時、跑步 4.58 小時，強度與量同步拉升。週四單車 TEMPO 3x20 務必精準控制在 155W-165W (75-80% FTP)，爬坡上限 174W，切勿衝進無氧閾值。<br>"
+            "• <strong>【下車轉換跑步頻紀律】</strong> 週四 40 分鐘 Brick 轉換跑與週日 30 分鐘轉接跑，下車後前 5 分鐘守在 175-180 spm 小步幅與 <270ms 輕著地，保護全馬關節剛性。<br>"
+            "• <strong>【游泳甜甜課表巡航定型】</strong> 週三與週五 90 分鐘甜甜泳課，以長划幅、高流線型（目標 1:50~1:53/100m）持續優化水中效率。"
+        )
+        h3 = (
+            "• <strong>【今日跑後修復與營養補給】</strong> 消耗 925 kcal 與 79 rTSS，課後請及時補充 25g 優質蛋白與 60g 碳水化合物，搭配下肢阿基里斯腱與足底滾筒放鬆。<br>"
+            "• <strong>【週三甜甜泳課與短課肌力銜接】</strong> 明日安排 90 分鐘甜甜泳課與 15 分鐘核心短課，利用水中浮力進行下肢動態排酸，同時強化核心抗旋轉能力。<br>"
+            "• <strong>【深層睡眠管理】</strong> 建構期每晚確保 8 小時優質深層睡眠，促進生長激素分泌以利神經系統與肌纖維超量修復。"
+        )
+    elif w == 35 and completed:
         h1 = (
             f"• <strong>【Base 3-4 減量與超量吸收週圓滿結算】</strong> 全週累計游泳 <strong>{swim_dist:.2f} km</strong>、自行車 <strong>{bike_dist:.2f} km</strong>、跑步 <strong>{run_dist:.2f} km</strong>，在控制總負荷的前提下精準達成超補償吸收！<br>"
             "• <strong>【8/30 跑游雙課表極佳有氧控制】</strong> 晨跑 10.67 km 均心率僅 131 bpm 完美壓制在 140 bpm 上限以下，脫鉤率 (Pw:HR 3.12% / Spd:HR 2.94%) 遠低於 5%；上午 50m 長池游泳 2,950m (含 20 組 Drill 與 2 組 800m @ 1:56~1:57/100m) 穩定展現流暢水感與核心流線型。<br>"
