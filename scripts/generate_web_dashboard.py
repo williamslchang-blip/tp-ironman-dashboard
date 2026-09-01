@@ -235,6 +235,17 @@ def build_daily_feedback_cards(events):
             advice_p2 = "主課表包含 6 組 400m 速度間歇（配速 3:57~4:09/km，平均功率 369W~398W，步頻 183~190 spm，垂直比低至 6.0~7.0% 展現極高動態經濟性）與接續的 TEMPO/Endurance 穩態巡航。均心率 147 bpm，脫鉤率呈現負值 (-9.25% Pw:HR / -6.87% Spd:HR)，顯示心肺適應力強，無心率漂移暴衝。"
             advice_p3 = "今日 79 rTSS 深度刺激後，請即刻補充 25g 優質蛋白與碳水化合物。明日 (週三) 安排 90 分鐘甜甜泳課與核心短課肌力，下水前注意足底筋膜、小腿阿基里斯腱與小腿比目魚肌滾筒放鬆，利用水中浮力加速下肢排酸。"
 
+        elif ev_d_str == "2026-09-01" and t == "Bike":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(56,189,248,0.4);'>🚴 平均時速：<strong style='color:#38BDF8;'>29.35 km/h</strong> (室內訓練台 / 3 組階梯間歇)</div>")
+            metrics_chips.append("<div class='metric-chip'>⚡ 平均功率：<strong>137 W</strong> (2.01 W/kg ｜ 間歇段 171W / 184W / 204W)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>137 bpm</strong> (最高 168 bpm, 恢復區 12m, 耐力區 14m, 節奏區 10m)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔄 平均踏頻：<strong style='color:#10B981;'>82 rpm</strong> (最高 86 rpm)</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>34.22 TSS</strong> (IF 0.767)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 消耗熱量：<strong>278 kcal</strong></div>")
+            advice_p1 = "傍晚精準完成 35 分 25 秒 (17.32 km) 單車 TEMPO 8X3 訓練！在晨跑 12km 後同日執行雙課表，高效率激發有氧節奏與踩踏踩頻流暢度。"
+            advice_p2 = "課表執行 3 組階梯推進間歇：每組依序推進 1m @ 171W (83% FTP) -> 3m @ 184W (90% FTP 甜蜜點) -> 1m @ 204W (100% FTP 閾值頂點)，組間搭配 3m @ 81W 充分排酸；均心率 137 bpm (最高 168 bpm)，平均踏頻穩定維持 82 rpm，功率階梯梯次分明、踩踏效率極佳。"
+            advice_p3 = "今日晨跑 (79.0 rTSS) 加上傍晚單車 (34.2 TSS)，單日累積總負荷達 113.2 TSS！雙項耐力轉換刺激顯著。課後請落實足量補水、攝取優質蛋白質與碳水修復，明日 (週三) 為 90 分鐘甜甜泳課與核心短課肌力，利用水中浮力加速下肢乳酸代謝。"
+
         elif ev_d_str == "2026-08-30" and t == "Run":
             metrics_chips.append("<div class='metric-chip' style='border-color:rgba(245,158,11,0.4);'>👟 平均配速：<strong style='color:#F59E0B;'>7:02 /km</strong> (NGP 6:59 /km)</div>")
             metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#10B981;'>131 bpm</strong> (最高 143 bpm, 控心率上限 140)</div>")
@@ -564,9 +575,10 @@ def build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est):
     
     if w == 36 and completed:
         h1 = (
-            f"• <strong>【Build 1-1 第一建構期旗開得勝】</strong> 第 36 週正式邁入 Build 1 專項建構期，週二跑步課表扎實吃下 <strong>{run_dist:.2f} km (99 分鐘)</strong>，單日累積 <strong>79 rTSS</strong>，專項速度與耐力建構起步極佳！<br>"
+            f"• <strong>【Build 1-1 第一建構期旗開得勝・週二雙課表精準達標】</strong> 第 36 週正式邁入 Build 1 專項建構期，今日晨跑 <strong>{run_dist:.2f} km (99 分鐘)</strong> ＋ 傍晚單車 <strong>{bike_dist:.2f} km (35 分鐘)</strong>，單日累積 <strong>113.2 TSS</strong>，專項速度、耐力與踩踏節奏建構起步極佳！<br>"
             "• <strong>【9/01 跑步 12.04km 間歇與節奏高質量發揮】</strong> 包含 6 組 400m 速度間歇（配速 3:57~4:09/km、均瓦 369-398W、步頻 183-190 spm、垂直比 6-7% 頂尖經濟性）與接續節奏跑，均心率 147 bpm，脫鉤率 (-9.25% Pw:HR) 展現優異抗疲勞與心肺底層！<br>"
-            "• <strong>【神經肌肉快速招募與經濟性】</strong> 觸地時間在衝刺段低至 200-212ms，展現極佳的下肢剛性與推蹬效率。"
+            "• <strong>【9/01 單車 TEMPO 8X3 (17.32km) 階梯間歇踩踏】</strong> 執行 3 組階梯推進間歇（171W -> 184W -> 204W 閾值衝刺），均心率 137 bpm，平均踏頻 82 rpm，功率階梯梯次分明、踩踏效率極佳。<br>"
+            "• <strong>【神經肌肉快速招募與經濟性】</strong> 跑步觸地時間在衝刺段低至 200-212ms，單車高轉速順暢推進，展現極佳的下肢剛性與推蹬效率。"
         )
         h2 = (
             "• <strong>【Build 1 專項建構期配速與功率紀律】</strong> 本週單車時數達 9.75 小時、跑步 4.58 小時，強度與量同步拉升。週四單車 TEMPO 3x20 務必精準控制在 155W-165W (75-80% FTP)，爬坡上限 174W，切勿衝進無氧閾值。<br>"
@@ -574,7 +586,7 @@ def build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est):
             "• <strong>【游泳甜甜課表巡航定型】</strong> 週三與週五 90 分鐘甜甜泳課，以長划幅、高流線型（目標 1:50~1:53/100m）持續優化水中效率。"
         )
         h3 = (
-            "• <strong>【今日跑後修復與營養補給】</strong> 消耗 925 kcal 與 79 rTSS，課後請及時補充 25g 優質蛋白與 60g 碳水化合物，搭配下肢阿基里斯腱與足底滾筒放鬆。<br>"
+            "• <strong>【今日雙課表後修復與營養補給】</strong> 單日累積 113.2 TSS (消耗 1,203 kcal)，課後請即刻補充 30g 優質蛋白與 80g 碳水化合物，搭配下肢阿基里斯腱與足底滾筒放鬆。<br>"
             "• <strong>【週三甜甜泳課與短課肌力銜接】</strong> 明日安排 90 分鐘甜甜泳課與 15 分鐘核心短課，利用水中浮力進行下肢動態排酸，同時強化核心抗旋轉能力。<br>"
             "• <strong>【深層睡眠管理】</strong> 建構期每晚確保 8 小時優質深層睡眠，促進生長激素分泌以利神經系統與肌纖維超量修復。"
         )
