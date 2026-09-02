@@ -182,3 +182,11 @@
      - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py`，整合 9/01 晨跑與傍晚單車 TEMPO 8X3 專屬生理指標卡片、功率階梯推進解析與教練深度建議。
      - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
      - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板。
+- 2026-09-02 成功同步今日 (9/2) 週三清晨甜甜游泳課表數據（TrainingPeaks 專項建構期 Build 1-1）：
+  1. **清晨長池游泳 (Swimming / 甜 課表 / 3.45 km)**：1 小時 10 分 12 秒完成 3,450 m（時間達成率 78.0% / 實游 56 分 28 秒，划水均速 2:02.5/100m，最快衝刺 1:30/100m，均心率 114 bpm 超低心率巡航，最高心率 159 bpm，Recovery & Endurance 區間佔比達 90.8%，划水頻率 26 spm，最高 32 spm，速度脫鉤率 Spd:HR -20.90% 極佳負脫鉤展現出色的核心浮力與零漂移抗疲勞水感，sTSS 97.76，IF 0.942，消耗 755 kcal，體感自覺 3/5 良好，有效促進昨日跑步與單車雙課表後的下肢動態排酸）。
+  2. **W36 Build 1-1 本週累計進度**：游泳 **3.45 km (70 分鐘)**、單車 **17.32 km (35 分鐘)**、跑步 **12.04 km (99 分鐘)**，全週三項累積 211.0 TSS，整體時間執行率達 **24.0%**（全週排定 14.2 小時）。
+  3. **成果更新與線上部署**：
+     - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py`，整合 9/02 甜甜泳課 3,450m 專屬生理指標卡片、心率區間佔比、動態排酸解析與教練深度建議。
+     - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
+     - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板。
+

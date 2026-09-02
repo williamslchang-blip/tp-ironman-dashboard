@@ -221,7 +221,19 @@ def build_daily_feedback_cards(events):
             metrics_chips.append(f"<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 划水均速：<strong style='color:#22D3EE;'>{swim_m}:{swim_s:02d} /100m</strong></div>")
 
         # Specific Rich TP metrics and Coach Advice
-        if ev_d_str == "2026-09-01" and t == "Run":
+        if ev_d_str == "2026-09-02" and t == "Swim":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 划水均速：<strong style='color:#22D3EE;'>2:02.5 /100m</strong> (最快衝刺 1:30 /100m ｜ 50m 長池)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#10B981;'>114 bpm</strong> (最高 159 bpm ｜ 恢復與耐力區間佔 90.8%)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔄 划水頻率：<strong style='color:#10B981;'>26 spm</strong> (最高 32 spm)</div>")
+            metrics_chips.append("<div class='metric-chip'>📉 有氧脫鉤率：<strong style='color:#10B981;'>Spd:HR -20.90%</strong> (極佳負脫鉤，心肺穩定無漂移)</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>97.8 sTSS</strong> (IF 0.942 ｜ 計畫 109.4 sTSS)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 消耗熱量：<strong>755 kcal</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>3/5 (良好)</strong> ｜ RPE 4/10</div>")
+            advice_p1 = "清晨扎實完成 1 小時 10 分 (3,450m) 甜甜泳課！在昨日完成跑步間歇 (12.04km) 與單車階梯間歇 (17.32km) 雙課表後，今日下水順利吃下 3.45 公里水感與專項耐力刺激，為 Build 1-1 週奠定充沛的水中體能儲備。"
+            advice_p2 = "全趟均心率僅 114 bpm（低心率 Recovery & Endurance 區間佔比達 90.8%），划水均速達 2:02.5 /100m，划頻穩定維持 26 spm；有氧速度脫鉤率呈現極佳的負值 (-20.90% Spd:HR)，顯示在長達 3.45km 游程中，核心浮力與流線型 (Streamline) 保持極佳，即使在昨日雙課表疲勞下仍無任何下沉阻力或心率漂移！"
+            advice_p3 = "今日甜甜課表游獲 97.8 sTSS，在水中有效促進了昨日下肢跑步與踩踏的乳酸代謝（動態排酸效果顯著）。課後請補充水分與優質蛋白質；明日 (週四) 安排單車 TEMPO 3x20 (85 分鐘) ＋ T2 轉換跑 (40 分鐘) 重要轉換主課，請今晚確保 8 小時充足深層睡眠，並利用滾筒放鬆肩背與臀大肌，做好單車控瓦與轉換跑步頻迎戰準備！"
+
+        elif ev_d_str == "2026-09-01" and t == "Run":
             metrics_chips.append("<div class='metric-chip' style='border-color:rgba(245,158,11,0.4);'>👟 平均配速：<strong style='color:#F59E0B;'>8:13 /km</strong> (NGP 6:07 /km ｜ 衝刺組 3:57~4:09 /km)</div>")
             metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>147 bpm</strong> (最高 187 bpm, 恢復區 55m, 節奏/穩態 31m)</div>")
             metrics_chips.append("<div class='metric-chip'>⚡ 平均功率：<strong>183 W</strong> (2.68 W/kg, 最大 451W, 間歇組 369~398W)</div>")
@@ -575,20 +587,20 @@ def build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est):
     
     if w == 36 and completed:
         h1 = (
-            f"• <strong>【Build 1-1 第一建構期旗開得勝・週二雙課表精準達標】</strong> 第 36 週正式邁入 Build 1 專項建構期，今日晨跑 <strong>{run_dist:.2f} km (99 分鐘)</strong> ＋ 傍晚單車 <strong>{bike_dist:.2f} km (35 分鐘)</strong>，單日累積 <strong>113.2 TSS</strong>，專項速度、耐力與踩踏節奏建構起步極佳！<br>"
+            f"• <strong>【Build 1-1 第一建構期旗開得勝・三項課表全面高質量推進】</strong> 第 36 週正式邁入 Build 1 專項建構期，截至週三已完成游泳 <strong>{swim_dist:.2f} km (70 分鐘)</strong>、單車 <strong>{bike_dist:.2f} km (35 分鐘)</strong>、跑步 <strong>{run_dist:.2f} km (99 分鐘)</strong>，三項累積 <strong>211.0 TSS</strong>，專項速度、耐力、流線水感與踩踏節奏建構全面開展！<br>"
+            "• <strong>【9/02 甜甜泳課 3,450m 低心率流暢巡航】</strong> 耗時 70 分鐘完成 3.45km，均速 2:02.5/100m，均心率僅 114 bpm (Z1-Z2 佔 90.8%)，脫鉤率 (-20.90% Spd:HR) 展現出色的核心浮力與抗疲勞水感，並發揮極佳的下肢動態排酸效果。<br>"
             "• <strong>【9/01 跑步 12.04km 間歇與節奏高質量發揮】</strong> 包含 6 組 400m 速度間歇（配速 3:57~4:09/km、均瓦 369-398W、步頻 183-190 spm、垂直比 6-7% 頂尖經濟性）與接續節奏跑，均心率 147 bpm，脫鉤率 (-9.25% Pw:HR) 展現優異抗疲勞與心肺底層！<br>"
-            "• <strong>【9/01 單車 TEMPO 8X3 (17.32km) 階梯間歇踩踏】</strong> 執行 3 組階梯推進間歇（171W -> 184W -> 204W 閾值衝刺），均心率 137 bpm，平均踏頻 82 rpm，功率階梯梯次分明、踩踏效率極佳。<br>"
-            "• <strong>【神經肌肉快速招募與經濟性】</strong> 跑步觸地時間在衝刺段低至 200-212ms，單車高轉速順暢推進，展現極佳的下肢剛性與推蹬效率。"
+            "• <strong>【9/01 單車 TEMPO 8X3 (17.32km) 階梯間歇踩踏】</strong> 執行 3 組階梯推進間歇（171W -> 184W -> 204W 閾值衝刺），均心率 137 bpm，平均踏頻 82 rpm，功率階梯梯次分明、踩踏效率極佳。"
         )
         h2 = (
             "• <strong>【Build 1 專項建構期配速與功率紀律】</strong> 本週單車時數達 9.75 小時、跑步 4.58 小時，強度與量同步拉升。週四單車 TEMPO 3x20 務必精準控制在 155W-165W (75-80% FTP)，爬坡上限 174W，切勿衝進無氧閾值。<br>"
-            "• <strong>【下車轉換跑步頻紀律】</strong> 週四 40 分鐘 Brick 轉換跑與週日 30 分鐘轉接跑，下車後前 5 分鐘守在 175-180 spm 小步幅與 <270ms 輕著地，保護全馬關節剛性。<br>"
-            "• <strong>【游泳甜甜課表巡航定型】</strong> 週三與週五 90 分鐘甜甜泳課，以長划幅、高流線型（目標 1:50~1:53/100m）持續優化水中效率。"
+            "• <strong>【週四下車轉換跑 (40分) 步頻紀律】</strong> 下車後前 5 分鐘守在 175-180 spm 小步幅與 <270ms 輕著地，保護全馬關節剛性與神經肌肉轉換。<br>"
+            "• <strong>【游泳甜甜課表巡航定型】</strong> 本日游出 2:02.5/100m 均速與 114 bpm 超低心率，對標 Sub-11 游泳 1h12m (1:53/100m)，持續於週五維持長划幅與高流線型輸出。"
         )
         h3 = (
-            "• <strong>【今日雙課表後修復與營養補給】</strong> 單日累積 113.2 TSS (消耗 1,203 kcal)，課後請即刻補充 30g 優質蛋白與 80g 碳水化合物，搭配下肢阿基里斯腱與足底滾筒放鬆。<br>"
-            "• <strong>【週三甜甜泳課與短課肌力銜接】</strong> 明日安排 90 分鐘甜甜泳課與 15 分鐘核心短課，利用水中浮力進行下肢動態排酸，同時強化核心抗旋轉能力。<br>"
-            "• <strong>【深層睡眠管理】</strong> 建構期每晚確保 8 小時優質深層睡眠，促進生長激素分泌以利神經系統與肌纖維超量修復。"
+            "• <strong>【今日游後修復與下肢排酸效益】</strong> 今日 97.8 sTSS 甜甜泳課有效加速下肢肌肉乳酸代謝，課後請補充 25g 優質蛋白質與水分營養。<br>"
+            "• <strong>【週四單車 TEMPO 3x20 ＋ 轉換跑重要課表備戰】</strong> 明日 (週四) 為本週重點複合轉換日 (85分 TEMPO 單車 + 40分 Brick 轉換跑)，請今晚確保 8 小時優質深層睡眠，並利用滾筒放鬆肩背、小腿與臀大肌。<br>"
+            "• <strong>【營養與水分電解質儲備】</strong> 明日雙課表前 2 小時補足複合碳水化合物，騎乘過程每小時維持 60-90g 碳水與 600-800ml 電解質攝取。"
         )
     elif w == 35 and completed:
         h1 = (
