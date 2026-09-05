@@ -189,4 +189,14 @@
      - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py`，整合 9/02 甜甜泳課 3,450m 專屬生理指標卡片、心率區間佔比、動態排酸解析與教練深度建議。
      - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
      - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板。
+- 2026-09-05 成功同步今日 (9/5) 週六室內單車 Threshold 12x3 與戶外長跑轉換雙課表數據（TrainingPeaks 專項建構期 Build 1-1）：
+  1. **室內單車閾值間歇 (Cycling / Threshold 12x3 / 70.31 km)**：2 小時 34 分 53 秒完成 70.31 km（時間達成率 103.3%，均速 27.23 km/h，均瓦 140W 2.05 W/kg，標準化功率 NP 157W，最大功率 235W，VI 1.12，均踏頻 86 rpm，最高 103 rpm，均心率 145 bpm，最高心率 181 bpm，爬升 +715m，TSS 151.36，IF 0.768，消耗 1,251 kcal，做功 1,310 kJ，體感自覺滿分 5/5 ｜ RPE 4/10，精準執行 3 組 95%~105% FTP 閾值強刺激，間歇高段推升至 170~181 bpm 展現強悍抗乳酸耐受力與踩踏經濟性）。
+  2. **戶外長距離轉換跑 (Running / 1.5小時 心率150以下 / 11.74 km)**：單車結束僅 7 分鐘立刻換鞋起跑，1 小時 30 分 06 秒完成 11.74 km（時間達成率 100.1%，均速 7:40/km，均瓦 205W，均步頻 158 spm，最高 181 spm，均心率 145 bpm，最高心率 163 bpm，觸地時間 298.7 ms，垂直振幅 7.52 cm，移動垂直比 9.0%，rTSS 46.06，IF 0.524，消耗 817 kcal，做功 1,106 kJ，體感自覺 3/5 ｜ RPE 3/10，嚴格落實心率 150 bpm 以下紀律，恢復與耐力區間佔比高達 94.7%，在雙腿累積 151 TSS 深度疲勞下展現極佳的轉向適應與核心抗衝擊剛性）。
+  3. **當日轉換訓總結 (Brick Workout Total)**：總時長 **4 小時 05 分**、總距離 **82.05 km**、總訓練負荷 **197.5 TSS**、總消耗 **2,068 kcal**。
+  4. **W36 Build 1-1 本週累計進度**：截至週六已完成單車 **119.73 km (4小時 14分)**、跑步 **28.74 km (3小時 49分)**、游泳 **6.60 km (2小時 13分)**，三項累積總時長達 **10 小時 16 分鐘**，總 TSS 突破 600+。
+  5. **成果更新與線上部署**：
+     - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py`，整合 9/05 單車 Threshold 12x3 與跑步 1.5h 專屬生理指標卡片、教練深度解析與大鐵 226 後段配速指引。
+     - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
+     - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。
+
 
