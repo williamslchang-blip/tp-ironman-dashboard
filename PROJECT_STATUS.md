@@ -195,8 +195,15 @@
   3. **當日轉換訓總結 (Brick Workout Total)**：總時長 **4 小時 05 分**、總距離 **82.05 km**、總訓練負荷 **197.5 TSS**、總消耗 **2,068 kcal**。
   4. **W36 Build 1-1 本週累計進度**：截至週六已完成單車 **119.73 km (4小時 14分)**、跑步 **28.74 km (3小時 49分)**、游泳 **6.60 km (2小時 13分)**，三項累積總時長達 **10 小時 16 分鐘**，總 TSS 突破 600+。
   5. **成果更新與線上部署**：
-     - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py`，整合 9/05 單車 Threshold 12x3 與跑步 1.5h 專屬生理指標卡片、教練深度解析與大鐵 226 後段配速指引。
+     - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py`，整合 9/05 單車 Threshold 12x3 與跑步 1.5h 專屬生理指標卡片，教練深度解析與大鐵 226 後段配速指引。
      - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
      - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。
-
-
+- 2026-09-06 成功同步今日 (9/6) 週日戶外單車 Endurance 2.5 與連續長游雙課表數據，圓滿結算第 36 週 (W36, Build 1-1 第一建構期)：
+  1. **戶外長距離有氧單車 (Cycling / Endurance 2.5 / 66.02 km)**：2 小時 30 分 44 秒完成 66.02 km（時間達成率 100.0%，均速 26.28 km/h，TSS 107.1，IF 約 0.653，體感自覺滿分 5/5 ｜ RPE 3/10，在昨日 82km / 197.5 TSS 頂尖雙課表後，今日全程穩健鎖定 Zone 2 有氧耐力巡航，嚴格恪守不衝瓦、不爆心率紀律；補給實測每小時 75-90g 碳水、600-900ml 水分與 600-900mg 鈉，扎實演練大鐵 226 自行車 180km 腸胃吸收耐受度）。
+  2. **連續長游與下肢動態排酸 (Swimming / Lap Swimming / 3,450 m)**：1 小時 11 分 37 秒完成 3,450 m（均速 2:04.5/100m，均時速 2.88 km/h，sTSS 93.9，IF 約 0.89，體感自覺 4/5 ｜ RPE 3/10，在單車 2.5 小時後下水，維持極佳的核心流線型與水感延伸，有效利用水壓與浮力促進下肢血液回流，化解雙腿肌肉張力，達成高質量主動動態排酸）。
+  3. **當日訓練總結**：總時長 **3 小時 42 分**、總距離 **69.47 km**、總訓練負荷 **201.0 TSS**。
+  4. **W36 Build 1-1 全週圓滿結算成果**：全週累計自行車 **185.75 km (6 小時 44 分)**、跑步 **28.74 km (3 小時 49 分)**、游泳 **10.05 km (3 小時 24 分)**，總訓練時長達 **13.95 小時**，整體時間執行率達 **95.7%**（排定 14.58 小時），全週總 TSS 突破 **800+**！週游量正式跨越 10 公里大關，各項耐力底層與專項建構達標水準極高。
+  5. **成果更新與線上部署**：
+     - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py`，整合 9/06 單車 Endurance 2.5 與長游 3,450m 專屬指標卡片、教練綜合評析與 W36 全週結算回顧。
+     - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
+     - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。

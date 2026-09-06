@@ -221,7 +221,27 @@ def build_daily_feedback_cards(events):
             metrics_chips.append(f"<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 划水均速：<strong style='color:#22D3EE;'>{swim_m}:{swim_s:02d} /100m</strong></div>")
 
         # Specific Rich TP metrics and Coach Advice
-        if ev_d_str == "2026-09-05" and t == "Bike":
+        if ev_d_str == "2026-09-06" and t == "Bike":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(56,189,248,0.4);'>🚴 平均時速：<strong style='color:#38BDF8;'>26.28 km/h</strong> (戶外長騎 / Endurance 2.5)</div>")
+            metrics_chips.append("<div class='metric-chip'>⏱️ 實際時間：<strong>2:30:44 (150 分)</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>107.1 TSS</strong> (IF 0.653 ｜ Zone 2 有氧巡航)</div>")
+            metrics_chips.append("<div class='metric-chip'>💧 補給執行：<strong>碳水 75~90g/h ｜ 水分 600~900ml/h ｜ 鈉 600~900mg/h</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>5/5 (極佳)</strong> ｜ RPE 3/10</div>")
+            advice_p1 = "週日扎實完成 2 小時 30 分 (66.02 km) 戶外單車 Endurance 2.5 長距離有氧耐力課表！時間達成率 100.0% 精準達標。在昨日經歷 70.31km Threshold 12x3 閾值間歇與 90 分鐘轉換跑 (合計 197.5 TSS) 深度刺激後，今日穩健踩出 66km 有氧巡航，展現強大體能承載力與有氧底層！"
+            advice_p2 = "平均時速 26.28 km/h，TSS 達 107.1 (IF 約 0.653)，全程精準鎖定在 Zone 2 有氧耐力區間，完全克制昨日間歇後的亢奮或肌肉殘留疲勞，不衝瓦、不爆心率；補給策略嚴格落實每小時 75-90g 碳水、600-900ml 水分與 600-900mg 鈉，完美演練大鐵 226 自行車 180km 腸胃吸收耐受度與能量補給鏈。"
+            advice_p3 = "今日單車 (107.1 TSS) 結束後接續 3,450m 游泳，單日累積 69.47 km、201.0 TSS！本週單車累計達 185.75 km (達成率 101%)。騎後請及時補充水分與電解質，下水游泳兼具極佳的下肢主動動態排酸效益。"
+
+        elif ev_d_str == "2026-09-06" and t == "Swim":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 划水均速：<strong style='color:#22D3EE;'>2:04.5 /100m</strong> (2.88 km/h ｜ 3,450m 連續長游)</div>")
+            metrics_chips.append("<div class='metric-chip'>⏱️ 實際時間：<strong>1:11:37 (71.6 分)</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>93.9 sTSS</strong> (IF 0.89)</div>")
+            metrics_chips.append("<div class='metric-chip'>🌊 週游里程：<strong style='color:#38BDF8;'>本週突破 10 公里大關 (10.05 km)</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>4/5 (良好)</strong> ｜ RPE 3/10</div>")
+            advice_p1 = "完成 1 小時 11 分 (3,450m) 連續長游課表！單趟實游 3.45 km，累積 93.9 sTSS，完美銜接上午 66km 單車課表，為 Build 1-1 第一建構期週末畫下高水準句點。"
+            advice_p2 = "均速穩定維持在 2:04.5 /100m (2.88 km/h)，在單車 2.5 小時踩踏疲勞後入水，仍能保持優異的核心流線型 (Streamline) 與水感延伸，有效利用水的浮力與水壓促進下肢血液回流，化解昨日 Threshold 單車與長跑、以及今日 66km 踩踏累積的下肢乳酸與肌肉張力。"
+            advice_p3 = "本週累計完成 3 堂長游課表 (9/2 3.45km、9/4 3.15km、9/6 3.45km)，全週總游量正式突破 10 公里大關 (10.05 km / 3.4 小時，時間達成率 113.3%)！對標 Sub-11 游泳 1h12m (3.8km / 1:53/100m) 藍圖，水中肌耐力與划水經濟性極為厚實。課後請落實黃金蛋白質修復與伸展，今晚享受充足深層睡眠。"
+
+        elif ev_d_str == "2026-09-05" and t == "Bike":
             metrics_chips.append("<div class='metric-chip' style='border-color:rgba(56,189,248,0.4);'>🚴 平均時速：<strong style='color:#38BDF8;'>27.23 km/h</strong> (室內 Zwift / Threshold 12x3 間歇)</div>")
             metrics_chips.append("<div class='metric-chip'>⚡ 標準化功率 (NP)：<strong style='color:#38BDF8;'>157 W</strong> (均瓦 140W, 2.05 W/kg, 最大 235W, VI 1.12)</div>")
             metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>145 bpm</strong> (最高 181 bpm, 恢復區 11m, 耐力區 103m, 節奏區 34m, 閾值區 7m)</div>")
@@ -613,21 +633,22 @@ def build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est):
     
     if w == 36 and completed:
         h1 = (
-            f"• <strong>【Build 1-1 第一建構期旗開得勝・三項課表全面高質量推進】</strong> 第 36 週正式邁入 Build 1 專項建構期，截至週六已完成自行車 <strong>{bike_dist:.2f} km</strong>、跑步 <strong>{run_dist:.2f} km</strong>、游泳 <strong>{swim_dist:.2f} km</strong>，三項累積總時長突破 <strong>10 小時 15 分</strong>，專項速度、閾值衝擊、轉換適應與流線水感全面開展！<br>"
-            "• <strong>【9/05 單車 Threshold 12x3 (70.31km) ＋ 轉換跑 1.5h (11.74km) 頂尖雙課表】</strong> 單車 2h35m (NP 157W, 151.4 TSS, 均心 145 bpm, 均踏頻 86 rpm)，精準執行 3 組 95-105% FTP 閾值衝刺；下車後僅 7 分鐘立刻換鞋無縫接續 90 分鐘長跑，嚴格遵循心率 150 bpm 以下紀律 (均心 145 bpm, 46.1 rTSS)，單日轉換合繳 197.5 TSS、82.05 km，極佳模擬 226 後段轉向抗疲勞能力！<br>"
+            f"• <strong>【Build 1-1 第一建構期旗開得勝・全週三項圓滿高質量結算】</strong> 第 36 週正式邁入 Build 1 專項建構期，全週圓滿完成自行車 <strong>{bike_dist:.2f} km (6.73 小時)</strong>、跑步 <strong>{run_dist:.2f} km (3.82 小時)</strong>、游泳 <strong>{swim_dist:.2f} km (3.40 小時)</strong>，三項累積總時長達 <strong>13.95 小時</strong> (整體時間執行率 <strong>95.7%</strong>)，總 TSS 突破 <strong>800+</strong>，專項耐力、閾值衝擊、下車轉換與長距離水感全面大幅躍升！<br>"
+            "• <strong>【9/06 週日單車 Endurance 2.5 (66.02km) ＋ 長游 3,450m 高質量雙課表】</strong> 單車 2h31m (107.1 TSS, 均速 26.28 km/h)，穩健鎖定 Zone 2 並落實每小時 75-90g 碳水與電解質補給實戰演練；隨後接續 3,450m 長游 (1h12m, 93.9 sTSS, 均速 2:04.5/100m)，單日累積 69.47 km、201.0 TSS，游泳不僅達成高耐力刺激更發揮出色的下肢動態排酸，週游量正式跨越 10 公里大關 (10.05 km)！<br>"
+            "• <strong>【9/05 週六單車 Threshold 12x3 (70.31km) ＋ 轉換跑 1.5h (11.74km) 頂尖雙課表】</strong> 單車 2h35m (NP 157W, 151.4 TSS, 均心 145 bpm, 均踏頻 86 rpm)，精準執行 3 組 95-105% FTP 閾值衝刺；下車後僅 7 分鐘無縫換鞋接續 90 分鐘長跑，嚴格遵循心率 150 bpm 以下紀律 (均心 145 bpm, 46.1 rTSS)，單日轉換合繳 197.5 TSS、82.05 km，極佳模擬 226 後段轉向抗疲勞能力！<br>"
             "• <strong>【9/03 單車 TEMPO 2x20 (32.10km) ＋ 轉換跑 4.96km】</strong> 順利吃下 65 分鐘單車 (均速 29.63 km/h) ＋ 40 分鐘轉換跑 (步頻 172 spm)，轉換神經肌肉適應極佳。<br>"
-            "• <strong>【9/02 甜甜泳課 3,450m 低心率流暢巡航】</strong> 耗時 70 分鐘完成 3.45km，均速 2:02.5/100m，均心率僅 114 bpm (Z1-Z2 佔 90.8%)，脫鉤率 (-20.90% Spd:HR) 展現出色的核心浮力與抗疲勞水感，並發揮極佳的下肢動態排酸效果。<br>"
-            "• <strong>【9/01 跑步 12.04km 間歇與 17.32km 單車階梯間歇】</strong> 包含 6 組 400m 速度間歇（配速 3:57~4:09/km、均瓦 369-398W）與單車 3 組階梯推進 (171W -> 184W -> 204W)。"
+            "• <strong>【9/02 & 9/04 雙長池甜甜泳課 (合計 6,600m)】</strong> 9/2 游出 2:02.5/100m 均速與 114 bpm 超低心率 (脫鉤率 -20.90% Spd:HR)；9/4 游出 3,150m (2.99 km/h)，展現高度一致的核心流線型。<br>"
+            "• <strong>【9/01 跑步 12.04km 間歇與 17.32km 單車階梯間歇】</strong> 包含 6 組 400m 速度間歇（配速 3:57~4:09/km、均瓦 369-398W）與單車 3 組階梯推進 (171W -> 184W -> 204W 閾值衝刺)。"
         )
         h2 = (
-            "• <strong>【大鐵 226 賽事後段心率與瓦數紀律】</strong> 今日 70km 單車後接續長跑，完美落實「心率 150 bpm 封頂」紀律。在下車雙腿累積 151 TSS 深度疲勞下不盲目追速，專注於觸地時間 (<298ms) 與垂直比 (9.0%)，正是大鐵 Sub-11 全馬 4h00m 穩健防抽筋的核心關鍵。<br>"
-            "• <strong>【單車閾值刺激後的有氧轉向】</strong> 單車 151.4 TSS 與 NP 157W 展現極佳的閾值平台，明日 (週日) 依排程進行低強度有氧調整，徹底落實 Zone 1 活性代謝。<br>"
-            "• <strong>【游泳長距離巡航定型】</strong> 本週兩趟甜甜長池泳課 (3.45km + 3.15km) 均速均鎖定在 2:02/100m 左右且心率極低，對標 Sub-11 游泳 1h12m (1:53/100m)，持續維持長划幅與流線型。"
+            "• <strong>【大鐵 226 賽事後段心率與瓦數紀律】</strong> 週六 70km 單車後接續長跑嚴格恪守「心率 150 bpm 封頂」，週日 66km 穩健鎖定 Zone 2 (IF 0.65)。在週末連續兩天高負荷下，不盲目追速，專注於落地剛性與脂肪氧化，正是大鐵 Sub-11 全馬 4h00m 穩健防抽筋的核心關鍵。<br>"
+            "• <strong>【游泳週量破 10km 突破意義】</strong> 本週 3 趟長游突破 10.05 km，大幅超越 Sub-11 標竿 (7-9 km/週) 達標率 113.3%，在長距離游程中身體浮力、流線型與水感延伸已具備極高的穩定度。<br>"
+            "• <strong>【週末雙大日轉換與補給實戰】</strong> 週末兩天合計累積自行車 136.33 km、跑步 11.74 km、游泳 3.45 km，總負荷高達 398.5 TSS！補給實測（75-90g/h 碳水、600-900ml 水、鈉）完全符合 226 實戰需求。"
         )
         h3 = (
-            "• <strong>【雙課表後超量恢復與黃金修復】</strong> 今日 197.5 TSS / 2,068 kcal 深度消耗後，請於運動後立即補充足量電解質液體、複合碳水化合物與每公斤 1.6-1.8g 優質蛋白質。<br>"
-            "• <strong>【下肢深層放鬆】</strong> 重點針對小腿腓腸肌、比目魚肌、阿基里斯腱、股四頭肌與臀大肌進行滾筒筋膜放鬆，加速代謝微創發炎。<br>"
-            "• <strong>【睡眠與體能修補】</strong> 今晚爭取 8–8.5 小時高品質深層睡眠，促進生長激素修復肌纖維，讓身體充分吸收本週高負荷建構成果。"
+            "• <strong>【全週高負荷結算後超量恢復】</strong> 本週 13.95 小時、800+ TSS 深度消耗後，今晚請徹底放鬆，運動後立即補充足量電解質、複合碳水化合物與每公斤 1.6-1.8g 優質蛋白質。<br>"
+            "• <strong>【下肢深層筋膜放鬆】</strong> 重點針對小腿腓腸肌、比目魚肌、阿基里斯腱、股四頭肌與臀大肌進行滾筒筋膜放鬆，加速代謝微創發炎。<br>"
+            "• <strong>【明日週一完全休息日 (Rest Day)】</strong> 明日 (9/7) 排定完全休息，請嚴格遵守不私自加課，爭取 8–8.5 小時高品質深層睡眠，促進生長激素修復肌纖維，讓身體充分享受 Build 1-1 的超量補償吸收！"
         )
     elif w == 35 and completed:
         h1 = (
