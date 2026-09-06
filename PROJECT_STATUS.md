@@ -207,3 +207,10 @@
      - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py`，整合 9/06 單車 Endurance 2.5 與長游 3,450m 專屬指標卡片、教練綜合評析與 W36 全週結算回顧。
      - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
      - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。
+- 2026-09-06 發現並徹底修復「當週數據統計裡的計畫距離錯誤」與「儀表板執行率回顧分頁加載」Bug：
+  1. **快取覆寫邏輯修正 (`scripts/sync_calendar.py`)**：舊邏輯在比對歷史快取時僅以 `(date, type)` 匹配，且盲目保留舊快取 `original_plan`，導致 09/06 週日長跑（原為 30 分鐘轉接跑後改為 1.5h/15km 輕鬆跑）被拼裝為異常的「30 分鐘跑 20 公里」，09/05 週六亦被殘留舊 2 小時課表覆蓋為「120 分鐘跑 19 公里」。現已全面改為優先精確匹配 `tp_uid` 與 `(date, type, summary)`，並優先採用 TP 官方 Live Feed 即時排定的 `planned_time` 與 `planned_dist`。
+  2. **當週數據校正 (`calendar_cache.json` & W36 回顧報告)**：週六跑步計畫更正為 90 分 / 15.00 km，週日跑步計畫更正為 90 分 / 15.00 km。W36 跑步全週計畫距離恢復為真實的 **49.40 km**（原本誤算為 58.40 km，灌水了 9 公里），距離執行率校正為 **58.2%**（原被低估為 49.2%）。
+  3. **未設定距離目標項目優化 (`scripts/generate_execution_report.py`)**：TP 中以時間/強度排定之游泳與單車課表，當計畫距離為 0 時，於總表與每日明細中顯示為 `-`（依時間排定），避免呈現 `0.00 km` 造成「漏算或計畫為 0」的誤解。
+  4. **Web 儀表板回顧分頁邏輯優化 (`scripts/generate_web_dashboard.py`)**：修正週次分頁優先載入當週已結算報告邏輯，並動態呈現「當週 (W36) 執行率回顧」或「上週 (W35) 執行率回顧」。
+  5. **發布腳本容錯優化 (`scripts/package_for_web.py`)**：修正 Windows 檔案鎖定導致 `shutil.rmtree` 報錯 WinError 32 的問題，確保順暢發布至 `docs/`。
+

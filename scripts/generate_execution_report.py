@@ -149,7 +149,7 @@ def build_report(target_date: date):
         for t in ["Swim", "Bike", "Run", "Strength"]:
             s = stats_summary[t]
             t_name = "游泳 (Swim)" if t == "Swim" else "單車 (Bike)" if t == "Bike" else "跑步 (Run)" if t == "Run" else "肌力 (Strength)"
-            dist_p_str = f"{s['planned_dist']:.2f} km" if t != "Strength" else "-"
+            dist_p_str = f"{s['planned_dist']:.2f} km" if t != "Strength" and s['planned_dist'] > 0 else "-"
             dist_a_str = f"{s['actual_dist']:.2f} km" if t != "Strength" else "-"
             dist_pct_str = f"{s['pct_dist']:.1f}%" if t != "Strength" and s['planned_dist'] > 0 else "-"
             f.write(f"| {t_name} | {s['planned_time']:.2f} hr | {s['actual_time']:.2f} hr | {s['pct_time']:.1f}% | {dist_p_str} | {dist_a_str} | {dist_pct_str} | {s['sessions']} |\n")
@@ -186,7 +186,7 @@ def build_report(target_date: date):
             else:
                 status = "❌ 未執行/待排程"
 
-            dist_p = f"{ev['planned_dist']:.2f} km" if ev["type"] not in ["Strength", "Day Off"] else "-"
+            dist_p = f"{ev['planned_dist']:.2f} km" if ev["type"] not in ["Strength", "Day Off"] and ev["planned_dist"] > 0 else "-"
             dist_a = f"{ev['actual_dist']:.2f} km" if ev["type"] not in ["Strength", "Day Off"] else "-"
             wday = "一二三四五六日"[ev["date"].weekday()]
             f.write(f"| {ev['date']:%m/%d (週}{wday}) | {ev['summary']} | {ev['type']} | {ev['planned_time']} 分 | {ev['actual_time']} 分 | {dist_p} | {dist_a} | {status} |\n")
@@ -297,9 +297,9 @@ def build_report(target_date: date):
         cells[1].text = f"{s['planned_time']:.2f} hr"
         cells[2].text = f"{s['actual_time']:.2f} hr"
         cells[3].text = f"{s['pct_time']:.1f}%"
-        cells[4].text = f"{s['planned_dist']:.2f} km" if t != "Strength" else "-"
+        cells[4].text = f"{s['planned_dist']:.2f} km" if t != "Strength" and s['planned_dist'] > 0 else "-"
         cells[5].text = f"{s['actual_dist']:.2f} km" if t != "Strength" else "-"
-        cells[6].text = f"{s['pct_dist']:.1f}%" if t != "Strength" else "-"
+        cells[6].text = f"{s['pct_dist']:.1f}%" if t != "Strength" and s['planned_dist'] > 0 else "-"
         cells[7].text = str(s['sessions'])
         
     table_geometry(table1, [1400, 1100, 1100, 1100, 1100, 1100, 1100, 1000])

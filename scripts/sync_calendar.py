@@ -183,24 +183,35 @@ def sync():
             act_speed = ev.get("speed", 0.0)
             act_pace = ev.get("pace", "")
             
-            # Search old cache for matching entry on dt_s and w_type
-            for old_k, old_v in cache.items():
-                if old_v.get("date") == dt_s and old_v.get("type") == w_type:
-                    old_orig_pt = old_v.get("original_plan", {}).get("planned_time", old_v.get("planned_time", 0))
-                    old_orig_pd = old_v.get("original_plan", {}).get("planned_dist", old_v.get("planned_dist", 0))
-                    if old_orig_pt > 0:
-                        orig_pt = old_orig_pt
-                    if old_orig_pd > 0:
-                        orig_pd = old_orig_pd
-                    if act_time == 0 and old_v.get("actual_time", 0) > 0:
-                        act_time = old_v.get("actual_time", 0)
-                    if act_dist == 0 and old_v.get("actual_dist", 0) > 0:
-                        act_dist = old_v.get("actual_dist", 0)
-                    if act_speed == 0.0 and old_v.get("speed", 0.0) > 0.0:
-                        act_speed = old_v.get("speed", 0.0)
-                    if not act_pace and old_v.get("pace"):
-                        act_pace = old_v.get("pace")
-                    break
+            # Find matching candidate in old cache
+            candidate = None
+            if ev.get("tp_uid"):
+                for old_k, old_v in cache.items():
+                    if old_v.get("tp_uid") == ev["tp_uid"]:
+                        candidate = old_v
+                        break
+            if candidate is None:
+                # Match by date, type, AND summary to prevent cross-workout contamination
+                for old_k, old_v in cache.items():
+                    if old_v.get("date") == dt_s and old_v.get("type") == w_type and old_v.get("summary") == ev["summary"]:
+                        candidate = old_v
+                        break
+
+            if candidate:
+                # Only fallback to cached planned values if live feed does not specify them
+                if orig_pt == 0:
+                    orig_pt = candidate.get("original_plan", {}).get("planned_time", candidate.get("planned_time", 0))
+                if orig_pd == 0:
+                    orig_pd = candidate.get("original_plan", {}).get("planned_dist", candidate.get("planned_dist", 0))
+                # Preserve actual execution metrics if live feed hasn't populated yet
+                if act_time == 0 and candidate.get("actual_time", 0) > 0:
+                    act_time = candidate.get("actual_time", 0)
+                if act_dist == 0 and candidate.get("actual_dist", 0) > 0:
+                    act_dist = candidate.get("actual_dist", 0)
+                if act_speed == 0.0 and candidate.get("speed", 0.0) > 0.0:
+                    act_speed = candidate.get("speed", 0.0)
+                if not act_pace and candidate.get("pace"):
+                    act_pace = candidate.get("pace")
                     
             event_data = {
                 "date": dt_s,

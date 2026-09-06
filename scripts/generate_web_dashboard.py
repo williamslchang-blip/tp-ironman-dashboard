@@ -925,15 +925,18 @@ def generate_52_week_dashboard():
         prev_rev_file = WEEKLY_DIR / f"2026-W{prev_w:02d}_當週執行率回顧報告.md"
         curr_rev_file = WEEKLY_DIR / f"2026-W{w:02d}_當週執行率回顧報告.md"
         
-        if prev_rev_file.exists():
-            rev_html = simple_md_to_html(prev_rev_file.read_text(encoding="utf-8"))
-            rev_target = prev_w
-        elif curr_rev_file.exists():
+        # Target execution review report for week w
+        # If the week itself has an execution review report (e.g. past weeks or current week after Sunday generation), show it!
+        # Otherwise fallback to previous week's report if available.
+        if curr_rev_file.exists():
             rev_html = simple_md_to_html(curr_rev_file.read_text(encoding="utf-8"))
             rev_target = w
-        else:
-            rev_html = "<p style='color:var(--text-muted);'>上週執行率回顧報告將於週日晚上自動結算生成</p>"
+        elif prev_rev_file.exists():
+            rev_html = simple_md_to_html(prev_rev_file.read_text(encoding="utf-8"))
             rev_target = prev_w
+        else:
+            rev_html = "<p style='color:var(--text-muted);'>該週執行率回顧報告將於結算後自動生成</p>"
+            rev_target = w
 
         daily_schedule = []
         curr_d = w_monday
@@ -1761,7 +1764,7 @@ def generate_52_week_dashboard():
                     <button class="subtab-btn active" data-tab="overview" onclick="openSubtab('overview')">📊 當週總覽 & 226/113 完賽預估</button>
                     <button class="subtab-btn" data-tab="plan" onclick="openSubtab('plan')">🏋️ 當週課表與肌力計畫</button>
                     <button class="subtab-btn" data-tab="articles" onclick="openSubtab('articles')">📰 當週鐵人新知</button>
-                    <button class="subtab-btn" data-tab="review" onclick="openSubtab('review')">📈 上週 (W${{data.prev_week_num}}) 執行率回顧</button>
+                    <button class="subtab-btn" data-tab="review" onclick="openSubtab('review')">📈 ${{data.prev_week_num === data.week_num ? '當週' : '上週'}} (W${{data.prev_week_num}}) 執行率回顧</button>
                 </div>
 
                 <!-- SUBTAB 1: OVERVIEW -->
@@ -2057,7 +2060,7 @@ def generate_52_week_dashboard():
                 <!-- SUBTAB 4: REVIEW ONLINE READ -->
                 <div id="subview-review" class="subtab-view">
                     <div class="section-box" style="line-height: 1.8;">
-                        <div class="section-title">📈 上週 (W${{data.prev_week_num}}) 訓練執行率回顧成果</div>
+                        <div class="section-title">📈 ${{data.prev_week_num === data.week_num ? '當週' : '上週'}} (W${{data.prev_week_num}}) 訓練執行率回顧成果</div>
                         <div>${{data.rev_html}}</div>
                     </div>
                 </div>

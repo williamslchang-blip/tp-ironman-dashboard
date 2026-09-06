@@ -9,8 +9,6 @@ DOCS = ROOT / "docs"
 
 def package_web():
     """Packages all HTML web dashboard files and weekly assets into a clean docs/ folder for GitHub Pages / Netlify deployment."""
-    if DOCS.exists():
-        shutil.rmtree(DOCS)
     DOCS.mkdir(parents=True, exist_ok=True)
 
     # Copy index.html -> docs/index.html
