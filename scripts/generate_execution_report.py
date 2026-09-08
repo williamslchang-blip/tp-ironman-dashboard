@@ -199,11 +199,9 @@ def build_report(target_date: date):
         
         f.write("### 1. 執行亮點與成效分析 (Execution Highlights & Milestone Analytics)\n")
         f.write(f"- **當週高質量耐力里程累積**：已累積自行車 **{bike_act_km:.2f} km**、跑步 **{run_act_km:.2f} km**、游泳 **{swim_act_km:.2f} km**，整體時間執行率達 **{overall_completion:.1f}%**。\n")
-        if week_num == 34:
-            f.write("- **Base 3-3 調整週超補償節奏精準**：在歷經 W33 大量週後，本週落實體能吸收與神經超補償，課表質優且疲勞管理得當。\n")
-            f.write("- **週四單車 TEMPO 3x15 ＋ 轉換跑精準達標**：8/20 單車 85 分鐘 100% 達標 (NP 162W, 142 bpm)，TEMPO 區間精準鎖定在 155W-165W；下車後無縫銜接 28 分鐘 (3.66km) 轉換跑，高步頻 (176 spm) 與輕著地展現極佳的神經肌肉轉向適應力。\n")
-            f.write("- **週三甜甜泳課 3.15km 高效巡航**：8/19 游泳 63 分鐘游出 2:02/100m 均速，核心流線型支撐與水感推進力優異。\n")
-            f.write("- **週二 Z2 跑步成熟自覺收操**：8/18 跑步 57 分鐘 (9.45km, 6:06/km)，主動於 9.45km 適度收操防傷，既獲取有氧刺激又防範過度疲勞。\n")
+        if week_num == 37:
+            f.write(f"- **Build 1-2 第一建構期第二週扎實推進**：週一完全休息超補償後，週二晨跑超額達標，本週已累積自行車 **{bike_act_km:.2f} km**、跑步 **{run_act_km:.2f} km**、游泳 **{swim_act_km:.2f} km**，整體時間執行率達 **{overall_completion:.1f}%**。\n")
+            f.write("- **週二 12.48km 跑步專項高質量完成 (83.0 rTSS)**：9/8 跑步 1 小時 27 分 23 秒 (12.48km, 7:00/km, NGP 5:36/km, 均心 148 bpm, 均瓦 217W 3.18W/kg, 最大 457W, 脫鉤率 Pw:HR -2.69% / Spd:HR 0.07%)，距離達成率 107.6%、TSS 達成率 100.8%，間歇衝刺段步頻 182-187 spm、觸地時間 200-215ms、垂直比 6-7%，打破 5 項個人紀錄 (5 PRs)，負脫鉤展現極佳心肺抗疲勞力與著地經濟性！\n")
         elif week_num == 36:
             f.write(f"- **Build 1-1 第一建構期旗開得勝・全週圓滿高質量結算**：本週正式邁入專項建構期，全週圓滿完成自行車 **{bike_act_km:.2f} km**、跑步 **{run_act_km:.2f} km**、游泳 **{swim_act_km:.2f} km**，三項累積總時長達 **13.95 小時** (整體時間執行率 **{overall_completion:.1f}%**)，總 TSS 突破 **800+**，專項耐力、閾值衝擊、轉換適應與長距離水感全面大躍升！\n")
             f.write("- **週日單車 Endurance 2.5 (66.02km) ＋ 長游 3,450m 高質量雙課表**：9/6 單車 2h31m (107.1 TSS, 均速 26.28 km/h) 穩健 Zone 2 巡航並落實補給演練；隨後接續 3,450m 長游 (1h12m, 93.9 sTSS, 均速 2:04.5/100m)，單日累積 69.47 km、201.0 TSS，週游量正式跨越 10 公里大關 (10.05 km)！\n")
@@ -381,11 +379,9 @@ def build_report(target_date: date):
     font(p1.add_run("1. 執行亮點與成效分析 (Execution Highlights & Milestone Analytics)"), 12, True, "2E74B5")
     p1_body = doc.add_paragraph()
     p1_body.add_run(f"• 當週累積自行車 {bike_act_km:.2f} km、跑步 {run_act_km:.2f} km、游泳 {swim_act_km:.2f} km，整體時間執行率達 {overall_completion:.1f}%。\n")
-    if week_num == 34:
-        p1_body.add_run("• Base 3-3 調整週超補償節奏精準：在歷經 W33 大量週後，本週落實體能吸收與神經超補償，課表質優且疲勞管理得當。\n")
-        p1_body.add_run("• 週四單車 TEMPO 3x15 ＋ 轉換跑精準達標：8/20 單車 85 分鐘 100% 達標 (NP 162W, 142 bpm)，TEMPO 區間精準鎖定在 155W-165W；下車後無縫銜接 28 分鐘 (3.66km) 轉換跑，高步頻 (176 spm) 與輕著地展現極佳的神經肌肉轉向適應力。\n")
-        p1_body.add_run("• 週三甜甜泳課 3.15km 高效巡航：8/19 游泳 63 分鐘游出 2:02/100m 均速，核心流線型支撐與水感推進力優異。\n")
-        p1_body.add_run("• 週二 Z2 跑步成熟自覺收操：8/18 跑步 57 分鐘 (9.45km, 6:06/km)，主動於 9.45km 適度收操防傷，既獲取有氧刺激又防範過度疲勞。\n")
+    if week_num == 37:
+        p1_body.add_run(f"• Build 1-2 第一建構期第二週扎實推進：週一完全休息超補償後，週二晨跑超額達標，本週已累積自行車 {bike_act_km:.2f} km、跑步 {run_act_km:.2f} km、游泳 {swim_act_km:.2f} km，整體時間執行率達 {overall_completion:.1f}%。\n")
+        p1_body.add_run("• 週二 12.48km 跑步專項高質量完成 (83.0 rTSS)：9/8 跑步 1 小時 27 分 23 秒 (12.48km, 7:00/km, NGP 5:36/km, 均心 148 bpm, 均瓦 217W 3.18W/kg, 最大 457W, 脫鉤率 Pw:HR -2.69% / Spd:HR 0.07%)，距離達成率 107.6%、TSS 達成率 100.8%，間歇衝刺段步頻 182-187 spm、觸地時間 200-215ms、垂直比 6-7%，打破 5 項個人紀錄 (5 PRs)，負脫鉤展現極佳心肺抗疲勞力與著地經濟性！\n")
     elif week_num == 36:
         p1_body.add_run(f"• Build 1-1 第一建構期旗開得勝・全週圓滿高質量結算：本週正式邁入專項建構期，全週圓滿完成自行車 {bike_act_km:.2f} km、跑步 {run_act_km:.2f} km、游泳 {swim_act_km:.2f} km，三項累積總時長達 13.95 小時 (整體時間執行率 {overall_completion:.1f}%)，總 TSS 突破 800+，專項耐力、閾值衝擊、轉換適應與長距離水感全面大躍升！\n")
         p1_body.add_run("• 週日單車 Endurance 2.5 (66.02km) ＋ 長游 3,450m 高質量雙課表：9/6 單車 2h31m (107.1 TSS, 均速 26.28 km/h) 穩健 Zone 2 巡航並落實補給演練；隨後接續 3,450m 長游 (1h12m, 93.9 sTSS, 均速 2:04.5/100m)，單日累積 69.47 km、201.0 TSS，週游量正式跨越 10 公里大關 (10.05 km)！\n")

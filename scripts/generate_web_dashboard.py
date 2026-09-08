@@ -221,7 +221,21 @@ def build_daily_feedback_cards(events):
             metrics_chips.append(f"<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 划水均速：<strong style='color:#22D3EE;'>{swim_m}:{swim_s:02d} /100m</strong></div>")
 
         # Specific Rich TP metrics and Coach Advice
-        if ev_d_str == "2026-09-06" and t == "Bike":
+        if ev_d_str == "2026-09-08" and t == "Run":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(245,158,11,0.4);'>👟 平均配速：<strong style='color:#F59E0B;'>7:00 /km</strong> (NGP 5:36 /km ｜ 8.57 km/h)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#F43F5E;'>148 bpm</strong> (最高 187 bpm ｜ 恢復區 45.2m, 穩態區 31.5m)</div>")
+            metrics_chips.append("<div class='metric-chip'>⚡ 平均功率：<strong>217 W</strong> (3.18 W/kg ｜ 最大 457 W ｜ 1小時均瓦 226 W)</div>")
+            metrics_chips.append("<div class='metric-chip'>👣 平均步頻：<strong style='color:#10B981;'>129 spm</strong> (間歇衝刺段 182~187 spm ｜ 最高 214 spm)</div>")
+            metrics_chips.append("<div class='metric-chip'>⏱️ 觸地時間：<strong style='color:#38BDF8;'>261.9 ms</strong> (衝刺段 200~215 ms) ｜ 垂直振幅 7.46 cm ｜ 垂直比 8.0% (衝刺段 6~7%) ｜ 步幅 1.03 m</div>")
+            metrics_chips.append("<div class='metric-chip'>📉 有氧脫鉤率：<strong style='color:#10B981;'>Pw:HR -2.69% ｜ Spd:HR 0.07%</strong> (負脫鉤零漂移，心肺抗疲勞強大)</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>83.0 rTSS</strong> (IF 0.714 ｜ 計畫 82.3 rTSS)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 消耗熱量：<strong>868 kcal</strong> (做功 1,141 kJ)</div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>3/5 (良好)</strong> ｜ RPE 4/10 ｜ 破 5 項個人紀錄 (5 PRs)</div>")
+            advice_p1 = "晨間高質量完成 1 小時 27 分 (12.48 km) 跑步課表！距離達成率 107.6% 超額完成，TSS 達 83.0 (達成率 100.8%)，精準扎實推進 Build 1-2（第一建構期 第二週）跑步專項耐力與間歇神經刺激！"
+            advice_p2 = "全程均心率 148 bpm，在包含多組 400m 漸速與間歇衝刺（間歇段步頻 182~187 spm、功率達 370W~457W、觸地時間縮短至 200~215 ms、垂直比僅 6~7%）的刺激下，有氧功率脫鉤率仍呈現優異的負脫鉤 (Pw:HR -2.69%)，速度脫鉤率亦僅 0.07%，展現頂尖的心肺耐受度與體溫/心率零漂移的抗疲勞水準！"
+            advice_p3 = "今日 83 rTSS 跑步順利收工，打破 5 項個人紀錄。課後請落實 30 分鐘黃金補充窗口（25g 優質蛋白＋50-75g 碳水化物與電解質水）。明日 (週三) 安排 90 分鐘甜甜長游課表，下水前做好小腿比目魚肌、阿基里斯腱與足底筋膜滾筒放鬆，充分利用長池浮力進行下肢動態排酸！"
+
+        elif ev_d_str == "2026-09-06" and t == "Bike":
             metrics_chips.append("<div class='metric-chip' style='border-color:rgba(56,189,248,0.4);'>🚴 平均時速：<strong style='color:#38BDF8;'>26.28 km/h</strong> (戶外長騎 / Endurance 2.5)</div>")
             metrics_chips.append("<div class='metric-chip'>⏱️ 實際時間：<strong>2:30:44 (150 分)</strong></div>")
             metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>107.1 TSS</strong> (IF 0.653 ｜ Zone 2 有氧巡航)</div>")
@@ -631,7 +645,23 @@ def build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est):
     has_815_bike = any(ev.get("date") == "2026-08-15" and ev.get("type") == "Bike" for ev in completed)
     has_815_run = any(ev.get("date") == "2026-08-15" and ev.get("type") == "Run" for ev in completed)
     
-    if w == 36 and completed:
+    if w == 37 and completed:
+        h1 = (
+            f"• <strong>【Build 1-2 第一建構期推進・跑步專項超額高質量達標】</strong> 第 37 週邁入 Build 1-2 建構期第二週，週一完全休息超補償後，週二早晨順利完成 <strong>{run_dist:.2f} km</strong> 跑步專項課表（完成率 107.6%，時間達成率 97.1%），TSS 達 <strong>83.0 rTSS</strong>，單日打破 5 項個人紀錄！<br>"
+            "• <strong>【9/08 週二 12.48km 漸速與間歇衝刺跑 (83 rTSS)】</strong> 耗時 1h27m，均瓦 217W (3.18 W/kg, 最大 457W)，均心率 148 bpm；間歇衝刺段步頻高達 182~187 spm，垂直比低至 6~7%，觸地時間縮短至 200~215ms；有氧脫鉤率呈現絕佳負脫鉤 (Pw:HR -2.69% ｜ Spd:HR 0.07%)，展現極高擺腿經濟性及心肺零漂移！<br>"
+            "• <strong>【9/07 週一 Build 1-2 完全休息日 (Rest Day)】</strong> 嚴格落實休息與神經修復，為本週高負荷建構儲備充沛體能。"
+        )
+        h2 = (
+            "• <strong>【跑步步頻與著地經濟性】</strong> 間歇衝刺段展現 182-187 spm 高步頻與 <215ms 短觸地，垂直比 6-7% 更是頂尖水準。在長距離定速巡航時，持續將步頻維持在 175-180 spm，減輕膝踝衝擊力，保護全馬後段肌肉剛性。<br>"
+            "• <strong>【負脫鉤的心肺意義】</strong> Pw:HR -2.69% 代表在 87 分鐘、12.5 公里的跑步中，心率與功率完全沒有發生任何疲勞漂移，脂肪氧化與心肌效率處於極佳狀態。<br>"
+            "• <strong>【明日長池甜甜泳課排酸重點】</strong> 明日 (週三) 為 90 分鐘甜甜泳課，請保持流線型低心率巡航，發揮水中動態排酸效益。"
+        )
+        h3 = (
+            "• <strong>【黃金窗口營養補充】</strong> 83 rTSS 消耗 868 kcal 後，立即補充碳水化合物與每公斤 1.6-1.8g 優質蛋白質，促進肝醣深層回補與肌纖維微創修復。<br>"
+            "• <strong>【下肢肌群筋膜滾筒放鬆】</strong> 重點針對小腿比目魚肌、阿基里斯腱、足底筋膜與臀大肌進行深層按壓放鬆，維持肌肉彈性。<br>"
+            "• <strong>【水份與深層睡眠】</strong> 持續補充電解質水，今晚爭取 8 小時充足睡眠，為明日游泳與週四單車 TEMPO 3x18' 蓄力。"
+        )
+    elif w == 36 and completed:
         h1 = (
             f"• <strong>【Build 1-1 第一建構期旗開得勝・全週三項圓滿高質量結算】</strong> 第 36 週正式邁入 Build 1 專項建構期，全週圓滿完成自行車 <strong>{bike_dist:.2f} km (6.73 小時)</strong>、跑步 <strong>{run_dist:.2f} km (3.82 小時)</strong>、游泳 <strong>{swim_dist:.2f} km (3.40 小時)</strong>，三項累積總時長達 <strong>13.95 小時</strong> (整體時間執行率 <strong>95.7%</strong>)，總 TSS 突破 <strong>800+</strong>，專項耐力、閾值衝擊、下車轉換與長距離水感全面大幅躍升！<br>"
             "• <strong>【9/06 週日單車 Endurance 2.5 (66.02km) ＋ 長游 3,450m 高質量雙課表】</strong> 單車 2h31m (107.1 TSS, 均速 26.28 km/h)，穩健鎖定 Zone 2 並落實每小時 75-90g 碳水與電解質補給實戰演練；隨後接續 3,450m 長游 (1h12m, 93.9 sTSS, 均速 2:04.5/100m)，單日累積 69.47 km、201.0 TSS，游泳不僅達成高耐力刺激更發揮出色的下肢動態排酸，週游量正式跨越 10 公里大關 (10.05 km)！<br>"
@@ -752,6 +782,21 @@ def build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est):
             "• <strong>【抗發炎修復飲食與優質蛋白】</strong> 每日維持每公斤 1.6-1.8g 優質蛋白質攝取，搭配富含抗氧化物（藍莓、深綠色蔬菜）與 Omega-3 魚油之抗發炎飲食，加速深層微創修復。<br>"
             "• <strong>【深層睡眠管理】</strong> 本週爭取每晚 8-8.5 小時高品質深層睡眠，促進生長激素深度釋放以達到最大化超補償效果。"
         )
+    elif w == 37 and not completed:
+        h1 = (
+            "• <strong>【Build 1-2 第一建構期 第二週推進】</strong> 第 37 週持續推進 Build 1 建構期，加深專項耐力與間歇神經刺激，全週排定總訓練時長約 <strong>14.3 小時</strong>。<br>"
+            "• <strong>【核心課表規劃】</strong> 週二單車 TEMPO 6x3 與 90 分鐘跑步打底、週三 90 分鐘甜甜長游、週四 TEMPO 3x18' (90 分鐘)、週五 90 分鐘甜甜泳課、週六 4 小時北海岸繞圈 (132km) ＋ 60 分鐘轉換跑 (11km) 週末大日、週日 90 分鐘有氧跑 ＋ 70 分鐘 3,200m 比賽配速游。"
+        )
+        h2 = (
+            "• <strong>【週一 Rest Day 完全修復】</strong> 週一安排完全休息日，徹底修復 W36 超量訓練的神經肌肉疲勞。<br>"
+            "• <strong>【TEMPO 瓦數與轉換跑步頻紀律】</strong> 週二與週四 TEMPO 課表嚴格守在 155W-165W (75%-80% FTP)；轉換跑維持 175-180 spm 與輕著地感。<br>"
+            "• <strong>【北海岸破百長騎補給實測】</strong> 週六 132km 長騎落實每小時 75-90g 碳水與電解質水補充。"
+        )
+        h3 = (
+            "• <strong>【肌力訓練搭配】</strong> 週一與週四主課 B，週三 15 分鐘核心短課。<br>"
+            "• <strong>【蛋白質與營養補充】</strong> 每日維持每公斤 1.6-1.8g 優質蛋白質攝取。<br>"
+            "• <strong>【睡眠管理】</strong> 每晚確保 8 小時深層睡眠。"
+        )
     elif w == 36 and not completed:
         h1 = (
             "• <strong>【Build 1-1 第一建構期正式展開】</strong> 經歷 Base 3 基礎打底與 W35 減量超量吸收後，第 36 週正式邁入<strong>「Build 1-1（第一建構期 第一週）」</strong>。核心任務由單純的低強度基礎堆疊，轉向<strong>「專項抗乳酸耐受力、TEMPO 瓦數續航力與長距離轉換適應」</strong>，全週排定總時長達 <strong>14.2 小時 (850 分鐘)</strong>。<br>"
@@ -776,7 +821,7 @@ def build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est):
         h3 = "• 課前充足熱身，課後落實收操與營養補充。"
 
     return f"""
-    <div class="section-box" style="border-left: 4px solid #38BDF8; background: linear-gradient(135deg, rgba(30,41,59,0.85), rgba(15,23,42,0.95)); margin-bottom: 20px;">
+    <div id="coachInsightsBox" class="section-box" style="border-left: 4px solid #38BDF8; background: linear-gradient(135deg, rgba(30,41,59,0.85), rgba(15,23,42,0.95)); margin-bottom: 20px;">
         <div class="section-title" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
             <span>🧭 教練視角綜合解析與後續建議 (Daily & Weekly Coach Insights)</span>
             <span style="font-size:0.75rem; background:rgba(56,189,248,0.15); color:#38BDF8; border:1px solid rgba(56,189,248,0.3); padding:3px 8px; border-radius:6px; font-weight:600;">✨ 每日自動更新即時同步</span>
@@ -794,7 +839,7 @@ def build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est):
                     {h2}
                 </div>
             </div>
-            <div style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid rgba(56, 189, 248, 0.3);">
+            <div id="recovery-guideline" style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid rgba(56, 189, 248, 0.3);">
                 <div style="font-weight: 700; color: #38BDF8; margin-bottom: 8px; font-size: 0.92rem;">🧪 賽後恢復與能量補給指南</div>
                 <div style="font-size: 0.86rem; color: #E2E8F0; line-height: 1.7;">
                     {h3}
@@ -1716,6 +1761,12 @@ def generate_52_week_dashboard():
                 openSubtab('review');
             }} else if (hash === 'recovery' || hash === 'overview') {{
                 openSubtab('overview');
+                if (hash === 'recovery') {{
+                    setTimeout(() => {{
+                        const target = document.getElementById('recovery-guideline') || document.getElementById('coachInsightsBox');
+                        if (target) target.scrollIntoView({{ behavior: 'smooth' }});
+                    }}, 150);
+                }}
             }}
         }}
 

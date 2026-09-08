@@ -213,4 +213,13 @@
   3. **未設定距離目標項目優化 (`scripts/generate_execution_report.py`)**：TP 中以時間/強度排定之游泳與單車課表，當計畫距離為 0 時，於總表與每日明細中顯示為 `-`（依時間排定），避免呈現 `0.00 km` 造成「漏算或計畫為 0」的誤解。
   4. **Web 儀表板回顧分頁邏輯優化 (`scripts/generate_web_dashboard.py`)**：修正週次分頁優先載入當週已結算報告邏輯，並動態呈現「當週 (W36) 執行率回顧」或「上週 (W35) 執行率回顧」。
   5. **發布腳本容錯優化 (`scripts/package_for_web.py`)**：修正 Windows 檔案鎖定導致 `shutil.rmtree` 報錯 WinError 32 的問題，確保順暢發布至 `docs/`。
+- 2026-09-08 成功同步今日 (9/8) 週二晨間專項間歇與耐力跑數據（TrainingPeaks 專項建構期 Build 1-2）：
+  1. **晨間專項耐力與間歇衝刺跑 (Running / 12.48 km)**：1 小時 27 分 23 秒完成 12.48 km（距離達成率 107.6% 超額達標，時間達成率 97.1%，均速 7:00/km，NGP 標準化配速 5:36/km，均瓦 217W 3.18W/kg，最大瓦數 457W，1 小時均瓦 226W，均心率 148 bpm，最高心率 187 bpm，恢復區間 45.2 分鐘，穩態區間 31.5 分鐘，平均步頻 129 spm 含組間休走 / 間歇衝刺段高達 182~187 spm / 最高 214 spm，觸地時間 261.9 ms / 衝刺段 200~215 ms，垂直振幅 7.46 cm，垂直比 8.0% / 衝刺段 6~7%，有氧脫鉤率 Pw:HR -2.69% 負脫鉤 / Spd:HR 0.07% 零漂移展現頂尖的心肺抗疲勞力與擺腿經濟性，rTSS 82.99 / 計畫 82.3，IF 0.714，消耗 868 kcal，做功 1,141 kJ，體感自覺 3/5 良好 ｜ RPE 4/10，打破 5 項個人紀錄 5 PRs）。
+  2. **W37 Build 1-2 本週累計進度**：週一完全休息後，週二跑步 12.48 km 超額開局，累計 83.0 rTSS，整體時間執行率達 10.1%（全週排定 14.3 小時）。
+  3. **成果更新與線上部署**：
+     - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py`，整合 9/08 跑步專項生理指標卡片、教練深度解析、心率/功率負脫鉤檢驗與賽後恢復補給指引。
+     - 優化 Web 儀表板 `#recovery` 錨點與導覽邏輯，自動切換至 Overview 總覽頁並平滑滾動至賽後恢復與補給指南 (Recovery & Fueling Protocol)。
+     - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
+     - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。
+
 
