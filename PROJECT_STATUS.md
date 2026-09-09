@@ -221,5 +221,13 @@
      - 優化 Web 儀表板 `#recovery` 錨點與導覽邏輯，自動切換至 Overview 總覽頁並平滑滾動至賽後恢復與補給指南 (Recovery & Fueling Protocol)。
      - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
      - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。
+- 2026-09-09 成功同步今日 (9/9) 週三 50m 長池「甜 課表」游泳數據（TrainingPeaks 專項建構期 Build 1-2）：
+  1. **50m 長池甜甜泳課 (Swimming / 甜 課表 / 3,150 m)**：59 分 07 秒完成 3,150 m（均速 1:53.0/100m，標準化配速 1:52.6/100m，均時速 3.19 km/h，sTSS 104.91 / 計畫 109.4，IF 1.021，均心率 111 bpm，最高心率 184 bpm，心率恢復區間 32.6 分鐘、耐力區間 18.3 分鐘，低心率恢復/耐力區佔比高達 86.0%，均划頻 27 spm，最高 34 spm，有氧速度脫鉤率 Spd:HR 僅 0.34% 零漂移，消耗 632 kcal，體感自覺滿分 5/5 ｜ RPE 3/10 輕鬆省力；以極低心肺代價游出 Sub-11 游泳完賽 1h12m (3.8km / 1:53/100m) 之黃金標竿配速，並有效利用長池水壓與浮力促進昨日 12.48km 跑步疲勞之肌肉動態排酸）。
+  2. **W37 Build 1-2 本週累計進度**：截至週三已完成自行車 **20.79 km (40 分)**、跑步 **12.48 km (1 小時 27 分)**、游泳 **3.15 km (59 分)**，三項總訓練時間達 **3.1 小時**，整體時間執行率達 **21.6%**（全週排定 14.3 小時），三項累計負荷突破 **220+ TSS**。
+  3. **成果更新與線上部署**：
+     - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py`，整合 9/09 游泳專項生理指標卡片、教練深度解析、1:53 巡航手感定型與賽後恢復補給指引。
+     - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
+     - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。
+
 
 
