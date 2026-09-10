@@ -200,7 +200,8 @@ def build_report(target_date: date):
         f.write("### 1. 執行亮點與成效分析 (Execution Highlights & Milestone Analytics)\n")
         f.write(f"- **當週高質量耐力里程累積**：已累積自行車 **{bike_act_km:.2f} km**、跑步 **{run_act_km:.2f} km**、游泳 **{swim_act_km:.2f} km**，整體時間執行率達 **{overall_completion:.1f}%**。\n")
         if week_num == 37:
-            f.write(f"- **Build 1-2 第一建構期第二週扎實推進**：週一完全休息超補償後，週二晨跑超額達標、週三長池甜甜長游高效巡航，本週已累積自行車 **{bike_act_km:.2f} km**、跑步 **{run_act_km:.2f} km**、游泳 **{swim_act_km:.2f} km**，整體時間執行率達 **{overall_completion:.1f}%**。\n")
+            f.write(f"- **Build 1-2 第一建構期第二週扎實推進**：週一完全休息超補償後，週二晨跑超額達標、週三長池甜甜長游高效巡航、週四單車 TEMPO 3x18' 完美吃下，本週已累積自行車 **{bike_act_km:.2f} km**、跑步 **{run_act_km:.2f} km**、游泳 **{swim_act_km:.2f} km**，三項總時長達 **{(total_actual_time/60.0):.1f} 小時** (整體時間執行率達 **{overall_completion:.1f}%**)，三項總負荷突破 **308+ TSS**！\n")
+            f.write("- **週四室內單車 TEMPO 3x18' 42.84km (83.4 TSS)**：9/10 單車 1 小時 30 分 19 秒完成 42.84 km (均速 28.45 km/h, NP 153W, 均瓦 139W 2.06 W/kg, 最大 176W, VI 1.10, 均踏頻 84 rpm, 均心率 137 bpm, 最高 157 bpm, 爬升 +356m, 做功 755 kJ, 消耗 721 kcal, 體感自覺滿分 5/5 ｜ RPE 4/10)，有氧脫鉤率 Pw:HR 僅 4.81% 零漂移！課表精準執行 3 組 18 分鐘節奏間歇 (每組 3x6min @ 169W 搭配 1min 動態微調)，Zone 3 節奏區扎實累積 56.9 分鐘，均心率妥善維持在 Zone 1-2 (涵蓋率 97.7%)，完美奠定 Sub-11 自行車巡航 (140-145W) 之超額抗疲勞底層！\n")
             f.write("- **週三 50m長池甜甜泳課 3,150m 高效巡航 (104.9 sTSS)**：9/9 游泳 59 分 07 秒完成 3,150m (均速 1:53.0/100m, 均時速 3.19 km/h, 均心率 111 bpm, 最高 184 bpm, IF 1.02, 體感自覺滿分 5/5 ｜ RPE 3/10, 消耗 632 kcal)，有氧脫鉤率 Spd:HR 僅 0.34% 展現極高心肺效率與水感零漂移！均速 1:53/100m 完全契合 Sub-11 完賽目標配速線 (1h12m / 1:53/100m)，且均心率僅 111 bpm (恢復與耐力區間佔比高達 86%)，以極低心肺代價發揮出色的下肢動態排酸，同時高效累積超過 100 點負荷！\n")
             f.write("- **週二 12.48km 跑步專項高質量完成 (83.0 rTSS)**：9/8 跑步 1 小時 27 分 23 秒 (12.48km, 7:00/km, NGP 5:36/km, 均心 148 bpm, 均瓦 217W 3.18W/kg, 最大 457W, 脫鉤率 Pw:HR -2.69% / Spd:HR 0.07%)，距離達成率 107.6%、TSS 達成率 100.8%，間歇衝刺段步頻 182-187 spm、觸地時間 200-215ms、垂直比 6-7%，打破 5 項個人紀錄 (5 PRs)，負脫鉤展現極佳心肺抗疲勞力與著地經濟性！\n")
         elif week_num == 36:
@@ -381,7 +382,8 @@ def build_report(target_date: date):
     p1_body = doc.add_paragraph()
     p1_body.add_run(f"• 當週累積自行車 {bike_act_km:.2f} km、跑步 {run_act_km:.2f} km、游泳 {swim_act_km:.2f} km，整體時間執行率達 {overall_completion:.1f}%。\n")
     if week_num == 37:
-        p1_body.add_run(f"• Build 1-2 第一建構期第二週扎實推進：週一完全休息超補償後，週二晨跑超額達標、週三長池甜甜長游高效巡航，本週已累積自行車 {bike_act_km:.2f} km、跑步 {run_act_km:.2f} km、游泳 {swim_act_km:.2f} km，整體時間執行率達 {overall_completion:.1f}%。\n")
+        p1_body.add_run(f"• Build 1-2 第一建構期第二週扎實推進：週一完全休息超補償後，週二晨跑超額達標、週三長池甜甜長游高效巡航、週四單車 TEMPO 3x18' 完美吃下，本週已累積自行車 {bike_act_km:.2f} km、跑步 {run_act_km:.2f} km、游泳 {swim_act_km:.2f} km，三項總時長達 {(total_actual_time/60.0):.1f} 小時 (整體時間執行率達 {overall_completion:.1f}%)，三項總負荷突破 308+ TSS！\n")
+        p1_body.add_run("• 週四室內單車 TEMPO 3x18' 42.84km (83.4 TSS)：9/10 單車 1 小時 30 分 19 秒完成 42.84 km (均速 28.45 km/h, NP 153W, 均瓦 139W 2.06 W/kg, 最大 176W, VI 1.10, 均踏頻 84 rpm, 均心率 137 bpm, 最高 157 bpm, 爬升 +356m, 做功 755 kJ, 消耗 721 kcal, 體感自覺滿分 5/5 ｜ RPE 4/10)，有氧脫鉤率 Pw:HR 僅 4.81% 零漂移！課表精準執行 3 組 18 分鐘節奏間歇 (每組 3x6min @ 169W 搭配 1min 動態微調)，Zone 3 節奏區扎實累積 56.9 分鐘，均心率妥善維持在 Zone 1-2 (涵蓋率 97.7%)，完美奠定 Sub-11 自行車巡航 (140-145W) 之超額抗疲勞底層！\n")
         p1_body.add_run("• 週三 50m長池甜甜泳課 3,150m 高效巡航 (104.9 sTSS)：9/9 游泳 59 分 07 秒完成 3,150m (均速 1:53.0/100m, 均時速 3.19 km/h, 均心率 111 bpm, 最高 184 bpm, IF 1.02, 體感自覺滿分 5/5 ｜ RPE 3/10, 消耗 632 kcal)，有氧脫鉤率 Spd:HR 僅 0.34% 展現極高心肺效率與水感零漂移！均速 1:53/100m 完全契合 Sub-11 完賽目標配速線 (1h12m / 1:53/100m)，且均心率僅 111 bpm (恢復與耐力區間佔比高達 86%)，以極低心肺代價發揮出色的下肢動態排酸，同時高效累積超過 100 點負荷！\n")
         p1_body.add_run("• 週二 12.48km 跑步專項高質量完成 (83.0 rTSS)：9/8 跑步 1 小時 27 分 23 秒 (12.48km, 7:00/km, NGP 5:36/km, 均心 148 bpm, 均瓦 217W 3.18W/kg, 最大 457W, 脫鉤率 Pw:HR -2.69% / Spd:HR 0.07%)，距離達成率 107.6%、TSS 達成率 100.8%，間歇衝刺段步頻 182-187 spm、觸地時間 200-215ms、垂直比 6-7%，打破 5 項個人紀錄 (5 PRs)，負脫鉤展現極佳心肺抗疲勞力與著地經濟性！\n")
     elif week_num == 36:

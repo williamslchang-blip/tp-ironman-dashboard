@@ -228,6 +228,14 @@
      - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py`，整合 9/09 游泳專項生理指標卡片、教練深度解析、1:53 巡航手感定型與賽後恢復補給指引。
      - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
      - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。
+- 2026-09-10 成功同步今日 (9/10) 週四室內單車 TEMPO 3x18' 專項節奏耐力數據（TrainingPeaks 專項建構期 Build 1-2）：
+  1. **室內單車節奏耐力間歇 (Cycling / TEMPO 3x18' / 42.84 km)**：1 小時 30 分 19 秒完成 42.84 km（時間達成率 100.4% 精準達標，TSS 達成率 101.8%，均速 28.45 km/h，標準化功率 NP 153W，均瓦 139W 2.06 W/kg，最大瓦數 176W，變異係數 VI 1.10 踩踏極度平穩，均踏頻 84 rpm，最高 95 rpm，均心率 137 bpm，最高心率 157 bpm，低心率恢復區 26.2 分鐘、耐力區 62.2 分鐘，Zone 1-2 涵蓋率高達 97.7%，爬升 +356m，做功 755 kJ，消耗 721 kcal，效率因子 EF 1.12，體感自覺滿分 5/5 ｜ RPE 4/10；有氧脫鉤率 Pw:HR 僅 4.81% 遠低於 5% 門檻展現極致心肺抗疲勞耐受力；課表扎實切分 3 大組 18 分鐘節奏區間 [每組 3x6min @ 169W 搭配 1min 動態微調]，Zone 3 節奏區累積 56.9 分鐘，為 Sub-11 單車巡航 140-145W 奠定強大的抗疲勞底層）。
+  2. **W37 Build 1-2 本週累計進度**：截至週四已完成自行車 **63.63 km (2 小時 10 分)**、跑步 **12.48 km (1 小時 27 分)**、游泳 **3.15 km (59 分)**，三項總訓練時間達 **4.6 小時**，整體時間執行率達 **32.1%**（全週排定 14.3 小時），三項累計負荷突破 **308+ TSS**！
+  3. **成果更新與線上部署**：
+     - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py`，整合 9/10 單車 TEMPO 3x18' 專屬生理指標卡片、功率與心率區間檢驗、Pw:HR 4.81% 有氧脫鉤分析、教練深度解析與賽後恢復補給指引。
+     - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
+     - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。
+
 
 
 
