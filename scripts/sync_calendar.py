@@ -149,6 +149,14 @@ def sync():
         elif "Day Off" in summary:
             w_type = "Day Off"
             
+        if "\ufffd" in summary:
+            if "3200" in summary:
+                summary = "Swim: 3200 主課表：比賽配速"
+            elif "3500" in summary:
+                summary = "Swim: 3500 主課表：比賽配速"
+            elif "Swim" in summary:
+                summary = "Swim: 甜 課表"
+
         live_events_by_slot[(str(dt), w_type)].append({
             "date": str(dt),
             "summary": summary,
