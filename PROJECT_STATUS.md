@@ -243,6 +243,15 @@
      - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py`，整合 9/11 游泳專項生理指標卡片、教練深度解析、1:53 巡航手感定型與週末 132km 長騎前之賽後恢復補給指引 (`#recovery`)。
      - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
      - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。
+- 2026-09-12 成功同步今日 (9/12) 週六北海岸長騎與下車轉換跑雙課表數據（TrainingPeaks 專項建構期 Build 1-2，單車：`http://tpks.ws/44IHFE4BX7X6LMMG5WWYIFBEG4`，跑步：`http://tpks.ws/NO2GBBFVX4J2VMMG5WWYIFBEG4`）：
+  1. **北海岸戶外耐力長騎 (Cycling / 北海岸（萊爾富）/ 59.60 km)**：2 小時 47 分 12 秒完成 59.60 km（均速 21.39 km/h，最大時速 49.95 km/h，總爬升 +729m，均心率 131 bpm，最高心率 180 bpm，Zone 1-2 恢復與耐力區佔比高達 82.0%，速度脫鉤率 Spd:HR -7.39% 絕佳負脫鉤，TSS 122.33，IF 0.622，消耗 1,233 kcal，體感自覺 3/5 ｜ RPE 3/10；在面對連續山海起伏坡度時恪守不爆心率紀律，並依後續轉換跑安排主動於 59.6km 自覺折返，展現成熟之防傷調控決策）。
+  2. **下車轉換跑 (Running / Brick 60min / 9.73 km)**：單車下車後僅間隔 25 分鐘立即換鞋起跑，1 小時 00 分 02 秒完成 9.73 km（時間達成率 100.0% 精準達標，距離達成率 92.7%，均速 6:10/km，均瓦 258W 做功 930.8 kJ，平均步頻 173 spm / 最高 188 spm 完美落實高步頻小步幅，均心率僅 117 bpm / 最高 170 bpm，有氧脫鉤率呈現極佳負脫鉤 Pw:HR -43.90% ｜ Spd:HR -42.34%，rTSS 47.38，IF 0.654，消耗 655 kcal，體感自覺滿分 5/5 ｜ RPE 5/10；長騎後下肢毫無發木僵硬，神經肌肉轉換順暢無比，以超高跑步經濟性達成深層動態排酸）。
+  3. **週六轉換日總結 (Brick Workout Total)**：總時長 **3 小時 47 分**、總距離 **69.33 km**、總爬升 **+733 m**、總訓練負荷 **169.7 TSS**、總消耗 **1,888 kcal**。
+  4. **W37 Build 1-2 本週累計進度**：截至週六已完成自行車 **123.23 km (4 小時 57 分)**、跑步 **22.21 km (2 小時 27 分)**、游泳 **6.40 km (2 小時 00 分)**，三項總訓練時間達 **9.41 小時**，整體時間執行率達 **65.6%**（全週排定 14.3 小時），全週三項累計總負荷強勢突破 **585+ TSS**！
+  5. **成果更新與線上部署**：
+     - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py`，整合 9/12 單車北海岸與 Brick 60min 轉換跑專屬生理指標卡片、教練深度解析、下車轉換步頻/極低心率檢驗與賽後恢復補給指引 (`#recovery`)。
+     - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
+     - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。
 
 
 
