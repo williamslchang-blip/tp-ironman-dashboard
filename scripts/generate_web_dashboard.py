@@ -223,7 +223,35 @@ def build_daily_feedback_cards(events):
             metrics_chips.append(f"<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 划水均速：<strong style='color:#22D3EE;'>{swim_m}:{swim_s:02d} /100m</strong></div>")
 
         # Specific Rich TP metrics and Coach Advice
-        if ev_d_str == "2026-09-12" and t == "Bike":
+        if ev_d_str == "2026-09-13" and t == "Run":
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(245,158,11,0.4);'>👟 平均配速：<strong style='color:#F59E0B;'>7:19 /km</strong> (8.19 km/h ｜ 最快 4:48 /km)</div>")
+            metrics_chips.append("<div class='metric-chip'>⏱️ 實際時間：<strong>1:29:56 (90.0 分)</strong> ｜ 時間完備度：<strong style='color:#10B981;'>99.9% 精準達標</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>📏 實跑距離：<strong>12.27 km</strong> (原定 15.0 km / 週六高負荷後自覺調控)</div>")
+            metrics_chips.append("<div class='metric-chip'>⚡ 平均功率：<strong>209 W</strong> (最大 396 W ｜ 3.07 W/kg ｜ 做功 1,127.7 kJ)</div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#10B981;'>134 bpm</strong> (最高 161 bpm ｜ 恢復區 85.2m 佔 94.7%)</div>")
+            metrics_chips.append("<div class='metric-chip'>👣 平均步頻：<strong style='color:#10B981;'>162 spm</strong> (最高 184 spm ｜ 輕著地高經濟性巡航)</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>50.3 rTSS</strong> (IF 0.548 ｜ 計畫 52.3 rTSS)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 消耗熱量：<strong>815 kcal</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>5/5 (極佳滿分)</strong> ｜ RPE 3/10 (輕鬆有氧巡航)</div>")
+            advice_p1 = "清晨高質量執行 1 小時 29 分 56 秒 (12.27 km) EASY 有氧耐力跑！時間達成率 99.9% 精準達標。在昨日剛完成近 60km 北海岸山海起伏長騎 (+729m 爬升) ＋ 60 分鐘轉換跑的高負荷疲勞下，今晨出發雙腿完全無沉重感或僵硬，以極具彈性且放鬆的步態持續巡航 90 分鐘，體感自覺給出 5/5 滿分！"
+            advice_p2 = "全程均心率僅 134 bpm（低心率 Zone 1-2 恢復區間高達 85.2 分鐘，佔比高達 94.7%），均功率 209W (做功 1,127.7 kJ)，均步頻 162 spm；心率平穩如鏡完全無任何心率漂移。此趟課表以極佳的有氧經濟性與脂肪氧化效率，在完全不累積中樞神經疲勞的前提下，完美達成下肢肌肉動態排酸與長距離有氧耐力堆疊！"
+            advice_p3 = "今日晨跑 12.27km (50.3 rTSS) 為全週跑步項目畫下完美句點，全週三趟跑步累計 34.48 km (達成率 92.9% 距離、98.7% 時間)，步態經濟性與抗衝擊剛性維持極佳！跑後充分補水並稍作休息，下午接續進行 3,200m 長池比賽配速長游，以極高品質的跑游雙課表迎接收尾！"
+
+        elif ev_d_str == "2026-09-13" and t == "Swim":
+            summary = "Swim: 3200 主課表：比賽配速"
+            metrics_chips.append("<div class='metric-chip' style='border-color:rgba(34,211,238,0.4);'>🏊 划水均速：<strong style='color:#22D3EE;'>2:00.8 /100m</strong> (2.98 km/h ｜ 標準化速度 2:00.6 /100m ｜ 50m 長池)</div>")
+            metrics_chips.append("<div class='metric-chip'>⏱️ 實際時間：<strong>1:04:20 (64.3 分)</strong> ｜ 實游距離：<strong style='color:#10B981;'>3,200 m (100.0% 達成)</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>💓 均心率：<strong style='color:#10B981;'>136 bpm</strong> (最高 166 bpm ｜ 恢復與耐力區佔 78.4%)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔄 平均划頻：<strong style='color:#10B981;'>25 spm</strong> (划幅達 1.99 m/stroke ｜ 最高 30 spm)</div>")
+            metrics_chips.append("<div class='metric-chip'>📉 有氧脫鉤率：<strong style='color:#10B981;'>Spd:HR -4.97%</strong> (優異負脫鉤，水感穩定零漂移)</div>")
+            metrics_chips.append("<div class='metric-chip'>📊 訓練壓力：<strong>92.9 sTSS</strong> (IF 0.930 ｜ 計畫 90.8 sTSS ｜ 達成率 102.3%)</div>")
+            metrics_chips.append("<div class='metric-chip'>🔥 消耗熱量：<strong>621 kcal</strong></div>")
+            metrics_chips.append("<div class='metric-chip'>😊 體感自覺：<strong style='color:#10B981;'>3/3 (自覺良好)</strong> ｜ RPE 4/10 (順暢巡航)</div>")
+            advice_p1 = "下午於 50m 長池高質量完成 1 小時 04 分 (3,200m)「比賽配速」主課表！實游 3,200m 距離達成率 100.0%、sTSS 達 92.9 (達成率 102.3%) 完美達標。在經歷今晨 12.3km EASY 有氧跑與昨日單車 60km + 轉換跑 10km 的連續大訓練量下，下水後水感流暢無阻，展現頂尖的水感適應力與抗疲勞體能儲備！"
+            advice_p2 = "全趟均心率 136 bpm，划水均速 2:00.8 /100m (標準化速度 2:00.6 /100m)，均划頻 25 spm (划幅達 1.99m/stroke)；有氧速度脫鉤率呈現優異的負脫鉤 (Spd:HR -4.97%)！顯示在長達 3,200m 的比賽配速巡航中，核心流線型 (Streamline)、轉體延伸與水下抓抱推水技術始終維持極高效率，完全沒有因肌力疲勞造成身體下沉或心率漂移。"
+            advice_p3 = "今日跑游雙課表單日累積 15.47 公里、2 小時 34 分、143.2 TSS、消耗 1,436 kcal！利用 50m 長池水壓與浮力深度代謝今晨下肢跑步乳酸，達成極佳的動態排酸與水感定型。今日雙課表為 Build 1-2 (第一建構期第二週) 畫下圓滿句點，全週三項總負荷衝上 728.8 TSS、總時數近 12 小時，超補償吸收極為完整！"
+
+        elif ev_d_str == "2026-09-12" and t == "Bike":
             metrics_chips.append("<div class='metric-chip' style='border-color:rgba(56,189,248,0.4);'>🚴 平均時速：<strong style='color:#38BDF8;'>21.39 km/h</strong> (北海岸（萊爾富）戶外耐力長騎)</div>")
             metrics_chips.append("<div class='metric-chip'>⏱️ 實際時間：<strong>2:47:12 (167.2 分)</strong> ｜ 時間達成率：<strong>69.7%</strong></div>")
             metrics_chips.append("<div class='metric-chip'>📏 實騎距離：<strong>59.60 km</strong> (原定 100km / 北海岸折返自覺調整)</div>")
@@ -714,12 +742,37 @@ def build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est):
     has_819_swim = any(ev.get("date") == "2026-08-19" and ev.get("type") == "Swim" for ev in completed)
     has_818_run = any(ev.get("date") == "2026-08-18" and ev.get("type") == "Run" for ev in completed)
 
+    has_913_run = any(ev.get("date") == "2026-09-13" and ev.get("type") == "Run" for ev in completed)
+    has_913_swim = any(ev.get("date") == "2026-09-13" and ev.get("type") == "Swim" for ev in completed)
+    has_912_bike = any(ev.get("date") == "2026-09-12" and ev.get("type") == "Bike" for ev in completed)
+    has_912_run = any(ev.get("date") == "2026-09-12" and ev.get("type") == "Run" for ev in completed)
+
     has_816_run = any(ev.get("date") == "2026-08-16" and ev.get("type") == "Run" for ev in completed)
     has_816_swim = any(ev.get("date") == "2026-08-16" and ev.get("type") == "Swim" for ev in completed)
     has_815_bike = any(ev.get("date") == "2026-08-15" and ev.get("type") == "Bike" for ev in completed)
     has_815_run = any(ev.get("date") == "2026-08-15" and ev.get("type") == "Run" for ev in completed)
     
-    if w == 37 and completed:
+    if w == 37 and (has_913_run or has_913_swim):
+        h1 = (
+            f"• <strong>【Build 1-2 第一建構期第二週・全週三項圓滿高質量結算】</strong> 第 37 週邁入 Build 1-2 建構期第二週，全週圓滿完成自行車 <strong>{bike_dist:.2f} km (4.95 小時, 243.5 TSS)</strong>、跑步 <strong>{run_dist:.2f} km (3.93 小時, 180.7 rTSS)</strong>、游泳 <strong>{swim_dist:.2f} km (3.07 小時, 304.6 sTSS)</strong>，三項累積總時長達 <strong>{(sum(ev.get('actual_time', 0) for ev in completed)/60.0):.1f} 小時 (~12.0 小時)</strong> (整體時間執行率 <strong>83.5%</strong>)，全週總負荷強勢衝破 <strong>728.8 TSS (突破 725+ TSS)</strong>！專項耐力、閾值間歇、下車轉換、戶外長騎爬升與 50m 長池比賽配速全面大獲全勝！<br>"
+            "• <strong>【9/13 週日清晨 EASY 跑 12.27km (50.3 rTSS) ＋ 下午 50m 長池 3,200m 比賽配速長游 (92.9 sTSS) 雙課表】</strong> 清晨 90 分鐘 EASY 跑 (1h29m56s, 12.27km, 均心 134 bpm, 94.7% 恢復區, 50.3 rTSS, 體感滿分 5/5)；下午接續 3,200m 50m長池長游 (1h04m20s, 均速 2:00.8/100m, 92.9 sTSS, 均心 136 bpm, 均划頻 25 spm, 脫鉤率 Spd:HR -4.97% 負脫鉤)。單日合計 2 小時 34 分、15.47 km、143.2 TSS、燃燒 1,436 kcal，發揮極佳的下肢動態排酸與比賽配速手感定型！<br>"
+            "• <strong>【9/12 週六單車北海岸 59.60km (122.3 TSS) ＋ 轉換跑 60分 9.73km (47.4 rTSS) 雙課表】</strong> 單日合計 3 小時 47 分、69.33 km、爬升 +733m、累積負荷 169.7 TSS、燃燒 1,888 kcal！單車均心率 131 bpm (Zone 1-2 佔 82%)，爬升 +729m 下脫鉤率 Spd:HR -7.39%；下車後迅速換鞋，以 173 spm 高步頻與 117 bpm 超低均心率巡航 60 分鐘 (均速 6:10/km，均瓦 258W，脫鉤率 Pw:HR -43.90%)，時間完備度 100.0% 精準達標，下車雙腿毫無僵硬發木，體感給出滿分 5/5！<br>"
+            "• <strong>【9/11 週五 50m 長池甜甜泳課 3,250m (106.8 sTSS)】</strong> 耗時 1h01m，均速 1:53.6/100m，均心率 131 bpm，速度脫鉤率 Spd:HR -3.13% 負脫鉤，均速再度切中 Sub-11 游泳完賽標竿配速 (1h12m / 3.8km / 1:53/100m)！<br>"
+            "• <strong>【9/10 週四單車 TEMPO 3x18' 42.84km (83.4 TSS)】</strong> NP 153W (VI 1.10)，均心率 137 bpm，Zone 3 節奏區累積 56.9 分鐘，有氧脫鉤率 Pw:HR 僅 4.81% 零漂移，體感滿分 5/5！<br>"
+            "• <strong>【9/09 週三 50m 長池甜甜泳課 3,150m (104.9 sTSS)】</strong> 均速 1:53.0/100m，均心率僅 111 bpm，均划頻 27 spm，速度脫鉤率 0.34% 零漂移！<br>"
+            "• <strong>【9/08 週二 12.48km 跑步專項 (83.0 rTSS) ＋ 20.79km 單車 (40分)】</strong> 均瓦 217W，衝刺段步頻 182~187 spm、觸地時間 200~215ms，有氧脫鉤率 Pw:HR -2.69%，打破 5 項個人紀錄！"
+        )
+        h2 = (
+            "• <strong>【大鐵 226 賽道心率壓制與抗疲勞體感】</strong> 週日晨跑在累積疲勞下均心率僅 134 bpm (94.7% 恢復區)，週六轉換跑均心率 117 bpm，單車北海岸均心 131 bpm。全週在面對高負荷時始終恪守「心率不暴衝、瓦數不超標」紀律，展現出極致的脂肪氧化供能與抗心率漂移能力。<br>"
+            "• <strong>【游泳週量 9.60km 突破意義】</strong> 本週 3 趟 50m 長池游量高達 9.60 km (304.6 sTSS)，達成率高達 300%！三趟長游速度脫鉤率皆為負脫鉤或近零漂移 (-4.97%, -3.13%, 0.34%)，展現出極高穩定度的長距離抓抱水核心流線型。<br>"
+            "• <strong>【週末雙大日轉換與補給實戰】</strong> 週末兩天合計累積 84.8 km、6 小時 21 分、總負荷高達 312.9 TSS！水分、電解質與碳水補給策略執行得宜，無抽筋或腸胃不適。"
+        )
+        h3 = (
+            "• <strong>【Build 1-2 全週高負荷結算後超量恢復】</strong> 本週近 12 小時、728.8 TSS 深度消耗後，今晚請徹底放鬆，運動後 30 分鐘黃金窗口已啟動，請補充足量電解質水、高GI與複合碳水化合物，以及每公斤體重 1.6–1.8g 優質蛋白質（促使肌糖原超量補償與肌纖維深層修復）。<br>"
+            "• <strong>【全身深層筋膜滾筒放鬆】</strong> 今晚睡前請安排 20–25 分鐘滾筒放鬆，重點針對小腿比目魚肌、阿基里斯腱、股四頭肌、髂脛束、臀大肌與肩胛背闊肌進行深層按壓與動態伸展，釋放週末連續衝擊的肌筋膜緊繃。<br>"
+            "• <strong>【明日週一完全休息日 (Rest Day)】</strong> 明日 (9/14) 為 Build 1-3 前的完全休息日，請嚴格遵守不私自加課或進行大負荷重訓，今晚爭取 8–8.5 小時優質深層睡眠，促進生長激素分泌以修復肌纖維，讓身體充分享受 Build 1-2 的超量補償吸收，以飽滿精力迎接下一週 Build 1-3 挑戰！"
+        )
+    elif w == 37 and (has_912_bike or has_912_run):
         h1 = (
             f"• <strong>【Build 1-2 第一建構期第二週推進・週六 Brick 轉換大日圓滿達成】</strong> 第 37 週邁入 Build 1-2 建構期第二週，週一完全休息超補償後，週二晨跑超額達標 (12.5km)、週三長池甜甜長游高效巡航 (3.15km)、週四傍晚單車 TEMPO 3x18' 完美吃下 (42.8km)、週五 50m 長池甜甜長游高水準達標 (3.25km)，今日週六順利完成單車 59.60km (爬升 +729m) ＋ 下車無縫轉換跑 9.73km (60分鐘) 關鍵轉換雙課表！全週已累積自行車 <strong>{bike_dist:.2f} km</strong>、跑步 <strong>{run_dist:.2f} km</strong>、游泳 <strong>{swim_dist:.2f} km</strong>，三項總時長達 <strong>{(sum(ev.get('actual_time', 0) for ev in completed)/60.0):.1f} 小時</strong>，全週總負荷強勢突破 <strong>585+ TSS</strong>！<br>"
             "• <strong>【9/12 週六單車北海岸 59.60km (122.3 TSS) ＋ 轉換跑 60分 9.73km (47.4 rTSS) 雙課表】</strong> 單日合計 3 小時 47 分、69.33 km、爬升 +733m、累積負荷 169.7 TSS、燃燒 1,888 kcal！單車均心率 131 bpm (Zone 1-2 佔 82%)，爬升 +729m 下脫鉤率 Spd:HR -7.39%；下車後迅速換鞋，以 173 spm 高步頻與 117 bpm 超低均心率巡航 60 分鐘 (均速 6:10/km，均瓦 258W，脫鉤率 Pw:HR -43.90%)，時間完備度 100.0% 精準達標，下車雙腿毫無僵硬發木，體感給出滿分 5/5！<br>"

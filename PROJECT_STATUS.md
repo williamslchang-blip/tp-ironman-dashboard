@@ -252,6 +252,16 @@
      - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py`，整合 9/12 單車北海岸與 Brick 60min 轉換跑專屬生理指標卡片、教練深度解析、下車轉換步頻/極低心率檢驗與賽後恢復補給指引 (`#recovery`)。
      - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
      - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。
+- 2026-09-13 成功同步今日 (9/13) 週日清晨 EASY 有氧跑與下午 50m 長池 3,200m 比賽配速長游雙課表數據，圓滿結算第 37 週 (W37, Build 1-2 第一建構期第二週，跑步：`http://tpks.ws/UIWERZX2XCLK4AD5OV2XIYHPXU`，游泳：`http://tpks.ws/6BU5FTZLGE6ECAD5OV2XIYHPXU`)：
+  1. **晨間 EASY 有氧耐力跑 (Running / EASY / 12.27 km)**：1 小時 29 分 56 秒完成 12.27 km（時間達成率 99.9% 精準達標，均速 7:19/km，最快 4:48/km，均時速 8.19 km/h，均瓦 209W 3.07W/kg，最大 396W，做功 1,127.7 kJ，均心率 134 bpm，最高 161 bpm，Zone 1-2 恢復區間高達 85.2 分鐘 佔 94.7%，均步頻 162 spm，最高 184 spm，IF 0.548，50.31 rTSS，消耗 815 kcal，體感自覺滿分 5/5 ｜ RPE 3/10 輕鬆有氧；在昨日 60km 長騎與轉換跑後雙腿輕盈，低心率零漂移完美達成動態排酸與長距離有氧耐力堆疊）。
+  2. **50m 長池比賽配速長游 (Swimming / 3200 主課表：比賽配速 / 3,200 m)**：1 小時 04 分 20 秒完成 3,200 m（實游 3,200m 距離達成率 100.0% 完美達標，時間 64.3 分 / 達成率 91.9%，均速 2:00.8/100m，標準化速度 2:00.6/100m，均時速 2.98 km/h，均心率 136 bpm，最高 166 bpm，恢復與耐力區間佔 78.4%，均划頻 25 spm，划幅達 1.99m/stroke，速度脫鉤率 Spd:HR -4.97% 絕佳負脫鉤！sTSS 92.92 / 達成率 102.3%，IF 0.930，消耗 621 kcal，體感自覺 3/3 ｜ RPE 4/10；比賽配速巡航流暢無比，核心流線型與抓抱推水極為穩定，更利用長池水壓與浮力深度代謝下肢跑步乳酸）。
+  3. **週日雙課表總結 (Sunday Double Total)**：總時長 **2 小時 34 分**、總距離 **15.47 km**、總訓練負荷 **143.2 TSS**、總消耗 **1,436 kcal**。
+  4. **W37 Build 1-2 全週圓滿結算成果**：全週累計自行車 **123.23 km (4 小時 57 分, 243.5 TSS)**、跑步 **34.48 km (3 小時 56 分, 180.7 rTSS)**、游泳 **9.60 km (3 小時 04 分, 304.6 sTSS)**，三項總訓練時長達 **11.95 小時 (~12.0 小時)**，整體時間執行率達 **83.5%**（全週排定 14.3 小時），全週三項總負荷強勢衝破 **728.8 TSS (突破 725+ TSS)**！週游量 9.60km 達成率高達 300.0%，專項耐力、閾值間歇、下車轉換、戶外長騎爬升與 50m 長池比賽配速全面大獲全勝。
+  5. **成果更新與線上部署**：
+     - 更新 `scripts/generate_web_dashboard.py` 與 `scripts/generate_execution_report.py`，整合 9/13 晨跑 EASY 12.27km 與 50m 長池 3,200m 比賽配速游專屬生理指標卡片、教練綜合深度評析與 W37 全週結算回顧。
+     - 更新賽後恢復與能量補給指南 (`#recovery`)，包含黃金窗口補給、全身筋膜滾筒放鬆以及明日週一完全休息日 (Rest Day) 超補償指引。
+     - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
+     - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。
 
 
 
