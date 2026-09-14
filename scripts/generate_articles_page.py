@@ -58,15 +58,28 @@ def parse_articles_md_to_body_html(md_content: str, include_home_link: bool = Fa
             title_text = stripped[4:].strip() if stripped.startswith("### 🔗 ") else stripped[4:].strip()
             articles_by_cat.setdefault(current_cat, []).append({
                 "title_raw": title_text,
-                "meta": "",
-                "desc": ""
+                "meta_lines": [],
+                "bullets": [],
+                "raw_desc": ""
             })
-        elif stripped.startswith("**來源**:") or stripped.startswith("**英文原名**:") or stripped.startswith("**分類**:") or stripped.startswith("**難易度**:") or stripped.startswith("**核心效益**:") or stripped.startswith("**原網頁連結**:") or stripped.startswith("**原始連結**:") or stripped.startswith("**連結**:"):
+        elif any(stripped.startswith(prefix) for prefix in [
+            "**來源**:", "**英文原名**:", "**原名**:", "**分類**:", "**難易度**:", 
+            "**核心效益**:", "**原網頁連結**:", "**原始連結**:", "**連結**:", "**日期**:"
+        ]):
             if current_cat in articles_by_cat and articles_by_cat[current_cat]:
-                articles_by_cat[current_cat][-1]["meta"] += f"<br>{stripped}"
-        elif stripped.startswith("> "):
+                articles_by_cat[current_cat][-1]["meta_lines"].append(stripped)
+        elif stripped.startswith(">"):
+            text = stripped.lstrip("> ").strip()
+            if not text:
+                continue
+            if "重點摘要" in text or "3 大重點" in text or "三大重點" in text:
+                continue
             if current_cat in articles_by_cat and articles_by_cat[current_cat]:
-                articles_by_cat[current_cat][-1]["desc"] += f" {stripped[2:]}"
+                clean_b = re.sub(r"^(?:[-*•]\s*|\d+[.、\)]\s*)+", "", text).strip()
+                if clean_b:
+                    articles_by_cat[current_cat][-1]["bullets"].append(clean_b)
+                else:
+                    articles_by_cat[current_cat][-1]["raw_desc"] += f" {text}"
 
     summary_html = ""
     if summary_lines:
@@ -85,21 +98,59 @@ def parse_articles_md_to_body_html(md_content: str, include_home_link: bool = Fa
             <div class="articles-grid">"""
         for art in arts:
             title_html = md_link_to_html(art["title_raw"])
-            meta_html = md_link_to_html(art["meta"])
-            desc_text = art["desc"].strip()
-            bullets_html = ""
-            if desc_text:
-                items = re.split(r'\d+\.\s*', desc_text)
-                clean_items = [it.strip().rstrip('；').rstrip('。') for it in items if it.strip()]
-                if len(clean_items) >= 3:
-                    bullets_html = f"<div style='margin-bottom:6px;'>📌 <strong>1.</strong> {clean_items[0]}</div><div style='margin-bottom:6px;'>📌 <strong>2.</strong> {clean_items[1]}</div><div>📌 <strong>3.</strong> {clean_items[2]}</div>"
-                else:
-                    bullets_html = desc_text
-            else:
-                bullets_html = "點擊下方連結可閱讀外網原始全文內容。"
+            
+            # Format meta
+            meta_parts = []
+            for m in art["meta_lines"]:
+                m_proc = md_link_to_html(m)
+                m_proc = re.sub(r"\*\*(.*?)\*\*", r"<span style='color:#94A3B8; font-weight:600;'>\1</span>", m_proc)
+                m_proc = re.sub(r"\*(.*?)\*", r"<em style='color:#CBD5E1;'>\1</em>", m_proc)
+                meta_parts.append(f"<div style='margin-bottom:3px;'>{m_proc}</div>")
+            meta_html = "".join(meta_parts)
 
-            match = re.search(r"https?://[^\)]+", art["title_raw"])
-            url = match.group(0) if match else "#"
+            # Format bullets
+            bullets = art["bullets"]
+            if not bullets and art.get("raw_desc"):
+                raw = art["raw_desc"].strip()
+                raw = re.sub(r"^💡\s*\**【.*?】\**[:：]?", "", raw).strip()
+                items = re.split(r'(?:\d+[.、\)]\s*|(?<=\s)[-*•]\s+)', raw)
+                bullets = [it.strip().rstrip('；;。') for it in items if it.strip()]
+
+            if len(bullets) == 1:
+                items = re.split(r'[；;]\s*', bullets[0])
+                clean_items = [it.strip().rstrip('；;。') for it in items if it.strip()]
+                if len(clean_items) >= 2:
+                    bullets = clean_items
+
+            bullets_html = ""
+            if bullets:
+                bullet_items = []
+                for idx, b in enumerate(bullets, 1):
+                    b_clean = b.strip().rstrip('；;。')
+                    b_html = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", b_clean)
+                    b_html = re.sub(r"\*(.*?)\*", r"<em>\1</em>", b_html)
+                    b_html = md_link_to_html(b_html)
+                    bullet_items.append(
+                        f"<div style='margin-bottom:8px; display:flex; align-items:flex-start; line-height:1.55;'>"
+                        f"<span style='color:#38BDF8; font-weight:700; margin-right:8px; flex-shrink:0;'>📌 {idx}.</span>"
+                        f"<span style='color:#E2E8F0;'>{b_html}</span>"
+                        f"</div>"
+                    )
+                bullets_html = "".join(bullet_items)
+            else:
+                bullets_html = "<div style='color:var(--text-muted);'>點擊下方連結可閱讀外網原始全文內容。</div>"
+
+            # URL
+            url = "#"
+            match = re.search(r"https?://[^\s\)\"\']+", art["title_raw"])
+            if match:
+                url = match.group(0)
+            else:
+                for m in art["meta_lines"]:
+                    m_match = re.search(r"https?://[^\s\)\"\']+", m)
+                    if m_match:
+                        url = m_match.group(0)
+                        break
 
             articles_cards_html += f"""
                 <div class="art-card">

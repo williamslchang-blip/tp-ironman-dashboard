@@ -208,6 +208,20 @@ def translate_text(text, sl='en', tl='zh-TW'):
     except Exception:
         pass
 
+    # Engine 3: MyMemory Translator via deep-translator with OpenCC Traditional Chinese conversion
+    try:
+        from deep_translator import MyMemoryTranslator
+        import opencc
+        translated = MyMemoryTranslator(source='en-US', target='zh-TW').translate(text_clean[:500])
+        if translated:
+            cc = opencc.OpenCC('s2twp.json')
+            res = cc.convert(translated).strip()
+            if res and res != text_clean:
+                _TRANS_CACHE[text_clean] = res
+                return res
+    except Exception:
+        pass
+
     _TRANS_CACHE[text_clean] = text_clean
     return text_clean
 

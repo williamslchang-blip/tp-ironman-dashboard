@@ -1900,20 +1900,34 @@ def generate_52_week_dashboard():
 
         function checkUrlHash() {{
             const hash = window.location.hash.toLowerCase().replace('#', '');
-            if (hash === 'swim' || hash === 'plan') {{
-                openSubtab('plan');
+            if (!hash) return;
+
+            if (hash === 'recovery') {{
+                openSubtab('articles');
+                setTimeout(() => {{
+                    const target = document.getElementById('recovery');
+                    if (target) target.scrollIntoView({{ behavior: 'smooth' }});
+                }}, 200);
+            }} else if (hash === 'swim' || hash === 'bike' || hash === 'run' || hash === 'summary') {{
+                openSubtab('articles');
+                setTimeout(() => {{
+                    const target = document.getElementById(hash);
+                    if (target) target.scrollIntoView({{ behavior: 'smooth' }});
+                }}, 200);
             }} else if (hash === 'articles' || hash === 'article' || hash === 'news') {{
                 openSubtab('articles');
+            }} else if (hash === 'plan' || hash === 'workout' || hash === 'strength') {{
+                openSubtab('plan');
             }} else if (hash === 'review' || hash === 'execution') {{
                 openSubtab('review');
-            }} else if (hash === 'recovery' || hash === 'overview') {{
+            }} else if (hash === 'overview') {{
                 openSubtab('overview');
-                if (hash === 'recovery') {{
-                    setTimeout(() => {{
-                        const target = document.getElementById('recovery-guideline') || document.getElementById('coachInsightsBox');
-                        if (target) target.scrollIntoView({{ behavior: 'smooth' }});
-                    }}, 150);
-                }}
+            }} else if (hash === 'recovery-guideline' || hash === 'coach-recovery') {{
+                openSubtab('overview');
+                setTimeout(() => {{
+                    const target = document.getElementById('recovery-guideline') || document.getElementById('coachInsightsBox');
+                    if (target) target.scrollIntoView({{ behavior: 'smooth' }});
+                }}, 200);
             }}
         }}
 
