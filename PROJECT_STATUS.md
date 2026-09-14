@@ -262,6 +262,11 @@
      - 更新賽後恢復與能量補給指南 (`#recovery`)，包含黃金窗口補給、全身筋膜滾筒放鬆以及明日週一完全休息日 (Rest Day) 超補償指引。
      - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
      - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。
+- 2026-09-14 成功觸發並執行週一 (W38, Build 1-3 第一建構期第三週 / 巔峰建構週) 新週自動化流程：
+  1. **當週鐵人新知與文章抓取翻譯**：順利自 Slowtwitch, Triathlete Magazine, 220 Triathlon, TrainingPeaks Blog 抓取 39 篇權威新知文章，完成 100% 繁體中文 3 點條列重點摘要並按游泳、騎車、跑步、補給與恢復四項專業分類，生成 W38 繁體中文 Markdown 及 Word 報告 (`2026-W38_當週鐵人新知與文章整理_中文版.md` 及 `.docx`)。
+  2. **第 38 週肌力訓練計畫產出**：依據 Build 1-3 建構期進度，生成《第 38 週肌力訓練計畫與課表指南》(`2026-W38_第38週肌力訓練計畫.md` 及 `.docx`)，包含週一/週四主課 A (分腿蹲/羅馬尼亞硬舉/單腳硬舉/提踵) 與週三短課核心強化。
+  3. **Build 1-3 巔峰週教練視角與課表排定**：更新 `scripts/generate_web_dashboard.py`，加入 W38 建構巔峰期教練分析（全週排定近 15 小時、週六 120km 大安~中角灣長騎 + 轉換跑、週日 21km 比賽配速跑 + 3,500m 長游），並更新週一完全休息日恢復指南 (`#recovery`)。
+  4. **儀表板更新與線上部署**：重新編譯 52 週 Web 儀表板 (`outputs/index.html`)，生成最新文章彙整獨立頁面 (`outputs/weekly_articles.html`)，全面打包發布至 `docs/` 部署目錄並推送至 GitHub main 分支，更新 GitHub Pages 線上儀表板。
 
 
 
