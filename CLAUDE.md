@@ -33,6 +33,11 @@
 - 每次任務後更新 `PROJECT_STATUS.md`
 - 新增、刪除、改名檔案時更新 `README.md`
 - 若流程、工具、資料來源、輸出格式、公式格式或 agent 規則有變更，更新 `AGENTS.md` 與 `CLAUDE.md`
+- **本日活動同步更新常規 (SOP)**：凡使用者提供「本日活動」或 TrainingPeaks 活動連結時，Agent 必須主動執行全套同步更新與線上發布：
+  1. 擷取並深度解析當日運動生理指標與力學數據（配速、功率、心率、步頻/划頻、GCT、垂直比、TSS、體感 Feeling/RPE）。
+  2. 於地端執行 `python scripts/daily_update.py` 同步資料庫、更新當週執行率回顧報告 (MD/Word) 與重新生成 52 週 Web 儀表板。
+  3. 將更新檔案 Commit 並 Push 至 GitHub main 分支以自動部署發布至 GitHub Pages 線上網站。
+  4. 回覆中附帶成果解析與線上儀表板連結（含專屬錨點如 `#swim`, `#bike`, `#run`, `#recovery`）。
 
 ## 初版建議流程
 

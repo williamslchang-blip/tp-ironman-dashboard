@@ -276,3 +276,4 @@
      - 更新 `scripts/generate_execution_report.py` 納入 W38 專屬亮點分析，重新產出當週執行率回顧報告 (`2026-W38_當週執行率回顧報告.md` 及 `.docx`)。
      - 執行全套日常自動化管線 (`scripts/daily_update.py`)，重新生成 52 週 Web 儀表板 (`outputs/index.html`) 並完整打包至 `docs/` 部署目錄。
      - 部署推送至 GitHub main 分支以更新 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#swim`)。
+  4. **確立永久協作規範與 SOP 固化**：依使用者指示，正式將「凡提供本日活動或 TrainingPeaks 連結時，Agent 必須主動執行全套同步、報告更新、儀表板重編譯與 GitHub Pages 自動部署發布，無需使用者額外提醒」之標準作業程序 (SOP) 明文寫入 `AGENTS.md`、`CLAUDE.md` 與 `GEMINI.md`，全面完成跨 Agent (Antigravity & Codex) 規則對齊。
