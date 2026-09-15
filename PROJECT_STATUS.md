@@ -263,11 +263,16 @@
      - 執行全套同步與編譯流程 (`scripts/daily_update.py`)，重新產出當週執行率回顧報告 (`.md` / `.docx`) 及 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
      - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。
 - 2026-09-14 成功觸發並執行週一 (W38, Build 1-3 第一建構期第三週 / 巔峰建構週) 新週自動化流程：
-  1. **當週鐵人新知與文章抓取翻譯**：順利自 Slowtwitch, Triathlete Magazine, 220 Triathlon, TrainingPeaks Blog 抓取 39 篇權威新知文章，完成 100% 繁體中文 3 點條列重點摘要並按游泳、騎車、跑步、補給與恢復四項專業分類，生成 W38 繁體中文 Markdown 及 Word 報告 (`2026-W38_當週鐵人新知與文章整理_中文版.md` 及 `.docx`)。
+  1. **當週鐵人新知與文章抓取翻譯**：順利自 Slowtwitch, Triathlete Magazine, 220 Triathlon, TrainingPeaks Blog 抓取 39 篇權威新知文章，完成 100% 繁體中文 3 點條列重點摘要並按游泳、騎車、跑步, 補給與恢復四項專業分類，生成 W38 繁體中文 Markdown 及 Word 報告 (`2026-W38_當週鐵人新知與文章整理_中文版.md` 及 `.docx`)。
   2. **第 38 週肌力訓練計畫產出**：依據 Build 1-3 建構期進度，生成《第 38 週肌力訓練計畫與課表指南》(`2026-W38_第38週肌力訓練計畫.md` 及 `.docx`)，包含週一/週四主課 A (分腿蹲/羅馬尼亞硬舉/單腳硬舉/提踵) 與週三短課核心強化。
   3. **Build 1-3 巔峰週教練視角與課表排定**：更新 `scripts/generate_web_dashboard.py`，加入 W38 建構巔峰期教練分析（全週排定近 15 小時、週六 120km 大安~中角灣長騎 + 轉換跑、週日 21km 比賽配速跑 + 3,500m 長游），並更新週一完全休息日恢復指南 (`#recovery`)。
   4. **儀表板更新與線上部署**：重新編譯 52 週 Web 儀表板 (`outputs/index.html`)，生成最新文章彙整獨立頁面 (`outputs/weekly_articles.html`)，全面打包發布至 `docs/` 部署目錄並推送至 GitHub main 分支，更新 GitHub Pages 線上儀表板。
-
-
-
-
+- 2026-09-15 成功同步今日 (9/15) 週二晨間跑步專項高水準間歇課表數據（TrainingPeaks 專項建構期 Build 1-3 巔峰週，課表連結：`http://tpks.ws/VDWTJ4UYG5WETMMG5WWYIFBEG4`）：
+  1. **晨間跑步專項高水準間歇 (Running / Run: Running / 12.05 km)**：1 小時 24 分 33 秒完成 12.05 km（原定 11.60km，距離達成率 103.9% 超額完成，時間達成率 93.9%，均速 7:01/km ｜ 8.55 km/h，最快配速 4:00/km，均瓦 212W 3.20 W/kg，最大 400W，做功 1,077.9 kJ，均心率 155 bpm，最低 93 bpm，最高心率 191 bpm 深度刺激心肌收縮與 VO2max 攝氧能力，低心率恢復與耐力區間累積超過 50 分鐘，低心率穩定區 33.0 分鐘；跑步步態力學表現頂級：平均觸地時間僅 249.3 ms，垂直振幅 77.7 mm，垂直比低至 8.0% [<9% 頂級跑姿經濟性]，平均步幅 1.03 m，衝刺段步頻高達 180~188 spm，最高步頻 214 spm；課表包含扎實熱身與多組 400m 間歇衝刺組，快段配速飆出 3:45~3:55/km；rTSS 達 80.36 / 計畫 82.3 rTSS 達成率 97.6%，IF 0.714，消耗 870 kcal，體感自覺滿分 5/5 ｜ RPE 4/10 順暢推進；在昨日週一完全休息超補償吸收後，下肢神經肌肉展現頂級彈性與衝擊剛性，完美對標 Sub-11 全馬 4 小時 5:41/km 藍圖！）。
+  2. **W38 Build 1-3 本週累計進度**：截至週二已累積跑步 **12.05 km (1 小時 24 分)**，全週三項時間執行率達 **9.4%**（全週排定 14.9 小時建構巔峰量），跑步專項負荷收穫 **80.4 rTSS**，為全週近 15 小時大課表（週六 120km 長騎+轉換跑、週日 21km 半馬+3,500m長游）打響強勢第一槍！
+  3. **成果更新與線上部署**：
+     - 更新 `scripts/generate_web_dashboard.py`，加入 9/15 跑步專項生理指標卡片（步態剛性、觸地時間 249ms、垂直比 8.0%、均瓦 212W）、教練深度解析與對標 Sub-11 藍圖分析。
+     - 更新 W38 綜合教練視角解析，整合今日跑步突破亮點與明日 (週三) 80 分鐘 50m 長池甜甜泳課動態排酸指引，並串接 `#swim` 游泳技術文章錨點跳轉。
+     - 更新 `scripts/generate_execution_report.py` 納入 W38 專屬亮點分析，重新產出當週執行率回顧報告 (`2026-W38_當週執行率回顧報告.md` 及 `.docx`)。
+     - 執行全套日常自動化管線 (`scripts/daily_update.py`)，重新生成 52 週 Web 儀表板 (`outputs/index.html`) 並完整打包至 `docs/` 部署目錄。
+     - 部署推送至 GitHub main 分支以更新 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#swim`)。
