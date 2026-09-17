@@ -276,4 +276,14 @@
      - 更新 `scripts/generate_execution_report.py` 納入 W38 專屬亮點分析，重新產出當週執行率回顧報告 (`2026-W38_當週執行率回顧報告.md` 及 `.docx`)。
      - 執行全套日常自動化管線 (`scripts/daily_update.py`)，重新生成 52 週 Web 儀表板 (`outputs/index.html`) 並完整打包至 `docs/` 部署目錄。
      - 部署推送至 GitHub main 分支以更新 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#swim`)。
-  4. **確立永久協作規範與 SOP 固化**：依使用者指示，正式將「凡提供本日活動或 TrainingPeaks 連結時，Agent 必須主動執行全套同步、報告更新、儀表板重編譯與 GitHub Pages 自動部署發布，無需使用者額外提醒」之標準作業程序 (SOP) 明文寫入 `AGENTS.md`、`CLAUDE.md` 與 `GEMINI.md`，全面完成跨 Agent (Antigravity & Codex) 規則對齊。
+   4. **確立永久協作規範與 SOP 固化**：依使用者指示，正式將「凡提供本日活動或 TrainingPeaks 連結時，Agent 必須主動執行全套同步、報告更新、儀表板重編譯與 GitHub Pages 自動部署發布，無需使用者額外提醒」之標準作業程序 (SOP) 明文寫入 `AGENTS.md`、`CLAUDE.md` 與 `GEMINI.md`，全面完成跨 Agent (Antigravity & Codex) 規則對齊。
+- 2026-09-15 成功同步今日 (9/15) 週二下午室內單車 Threshold 5X3 閾值間歇課表數據（TrainingPeaks 專項建構期 Build 1-3 巔峰週，課表連結：`http://tpks.ws/PI2TFRGQC7CH7MMG5WWYIFBEG4`）：
+  1. **下午室內單車閾值間歇 (Cycling / Bike: Threshold 5X3 / 18.76 km)**：下午 15:22 出發，耗時 40 分 22 秒完成 18.76 km（原定 40 分鐘，時間達成率 100.9% 精準達標）。總爬升 76m / 下降 41.6m、NP 151W、平均功率 131W (1.98 W/kg，最大 197W，做功 319.4 kJ)、均心率 134 bpm (最高 157 bpm)、均踏頻 86 rpm (最大 95 rpm)、VI 1.15、TSS 36.02 (計畫 35.62，達成率 101.1%)、IF 0.736、消耗 305 kcal。核心 5 組 3 分鐘閾值間歇輸出分別為 181.6W、181.8W、181.7W、181.8W、181.8W，功率輸出極致穩定（誤差 < 0.2W），踏頻穩固於 87~89 rpm，心率解耦率 (Pw:HR) 僅 3.84% (<5% 頂級標準)，展現極佳的閾值抗乳酸能力與心血管耐受度。
+  2. **單日雙課表總結 (Tuesday Double Total)**：今日晨跑 12.05 km (80.4 rTSS) ＋ 下午單車 18.76 km (36.0 TSS)，單日總時長 **2 小時 05 分**、總距離 **30.81 km**、總負荷 **116.4 TSS**、總做功 **1,397.3 kJ**、總燃燒 **1,175 kcal**！
+  3. **W38 Build 1-3 本週累計進度**：截至週二已完成自行車 **18.76 km (40 分鐘)**、跑步 **12.05 km (1 小時 24 分)**、游泳 **0.00 km**，整體時間執行率達 **13.8%**（全週排定 14.9 小時），雙項累計負荷達 **116.4 TSS**。
+  4. **成果更新與線上部署**：
+     - 更新 `scripts/generate_web_dashboard.py`，加入 9/15 單車 Threshold 5X3 生理指標卡片（NP 151W、間歇 181.8W 極致控瓦、踏頻 86 rpm、解耦率 3.84%）、教練深度分析與 Sub-11 藍圖儲備說明。
+     - 更新 W38 綜合教練視角解析與賽後恢復協議，整合今日跑騎雙課表高強度負荷之後續修復，強化 `#recovery` 專區指引（電解質回補、下肢筋膜滾筒、黃金窗口營養）與明日週三 50m 長池甜甜長游動態排酸串接。
+     - 更新 `scripts/generate_execution_report.py` 納入週二下午單車間歇成效分析，重新產出當週執行率回顧報告 (`2026-W38_當週執行率回顧報告.md` 及 `.docx`)。
+     - 執行全套日常自動化管線 (`scripts/daily_update.py`)，重新生成 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
+     - 部署推送至 GitHub main 分支以自動更新 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。
