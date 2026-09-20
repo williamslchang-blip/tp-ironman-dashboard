@@ -36,6 +36,7 @@
 - 新增、刪除、改名檔案時更新 `README.md`
 - 改變流程、工具、資料來源、輸出格式、公式格式或 agent 規則時，更新 `AGENTS.md` 與 `CLAUDE.md`
 - **本日活動同步更新常規 (SOP)**：凡使用者提供「本日活動」或 TrainingPeaks 活動連結時，Agent (包含 Antigravity 與 Codex) 必須主動執行全套同步更新與線上發布：
+  0. 使用者會開啟活動彈窗左下方 `[x] Public` 公開分享連結 (如 `http://tpks.ws/...` 或提供視窗截圖)，Agent 應據此擷取高精度細部數據（精確標題、分段課表結構、rTSS/sTSS/hrTSS、CTL/ATL/TSB 體能指標、Feeling 體感表情、RPE 自覺強度、Peak Performances 最佳表現、卡路里與爬升），修復 iCal 預設編碼與欄位缺失。
   1. 擷取並深度解析當日運動生理指標與力學數據（配速、功率、心率、步頻/划頻、GCT、垂直比、TSS、體感 Feeling/RPE）。
   2. 於地端執行 `python scripts/daily_update.py` 同步資料庫、更新當週執行率回顧報告 (MD/Word) 與重新生成 52 週 Web 儀表板。
   3. 將更新檔案 Commit 並 Push 至 GitHub main 分支以自動部署發布至 GitHub Pages 線上網站。

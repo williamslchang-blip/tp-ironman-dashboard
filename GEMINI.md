@@ -2,6 +2,15 @@
 
 Whenever a new TrainingPeaks workout/activity record is received, reviewed, or analyzed (凡使用者提供「本日活動」或 TrainingPeaks 活動連結時，一律自動執行全套同步與發布流程，無需使用者額外提醒)：
 
+0. **Verify TrainingPeaks granular workout details via Public link / modal screenshot (確認 TP 細部資料機制)**:
+   - 使用者更新每日活動時，會開啟活動彈窗左下方的 `[x] Public` 公開分享連結 (如 `http://tpks.ws/...` 或提供該視窗截圖，如桌面 `未命名.jpg`)。
+   - Agent 藉由公開連結或視窗截圖提取高品質細部資料，補足 iCal 串流之不足：
+     * 精確課表標題（修正 iCal 編碼問題）與完整訓練結構（如磚課表分段配速/功率指引）。
+     * 精確訓練負荷與體能狀態：TSS (rTSS/sTSS/hrTSS)、Fitness (CTL)、Fatigue (ATL)、Form (TSB)。
+     * 體感反饋 (Feeling 1~5) 與自覺強度 (RPE)。
+     * 區段最佳紀錄：Peak Performances (如 5km、10km、5mi 等 90 天最佳表現)。
+     * 高精度動態指標：精確完成時間、距離、均速/配速、消耗卡路里 (kcal) 與總爬升 (m)。
+
 1. **Synchronize local database and rebuild dashboard (同步資料庫與重新生成報告/儀表板)**:
    - Extract & analyze detailed physiological metrics (pace, power, HR, cadence, GCT, vertical ratio, TSS, Feeling/RPE).
    - Run `python scripts/daily_update.py` from `C:\Users\User\Desktop\TP`.
@@ -13,5 +22,6 @@ Whenever a new TrainingPeaks workout/activity record is received, reviewed, or a
 
 3. **Verify live website and provide direct link (確認線上網站並提供專屬連結)**:
    - Provide the user with direct clickable links to the live website (including specific anchor tags like `#swim`, `#bike`, `#run`, or `#recovery`):
-     `https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#swim`
+     `https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#run`
+
 

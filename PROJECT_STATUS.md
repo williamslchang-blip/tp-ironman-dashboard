@@ -282,8 +282,17 @@
   2. **單日雙課表總結 (Tuesday Double Total)**：今日晨跑 12.05 km (80.4 rTSS) ＋ 下午單車 18.76 km (36.0 TSS)，單日總時長 **2 小時 05 分**、總距離 **30.81 km**、總負荷 **116.4 TSS**、總做功 **1,397.3 kJ**、總燃燒 **1,175 kcal**！
   3. **W38 Build 1-3 本週累計進度**：截至週二已完成自行車 **18.76 km (40 分鐘)**、跑步 **12.05 km (1 小時 24 分)**、游泳 **0.00 km**，整體時間執行率達 **13.8%**（全週排定 14.9 小時），雙項累計負荷達 **116.4 TSS**。
   4. **成果更新與線上部署**：
-     - 更新 `scripts/generate_web_dashboard.py`，加入 9/15 單車 Threshold 5X3 生理指標卡片（NP 151W、間歇 181.8W 極致控瓦、踏頻 86 rpm、解耦率 3.84%）、教練深度分析與 Sub-11 藍圖儲備說明。
-     - 更新 W38 綜合教練視角解析與賽後恢復協議，整合今日跑騎雙課表高強度負荷之後續修復，強化 `#recovery` 專區指引（電解質回補、下肢筋膜滾筒、黃金窗口營養）與明日週三 50m 長池甜甜長游動態排酸串接。
-     - 更新 `scripts/generate_execution_report.py` 納入週二下午單車間歇成效分析，重新產出當週執行率回顧報告 (`2026-W38_當週執行率回顧報告.md` 及 `.docx`)。
-     - 執行全套日常自動化管線 (`scripts/daily_update.py`)，重新生成 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
-     - 部署推送至 GitHub main 分支以自動更新 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#recovery`)。
+- 2026-09-20 確立 TrainingPeaks 細部資料確認 SOP，並成功同步結算第 38 週 (W38, Build 1-3 第一建構期巔峰週) 9/20 週日雙課表：
+  1. **確認 TrainingPeaks 細部資料確認機制 (Public 分享連結 / 視窗截圖)**：
+     - 使用者明確指示：後續更新網站每日活動時，可透過開啟 TrainingPeaks 活動彈窗左下方的 `[x] Public` 公開分享連結 (如 `http://tpks.ws/...` 或提供如 `未命名.jpg` 之彈窗截圖)，以確認最精確的細部資料。
+     - 此機制能完整取得 iCal 預設串流無法提供的關鍵生理與訓練指標：精確課表標題（修正編碼）、分段菜單結構（如 Brick 90min 漸進配速）、精確負荷 (rTSS/sTSS/hrTSS)、體能狀況 (Fitness 98 / Fatigue 128 / Form -22)、體感 (Feeling 4/5)、自覺強度 (RPE 3 Moderate)、個人 90 天最佳表現 (Peak Performances x4)、卡路里與爬升數據。
+     - 正式將此細部資料確認機制明文寫入 `AGENTS.md`、`CLAUDE.md` 與 `GEMINI.md` 之 SOP 條款中。
+  2. **結算今日 (9/20) 週日 15.8km 比賽配速跑與 3,500m 長游雙課表**：
+     - **清晨比賽配速跑 (Running / 比賽配速 (本日重點) / 15.8 km)**：1 小時 30 分 01 秒完成 15.8 km（時間達成率 100.0% 精準達標，斬獲 81 rTSS）。均速 5:43/km (最快 5:25/km，精準對標 Sub-11 全馬 5:41/km 目標配速線！)，消耗 1,035 kcal，爬升 6m。完美執行 Brick 90min 漸進配速：15min easy -> 30min 5:55-5:45/km -> 30min 5:45-5:35/km -> 15min 5:35-5:25/km。更打破 3 項近 90 天最佳紀錄 (5km 27:08, 5mi 43:59, 10km 55:17)，體感自覺給出 4/5 良好微笑，RPE 3 Moderate (說話配速，無提早疲勞)。
+     - **50m 長池比賽配速長游 (Swimming / 3500 主課表：比賽配速 / 3.30 km)**：63 分鐘完成 3,300 m（時間達成率 90.0%），流線型與划頻水感流暢。
+     - **W38 Build 1-3 全週圓滿結算**：全週累計自行車 **146.87 km**、跑步 **32.85 km**、游泳 **9.85 km**，三項總時長達 **12.3 小時**，整體時間執行率達 **85.2%**，體能指標 (PMC) 衝上 **Fitness 98**、**Fatigue 128**、**Form -22**！
+  3. **成果更新與線上部署**：
+     - 更新 `scripts/generate_execution_report.py` 納入 W38 巔峰週結算與 9/20 雙主課亮點分析。
+     - 執行 `scripts/daily_update.py` 同步資料庫、產出當週執行率回顧報告 (`.md` / `.docx`) 與編譯 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
+     - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#run`)。
+
