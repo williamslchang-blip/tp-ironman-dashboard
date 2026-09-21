@@ -1,4 +1,4 @@
-﻿2026-07-06T12:16:10 OK Syncing calendar to cache first... Fetched 14 events from TP. Sync complete. New events added: 14. Cache updated: 0. Successfully generated merged report and strength document at: C:\Users\User\Desktop\TP\outputs\weekly\2026-W28_當週肌力訓練計畫.docx
+2026-07-06T12:16:10 OK Syncing calendar to cache first... Fetched 14 events from TP. Sync complete. New events added: 14. Cache updated: 0. Successfully generated merged report and strength document at: C:\Users\User\Desktop\TP\outputs\weekly\2026-W28_當週肌力訓練計畫.docx
 2026-07-06T19:22:58 TP_ANALYSIS OK Syncing calendar to cache first... Fetched 13 events from TP. Sync complete. New events added: 0. Cache updated: 13. Successfully generated merged report and strength document at: C:\Users\User\Desktop\TP\outputs\weekly\2026-W28_當週肌力訓練計畫.docx
 2026-07-06T19:23:04 ARTICLES_FETCH OK Fetching articles from Slowtwitch...   Found 10 articles from past 7 days. Fetching articles from Triathlete Magazine...   Found 8 articles from past 7 days. Fetching articles from 220 Triathlon...   Found 11 articles from past 7 days. Fetching articles from TrainingPeaks Blog...   Found 2 articles from past 7 days. Fetching articles from Joe Friel Blog...   Found 0 articles from past 7 days. Report generated successfully: C:\Users\User\Desktop\TP\outputs\weekly\2026-W28_當週鐵人新知與文章整理.md SUCCESS:C:\Users\User\Desktop\TP\outputs\weekly\2026-W28_當週鐵人新知與文章整理.md
 2026-07-15T08:54:30 TP_ANALYSIS OK Syncing calendar to cache first... Fetched 15 events from TP. Sync complete. New events added: 15. Cache updated: 0. Successfully generated merged report and strength document at: C:\Users\User\Desktop\TP\outputs\weekly\2026-W29_當週肌力訓練計畫.docx
@@ -69,3 +69,5 @@
 2026-09-14T12:59:04 MONDAY_SCRIPT OK
 2026-09-20T20:00:12 GIT_PUSH OK Site updated live on GitHub Pages
 2026-09-20T20:00:12 SUNDAY_REPORT OK
+2026-09-21T21:56:26 GIT_PUSH OK Site updated live on GitHub Pages
+2026-09-21T21:56:26 MONDAY_SCRIPT OK

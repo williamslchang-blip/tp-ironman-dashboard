@@ -295,4 +295,16 @@
      - 更新 `scripts/generate_execution_report.py` 納入 W38 巔峰週結算與 9/20 雙主課亮點分析。
      - 執行 `scripts/daily_update.py` 同步資料庫、產出當週執行率回顧報告 (`.md` / `.docx`) 與編譯 52 週 Web 儀表板 (`outputs/index.html`) 並同步打包至 `docs/` 部署目錄。
      - 推送更新至 GitHub main 分支以自動部署至 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#run`)。
-
+- 2026-09-21 成功補全並發布第 39 週 (W39) 全套鐵人新知、肌力計畫與線上儀表板更新：
+  1. **當週鐵人新知與權威文章抓取與翻譯**：
+     - 成功自 Slowtwitch, Triathlete Magazine, 220 Triathlon, TrainingPeaks Blog 抓取 36 篇最新權威文章，包含冷水游泳裝備測試、頂級泳鏡推薦、長袖跑步保暖服飾、自行車空氣力學與補給恢復等。
+     - 生成繁體中文 3 大重點摘要並精確分類（游泳 11 篇、騎車 12 篇、跑步 2 篇、補給與恢復 11 篇）。
+     - 產出 W39 完整報告：
+       - `outputs/weekly/2026-W39_當週鐵人新知與文章整理.md` 及 `.docx`
+       - `outputs/weekly/2026-W39_當週鐵人新知與文章整理_中文版.md` 及 `.docx`
+  2. **第 39 週肌力訓練計畫產出**：
+     - 生成《第 39 週肌力訓練計畫》(`outputs/weekly/2026-W39_第39週肌力訓練計畫.docx`、`.md` 及 `當週肌力訓練計畫.md`)。
+  3. **52 週 Web 儀表板與獨立文章頁面重編譯與部署**：
+     - 重新生成 `outputs/index.html`（W39 子分頁 `#subview-articles` 內嵌完整新知與精選摘要）與 `outputs/weekly_articles.html`。
+     - 完整打包至 `docs/` 部署目錄，修復線上網站第 39 週鐵人新知先前缺漏之問題。
+     - 提交 Git Commit 並推送至 GitHub main 分支以觸發 GitHub Pages 即時部署。
