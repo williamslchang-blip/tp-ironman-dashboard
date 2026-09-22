@@ -149,13 +149,30 @@ def sync():
         elif "Day Off" in summary:
             w_type = "Day Off"
             
-        if "\ufffd" in summary:
+        if speed > 0 and w_type == "Swim" and not pace:
+            swim_pace_mins = 6.0 / speed
+            sm = int(swim_pace_mins)
+            ss = int(round((swim_pace_mins - sm) * 60))
+            if ss == 60:
+                sm += 1
+                ss = 0
+            pace = f"{sm}:{ss:02d} /100m"
+
+        if "\ufffd" in summary or "Ҫ" in summary or "" in summary:
             if "3200" in summary:
                 summary = "Swim: 3200 主課表：比賽配速"
             elif "3500" in summary:
                 summary = "Swim: 3500 主課表：比賽配速"
             elif "Swim" in summary:
-                summary = "Swim: 甜 課表"
+                summary = "Swim: 甜甜課表"
+            elif "Day Off" in summary:
+                summary = "Day Off: Build 1-4 Day Off 減量週"
+            elif "Run" in summary and "30" in summary:
+                summary = "Run: 轉換跑 EASY 30分鐘"
+            elif "Run" in summary and ("比賽" in summary or "t" in summary):
+                summary = "Run: 比賽配速 (本日重點)"
+            elif "Bike" in summary and ("0.75" in summary or "IF" in summary):
+                summary = "Bike: 大齒盤中上大齒 IF 0.75~0.8 (本日重點)"
 
         live_events_by_slot[(str(dt), w_type)].append({
             "date": str(dt),

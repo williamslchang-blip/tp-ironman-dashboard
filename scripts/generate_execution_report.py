@@ -199,7 +199,12 @@ def build_report(target_date: date):
         
         f.write("### 1. 執行亮點與成效分析 (Execution Highlights & Milestone Analytics)\n")
         f.write(f"- **當週高質量耐力里程累積**：已累積自行車 **{bike_act_km:.2f} km**、跑步 **{run_act_km:.2f} km**、游泳 **{swim_act_km:.2f} km**，整體時間執行率達 **{overall_completion:.1f}%**。\n")
-        if week_num == 38:
+        if week_num == 39:
+            f.write(f"- **Build 1-4 第一建構期減量調整週推進 (Deload & Supercompensation Phase)**：本週為第一建構期第四週，核心目標在於降低總訓練容量，促進神經系統深層修復與超量補償吸收。週一完全休息日充份修復後，今日 (9/22 週二) 順利高質量吃下 50m 長池「甜甜課表」3,400m！目前全週已累積游泳 **{swim_act_km:.2f} km**、自行車 **{bike_act_km:.2f} km**、跑步 **{run_act_km:.2f} km**，三項總時長達 **{(total_actual_time/60.0):.1f} 小時**，整體時間執行率達 **{overall_completion:.1f}%**。\n")
+            f.write("- **週二晨間 50m 長池甜甜課表 3,400m (113.7 sTSS, IF 1.023) 頂尖長游**：9/22 清晨 06:06 耗時 1 小時 03 分 41 秒完成 3,400 m（原定 75 分鐘，時間達成率 84.9%，sTSS 達 113.73，達成率 106.1% 超額精準完成）。全趟划水均速 1:52.8 /100m (標準化速度 1:52.4 /100m，均時速 3.19 km/h，精準切中 Sub-11 游泳 1h12m / 3.8km / 1:53/100m 目標配速線！)。全趟均心率僅 97 bpm (最低 69 bpm，最高 163 bpm，Recovery 與 Endurance 低心率區間佔比高達 97.7%)；均划頻 26 spm (最高 33 spm)；速度心率脫鉤率呈現極其驚人的負脫鉤 (Spd:HR -32.31%)，展現心肺完全零漂移與超高水準流線型 (Streamline) 推進經濟性！體感自覺給出良好的 3/5 與 RPE 3/10 (輕鬆省力巡航)。\n")
+            f.write("- **48 Laps 分段結構與速度亮點**：包含 400m 熱身 (2:06/100m, HR 114)、8 組 50m Drill 技術分解 (合計 400m)、400m/450m/200m/250m 專項耐力長巡航 (開出 1:35~1:47/100m)，以及 8 組 100m 自由式配速間歇（快段均勻飆出 1:37~1:42/100m 絕佳配速）與 100m 緩和收操，水感流暢、核心穩定無下沉阻力！\n")
+            f.write("- **週一 Build 1-4 完全休息日 (Rest Day)**：9/21 嚴格恪守減量週完全休息紀律，促進生長激素分泌以修復前三週累積之神經肌肉疲勞。\n")
+        elif week_num == 38:
             f.write(f"- **Build 1-3 第一建構期巔峰週圓滿結算 (Peak Build Phase)**：本週為第一建構期負荷最高峰，全週累積自行車 **{bike_act_km:.2f} km**、跑步 **{run_act_km:.2f} km**、游泳 **{swim_act_km:.2f} km**，三項總時長達 **{(total_actual_time/60.0):.1f} 小時 (~12.3 小時)**，整體時間執行率達 **{overall_completion:.1f}%**。目前體能狀況指標 (PMC) 邁入高峰期：Fitness (CTL) 達 **98** (即將破百！)、Fatigue (ATL) **128**、Form (TSB) **-22**，展現極佳的超補償承受力與高質量耐力底層！\n")
             f.write("- **週日清晨 15.8km 比賽配速跑 (81 rTSS) ＋ 50m長池 3,500m 比賽配速長游 (3.30km) 頂尖雙主課**：9/20 早晨 5:41 順利完成 1 小時 30 分 01 秒 15.8 km 跑步磚菜單 (原定 90 分鐘，時間達成率 100.0% 精準達標，斬獲 81 rTSS)。均速 5:43/km (最快 5:25/km，精準直擊 Sub-11 全馬 5:41/km 目標配速線！)，均速 10.51 km/h，消耗 1,035 kcal，爬升 6m。完美執行 Brick 90min 漸進配速：15min easy -> 30min 5:55-5:45/km -> 30min 5:45-5:35/km -> 15min 5:35-5:25/km。更打破 3 項近 90 天最佳紀錄 (Peak Performances x4)：5km 27:08 (05:26/km)、5mi 43:59 (05:28/km)、10km 55:17 (05:32/km)！體感自覺給出 4/5 良好微笑、RPE 3 Moderate (Conversational pace 說話配速，維持有氧巡航無早衰疲勞)；隨後接續 50m 長池 3,500m 比賽配速長游 (實游 3.30km, 63 分鐘, 時間達成率 90%)，水感流線型與長距離配速穩定發揮！\n")
             f.write("- **週六北海岸外騎大安～中角灣～大安 89.79km (216分)**：9/19 完成 3 小時 36 分外騎長課表，嚴守 IF 0.75~0.8 有氧耐力區間與補水防熱紀律。\n")
@@ -391,7 +396,12 @@ def build_report(target_date: date):
     font(p1.add_run("1. 執行亮點與成效分析 (Execution Highlights & Milestone Analytics)"), 12, True, "2E74B5")
     p1_body = doc.add_paragraph()
     p1_body.add_run(f"• 當週累積自行車 {bike_act_km:.2f} km、跑步 {run_act_km:.2f} km、游泳 {swim_act_km:.2f} km，整體時間執行率達 {overall_completion:.1f}%。\n")
-    if week_num == 38:
+    if week_num == 39:
+        p1_body.add_run(f"• Build 1-4 第一建構期減量調整週推進 (Deload & Supercompensation Phase)：本週為第一建構期第四週，核心目標在於降低總訓練容量，促進神經系統深層修復與超量補償吸收。週一完全休息日充份修復後，今日 (9/22 週二) 順利高質量吃下 50m 長池「甜甜課表」3,400m！目前全週已累積游泳 {swim_act_km:.2f} km、自行車 {bike_act_km:.2f} km、跑步 {run_act_km:.2f} km，三項總時長達 {(total_actual_time/60.0):.1f} 小時，整體時間執行率達 {overall_completion:.1f}%。\n")
+        p1_body.add_run("• 週二晨間 50m 長池甜甜課表 3,400m (113.7 sTSS, IF 1.023) 頂尖長游：9/22 清晨 06:06 耗時 1 小時 03 分 41 秒完成 3,400 m（原定 75 分鐘，時間達成率 84.9%，sTSS 達 113.73，達成率 106.1% 超額精準完成）。全趟划水均速 1:52.8 /100m (標準化速度 1:52.4 /100m，均時速 3.19 km/h，精準切中 Sub-11 游泳 1h12m / 3.8km / 1:53/100m 目標配速線！)。全趟均心率僅 97 bpm (最低 69 bpm，最高 163 bpm，Recovery 與 Endurance 低心率區間佔比高達 97.7%)；均划頻 26 spm (最高 33 spm)；速度心率脫鉤率呈現極其驚人的負脫鉤 (Spd:HR -32.31%)，展現心肺完全零漂移與超高水準流線型 (Streamline) 推進經濟性！體感自覺給出良好的 3/5 與 RPE 3/10 (輕鬆省力巡航)。\n")
+        p1_body.add_run("• 48 Laps 分段結構與速度亮點：包含 400m 熱身 (2:06/100m, HR 114)、8 組 50m Drill 技術分解 (合計 400m)、400m/450m/200m/250m 專項耐力長巡航 (開出 1:35~1:47/100m)，以及 8 組 100m 自由式配速間歇（快段均勻飆出 1:37~1:42/100m 絕佳配速）與 100m 緩和收操，水感流暢、核心穩定無下沉阻力！\n")
+        p1_body.add_run("• 週一 Build 1-4 完全休息日 (Rest Day)：9/21 嚴格恪守減量週完全休息紀律，促進生長激素分泌以修復前三週累積之神經肌肉疲勞。\n")
+    elif week_num == 38:
         p1_body.add_run(f"• Build 1-3 第一建構期巔峰週圓滿結算 (Peak Build Phase)：本週為第一建構期負荷最高峰，全週累積自行車 {bike_act_km:.2f} km、跑步 {run_act_km:.2f} km、游泳 {swim_act_km:.2f} km，三項總時長達 {(total_actual_time/60.0):.1f} 小時 (~12.3 小時)，整體時間執行率達 {overall_completion:.1f}%。目前體能狀況指標 (PMC) 邁入高峰期：Fitness (CTL) 達 98 (即將破百！)、Fatigue (ATL) 128、Form (TSB) -22，展現極佳的超補償承受力與高質量耐力底層！\n")
         p1_body.add_run("• 週日清晨 15.8km 比賽配速跑 (81 rTSS) ＋ 50m長池 3,500m 比賽配速長游 (3.30km) 頂尖雙主課：9/20 早晨 5:41 順利完成 1 小時 30 分 01 秒 15.8 km 跑步磚菜單 (原定 90 分鐘，時間達成率 100.0% 精準達標，斬獲 81 rTSS)。均速 5:43/km (最快 5:25/km，精準直擊 Sub-11 全馬 5:41/km 目標配速線！)，均速 10.51 km/h，消耗 1,035 kcal，爬升 6m。完美執行 Brick 90min 漸進配速：15min easy -> 30min 5:55-5:45/km -> 30min 5:45-5:35/km -> 15min 5:35-5:25/km。更打破 3 項近 90 天最佳紀錄 (Peak Performances x4)：5km 27:08 (05:26/km)、5mi 43:59 (05:28/km)、10km 55:17 (05:32/km)！體感自覺給出 4/5 良好微笑、RPE 3 Moderate (Conversational pace 說話配速，維持有氧巡航無早衰疲勞)；隨後接續 50m 長池 3,500m 比賽配速長游 (實游 3.30km, 63 分鐘, 時間達成率 90%)，水感流線型與長距離配速穩定發揮！\n")
         p1_body.add_run("• 週六北海岸外騎大安～中角灣～大安 89.79km (216分)：9/19 完成 3 小時 36 分外騎長課表，嚴守 IF 0.75~0.8 有氧耐力區間與補水防熱紀律。\n")
