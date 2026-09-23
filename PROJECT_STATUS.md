@@ -318,3 +318,12 @@
      - 執行全套日常自動化管線 (`scripts/daily_update.py`)，重新生成 52 週 Web 儀表板 (`outputs/index.html`)、當週執行率回顧報告 (`.md` / `.docx`) 並完整打包至 `docs/` 部署目錄。
      - 部署推送至 GitHub main 分支以更新 GitHub Pages 線上儀表板 (`https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#swim`)。
 
+- 2026-09-23 成功同步今日 (9/23) 週三清晨田徑場 5x1200m 漸進速度間歇 9.53km 高質量跑步訓練數據（TrainingPeaks 專項建構期 Build 1-4 減量調整週，公開分享連結：http://tpks.ws/MCWXCJ4MRZGTTMMG5WWYIFBEG4）：
+  1. **晨間田徑場 5x1200m 漸進速度間歇 (Running / Run: 田徑場 5x1200m 漸進間歇 / 9.53 km)**：05:51:34 出發，耗時 1 小時 00 分 16 秒完成 9.53 km（原定 60 分鐘 / 8.8 km，時間完備度 100.4% 精準達標，距離達成率 108.3% 超額完成，斬獲 55.48 rTSS，達成率 100.9%，IF 0.706）。全趟平均配速 6:20 /km (9.48 km/h，含熱身、組間走動慢跑恢復與緩和)，標準化速度高達 **5:40 /km (2.94 m/s)**，精準切中 Sub-11 完賽全馬 4 小時 (5:41/km) 目標配速線！平均功率 242 W (3.58 W/kg，最大 420 W，做功 877 kJ)。全趟均心率 151 bpm (最低 70 bpm，最高 183 bpm，低心率 Recovery 23.7分 與 Endurance 23.2分 區間累積近 47 分鐘，佔比 77.8%)；均步頻 146 spm (間歇跑動段穩定高居 171~183 spm，最高 196 spm)；步態力學頂尖：平均觸地時間 251.2 ms (最優達 204 ms)，平均垂直比僅 8.0% (<9% 頂尖跑者標竿，垂直振幅 8.16 cm、步幅 1.02m)，展現極致的能量向前推進效率與落地剛性；消耗 654 kcal，體感自覺給出良好的 3/5 與 RPE 4/10 (自覺適中可控)。
+  2. **26 Laps 分段結構與 5 組 1200m 負分割亮點**：包含 1,000m 熱身跑 (6:46/km, HR 118) 與動態技術操，核心執行 5 組 1,200m 漸進間歇：第 1 組 (3x400m) @ 5:11/km (123~128s/400m) ➔ 第 2 組 (3x400m) @ 5:05/km (122~124s/400m) ➔ 第 3 組 (3x400m) @ 4:50/km (117~118s/400m) ➔ 第 4 組 (800m+400m) @ 4:38/km (112s/400m) ➔ 第 5 組 (3x400m) @ 4:29~4:23/km (108s, 110s, 106s / 400m！步頻飆上 183 spm)！組間規律 2 分鐘走動動態恢復（心率快速自 170+ bpm 回降至 125~135 bpm，展現極高心血管彈性與抗疲勞耐受度），最後以 1,377m 緩和收操！
+  3. **W39 Build 1-4 本週累計進度**：截至週三已完成游泳 **3.40 km (1 小時 04 分)**、跑步 **9.53 km (1 小時 00 分)**，全週三項時間執行率達 **26.4%**（全週排定 7.8 小時減量總時數），雙項累計負荷斬獲 **169.2 TSS**，在減量週中維持神經肌肉高質量速度刺激並充份超量吸收。
+  4. **成果更新與線上部署**：
+     - 更新 scripts/generate_web_dashboard.py 與 scripts/generate_execution_report.py，納入 9/23 田徑場 5x1200m 間歇跑專屬指標卡片、教練隨堂評析、W39 減量週分析與 #run 專區導航。
+     - 執行全套日常自動化管線 (scripts/daily_update.py)，重新生成 52 週 Web 儀表板 (outputs/index.html)、當週執行率回顧報告 (.md / .docx) 並完整打包至 docs/ 部署目錄。
+     - 部署推送至 GitHub main 分支以更新 GitHub Pages 線上儀表板 (https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#run)。
+
