@@ -327,3 +327,13 @@
      - 執行全套日常自動化管線 (scripts/daily_update.py)，重新生成 52 週 Web 儀表板 (outputs/index.html)、當週執行率回顧報告 (.md / .docx) 並完整打包至 docs/ 部署目錄。
      - 部署推送至 GitHub main 分支以更新 GitHub Pages 線上儀表板 (https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#run)。
 
+- 2026-09-24 成功同步今日 (9/24) 週四清晨 50m 長池「甜甜課表」3,250m 高質量訓練數據（TrainingPeaks 專項建構期 Build 1-4 減量調整週，公開分享連結：http://tpks.ws/BZYCZ5FJXVDO7MMG5WWYIFBEG4）：
+  1. **晨間 50m 長池甜甜課表 (Swimming / Swim: 甜甜課表 / 3,250 m)**：06:05:48 出發，耗時 1 小時 03 分 37 秒完成 3,250 m（原定 75 分鐘，實游距離 3.25 km，時間完備度 84.8%，斬獲 99.52 sTSS，達成率 92.8% 高質量達標，IF 0.979）。全趟划水均速 1:57.8 /100m (標準化速度 1:57.4 /100m，均時速 3.06 km/h)。全趟平均心率僅 117 bpm (最低 67 bpm，最高 190 bpm，Recovery 與 Endurance 低心率區間累積達 54.8 分鐘，佔比高達 86.2%)；均划頻 27 spm (最高 36 spm)；速度心率脫鉤率呈現極其驚人的負脫鉤 (Spd:HR -26.66%)！展現心血管系統零漂移與超群的水中動態流線型 (Streamline) 推進經濟性；消耗 636 kcal，體感自覺給出良好的 3/5 與 RPE 5/10 (自覺適中)。
+  2. **43 Laps 分段結構與速度亮點**：包含 200m 熱身跑與 700m 技術 Drill 分解操、4 組 100m 自由式間歇（均勻飆出 1:37~1:39/100m 絕佳速度）、3 組 200m 巡航 (1:40~1:41/100m)、400m 巡航 (1:40.0/100m 整，均心率僅 96 bpm！) 與 850m 長巡航 (1:43.4/100m，均心率僅 115 bpm！)，最後以 100m Drill 緩和收操，水感流暢、核心穩定無下沉阻力。在昨日高強度田徑場 5x1200m 跑步間歇後，成功利用 50m 長池水壓與浮力達成極佳的下肢深層動態排酸！
+  3. **W39 Build 1-4 本週累計進度**：截至週四已完成游泳 **6.65 km (2 小時 07 分)**、跑步 **9.53 km (1 小時 00 分)**，全週三項時間執行率達 **40.0%**（全週排定 7.8 小時減量總時數），三項累計負荷斬獲 **268.7 TSS**，充分達成超量補償與吸收，為明日 (週五) 150 分鐘單車 LSD 長騎 (75km) 做好萬全準備。
+  4. **成果更新與線上部署**：
+     - 更新 data/raw/calendar_cache.json，同步 9/24 游泳課表實測數據 (3.25km, 64分, 99.5 sTSS)。
+     - 更新 scripts/generate_web_dashboard.py 與 scripts/generate_execution_report.py，納入 9/24 甜甜課表專屬指標卡片、教練隨堂評析、W39 減量週分析與 #swim 專區導航。
+     - 執行全套日常自動化管線 (scripts/daily_update.py)，重新生成 52 週 Web 儀表板 (outputs/index.html)、當週執行率回顧報告 (.md / .docx) 並完整打包至 docs/ 部署目錄。
+     - 部署推送至 GitHub main 分支以更新 GitHub Pages 線上儀表板 (https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html#swim)。
+
