@@ -225,14 +225,54 @@ def calculate_dynamic_226_estimate(target_monday: date) -> dict:
     # -------------------------------------------------------------
     # 8.2 🌊 2026 RACE B (TUNE-UP / TEST): IRONMAN 70.3 KENTING (2026/11)
     # -------------------------------------------------------------
-    # Kenting 70.3: Little Bay M-shape swim, Provincial Hwy 26 / P153 rolling + Downhill Wind (落山風), Shexing run
-    kenting_penalty_opt = 6.0
-    kenting_penalty_neu = 9.0
-    kenting_penalty_con = 15.0
+    # Official Course Physics Modeling:
+    # 1. Swim: Little Bay 1.9km M-shape (450m-80m-375m-90m-375m-80m-450m with 6 buoy 90° turns + open water swell + culvert/stairs T1)
+    # 2. Bike: DT Swiss 90km with 641M total elevation (P153 rolling hills 0-25k & 70-85k up to 60m + Hwy 26 Checheng/Mudan 46.7k turnaround + Katabatic downhill wind / 落山風)
+    # 3. Run: 2 Laps 21.1km with 342M total elevation (Lap 1 Sheding Natural Park climb to 210m peak + 4km steep eccentric downhill + Lap 2 Hwy 26 flat coastal turnaround)
+    k_opt_swim = base_swim_703 + 0.0 + (0.15 * 0.45 * swim_fade_mins)
+    k_opt_t1 = 3.0
+    k_opt_bike = base_bike_703 + 11.0 + (0.15 * 0.45 * bike_fade_penalty_mins)
+    k_opt_t2 = 2.0
+    k_opt_run = base_run_703 + 4.0 + (0.15 * 0.45 * run_fade_penalty_mins) + min(0.0, exec_bonus * 0.5)
+    kenting_opt_mins = k_opt_swim + k_opt_t1 + k_opt_bike + k_opt_t2 + k_opt_run
 
-    kenting_opt_mins = opt_mins_703 + kenting_penalty_opt
-    kenting_neu_mins = neu_mins_703 + kenting_penalty_neu
-    kenting_con_mins = con_mins_703 + kenting_penalty_con
+    k_neu_swim = base_swim_703 + 2.0 + (0.50 * 0.45 * swim_fade_mins)
+    k_neu_t1 = 4.0
+    k_neu_bike = base_bike_703 + 19.0 + (0.50 * 0.45 * bike_fade_penalty_mins)
+    k_neu_t2 = 3.0
+    k_neu_run = base_run_703 + 11.0 + (0.50 * 0.45 * run_fade_penalty_mins) + max(0.0, exec_bonus * 0.3)
+    kenting_neu_mins = k_neu_swim + k_neu_t1 + k_neu_bike + k_neu_t2 + k_neu_run
+
+    k_con_swim = base_swim_703 + 4.0 + (1.00 * 0.45 * swim_fade_mins)
+    k_con_t1 = 5.0
+    k_con_bike = base_bike_703 + 33.0 + (1.00 * 0.45 * bike_fade_penalty_mins)
+    k_con_t2 = 4.0
+    k_con_run = base_run_703 + 20.0 + (1.00 * 0.45 * run_fade_penalty_mins) + max(6.0, exec_bonus * 0.6)
+    kenting_con_mins = k_con_swim + k_con_t1 + k_con_bike + k_con_t2 + k_con_run
+
+    kenting_opt_splits = {
+        "swim": format_minutes(k_opt_swim),
+        "t1": format_minutes(k_opt_t1),
+        "bike": format_minutes(k_opt_bike),
+        "t2": format_minutes(k_opt_t2),
+        "run": format_minutes(k_opt_run)
+    }
+    kenting_neu_splits = {
+        "swim": format_minutes(k_neu_swim),
+        "t1": format_minutes(k_neu_t1),
+        "bike": format_minutes(k_neu_bike),
+        "t2": format_minutes(k_neu_t2),
+        "run": format_minutes(k_neu_run)
+    }
+    kenting_con_splits = {
+        "swim": format_minutes(k_con_swim),
+        "t1": format_minutes(k_con_t1),
+        "bike": format_minutes(k_con_bike),
+        "t2": format_minutes(k_con_t2),
+        "run": format_minutes(k_con_run)
+    }
+
+    kenting_penalty_neu = kenting_neu_mins - neu_mins_703
 
     # -------------------------------------------------------------
     # 8.3 🏆 2027 ULTIMATE MAIN TARGET: IRONMAN PENGHU 226KM (2027)
@@ -300,8 +340,16 @@ def calculate_dynamic_226_estimate(target_monday: date) -> dict:
             "optimistic": f"{format_minutes(kenting_opt_mins - 5.0)} – {format_minutes(kenting_opt_mins + 5.0)} (中位: {format_minutes(kenting_opt_mins)})",
             "neutral": f"{format_minutes(kenting_neu_mins - 6.0)} – {format_minutes(kenting_neu_mins + 6.0)} (中位: {format_minutes(kenting_neu_mins)})",
             "conservative": f"{format_minutes(kenting_con_mins - 8.0)} – {format_minutes(kenting_con_mins + 10.0)} (中位: {format_minutes(kenting_con_mins)})",
-            "course_modifier": f"+{int(kenting_penalty_neu)} 分鐘 (小灣 M 字海泳 + 台26落山風/起伏 + 社頂路跑)",
-            "role": "2026 賽事 B 實戰檢驗 (Tune-up & Test Race)"
+            "course_modifier": f"+{int(round(kenting_penalty_neu))} 分鐘 (小灣 M 字海泳 1.9k + 單車 90k 爬升 641m/落山風 + 路跑 21.1k 爬升 342m/社頂標高 210m)",
+            "role": "2026 賽事 B 實戰檢驗 (Tune-up & Test Race)",
+            "opt_splits": kenting_opt_splits,
+            "neu_splits": kenting_neu_splits,
+            "con_splits": kenting_con_splits,
+            "elevation": {
+                "bike_climb_m": 641,
+                "run_climb_m": 342,
+                "run_max_elevation_m": 210
+            }
         },
         "penghu_226_estimate": {
             "title": "IRONMAN 澎湖 (2027 年度終極主要賽事 🏆)",

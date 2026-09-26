@@ -2241,25 +2241,69 @@ def generate_52_week_dashboard():
                             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
                                 <div>
                                     <span style="font-size:1.02rem; font-weight:800; color:#38BDF8;">🌊 2026 賽事 B (實戰前哨檢驗)：IRONMAN 70.3 墾丁</span>
-                                    <a href="https://www.ironman.com/races/im703-kenting/course" target="_blank" style="margin-left:8px; font-size:0.78rem; color:#0284C7; text-decoration:none; background:rgba(56,189,248,0.15); padding:2px 8px; border-radius:4px; border:1px solid rgba(56,189,248,0.3);">🔗 官方賽道路線 ↗</a>
+                                    <a href="https://www.ironman.com/races/im703-kenting/course#swim" target="_blank" style="margin-left:8px; font-size:0.76rem; color:#0284C7; text-decoration:none; background:rgba(56,189,248,0.15); padding:2px 8px; border-radius:4px; border:1px solid rgba(56,189,248,0.3);">🏊 游泳路線 ↗</a>
+                                    <a href="https://www.ironman.com/races/im703-kenting/course#bike" target="_blank" style="margin-left:4px; font-size:0.76rem; color:#0284C7; text-decoration:none; background:rgba(56,189,248,0.15); padding:2px 8px; border-radius:4px; border:1px solid rgba(56,189,248,0.3);">🚴 單車 641m 爬升 ↗</a>
+                                    <a href="https://www.ironman.com/races/im703-kenting/course#run" target="_blank" style="margin-left:4px; font-size:0.76rem; color:#0284C7; text-decoration:none; background:rgba(56,189,248,0.15); padding:2px 8px; border-radius:4px; border:1px solid rgba(56,189,248,0.3);">🏃 路跑 342m 爬升 ↗</a>
                                 </div>
                                 <span style="font-size:0.76rem; background:rgba(56,189,248,0.15); color:#38BDF8; padding:3px 8px; border-radius:6px; font-weight:600;">修正加成：${{est.kenting_703_estimate.course_modifier}}</span>
                             </div>
                             <div style="font-size:0.84rem; color:#CBD5E1; margin-bottom:10px; line-height:1.6;">
-                                <strong>賽事任務</strong>：作為 11 月蘭卡威主要賽事 A 之前的實戰檢驗 (Tune-up / Test Race)。重點測試小灣 M 型海泳水感、台26/屏153落山風側逆風巡航穩定度與 T1/T2 轉換跑配速。
+                                <strong>賽事任務與官方地形特化</strong>：依據 IRONMAN 官方墾丁賽道地圖精算（單車總爬升 <strong>641M</strong> ＋ 路跑雙圈總爬升 <strong>342M</strong>，含社頂頂點標高 <strong>210M</strong>）。作為 11 月主要賽事 A (蘭卡威) 之前的實戰前哨檢驗 (Tune-up & Test Race)。實兵測試：小灣雙峰 M 字海泳水感、台26/屏153落山風側逆風空力抗風穩定度，以及社頂陡下坡後的防抽筋轉換跑配速。
                             </div>
-                            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
-                                <div style="background: rgba(15, 23, 42, 0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(56, 189, 248, 0.25);">
-                                    <div style="font-size:0.76rem; color:#38BDF8; font-weight:700;">🟢 墾丁樂觀目標 (破5:15)</div>
-                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px;">${{est.kenting_703_estimate.optimistic}}</div>
+                            <!-- 3 ESTIMATE CARDS WITH 5 SEGMENT SPLITS -->
+                            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 12px;">
+                                <div style="background: rgba(15, 23, 42, 0.7); padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(56, 189, 248, 0.25);">
+                                    <div style="font-size:0.76rem; color:#38BDF8; font-weight:700;">🟢 墾丁樂觀目標 (破 5:30 巔峰發揮)</div>
+                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px; margin-bottom:6px;">${{est.kenting_703_estimate.optimistic}}</div>
+                                    <div style="font-size:0.78rem; border-top:1px dashed rgba(255,255,255,0.15); padding-top:6px; line-height:1.55; color:#E2E8F0;">
+                                        <div style="display:flex; justify-content:space-between;"><span>🏊 游泳 1.9km (M字)</span><strong>${{est.kenting_703_estimate.opt_splits.swim}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>⏱️ T1 涵洞階梯</span><strong>${{est.kenting_703_estimate.opt_splits.t1}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>🚴 單車 90km (641m↑)</span><strong>${{est.kenting_703_estimate.opt_splits.bike}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>⏱️ T2 轉換區</span><strong>${{est.kenting_703_estimate.opt_splits.t2}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>🏃 路跑 21.1km (342m↑)</span><strong>${{est.kenting_703_estimate.opt_splits.run}}</strong></div>
+                                    </div>
                                 </div>
-                                <div style="background: rgba(15, 23, 42, 0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.25);">
-                                    <div style="font-size:0.76rem; color:#FBBF24; font-weight:700;">🟠 墾丁中性目標 (穩定配速)</div>
-                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px;">${{est.kenting_703_estimate.neutral}}</div>
+                                <div style="background: rgba(15, 23, 42, 0.7); padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.25);">
+                                    <div style="font-size:0.76rem; color:#FBBF24; font-weight:700;">🟠 墾丁中性目標 (落山風與社頂穩健巡航)</div>
+                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px; margin-bottom:6px;">${{est.kenting_703_estimate.neutral}}</div>
+                                    <div style="font-size:0.78rem; border-top:1px dashed rgba(255,255,255,0.15); padding-top:6px; line-height:1.55; color:#E2E8F0;">
+                                        <div style="display:flex; justify-content:space-between;"><span>🏊 游泳 1.9km (M字)</span><strong>${{est.kenting_703_estimate.neu_splits.swim}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>⏱️ T1 涵洞階梯</span><strong>${{est.kenting_703_estimate.neu_splits.t1}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>🚴 單車 90km (641m↑)</span><strong>${{est.kenting_703_estimate.neu_splits.bike}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>⏱️ T2 轉換區</span><strong>${{est.kenting_703_estimate.neu_splits.t2}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>🏃 路跑 21.1km (342m↑)</span><strong>${{est.kenting_703_estimate.neu_splits.run}}</strong></div>
+                                    </div>
                                 </div>
-                                <div style="background: rgba(15, 23, 42, 0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.25);">
-                                    <div style="font-size:0.76rem; color:#F87171; font-weight:700;">🔴 墾丁保守目標 (落山風掉速)</div>
-                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px;">${{est.kenting_703_estimate.conservative}}</div>
+                                <div style="background: rgba(15, 23, 42, 0.7); padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.25);">
+                                    <div style="font-size:0.76rem; color:#F87171; font-weight:700;">🔴 墾丁保守目標 (強側逆風與下坡後程掉速)</div>
+                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px; margin-bottom:6px;">${{est.kenting_703_estimate.conservative}}</div>
+                                    <div style="font-size:0.78rem; border-top:1px dashed rgba(255,255,255,0.15); padding-top:6px; line-height:1.55; color:#E2E8F0;">
+                                        <div style="display:flex; justify-content:space-between;"><span>🏊 游泳 1.9km (M字)</span><strong>${{est.kenting_703_estimate.con_splits.swim}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>⏱️ T1 涵洞階梯</span><strong>${{est.kenting_703_estimate.con_splits.t1}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>🚴 單車 90km (641m↑)</span><strong>${{est.kenting_703_estimate.con_splits.bike}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>⏱️ T2 轉換區</span><strong>${{est.kenting_703_estimate.con_splits.t2}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>🏃 路跑 21.1km (342m↑)</span><strong>${{est.kenting_703_estimate.con_splits.run}}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- OFFICIAL COURSE BREAKDOWN ACCORDION/BOX -->
+                            <div style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 8px; padding: 10px 12px; font-size: 0.8rem; line-height: 1.6; color: #CBD5E1;">
+                                <div style="font-weight:700; color:#38BDF8; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+                                    <span>🗺️ 依據官方路線圖特化之三項賽道解析與配速戰術：</span>
+                                </div>
+                                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin-top: 6px;">
+                                    <div style="background:rgba(30,41,59,0.5); padding:8px 10px; border-radius:6px; border-left:3px solid #38BDF8;">
+                                        <div style="font-weight:700; color:#F8FAFC; margin-bottom:2px;">🏊 小灣 1.9km 雙峰 M 字型海泳</div>
+                                        <div style="font-size:0.77rem; color:#94A3B8;">小灣沙灘出發，450m-80m-375m-90m-375m-80m-450m 雙峰折返，含 6 處 90° 直角標誌浮標繞折。起水經涵洞、淋水沖淡區與階梯進福華 TA。戰術：避開近岸浪潮，外海直線保持 1:50~1:56/100m 流線型巡航；T1 穩健上階梯防心率過衝。</div>
+                                    </div>
+                                    <div style="background:rgba(30,41,59,0.5); padding:8px 10px; border-radius:6px; border-left:3px solid #FBBF24;">
+                                        <div style="font-weight:700; color:#F8FAFC; margin-bottom:2px;">🚴 DT Swiss 單車 90km (總爬升 641M)</div>
+                                        <div style="font-size:0.77rem; color:#94A3B8;">屏153西海岸丘陵 (0-25k & 70-85k 標高達 60m) ＋ 台26車城牡丹段 (46.7k折返，強烈「落山風」6~8級側逆陣風)。戰術：FTP 205W 設定目標 160W~166W (0.78~0.80 IF)。爬坡段嚴禁爆衝、瓦數上限壓制在 175W-180W 內；遇落山風陣風以安全下把空力抗風，均速預估 29.5~31.0 km/h。</div>
+                                    </div>
+                                    <div style="background:rgba(30,41,59,0.5); padding:8px 10px; border-radius:6px; border-left:3px solid #F87171;">
+                                        <div style="font-weight:700; color:#F8FAFC; margin-bottom:2px;">🏃 路跑 21.1km (總爬升 342M，社頂大魔王)</div>
+                                        <div style="font-size:0.77rem; color:#94A3B8;">雙圈制：Lap 1 (0-11.5k) 公園路直攻社頂自然公園 (<strong>最高海拔直衝 210M</strong>，前 5k 爬升 190m) ＋ 船帆路 4k 陡下坡 (離心損傷大) ＋ 船帆石折返；Lap 2 (11.5-21.1k) 台26平路折返衝線。戰術：Lap 1 攻坡採高步頻 (6:30~7:00/km) 壓心率，下坡輕柔著地護膝；Lap 2 平路預防抽筋並補充高鈉水分，穩守 5:45~5:55/km 均速。</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
