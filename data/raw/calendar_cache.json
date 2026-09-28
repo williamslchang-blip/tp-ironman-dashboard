@@ -3,7 +3,7 @@
     "date": "2026-09-23",
     "summary": "Run: Running",
     "uid": "2026-09-23_Run_0",
-    "tp_uid": "4b3c909d-ecf4-45a6-a770-fd4ac7a10fd0",
+    "tp_uid": "6249dfc7-66e2-4ceb-a58f-6e7e11d7d750",
     "type": "Run",
     "planned_time": 60,
     "actual_time": 60,
@@ -11,7 +11,7 @@
     "actual_dist": 9.53,
     "speed": 9.48,
     "pace": "6:20 /km",
-    "last_synced": "2026-09-27T20:00:06.760693",
+    "last_synced": "2026-09-28T09:00:08.167408",
     "original_plan": {
       "planned_time": 60,
       "planned_dist": 8.8
@@ -21,7 +21,7 @@
     "date": "2026-09-24",
     "summary": "Swim: 甜甜課表",
     "uid": "2026-09-24_Swim_0",
-    "tp_uid": "e3538b66-6ed6-479c-94be-f7d2ef817bcc",
+    "tp_uid": "34ea72c1-b74e-4ce9-a01a-e2b035453e2a",
     "type": "Swim",
     "planned_time": 75,
     "actual_time": 63,
@@ -29,7 +29,7 @@
     "actual_dist": 3.25,
     "speed": 3.06,
     "pace": "1:58 /100m",
-    "last_synced": "2026-09-27T20:00:06.760693",
+    "last_synced": "2026-09-28T09:00:08.167408",
     "original_plan": {
       "planned_time": 75,
       "planned_dist": 0
@@ -39,7 +39,7 @@
     "date": "2026-09-25",
     "summary": "Bike: LSD",
     "uid": "2026-09-25_Bike_0",
-    "tp_uid": "6b67200d-f5be-44e2-9e67-81b47288483b",
+    "tp_uid": "24f19104-cb94-4d66-ba09-36946623ab6d",
     "type": "Bike",
     "planned_time": 150,
     "actual_time": 166,
@@ -47,7 +47,7 @@
     "actual_dist": 71.61,
     "speed": 25.78,
     "pace": "",
-    "last_synced": "2026-09-27T20:00:06.760693",
+    "last_synced": "2026-09-28T09:00:08.167408",
     "original_plan": {
       "planned_time": 150,
       "planned_dist": 75.0
@@ -57,7 +57,7 @@
     "date": "2026-09-26",
     "summary": "Bike: Endurance",
     "uid": "2026-09-26_Bike_0",
-    "tp_uid": "724970de-1d9c-44ea-abd2-b3e70efd9f34",
+    "tp_uid": "7e76af3c-9625-464a-8b4b-9cdcefb63f54",
     "type": "Bike",
     "planned_time": 60,
     "actual_time": 101,
@@ -65,9 +65,27 @@
     "actual_dist": 37.36,
     "speed": 22.01,
     "pace": "",
-    "last_synced": "2026-09-27T20:00:06.760693",
+    "last_synced": "2026-09-28T09:00:08.167408",
     "original_plan": {
       "planned_time": 60,
+      "planned_dist": 0
+    }
+  },
+  "2026-09-28_Day Off_0": {
+    "date": "2026-09-28",
+    "summary": "Day Off: Build 1-4 Day Off 減量週",
+    "uid": "2026-09-28_Day Off_0",
+    "tp_uid": "4aec4a55-ba6c-4065-85d9-f00ede974da9",
+    "type": "Day Off",
+    "planned_time": 0,
+    "actual_time": 0,
+    "planned_dist": 0,
+    "actual_dist": 0,
+    "speed": 0.0,
+    "pace": "",
+    "last_synced": "2026-09-28T09:00:08.167408",
+    "original_plan": {
+      "planned_time": 0,
       "planned_dist": 0
     }
   },
@@ -75,7 +93,7 @@
     "date": "2026-11-01",
     "summary": "B: IMKT",
     "uid": "2026-11-01_Other_0",
-    "tp_uid": "c8bbc8d1-d23a-4314-b3ca-c2c55be995b7",
+    "tp_uid": "1e324000-2336-42a9-9dc9-23b1af677d56",
     "type": "Other",
     "planned_time": 0,
     "actual_time": 0,
@@ -83,7 +101,7 @@
     "actual_dist": 0,
     "speed": 0.0,
     "pace": "",
-    "last_synced": "2026-09-27T20:00:06.760693",
+    "last_synced": "2026-09-28T09:00:08.167408",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
