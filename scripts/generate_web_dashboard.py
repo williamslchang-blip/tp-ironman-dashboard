@@ -1523,17 +1523,18 @@ def generate_52_week_dashboard():
             margin-bottom: 20px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 10px;
+            overflow-x: auto;
         }}
         .subtab-btn {{
             flex: 1;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             color: var(--text-muted);
-            padding: 10px 14px;
+            padding: 10px 10px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             text-align: center;
             transition: all 0.2s ease;
             white-space: nowrap;
@@ -2006,7 +2007,10 @@ def generate_52_week_dashboard():
             }}
         }}
 
+        let currentSubtab = 'estimate';
+
         function openSubtab(tabName) {{
+            currentSubtab = tabName;
             document.querySelectorAll('.subtab-view').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.subtab-btn').forEach(el => el.classList.remove('active'));
             
@@ -2041,6 +2045,8 @@ def generate_52_week_dashboard():
                 openSubtab('review');
             }} else if (hash === 'overview') {{
                 openSubtab('overview');
+            }} else if (hash === 'estimate' || hash === 'estimates' || hash === 'prediction' || hash === 'predictions' || hash === '226' || hash === '113' || hash === 'race' || hash === 'races') {{
+                openSubtab('estimate');
             }} else if (hash === 'recovery-guideline' || hash === 'coach-recovery') {{
                 openSubtab('overview');
                 setTimeout(() => {{
@@ -2092,50 +2098,15 @@ def generate_52_week_dashboard():
 
                 <!-- SUBNAV TABS FOR ONLINE READING -->
                 <div class="subnav-tabs">
-                    <button class="subtab-btn active" data-tab="overview" onclick="openSubtab('overview')">📊 當週總覽 & 226/113 完賽預估</button>
-                    <button class="subtab-btn" data-tab="plan" onclick="openSubtab('plan')">🏋️ 當週課表與肌力計畫</button>
-                    <button class="subtab-btn" data-tab="articles" onclick="openSubtab('articles')">📰 當週鐵人新知</button>
-                    <button class="subtab-btn" data-tab="review" onclick="openSubtab('review')">📈 ${{data.prev_week_num === data.week_num ? '當週' : '上週'}} (W${{data.prev_week_num}}) 執行率回顧</button>
+                    <button class="subtab-btn ${{currentSubtab === 'estimate' ? 'active' : ''}}" data-tab="estimate" onclick="openSubtab('estimate')">🔮 預估完賽時間</button>
+                    <button class="subtab-btn ${{currentSubtab === 'overview' ? 'active' : ''}}" data-tab="overview" onclick="openSubtab('overview')">📊 當週總覽</button>
+                    <button class="subtab-btn ${{currentSubtab === 'plan' ? 'active' : ''}}" data-tab="plan" onclick="openSubtab('plan')">🏋️ 當週課表與肌力計畫</button>
+                    <button class="subtab-btn ${{currentSubtab === 'articles' ? 'active' : ''}}" data-tab="articles" onclick="openSubtab('articles')">📰 鐵人新知</button>
+                    <button class="subtab-btn ${{currentSubtab === 'review' ? 'active' : ''}}" data-tab="review" onclick="openSubtab('review')">📈 執行率回顧</button>
                 </div>
 
-                <!-- SUBTAB 1: OVERVIEW -->
-                <div id="subview-overview" class="subtab-view active">
-                    <div class="grid-kpi">
-                        <div class="kpi-card">
-                            <div class="kpi-title">訓練時間完成率</div>
-                            <div class="kpi-val" style="color: ${{data.exec_rate >= 80 ? 'var(--accent-green)' : 'var(--accent-orange)'}};">
-                                ${{data.exec_rate}}%
-                            </div>
-                            <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
-                                實際 ${{data.actual_time_hrs}}h / 計畫 ${{data.planned_time_hrs}}h
-                            </div>
-                        </div>
-                        <div class="kpi-card">
-                            <div class="kpi-title">跑步累計里程</div>
-                            <div class="kpi-val">${{data.run_km}} km</div>
-                            <div style="font-size: 0.78rem; color: var(--accent-cyan); margin-top: 4px;">滾動均量 ${{est.rolling_4w_avg_run_km}} km/週</div>
-                        </div>
-                        <div class="kpi-card">
-                            <div class="kpi-title">單車累計里程</div>
-                            <div class="kpi-val">${{data.bike_km}} km</div>
-                            <div style="font-size: 0.78rem; color: var(--accent-cyan); margin-top: 4px;">滾動均量 ${{est.rolling_4w_avg_bike_km}} km/週</div>
-                        </div>
-                        <div class="kpi-card">
-                            <div class="kpi-title">游泳累計里程</div>
-                            <div class="kpi-val">${{data.swim_km}} km</div>
-                            <div style="font-size: 0.78rem; color: var(--accent-cyan); margin-top: 4px;">滾動均量 ${{est.rolling_4w_avg_swim_km}} km/週</div>
-                        </div>
-                    </div>
-
-                    <!-- COACH COMPREHENSIVE ANALYSIS & RECOVERY PROTOCOL -->
-                    ${{data.coach_insights_box_html}}
-
-                    <!-- DAILY WORKOUT ACCOMPLISHMENTS & COACH FEEDBACK -->
-                    <div class="section-box">
-                        <div class="section-title">📋 每日最新訓練成果解析與教練隨堂建議 (對比 Sub-11 10:54 藍圖)</div>
-                        <div>${{data.daily_feedback_html}}</div>
-                    </div>
-
+                <!-- SUBTAB 1: ESTIMATE (預估完賽時間) -->
+                <div id="subview-estimate" class="subtab-view ${{currentSubtab === 'estimate' ? 'active' : ''}}">
                     <!-- IM226 DYNAMIC ESTIMATE -->
                     <div class="section-box">
                         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-bottom: 14px;">
@@ -2443,8 +2414,47 @@ def generate_52_week_dashboard():
                     </div>
                 </div>
 
-                <!-- SUBTAB 2: PLAN & STRENGTH -->
-                <div id="subview-plan" class="subtab-view">
+                <!-- SUBTAB 2: OVERVIEW (當週總覽) -->
+                <div id="subview-overview" class="subtab-view ${{currentSubtab === 'overview' ? 'active' : ''}}">
+                    <div class="grid-kpi">
+                        <div class="kpi-card">
+                            <div class="kpi-title">訓練時間完成率</div>
+                            <div class="kpi-val" style="color: ${{data.exec_rate >= 80 ? 'var(--accent-green)' : 'var(--accent-orange)'}};">
+                                ${{data.exec_rate}}%
+                            </div>
+                            <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
+                                實際 ${{data.actual_time_hrs}}h / 計畫 ${{data.planned_time_hrs}}h
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-title">跑步累計里程</div>
+                            <div class="kpi-val">${{data.run_km}} km</div>
+                            <div style="font-size: 0.78rem; color: var(--accent-cyan); margin-top: 4px;">滾動均量 ${{est.rolling_4w_avg_run_km}} km/週</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-title">單車累計里程</div>
+                            <div class="kpi-val">${{data.bike_km}} km</div>
+                            <div style="font-size: 0.78rem; color: var(--accent-cyan); margin-top: 4px;">滾動均量 ${{est.rolling_4w_avg_bike_km}} km/週</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-title">游泳累計里程</div>
+                            <div class="kpi-val">${{data.swim_km}} km</div>
+                            <div style="font-size: 0.78rem; color: var(--accent-cyan); margin-top: 4px;">滾動均量 ${{est.rolling_4w_avg_swim_km}} km/週</div>
+                        </div>
+                    </div>
+
+                    <!-- COACH COMPREHENSIVE ANALYSIS & RECOVERY PROTOCOL -->
+                    ${{data.coach_insights_box_html}}
+
+                    <!-- DAILY WORKOUT ACCOMPLISHMENTS & COACH FEEDBACK -->
+                    <div class="section-box">
+                        <div class="section-title">📋 每日最新訓練成果解析與教練隨堂建議 (對比 Sub-11 10:54 藍圖)</div>
+                        <div>${{data.daily_feedback_html}}</div>
+                    </div>
+                </div>
+
+                <!-- SUBTAB 3: PLAN (當週課表與肌力計畫) -->
+                <div id="subview-plan" class="subtab-view ${{currentSubtab === 'plan' ? 'active' : ''}}">
                     <div class="section-box">
                         <div class="section-title">🏋️ 第 ${{data.week_num}} 週 TrainingPeaks 課表與肌力整合內容</div>
                         <table class="table-custom">
@@ -2468,16 +2478,16 @@ def generate_52_week_dashboard():
                     </div>
                 </div>
 
-                <!-- SUBTAB 3: ARTICLES ONLINE READ -->
-                <div id="subview-articles" class="subtab-view">
+                <!-- SUBTAB 4: ARTICLES (鐵人新知) -->
+                <div id="subview-articles" class="subtab-view ${{currentSubtab === 'articles' ? 'active' : ''}}">
                     <div class="section-box" style="line-height: 1.8;">
                         <div class="section-title" style="margin-bottom: 20px;">📰 第 ${{data.week_num}} 週鐵人新知與權威文章（分類整理與100字重點摘要）</div>
                         <div>${{data.art_html}}</div>
                     </div>
                 </div>
 
-                <!-- SUBTAB 4: REVIEW ONLINE READ -->
-                <div id="subview-review" class="subtab-view">
+                <!-- SUBTAB 5: REVIEW (執行率回顧) -->
+                <div id="subview-review" class="subtab-view ${{currentSubtab === 'review' ? 'active' : ''}}">
                     <div class="section-box" style="line-height: 1.8;">
                         <div class="section-title">📈 ${{data.prev_week_num === data.week_num ? '當週' : '上週'}} (W${{data.prev_week_num}}) 訓練執行率回顧成果</div>
                         <div>${{data.rev_html}}</div>
