@@ -9,7 +9,7 @@
 - 賽事階層定位：
   1. **2026 賽事 B (前哨實戰檢驗 / Tune-up & Test Race)**：2026 年 11 月 **IRONMAN 70.3 墾丁 (Kenting 70.3)**（[游泳路線](https://www.ironman.com/races/im703-kenting/course#swim) 小灣 1.9km 雙峰 M 字海泳；[單車路線](https://www.ironman.com/races/im703-kenting/course#bike) DT Swiss 90km 總爬升 641M + 落山風；[路跑路線](https://www.ironman.com/races/im703-kenting/course#run) 21.1km 雙圈總爬升 342M，Lap 1 攻頂社頂自然公園標高 210M + 船帆路陡降，Lap 2 台26平路折返）
   2. **2026 主要賽事 A (Main Target Race A)**：2026 年 11 月 **IRONMAN 馬來西亞蘭卡威 (Langkawi 226km)**
-  3. **2027 主要賽事 (Ultimate Main Target Race)**：2027 年 **IRONMAN 澎湖 (Penghu 226km)** (`https://www.ironman.com/races/im-penghu/course#swim`)
+  3. **2027 主要賽事 (Ultimate Main Target Race)**：2027 年 **IRONMAN 澎湖 (Penghu 226km)**（[游泳路線](https://www.ironman.com/races/im-penghu/course#swim) 蒔裡沙灘 3.8km 雙圈澳式出水；[單車路線](https://www.ironman.com/races/im-penghu/course#bike) 180km 跨海大橋 3 圈折返 + 西嶼西臺特需袋 + 10 處補給站；[路跑路線](https://www.ironman.com/races/im-penghu/course#run) 42.2km 觀音亭/媽祖神像 4 圈制信物手環）
 - 主要資料來源：TrainingPeaks
 - 使用者：自己研究用
 

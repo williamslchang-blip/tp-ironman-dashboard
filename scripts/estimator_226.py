@@ -277,14 +277,51 @@ def calculate_dynamic_226_estimate(target_monday: date) -> dict:
     # -------------------------------------------------------------
     # 8.3 🏆 2027 ULTIMATE MAIN TARGET: IRONMAN PENGHU 226KM (2027)
     # -------------------------------------------------------------
-    # Penghu 226: Shili 2 laps swim, Great Bridge 3 laps with strong Monsoon Crosswinds (強側逆風), Guanyinting 4 laps run
-    penghu_penalty_opt = 16.0
-    penghu_penalty_neu = 24.0
-    penghu_penalty_con = 38.0
+    # Penghu 226: Shili 2 laps swim with Australian Exit (澳式出水), Great Bridge 3 loops with strong Northeast Monsoon Crosswinds (跨海大橋 3 圈東北季風抗側風), Guanyinting 4 laps run (觀音亭/媽祖神像 4 圈制)
+    p_opt_swim = base_swim_mins - 2.0 + (0.20 * swim_fade_mins)
+    p_opt_t1 = 5.0
+    p_opt_bike = base_bike_mins + 2.0 + (0.20 * bike_fade_penalty_mins)
+    p_opt_t2 = 4.0
+    p_opt_run = base_run_mins + 2.0 + (0.20 * run_fade_penalty_mins) + min(0.0, exec_bonus)
+    penghu_opt_mins = p_opt_swim + p_opt_t1 + p_opt_bike + p_opt_t2 + p_opt_run
 
-    penghu_opt_mins = opt_mins + penghu_penalty_opt
-    penghu_neu_mins = neu_mins + penghu_penalty_neu
-    penghu_con_mins = con_mins + penghu_penalty_con
+    p_neu_swim = base_swim_mins + 2.0 + (0.60 * swim_fade_mins)
+    p_neu_t1 = 6.0
+    p_neu_bike = base_bike_mins + 13.0 + (0.60 * bike_fade_penalty_mins)
+    p_neu_t2 = 5.0
+    p_neu_run = base_run_mins + 7.0 + (0.60 * run_fade_penalty_mins) + max(0.0, exec_bonus * 0.5)
+    penghu_neu_mins = p_neu_swim + p_neu_t1 + p_neu_bike + p_neu_t2 + p_neu_run
+
+    p_con_swim = base_swim_mins + 6.0 + (1.10 * swim_fade_mins)
+    p_con_t1 = 8.0
+    p_con_bike = base_bike_mins + 32.0 + (1.10 * bike_fade_penalty_mins)
+    p_con_t2 = 7.0
+    p_con_run = base_run_mins + 17.0 + (1.10 * run_fade_penalty_mins) + max(10.0, exec_bonus)
+    penghu_con_mins = p_con_swim + p_con_t1 + p_con_bike + p_con_t2 + p_con_run
+
+    penghu_opt_splits = {
+        "swim": format_minutes(p_opt_swim),
+        "t1": format_minutes(p_opt_t1),
+        "bike": format_minutes(p_opt_bike),
+        "t2": format_minutes(p_opt_t2),
+        "run": format_minutes(p_opt_run)
+    }
+    penghu_neu_splits = {
+        "swim": format_minutes(p_neu_swim),
+        "t1": format_minutes(p_neu_t1),
+        "bike": format_minutes(p_neu_bike),
+        "t2": format_minutes(p_neu_t2),
+        "run": format_minutes(p_neu_run)
+    }
+    penghu_con_splits = {
+        "swim": format_minutes(p_con_swim),
+        "t1": format_minutes(p_con_t1),
+        "bike": format_minutes(p_con_bike),
+        "t2": format_minutes(p_con_t2),
+        "run": format_minutes(p_con_run)
+    }
+
+    penghu_penalty_neu = penghu_neu_mins - neu_mins
 
     # -------------------------------------------------------------
     # 9. CROSS-VALIDATION FORMULAS (Riegel, 70.3 Multiplier, VDOT)
@@ -356,8 +393,18 @@ def calculate_dynamic_226_estimate(target_monday: date) -> dict:
             "optimistic": f"{format_minutes(penghu_opt_mins - 8.0)} – {format_minutes(penghu_opt_mins + 8.0)} (中位: {format_minutes(penghu_opt_mins)})",
             "neutral": f"{format_minutes(penghu_neu_mins - 12.0)} – {format_minutes(penghu_neu_mins + 12.0)} (中位: {format_minutes(penghu_neu_mins)})",
             "conservative": f"{format_minutes(penghu_con_mins - 15.0)} – {format_minutes(penghu_con_mins + 20.0)} (中位: {format_minutes(penghu_con_mins)})",
-            "course_modifier": f"+{int(penghu_penalty_neu)} 分鐘 (跨海大橋 3 圈強烈東北季風/側逆風 + 觀音亭 4 圈全馬)",
-            "role": "2027 年度主要賽事 (終極對標 Sub-11 10:54 藍圖)"
+            "course_modifier": f"+{int(round(penghu_penalty_neu))} 分鐘 (蒔裡沙灘海泳 3.8k + 跨海大橋 3 圈 180k/東北季風抗風 + 觀音亭 4 圈全馬 42.2k)",
+            "role": "2027 年度主要賽事 (終極對標 Sub-11 10:54 藍圖)",
+            "opt_splits": penghu_opt_splits,
+            "neu_splits": penghu_neu_splits,
+            "con_splits": penghu_con_splits,
+            "course_meta": {
+                "swim_location": "蒔裡沙灘 (Shili Beach) 3.8km 雙圈澳式出水",
+                "bike_route": "跨海大橋 3 圈折返 + 西嶼西臺 + 東北季風抗側風 (10 處補給站)",
+                "run_route": "觀音亭休閒園區＋媽祖神像 4 圈制 (集滿 4 條手環)",
+                "water_temp_c": 24,
+                "air_temp_high_c": 29
+            }
         },
         "formulas": {
             "hybrid_engine": "結合 CSS 臨界水速 + BBS 物理力學 + Couzens 功率區間 + VDOT/Runalyze 馬拉松準備度 + TP 執行率",

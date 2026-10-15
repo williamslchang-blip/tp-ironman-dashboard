@@ -2340,25 +2340,69 @@ def generate_52_week_dashboard():
                             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
                                 <div>
                                     <span style="font-size:1.02rem; font-weight:800; color:#34D399;">🏆 2027 年度主要賽事 (終極對標 Sub-11)：IRONMAN 澎湖 (226km)</span>
-                                    <a href="https://www.ironman.com/races/im-penghu/course#swim" target="_blank" style="margin-left:8px; font-size:0.78rem; color:#10B981; text-decoration:none; background:rgba(16,185,129,0.15); padding:2px 8px; border-radius:4px; border:1px solid rgba(16,185,129,0.3);">🔗 官方賽道路線 ↗</a>
+                                    <a href="https://www.ironman.com/races/im-penghu/course#swim" target="_blank" style="margin-left:8px; font-size:0.76rem; color:#10B981; text-decoration:none; background:rgba(16,185,129,0.15); padding:2px 8px; border-radius:4px; border:1px solid rgba(16,185,129,0.3);">🏊 蒔裡海泳雙圈 ↗</a>
+                                    <a href="https://www.ironman.com/races/im-penghu/course#bike" target="_blank" style="margin-left:4px; font-size:0.76rem; color:#10B981; text-decoration:none; background:rgba(16,185,129,0.15); padding:2px 8px; border-radius:4px; border:1px solid rgba(16,185,129,0.3);">🚴 跨海大橋 180km ↗</a>
+                                    <a href="https://www.ironman.com/races/im-penghu/course#run" target="_blank" style="margin-left:4px; font-size:0.76rem; color:#10B981; text-decoration:none; background:rgba(16,185,129,0.15); padding:2px 8px; border-radius:4px; border:1px solid rgba(16,185,129,0.3);">🏃 觀音亭全馬 42.2km ↗</a>
                                 </div>
                                 <span style="font-size:0.76rem; background:rgba(16,185,129,0.15); color:#34D399; padding:3px 8px; border-radius:6px; font-weight:600;">修正加成：${{est.penghu_226_estimate.course_modifier}}</span>
                             </div>
                             <div style="font-size:0.84rem; color:#CBD5E1; margin-bottom:10px; line-height:1.6;">
-                                <strong>賽事任務</strong>：2027 年度終極主要賽事 🏆。全面擊中 <strong>IM226 Sub-11 完賽目標藍圖 (10:54:00)</strong>！以扎實的有氧空力巡航（140W-145W）抗衡跨海大橋 3 圈強烈東北季風，全馬路跑守住 5:41/km (4h00m)，完美達成 Sub-11 歷史里程碑。
+                                <strong>賽事任務與官方地形特化</strong>：依據 IRONMAN 澎湖官方賽道地圖精算（蒔裡沙灘 3.8km 雙圈澳式出水海泳 ＋ 縣道203跨海大橋 3 圈折返 180km ＋ 觀音亭/媽祖神像 4 圈制 42.2km 全馬）。作為 2027 年度終極主要賽事 🏆，全面落實 <strong>IM226 Sub-11 完賽目標藍圖 (10:54:00)</strong>！以高抗風空力巡航（140W-145W）正面迎擊跨海大橋 8–10 級強烈東北季風，全馬路跑守住 5:41/km (4h00m)，達成歷史性 Sub-11 榮耀！
                             </div>
-                            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
-                                <div style="background: rgba(15, 23, 42, 0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.3);">
-                                    <div style="font-size:0.76rem; color:#34D399; font-weight:700;">🟢 澎湖樂觀目標 (Sub-11 破標)</div>
-                                    <div style="font-size:1.05rem; font-weight:800; color:#34D399; margin-top:2px;">${{est.penghu_226_estimate.optimistic}}</div>
+                            <!-- 3 ESTIMATE CARDS WITH 5 SEGMENT SPLITS -->
+                            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 12px;">
+                                <div style="background: rgba(15, 23, 42, 0.7); padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.3);">
+                                    <div style="font-size:0.76rem; color:#34D399; font-weight:700;">🟢 澎湖樂觀目標 (Sub-11 破標巔峰發揮)</div>
+                                    <div style="font-size:1.05rem; font-weight:800; color:#34D399; margin-top:2px; margin-bottom:6px;">${{est.penghu_226_estimate.optimistic}}</div>
+                                    <div style="font-size:0.78rem; border-top:1px dashed rgba(255,255,255,0.15); padding-top:6px; line-height:1.55; color:#E2E8F0;">
+                                        <div style="display:flex; justify-content:space-between;"><span>🏊 游泳 3.8km (澳式出水)</span><strong>${{est.penghu_226_estimate.opt_splits.swim}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>⏱️ T1 蒔裡沙灘</span><strong>${{est.penghu_226_estimate.opt_splits.t1}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>🚴 單車 180km (跨海大橋)</span><strong>${{est.penghu_226_estimate.opt_splits.bike}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>⏱️ T2 體育館/文化中心</span><strong>${{est.penghu_226_estimate.opt_splits.t2}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>🏃 路跑 42.2km (觀音亭4圈)</span><strong>${{est.penghu_226_estimate.opt_splits.run}}</strong></div>
+                                    </div>
                                 </div>
-                                <div style="background: rgba(15, 23, 42, 0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.25);">
-                                    <div style="font-size:0.76rem; color:#FBBF24; font-weight:700;">🟠 澎湖中性目標 (穩健發揮)</div>
-                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px;">${{est.penghu_226_estimate.neutral}}</div>
+                                <div style="background: rgba(15, 23, 42, 0.7); padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.25);">
+                                    <div style="font-size:0.76rem; color:#FBBF24; font-weight:700;">🟠 澎湖中性目標 (東北季風穩健巡航)</div>
+                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px; margin-bottom:6px;">${{est.penghu_226_estimate.neutral}}</div>
+                                    <div style="font-size:0.78rem; border-top:1px dashed rgba(255,255,255,0.15); padding-top:6px; line-height:1.55; color:#E2E8F0;">
+                                        <div style="display:flex; justify-content:space-between;"><span>🏊 游泳 3.8km (澳式出水)</span><strong>${{est.penghu_226_estimate.neu_splits.swim}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>⏱️ T1 蒔裡沙灘</span><strong>${{est.penghu_226_estimate.neu_splits.t1}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>🚴 單車 180km (跨海大橋)</span><strong>${{est.penghu_226_estimate.neu_splits.bike}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>⏱️ T2 體育館/文化中心</span><strong>${{est.penghu_226_estimate.neu_splits.t2}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>🏃 路跑 42.2km (觀音亭4圈)</span><strong>${{est.penghu_226_estimate.neu_splits.run}}</strong></div>
+                                    </div>
                                 </div>
-                                <div style="background: rgba(15, 23, 42, 0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.25);">
-                                    <div style="font-size:0.76rem; color:#F87171; font-weight:700;">🔴 澎湖保守目標 (強逆風抗衡)</div>
-                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px;">${{est.penghu_226_estimate.conservative}}</div>
+                                <div style="background: rgba(15, 23, 42, 0.7); padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.25);">
+                                    <div style="font-size:0.76rem; color:#F87171; font-weight:700;">🔴 澎湖保守目標 (強側逆陣風與後程衰退)</div>
+                                    <div style="font-size:1.05rem; font-weight:800; color:#F8FAFC; margin-top:2px; margin-bottom:6px;">${{est.penghu_226_estimate.conservative}}</div>
+                                    <div style="font-size:0.78rem; border-top:1px dashed rgba(255,255,255,0.15); padding-top:6px; line-height:1.55; color:#E2E8F0;">
+                                        <div style="display:flex; justify-content:space-between;"><span>🏊 游泳 3.8km (澳式出水)</span><strong>${{est.penghu_226_estimate.con_splits.swim}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>⏱️ T1 蒔裡沙灘</span><strong>${{est.penghu_226_estimate.con_splits.t1}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>🚴 單車 180km (跨海大橋)</span><strong>${{est.penghu_226_estimate.con_splits.bike}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>⏱️ T2 體育館/文化中心</span><strong>${{est.penghu_226_estimate.con_splits.t2}}</strong></div>
+                                        <div style="display:flex; justify-content:space-between;"><span>🏃 路跑 42.2km (觀音亭4圈)</span><strong>${{est.penghu_226_estimate.con_splits.run}}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- OFFICIAL COURSE BREAKDOWN ACCORDION/BOX -->
+                            <div style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 8px; padding: 10px 12px; font-size: 0.8rem; line-height: 1.6; color: #CBD5E1;">
+                                <div style="font-weight:700; color:#34D399; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+                                    <span>🗺️ 依據官方路線圖特化之三項賽道解析與配速戰術：</span>
+                                </div>
+                                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin-top: 6px;">
+                                    <div style="background:rgba(30,41,59,0.5); padding:8px 10px; border-radius:6px; border-left:3px solid #34D399;">
+                                        <div style="font-weight:700; color:#F8FAFC; margin-bottom:2px;">🏊 蒔裡沙灘 3.8km 雙圈澳式出水海泳</div>
+                                        <div style="font-size:0.77rem; color:#94A3B8;">蒔裡沙灘起跑，逆時針兩圈三角形外海折返。第一圈完成後需衝刺上沙灘「澳式出水 (Australian Exit)」繞過感應墊再入水展開第二圈。水溫約 23~24°C (防寒衣合法)。戰術：穿著防寒衣善用浮力，第一圈放鬆找水感，澳式出水跑沙灘時嚴格控制呼吸與心率勿暴衝；直線段維持 1:50~1:53/100m 長划幅巡航，目標 70–74 分鐘輕鬆起水。</div>
+                                    </div>
+                                    <div style="background:rgba(30,41,59,0.5); padding:8px 10px; border-radius:6px; border-left:3px solid #FBBF24;">
+                                        <div style="font-weight:700; color:#F8FAFC; margin-bottom:2px;">🚴 跨海大橋 180km (東北季風 3 圈折返＋西嶼西臺特需袋)</div>
+                                        <div style="font-size:0.77rem; color:#94A3B8;">由蒔裡出發走縣道 201/204，接縣道 203 一路北上通過「澎湖跨海大橋」，在折返點 A (白沙) 與折返點 B (西嶼西臺停車場，特需袋 Special Needs 站) 進行 3 圈高強度抗風折返，共經過 10 次補給站！戰術：FTP 205W 設定目標 140W–145W。大橋橫風段下沉重心防側風陣風晃動；北向逆風段踏頻拉高 85–90rpm、瓦數上限壓在 165W 內防乳酸堆積；南向順風段保持空力低風阻以 135W 高速滑行。下車前最後 10km 降瓦排酸。</div>
+                                    </div>
+                                    <div style="background:rgba(30,41,59,0.5); padding:8px 10px; border-radius:6px; border-left:3px solid #F87171;">
+                                        <div style="font-weight:700; color:#F8FAFC; margin-bottom:2px;">🏃 觀音亭休閒園區＋媽祖神像 42.2km 全馬 (4 圈信物手環制)</div>
+                                        <div style="font-size:0.77rem; color:#94A3B8;">T2 (同和路) 出發，串聯觀音亭、西瀛虹橋、世界最高媽祖銅像與喜來登港灣。採 4 圈制 (A-B 跑 2 圈、C-H 跑 2 圈)，必須集滿 4 條不同顏色手環方能衝線！平坦濱海賽道但無遮蔭且海風強勁。戰術：Lap 1 下車轉換前 5k 壓在 5:45/km 防暴衝；Lap 2 進入 5:38/km 有氧節奏；Lap 3 頂住午後高溫疲勞，補給站強制拿冰塊塞帽子降溫並補可樂/鹽錠；Lap 4 靠高步頻 (180 spm) 堅定推進，全力守住 Sub-11 (4h00m 完賽)。</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

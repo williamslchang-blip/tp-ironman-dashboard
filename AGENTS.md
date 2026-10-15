@@ -12,7 +12,7 @@
   2. **2026 主要賽事 A (Main Target Race A)**：2026 年 11 月 **IRONMAN 馬來西亞蘭卡威 (Langkawi 226km)**
      - 任務：挑戰高溫 (34°C)/高濕 (90%) 與單車 1,500m 爬坡，嚴格落實散熱控心率與補水補電解質。
   3. **2027 主要賽事 (Ultimate Main Target Race)**：2027 年 **IRONMAN 澎湖 (Penghu 226km)**
-     - 官方路線：`https://www.ironman.com/races/im-penghu/course#swim`
+     - 官方路線：`https://www.ironman.com/races/im-penghu/course#swim`（[游泳](https://www.ironman.com/races/im-penghu/course#swim) 蒔裡沙灘 3.8km 雙圈逆時針海泳 + 澳式出水 Australian Exit，防寒衣合法 24°C；[單車](https://www.ironman.com/races/im-penghu/course#bike) 180km 跨海大橋 3 圈折返 + 西嶼西臺 Special Needs 特需袋 + 10 處補給站 + 東北季風抗側風；[路跑](https://www.ironman.com/races/im-penghu/course#run) 42.2km 觀音亭休閒園區＋西瀛虹橋＋世界最高媽祖銅像＋喜來登港灣，4 圈信物手環制）
      - 任務：2027 年度終極目標！全面實踐 Sub-11 (10:54) 完賽藍圖，抗衡跨海大橋 3 圈強烈東北季風與觀音亭 4 圈全馬。
 
 ## 工作原則
