@@ -376,3 +376,14 @@
   5. **全站編譯與線上部署**：
      - 執行 `scripts/generate_web_dashboard.py` 與 `scripts/package_for_web.py`，完成全站靜態檔案編譯並推播至 GitHub main 分支以發布至 GitHub Pages。
 
+
+## 2026-10-24｜網站導覽與年度訓練回顧更新
+
+- 修復文章分類錨點殘留：手動切換主分頁時清除 hash，保留 pathname、query、history.state；解析分享連結時保留 hash。延遲捲動前檢查目前 hash，避免過期捲動。
+- 分頁依序為：預估完賽時間、目標賽事、當週總覽、鐵人新知、執行率回顧。移除課表／肌力分頁，原始課表與報告檔仍保留；目標賽事由預估頁移出。舊 #plan/#workout/#strength 導向當週總覽。
+- 執行率回顧以 W01-W52 四條 SVG 折線顯示實際游泳、騎車、跑步與三項合計時數，不含肌力與其他活動；無資料／缺漏時數留空，不補計畫值或零值，未來實際紀錄不納入。
+- actual_time 以分鐘除以 60，按 ISO 年與週分組；本週為進行中累計，不當成週末結算。
+- 教練視角解析保留，改依該週實際／原訂時數、次數、最長單次與此前四週資料產生。不以時數推定未提供的強度、疲勞與訓練品質；詳細文字回顧保留為展開項目。
+- 同步修改產生程式、打包程式與 docs/outputs 網頁副本；本機原有運動.xlsx 未編輯。
+- 新增導覽、彙總與圖表測試（Node.js 內建模組／Python unittest）；來源為既有 calendar_cache.json 與專案程式，資料日期顯示於圖表。
+- 判讀參考：TrainingPeaks Workout Card Overview，https://help.trainingpeaks.com/hc/en-us/articles/204861204-Workout-Card-Overview （查閱 2026-10-24）。

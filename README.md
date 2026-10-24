@@ -50,3 +50,13 @@
 - 專案仍在建立初版文件階段
 - 目前較重要的是先把資料結構、流程與輸出標準固定
 - 後續若流程成熟、需要重複使用，再把可重用規則整理成 `skills/SKILL.md`
+
+## 網站導覽與每週回顧
+- 分頁：預估完賽時間 → 目標賽事 → 當週總覽 → 鐵人新知 → 執行率回顧。課表分頁已移除，原始檔保留。
+- scripts/weekly_review.py：彙總 W01-W52 三項實際時數並產生逐週教練建議。
+- scripts/assets/weekly-review.js：無外部依賴的 SVG 折線圖；自動發布至 outputs/weekly-review.js 與 docs/weekly-review.js。
+- tests/dashboard_navigation.test.cjs：文章錨點、主分頁、分享連結及產生程式一致性測試。
+- tests/test_weekly_review.py：時間單位、缺漏、未來資料、ISO 週次及教練建議測試。
+- tests/weekly_review_chart.test.cjs：折線分段與缺資料測試。
+- 驗證：node tests/dashboard_navigation.test.cjs；node tests/weekly_review_chart.test.cjs；python -m unittest discover -s tests -p test_weekly_review.py。
+- 圖表總時間是三項合計，不含其他活動；缺資料不補零，週次可點選、圖例可切換。原始詳細回顧可展開。

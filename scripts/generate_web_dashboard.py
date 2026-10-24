@@ -12,6 +12,7 @@ if str(ROOT / "scripts") not in sys.path:
 
 from estimator_226 import calculate_dynamic_226_estimate
 from generate_articles_page import parse_articles_md_to_body_html
+from weekly_review import build_weekly_training_reviews, build_weekly_coach_html
 
 CACHE_FILE = ROOT / "data" / "raw" / "calendar_cache.json"
 OUT_INDEX = ROOT / "outputs" / "index.html"
@@ -808,321 +809,13 @@ def build_daily_feedback_cards(events):
     return "\n".join(cards_html)
 
 
-def build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est):
-    completed = [ev for ev in events if ev.get("actual_time", 0) > 0 or ev.get("actual_dist", 0) > 0]
-    bike_dist = sum(ev.get("actual_dist", 0) for ev in completed if ev.get("type") == "Bike")
-    run_dist = sum(ev.get("actual_dist", 0) for ev in completed if ev.get("type") == "Run")
-    swim_dist = sum(ev.get("actual_dist", 0) for ev in completed if ev.get("type") == "Swim")
-    
-    has_820_bike = any(ev.get("date") == "2026-08-20" and ev.get("type") == "Bike" for ev in completed)
-    has_820_run = any(ev.get("date") == "2026-08-20" and ev.get("type") == "Run" for ev in completed)
-    has_819_swim = any(ev.get("date") == "2026-08-19" and ev.get("type") == "Swim" for ev in completed)
-    has_915_run = any(ev.get("date") == "2026-09-15" and ev.get("type") == "Run" for ev in completed)
-
-    has_913_run = any(ev.get("date") == "2026-09-13" and ev.get("type") == "Run" for ev in completed)
-    has_913_swim = any(ev.get("date") == "2026-09-13" and ev.get("type") == "Swim" for ev in completed)
-    has_912_bike = any(ev.get("date") == "2026-09-12" and ev.get("type") == "Bike" for ev in completed)
-    has_912_run = any(ev.get("date") == "2026-09-12" and ev.get("type") == "Run" for ev in completed)
-
-    has_816_run = any(ev.get("date") == "2026-08-16" and ev.get("type") == "Run" for ev in completed)
-    has_816_swim = any(ev.get("date") == "2026-08-16" and ev.get("type") == "Swim" for ev in completed)
-    has_815_bike = any(ev.get("date") == "2026-08-15" and ev.get("type") == "Bike" for ev in completed)
-    has_815_run = any(ev.get("date") == "2026-08-15" and ev.get("type") == "Run" for ev in completed)
-    
-    has_915_run = any(ev.get("date") == "2026-09-15" and ev.get("type") == "Run" for ev in completed)
-    has_915_bike = any(ev.get("date") == "2026-09-15" and ev.get("type") == "Bike" for ev in completed)
-    has_922_swim = any(ev.get("date") == "2026-09-22" and ev.get("type") == "Swim" for ev in completed)
-    has_923_run = any(ev.get("date") == "2026-09-23" and ev.get("type") == "Run" for ev in completed)
-    has_924_swim = any(ev.get("date") == "2026-09-24" and ev.get("type") == "Swim" for ev in completed)
-
-    if w == 39 and (has_924_swim or has_923_run or has_922_swim):
-        h1 = (
-            f"• <strong>【Build 1-4 第一建構期減量調整週・週四 50m 長池甜甜課表 3,250m 高質量推進】</strong> 第 39 週正式邁入 Build 1-4 第一建構期第四週（減量調整與超量補償週 / Deload & Supercompensation Phase）。在經歷週二長游 3,400m (113.7 sTSS) 與週三田徑場 5x1200m 速度間歇 (55.5 rTSS) 後，今日 (9/24 週四) 清晨 06:05 順利吃下 50m 長池「甜甜課表」3,250m，收穫 <strong>99.5 sTSS (IF 0.979)</strong>！目前本週已累積游泳 <strong>{swim_dist:.2f} km (2 小時 07 分)</strong>、跑步 <strong>{run_dist:.2f} km (1 小時 00 分)</strong>，整體時間執行率達 <strong>{(sum(ev.get('actual_time', 0) for ev in completed)/sum(ev.get('original_plan', {}).get('planned_time', ev.get('planned_time', 0)) for ev in events)*100 if sum(ev.get('original_plan', {}).get('planned_time', ev.get('planned_time', 0)) for ev in events) > 0 else 0):.1f}%</strong>，三項總負荷衝破 <strong>268.7 TSS</strong>。<br>"
-            "• <strong>【9/24 週四清晨 50m 長池甜甜課表 3,250m (99.5 sTSS)】</strong> 耗時 1h03m37s (實游 3,250m，達成率 100%)。全趟均速 1:57.8 /100m (3.06 km/h，標準化速度 1:57.4 /100m)。全趟平均心率僅 117 bpm (最高 190 bpm，低心率 Recovery 與 Endurance 區間累積 54.8 分鐘，佔比高達 86.2%)；均划頻 27 spm (最高 36 spm)；速度心率脫鉤率呈現極其驚人的負脫鉤 (Spd:HR -26.66%)！核心巡航亮點：400m 自由式巡航開出 1:40.0 /100m 整 (均心率僅 96 bpm！)、850m 長巡航游出 1:43.4 /100m (均心率僅 115 bpm！)，體感自覺給出良好的 3/5 與 RPE 5/10！<br>"
-            "• <strong>【9/23 週三田徑場 5x1200m 漸進間歇 9.53km (55.5 rTSS)】</strong> 標準化速度 5:40 /km (直擊 Sub-11 全馬 4 小時 5:41/km 目標線！)，均瓦 242W，垂直比僅 8.0%、觸地時間 251ms，第 5 組末圈開出 4:23/km (步頻 183 spm)，組間 2 分鐘休心率快速回血！<br>"
-            "• <strong>【9/22 週二 50m 長池甜甜課表 3,400m (113.7 sTSS)】</strong> 均速 1:52.8 /100m，均心率僅 97 bpm，脫鉤率 Spd:HR -32.31%，完美對標 Sub-11 游泳 1:12:00 目標線！<br>"
-            "• <strong>【明日 9/25 週五 150 分鐘單車 LSD 長騎 (75km) 銜接】</strong> 明日排定 150 分鐘戶外單車 LSD 長騎 (75km)，在今日長池水壓與浮力深度代謝下肢疲勞後，下肢已完成極佳的動態排酸，可快速點擊 <a href='#swim' style='color:#22D3EE; font-weight:700; text-decoration:underline;'>#swim</a> 與 <a href='#bike' style='color:#38BDF8; font-weight:700; text-decoration:underline;'>#bike</a> 查閱最新技術與補給指引！"
-        )
-        h2 = (
-            "• <strong>【水中流線型與超低心率巡航效率】</strong> 今日 3,250m 游程中，400m 巡航均速 1:40.0/100m (心率僅 96 bpm)、850m 巡航均速 1:43.4/100m (心率僅 115 bpm)，且全趟速度心率脫鉤率達 -26.66% 極致負脫鉤，展現出驚人的身體平衡浮力、高肘抱水與推水推進效率，以極低的心肺代謝代價完成長距離高速巡航。<br>"
-            "• <strong>【連續大課表下肢動態排酸機制】</strong> 昨日剛吃下高強度田徑場 5x1200m 漸進速度間歇，今日清晨入水善用長池水壓與浮力，促進下肢深層血液循環與乳酸代謝，完全避免下肢肌肉僵硬，為明日單車 LSD 打開最佳的肌肉狀態。<br>"
-            "• <strong>【後續課表安排】</strong> 週五單車 LSD 150 分鐘 (75km)、週六單車 Endurance 60 分鐘、週日跑步 EASY 75 分鐘，請嚴守輕鬆有氧心率，切勿私自加碼強度或距離。"
-        )
-        h3 = (
-            "• <strong>【長游後黃金窗口營養修復】</strong> 今日晨游消耗 636 kcal，課後 30 分鐘內請落實補充 25g 優質蛋白質、足量複合碳水化合物與電解質水分，促進肌糖原深度回補與肩背肌群修復。<br>"
-            "• <strong>【肩背與髖關節深層放鬆】</strong> 今日 3,250m 對肩胛穩定肌與闊背肌帶來充分伸展，今晚睡前請進行 15 分鐘滾筒放鬆與胸肩動態伸展，並針對臀大肌與髂腰肌做輕度放鬆，為明日單車長座艙姿勢預做準備。<br>"
-            "• <strong>【深層睡眠促進超量吸收】</strong> 減量週期間生長激素分泌與副交感神經活性極為重要，今晚請確保 8 小時優質深層睡眠，以最充沛的體能迎接明日 150 分鐘單車長騎！"
-        )
-    elif w == 38 and (has_915_run or has_915_bike):
-        h1 = (
-            f"• <strong>【Build 1-3 第一建構期巔峰週強勢啟動・週二跑騎雙課表高質量達標】</strong> 第 38 週正式邁入 Build 1-3 第一建構期第三週（全期負荷巔峰週，全週排定近 15 小時）。昨日週一完全休息超補償後，今日 (9/15 週二) 順利完成晨跑 12.05 km (80.4 rTSS) 與下午室內單車 Threshold 5X3 18.76 km (36.0 TSS)，單日合計斬獲 <strong>116.4 TSS、30.81 km</strong>！目前已累積自行車 <strong>{bike_dist:.2f} km</strong>、跑步 <strong>{run_dist:.2f} km</strong>，整體時間執行率達 <strong>{(sum(ev.get('actual_time', 0) for ev in completed)/sum(ev.get('original_plan', {}).get('planned_time', ev.get('planned_time', 0)) for ev in events)*100 if sum(ev.get('original_plan', {}).get('planned_time', ev.get('planned_time', 0)) for ev in events) > 0 else 0):.1f}%</strong>。<br>"
-            "• <strong>【9/15 週二下午室內單車 Threshold 5X3 18.76km (36.0 TSS)】</strong> 耗時 40m22s (完備度 100.9% 精準達標)，NP 151W、均瓦 131W (1.98 W/kg，最大 197W，做功 319.4 kJ)，均心率 134 bpm (最高 157 bpm)，均踏頻 86 rpm (最大 95 rpm)，VI 1.15。核心 5 組 3 分鐘閾值段輸出精準鎖定 181.6W~181.8W (誤差 <0.2W 極致穩定)，踏頻穩居 87~89 rpm，有氧脫鉤率 Pw:HR 僅 3.84% (<5% 頂級標準)，展現極佳的閾值抗乳酸能力！<br>"
-            "• <strong>【9/15 週二晨間 12.05km 跑步專項高水準間歇 (80.4 rTSS)】</strong> 耗時 1h24m33s，均速 7:01/km (最快 4:00/km)，均瓦 212W (最大 400W)，均心率 155 bpm (最高 191 bpm)，多組 400m 間歇飆出 3:45~3:55/km，觸地時間 249ms、垂直比 8.0%，體感 5/5 滿分！<br>"
-            "• <strong>【明日 9/16 週三 50m 長池甜甜泳課動態排酸】</strong> 明日排定 80 分鐘 50m 長池「甜甜課表」，將善用長池水壓與浮力深度代謝今日下肢跑騎雙重乳酸，持續鞏固 Sub-11 (1:53/100m) 流線型水感，可快速點擊 <a href='#swim' style='color:#22D3EE; font-weight:700; text-decoration:underline;'>#swim</a> 查閱最新游泳技術專區！"
-        )
-        h2 = (
-            "• <strong>【單車閾值輸出與踏頻控制】</strong> 今日 5 組 3 分鐘閾值段以 181.8W 均瓦高精準完成，踏頻 87-89 rpm 圓周踩踏效率優異。對標 Sub-11 單車目標 (5h30m / 140W-145W)，180W+ 的高輸出間歇能有效拉高有氧天花板，讓比賽巡航瓦數更加從容輕鬆。<br>"
-            "• <strong>【跑步步頻紀律與落地剛性】</strong> 晨間 12.05km 跑步衝刺段維持 180-188 spm 高步頻，垂直比 8.0% 與觸地時間 249ms 展現頂級衝擊吸收力。對標 Sub-11 全馬 4 小時 (5:41/km) 藍圖，此種高剛性輕著地模式是後半程抗抽筋與抗掉速的核心關鍵。<br>"
-            "• <strong>【明後天課表節奏控配】</strong> 明日 (週三) 80 分鐘長池甜甜長游，請維持放鬆流線型划水；週四將迎來「單車 TEMPO 3x18' (86分) ＋ 30 分鐘轉換跑」關鍵節奏日，請注意維持踩踏瓦數 (155W-165W) 不超標紀律。<br>"
-            "• <strong>【週末大負荷預警】</strong> 週六排定「大安～中角灣～大安」120km 戶外長騎 ＋ 轉換跑、週日排定 21km 半馬比賽配速長跑 ＋ 3,500m 長游，務必保持前段課表之體力留存。"
-        )
-        h3 = (
-            "• <strong>【跑騎雙課表後黃金窗口營養修復】</strong> 今日單日累積 116.4 TSS，消耗超過 1,170 kcal、做功 1,397 kJ，請立即補充足量電解質水分、60-80g 碳水化合物與 25-30g 優質蛋白質，加速肌糖原深度回補與肌纖維修復。<br>"
-            "• <strong>【下肢肌群與足底筋膜深度放鬆】</strong> 今日雙課表對股四頭肌、阿基里斯腱與比目魚肌帶來連續負荷，今晚睡前安排 15–20 分鐘滾筒放鬆與足底網球按壓，釋放深層張力。<br>"
-            "• <strong>【賽後恢復與能量補給指引】</strong> 歡迎點擊上方導覽標籤 <a href='#recovery' style='color:#10B981; font-weight:700; text-decoration:underline;'>#recovery</a> 閱讀賽後恢復與能量補給專區；今晚確保 8 小時優質深層睡眠，精神飽滿迎接明日清晨甜甜泳課！"
-        )
-    elif w == 37 and (has_913_run or has_913_swim):
-        h1 = (
-            f"• <strong>【Build 1-2 第一建構期第二週・全週三項圓滿高質量結算】</strong> 第 37 週邁入 Build 1-2 建構期第二週，全週圓滿完成自行車 <strong>{bike_dist:.2f} km (4.95 小時, 243.5 TSS)</strong>、跑步 <strong>{run_dist:.2f} km (3.93 小時, 180.7 rTSS)</strong>、游泳 <strong>{swim_dist:.2f} km (3.07 小時, 304.6 sTSS)</strong>，三項累積總時長達 <strong>{(sum(ev.get('actual_time', 0) for ev in completed)/60.0):.1f} 小時 (~12.0 小時)</strong> (整體時間執行率 <strong>83.5%</strong>)，全週總負荷強勢衝破 <strong>728.8 TSS (突破 725+ TSS)</strong>！專項耐力、閾值間歇、下車轉換、戶外長騎爬升與 50m 長池比賽配速全面大獲全勝！<br>"
-            "• <strong>【9/13 週日清晨 EASY 跑 12.27km (50.3 rTSS) ＋ 下午 50m 長池 3,200m 比賽配速長游 (92.9 sTSS) 雙課表】</strong> 清晨 90 分鐘 EASY 跑 (1h29m56s, 12.27km, 均心 134 bpm, 94.7% 恢復區, 50.3 rTSS, 體感滿分 5/5)；下午接續 3,200m 50m長池長游 (1h04m20s, 均速 2:00.8/100m, 92.9 sTSS, 均心 136 bpm, 均划頻 25 spm, 脫鉤率 Spd:HR -4.97% 負脫鉤)。單日合計 2 小時 34 分、15.47 km、143.2 TSS、燃燒 1,436 kcal，發揮極佳的下肢動態排酸與比賽配速手感定型！<br>"
-            "• <strong>【9/12 週六單車北海岸 59.60km (122.3 TSS) ＋ 轉換跑 60分 9.73km (47.4 rTSS) 雙課表】</strong> 單日合計 3 小時 47 分、69.33 km、爬升 +733m、累積負荷 169.7 TSS、燃燒 1,888 kcal！單車均心率 131 bpm (Zone 1-2 佔 82%)，爬升 +729m 下脫鉤率 Spd:HR -7.39%；下車後迅速換鞋，以 173 spm 高步頻與 117 bpm 超低均心率巡航 60 分鐘 (均速 6:10/km，均瓦 258W，脫鉤率 Pw:HR -43.90%)，時間完備度 100.0% 精準達標，下車雙腿毫無僵硬發木，體感給出滿分 5/5！<br>"
-            "• <strong>【9/11 週五 50m 長池甜甜泳課 3,250m (106.8 sTSS)】</strong> 耗時 1h01m，均速 1:53.6/100m，均心率 131 bpm，速度脫鉤率 Spd:HR -3.13% 負脫鉤，均速再度切中 Sub-11 游泳完賽標竿配速 (1h12m / 3.8km / 1:53/100m)！<br>"
-            "• <strong>【9/10 週四單車 TEMPO 3x18' 42.84km (83.4 TSS)】</strong> NP 153W (VI 1.10)，均心率 137 bpm，Zone 3 節奏區累積 56.9 分鐘，有氧脫鉤率 Pw:HR 僅 4.81% 零漂移，體感滿分 5/5！<br>"
-            "• <strong>【9/09 週三 50m 長池甜甜泳課 3,150m (104.9 sTSS)】</strong> 均速 1:53.0/100m，均心率僅 111 bpm，均划頻 27 spm，速度脫鉤率 0.34% 零漂移！<br>"
-            "• <strong>【9/08 週二 12.48km 跑步專項 (83.0 rTSS) ＋ 20.79km 單車 (40分)】</strong> 均瓦 217W，衝刺段步頻 182~187 spm、觸地時間 200~215ms，有氧脫鉤率 Pw:HR -2.69%，打破 5 項個人紀錄！"
-        )
-        h2 = (
-            "• <strong>【大鐵 226 賽道心率壓制與抗疲勞體感】</strong> 週日晨跑在累積疲勞下均心率僅 134 bpm (94.7% 恢復區)，週六轉換跑均心率 117 bpm，單車北海岸均心 131 bpm。全週在面對高負荷時始終恪守「心率不暴衝、瓦數不超標」紀律，展現出極致的脂肪氧化供能與抗心率漂移能力。<br>"
-            "• <strong>【游泳週量 9.60km 突破意義】</strong> 本週 3 趟 50m 長池游量高達 9.60 km (304.6 sTSS)，達成率高達 300%！三趟長游速度脫鉤率皆為負脫鉤或近零漂移 (-4.97%, -3.13%, 0.34%)，展現出極高穩定度的長距離抓抱水核心流線型。<br>"
-            "• <strong>【週末雙大日轉換與補給實戰】</strong> 週末兩天合計累積 84.8 km、6 小時 21 分、總負荷高達 312.9 TSS！水分、電解質與碳水補給策略執行得宜，無抽筋或腸胃不適。"
-        )
-        h3 = (
-            "• <strong>【Build 1-2 全週高負荷結算後超量恢復】</strong> 本週近 12 小時、728.8 TSS 深度消耗後，今晚請徹底放鬆，運動後 30 分鐘黃金窗口已啟動，請補充足量電解質水、高GI與複合碳水化合物，以及每公斤體重 1.6–1.8g 優質蛋白質（促使肌糖原超量補償與肌纖維深層修復）。<br>"
-            "• <strong>【全身深層筋膜滾筒放鬆】</strong> 今晚睡前請安排 20–25 分鐘滾筒放鬆，重點針對小腿比目魚肌、阿基里斯腱、股四頭肌、髂脛束、臀大肌與肩胛背闊肌進行深層按壓與動態伸展，釋放週末連續衝擊的肌筋膜緊繃。<br>"
-            "• <strong>【明日週一完全休息日 (Rest Day)】</strong> 明日 (9/14) 為 Build 1-3 前的完全休息日，請嚴格遵守不私自加課或進行大負荷重訓，今晚爭取 8–8.5 小時優質深層睡眠，促進生長激素分泌以修復肌纖維，讓身體充分享受 Build 1-2 的超量補償吸收，以飽滿精力迎接下一週 Build 1-3 挑戰！"
-        )
-    elif w == 37 and (has_912_bike or has_912_run):
-        h1 = (
-            f"• <strong>【Build 1-2 第一建構期第二週推進・週六 Brick 轉換大日圓滿達成】</strong> 第 37 週邁入 Build 1-2 建構期第二週，週一完全休息超補償後，週二晨跑超額達標 (12.5km)、週三長池甜甜長游高效巡航 (3.15km)、週四傍晚單車 TEMPO 3x18' 完美吃下 (42.8km)、週五 50m 長池甜甜長游高水準達標 (3.25km)，今日週六順利完成單車 59.60km (爬升 +729m) ＋ 下車無縫轉換跑 9.73km (60分鐘) 關鍵轉換雙課表！全週已累積自行車 <strong>{bike_dist:.2f} km</strong>、跑步 <strong>{run_dist:.2f} km</strong>、游泳 <strong>{swim_dist:.2f} km</strong>，三項總時長達 <strong>{(sum(ev.get('actual_time', 0) for ev in completed)/60.0):.1f} 小時</strong>，全週總負荷強勢突破 <strong>585+ TSS</strong>！<br>"
-            "• <strong>【9/12 週六單車北海岸 59.60km (122.3 TSS) ＋ 轉換跑 60分 9.73km (47.4 rTSS) 雙課表】</strong> 單日合計 3 小時 47 分、69.33 km、爬升 +733m、累積負荷 169.7 TSS、燃燒 1,888 kcal！單車均心率 131 bpm (Zone 1-2 佔 82%)，爬升 +729m 下脫鉤率 Spd:HR -7.39%；下車後迅速換鞋，以 173 spm 高步頻與 117 bpm 超低均心率巡航 60 分鐘 (均速 6:10/km，均瓦 258W，脫鉤率 Pw:HR -43.90%)，時間完備度 100.0% 精準達標，下車雙腿毫無僵硬發木，體感給出滿分 5/5！<br>"
-            "• <strong>【9/11 週五 50m 長池甜甜泳課 3,250m (106.8 sTSS)】</strong> 耗時 1h01m，均速 1:53.6/100m，均心率 131 bpm，速度脫鉤率 Spd:HR -3.13% 負脫鉤，均速再度切中 Sub-11 游泳完賽標竿配速 (1h12m / 3.8km / 1:53/100m)！<br>"
-            "• <strong>【9/10 週四單車 TEMPO 3x18' 42.84km (83.4 TSS)】</strong> NP 153W (VI 1.10)，均心率 137 bpm，Zone 3 節奏區累積 56.9 分鐘，有氧脫鉤率 Pw:HR 僅 4.81% 零漂移，體感滿分 5/5！<br>"
-            "• <strong>【9/09 週三 50m 長池甜甜泳課 3,150m (104.9 sTSS)】</strong> 均速 1:53.0/100m，均心率僅 111 bpm，均划頻 27 spm，速度脫鉤率 0.34% 零漂移！<br>"
-            "• <strong>【9/08 週二 12.48km 跑步專項 (83.0 rTSS)】</strong> 均瓦 217W，衝刺段步頻 182~187 spm、觸地時間 200~215ms，有氧脫鉤率 Pw:HR -2.69%，打破 5 項個人紀錄！"
-        )
-        h2 = (
-            "• <strong>【Brick 下車轉換神經肌肉適應與步頻紀律】</strong> 今日單車 167 分鐘後接續 60 分鐘跑步，平均步頻高達 173 spm (最高 188 spm)，均心率壓制在極其驚人的 117 bpm，脫鉤率低至 -43.90%，證明下肢微血管循環與粒線體供能效率極佳，完全掌握大鐵 226 下車轉換的黃金體能感與核心落地剛性。<br>"
-            "• <strong>【爬坡控心率與避免爆瓦】</strong> 今日北海岸爬升 +729m，均心率妥善控制在 131 bpm，在長陡坡路段無過度抽車爆心率，為後續跑步保留了充沛的肌肉彈性與肝醣儲備。<br>"
-            "• <strong>【明日週日跑游雙課表收尾調整】</strong> 明日 (週日) 排定 EASY 有氧跑 ＋ 比賽配速長游，請嚴守輕鬆有氧心率，將重點放在下肢放鬆與水中流線型定型，圓滿結算 Build 1-2 高負荷建構週。"
-        )
-        h3 = (
-            "• <strong>【週六大轉換日課後黃金窗口修復】</strong> 今日總消耗 1,888 kcal、做功 930+ kJ、累積 169.7 TSS，課後請立即在 30 分鐘內補充 25–30g 優質蛋白質與 60–80g 高GI碳水化合物，加速肌糖原深度回補與肌纖維微創修復。<br>"
-            "• <strong>【下肢肌群深度滾筒放鬆】</strong> 今日近 3 小時踩踏與 1 小時跑步對股四頭肌、臀大肌、髂脛束與小腿比目魚肌帶來深度張力，今晚睡前務必進行 20 分鐘滾筒放鬆與動態伸展，預防延遲性肌肉痠痛 (DOMS)。<br>"
-            "• <strong>【電解質補水與深層睡眠】</strong> 今日戶外訓練大量排汗，請持續每小時補充含鈉電解質水直至尿液清澈淡黃；今晚確保 8–8.5 小時優質深層睡眠，促進生長激素分泌以利神經系統超補償吸收！"
-        )
-    elif w == 36 and completed:
-        h1 = (
-            f"• <strong>【Build 1-1 第一建構期旗開得勝・全週三項圓滿高質量結算】</strong> 第 36 週正式邁入 Build 1 專項建構期，全週圓滿完成自行車 <strong>{bike_dist:.2f} km (6.73 小時)</strong>、跑步 <strong>{run_dist:.2f} km (3.82 小時)</strong>、游泳 <strong>{swim_dist:.2f} km (3.40 小時)</strong>，三項累積總時長達 <strong>13.95 小時</strong> (整體時間執行率 <strong>95.7%</strong>)，總 TSS 突破 <strong>800+</strong>，專項耐力、閾值衝擊、下車轉換與長距離水感全面大幅躍升！<br>"
-            "• <strong>【9/06 週日單車 Endurance 2.5 (66.02km) ＋ 長游 3,450m 高質量雙課表】</strong> 單車 2h31m (107.1 TSS, 均速 26.28 km/h)，穩健鎖定 Zone 2 並落實每小時 75-90g 碳水與電解質補給實戰演練；隨後接續 3,450m 長游 (1h12m, 93.9 sTSS, 均速 2:04.5/100m)，單日累積 69.47 km、201.0 TSS，游泳不僅達成高耐力刺激更發揮出色的下肢動態排酸，週游量正式跨越 10 公里大關 (10.05 km)！<br>"
-            "• <strong>【9/05 週六單車 Threshold 12x3 (70.31km) ＋ 轉換跑 1.5h (11.74km) 頂尖雙課表】</strong> 單車 2h35m (NP 157W, 151.4 TSS, 均心 145 bpm, 均踏頻 86 rpm)，精準執行 3 組 95-105% FTP 閾值衝刺；下車後僅 7 分鐘無縫換鞋接續 90 分鐘長跑，嚴格遵循心率 150 bpm 以下紀律 (均心 145 bpm, 46.1 rTSS)，單日轉換合繳 197.5 TSS、82.05 km，極佳模擬 226 後段轉向抗疲勞能力！<br>"
-            "• <strong>【9/03 單車 TEMPO 2x20 (32.10km) ＋ 轉換跑 4.96km】</strong> 順利吃下 65 分鐘單車 (均速 29.63 km/h) ＋ 40 分鐘轉換跑 (步頻 172 spm)，轉換神經肌肉適應極佳。<br>"
-            "• <strong>【9/02 & 9/04 雙長池甜甜泳課 (合計 6,600m)】</strong> 9/2 游出 2:02.5/100m 均速與 114 bpm 超低心率 (脫鉤率 -20.90% Spd:HR)；9/4 游出 3,150m (2.99 km/h)，展現高度一致的核心流線型。<br>"
-            "• <strong>【9/01 跑步 12.04km 間歇與 17.32km 單車階梯間歇】</strong> 包含 6 組 400m 速度間歇（配速 3:57~4:09/km、均瓦 369-398W）與單車 3 組階梯推進 (171W -> 184W -> 204W 閾值衝刺)。"
-        )
-        h2 = (
-            "• <strong>【大鐵 226 賽事後段心率與瓦數紀律】</strong> 週六 70km 單車後接續長跑嚴格恪守「心率 150 bpm 封頂」，週日 66km 穩健鎖定 Zone 2 (IF 0.65)。在週末連續兩天高負荷下，不盲目追速，專注於落地剛性與脂肪氧化，正是大鐵 Sub-11 全馬 4h00m 穩健防抽筋的核心關鍵。<br>"
-            "• <strong>【游泳週量破 10km 突破意義】</strong> 本週 3 趟長游突破 10.05 km，大幅超越 Sub-11 標竿 (7-9 km/週) 達標率 113.3%，在長距離游程中身體浮力、流線型與水感延伸已具備極高的穩定度。<br>"
-            "• <strong>【週末雙大日轉換與補給實戰】</strong> 週末兩天合計累積自行車 136.33 km、跑步 11.74 km、游泳 3.45 km，總負荷高達 398.5 TSS！補給實測（75-90g/h 碳水、600-900ml 水、鈉）完全符合 226 實戰需求。"
-        )
-        h3 = (
-            "• <strong>【全週高負荷結算後超量恢復】</strong> 本週 13.95 小時、800+ TSS 深度消耗後，今晚請徹底放鬆，運動後立即補充足量電解質、複合碳水化合物與每公斤 1.6-1.8g 優質蛋白質。<br>"
-            "• <strong>【下肢深層筋膜放鬆】</strong> 重點針對小腿腓腸肌、比目魚肌、阿基里斯腱、股四頭肌與臀大肌進行滾筒筋膜放鬆，加速代謝微創發炎。<br>"
-            "• <strong>【明日週一完全休息日 (Rest Day)】</strong> 明日 (9/7) 排定完全休息，請嚴格遵守不私自加課，爭取 8–8.5 小時高品質深層睡眠，促進生長激素修復肌纖維，讓身體充分享受 Build 1-1 的超量補償吸收！"
-        )
-    elif w == 35 and completed:
-        h1 = (
-            f"• <strong>【Base 3-4 減量與超量吸收週圓滿結算】</strong> 全週累計游泳 <strong>{swim_dist:.2f} km</strong>、自行車 <strong>{bike_dist:.2f} km</strong>、跑步 <strong>{run_dist:.2f} km</strong>，在控制總負荷的前提下精準達成超補償吸收！<br>"
-            "• <strong>【8/30 跑游雙課表極佳有氧控制】</strong> 晨跑 10.67 km 均心率僅 131 bpm 完美壓制在 140 bpm 上限以下，脫鉤率 (Pw:HR 3.12% / Spd:HR 2.94%) 遠低於 5%；上午 50m 長池游泳 2,950m (含 20 組 Drill 與 2 組 800m @ 1:56~1:57/100m) 穩定展現流暢水感與核心流線型。<br>"
-            "• <strong>【8/29 長騎 89.55km ＋ 轉換跑 40 分鐘高質量完成】</strong> 長騎 3:49 (NP 171W, 均心 129 bpm) Z1-Z2 心率佔 80%；下車後無縫執行 39:49 轉換跑 (5.98km, 6:39/km, 均心 158 bpm, 步頻 170 spm)，體感滿分 5/5，完美模擬鐵人轉向適應！<br>"
-            "• <strong>【8/27 單車 TEMPO 56 (37.27km) ＋ 8/26 Z2 跑 9.79km 穩健巡航】</strong> 階梯式漸進瓦數與高步頻有氧打底，為 Base 3 奠定扎實底層。"
-        )
-        h2 = (
-            "• <strong>【減量週體能超補償後的轉換準備】</strong> Base 3-4 (Recovery) 圓滿落幕，體能與神經系統已充分修復並獲得超補償效益，準備迎接下週進入 Build 1 專項建構期。<br>"
-            "• <strong>【單車功率紀律】</strong> 維持巡航 140W-145W、爬坡上限 174W (85% FTP) 之鐵律，長騎下車前 10-15km 務必落實降瓦冷卻。<br>"
-            "• <strong>【跑步步頻與著地剛性】</strong> 維持 175-180 spm 小步幅與 <270ms 輕著地，保護膝踝關節與全馬抗衝擊能力。"
-        )
-        h3 = (
-            "• <strong>【週日收操與黃金修復】</strong> 今日雙課表完成後，請攝取高碳水化合物與每公斤 1.6–1.8g 優質蛋白質，配合全身筋膜滾筒放鬆。<br>"
-            "• <strong>【充足深層睡眠】</strong> 今晚爭取 8–8.5 小時優質深層睡眠，促進生長激素分泌，極大化超量恢復效果。<br>"
-            "• <strong>【迎接 Build 1 週期】</strong> 檢視身體各關節活動度與裝備狀況，做好心理與體能準備進入強度更高之 Build 週期。"
-        )
-    elif w == 34 and completed:
-        h1 = (
-            f"• <strong>【Base 3-3 調整週高質量推進】</strong> 本週已完成自行車 <strong>{bike_dist:.2f} km</strong> (TEMPO 3x15 85分 + 動態排酸騎)、跑步 <strong>{run_dist:.2f} km</strong> (Z2 跑 9.45km + 轉換跑 3.66km)、游泳 <strong>{swim_dist:.2f} km</strong> (甜甜課表 63分)，超補償調整節奏極為精準！<br>"
-            "• <strong>【週四單車 TEMPO 3x15 ＋ 轉換跑精準達標】</strong> 8/20 單車 85 分鐘 100% 達標，TEMPO 區間精準鎖定在 155W-165W (NP 162W, 均心率 142 bpm)；下車後無縫銜接 28 分鐘 (3.66km) 轉換跑，高步頻 (176 spm) 與輕著地展現極佳的神經傳導與轉向抗疲勞能力。<br>"
-            "• <strong>【週三甜甜泳課 3.15km 高效發揮】</strong> 8/19 游泳 63 分鐘游出 2:02/100m 均速，展現流暢水感與核心流線型支撐。"
-        )
-        h2 = (
-            "• <strong>【調整週超補償瓦數克制】</strong> TEMPO 3x15 課表請嚴格守在 75%-80% FTP (155W-165W)，切勿衝進無氧閾值區，確保心率維持在 Zone 3 低位。<br>"
-            "• <strong>【下車轉換跑步頻紀律】</strong> 轉換跑前 5 公里請保持 175-180 spm 小步幅、垂直比 <9%，心率巡航在 145-155 bpm，保護全馬關節剛性。<br>"
-            "• <strong>【游泳長距離巡航定型】</strong> 保持 Zone 1-2 低心率划水與規律換氣定位，對標 Sub-11 游泳目標 (1h12m / 1:53/100m)。"
-        )
-        h3 = (
-            "• <strong>【黃金 30 分鐘窗口回補】</strong> 課後即刻補充含電解質飲品、50-75g 碳水化合物與 25g 優質蛋白質，促進肝醣深層回補與肌纖維微創修復。<br>"
-            "• <strong>【深層肌群滾筒放鬆】</strong> 重點針對小腿腓腸肌、比目魚肌、阿基里斯腱、臀大肌與肩胛背闊肌進行筋膜按壓與動態伸展。<br>"
-            "• <strong>【睡眠品質與生長激素】</strong> 維持每晚 8 小時深層優質睡眠，讓神經系統充分吸收訓練成果，迎接後續週末課表。"
-        )
-    elif has_816_run and has_816_swim:
-        h1 = (
-            "• <strong>【W33 大量週圓滿結算 (Big Weekend)】</strong> 全週累計游泳 <strong>10.70 km</strong>、自行車 <strong>188.36 km</strong>、跑步 <strong>37.20 km</strong>，總訓練時間突破 16 小時，總 TSS 突破 650，有氧底層極為厚實。<br>"
-            "• <strong>【週日跑游雙主項高水準發揮】</strong> 8/16 清晨完成 17.52 km（含明德宮 +327m 爬坡，平路漸速至 5:26/km）；上午接續 4,100m 游泳，雙 1,600m 主項巡航繳出 1:56~1:58/100m 絕佳均速與 140 bpm 低心率！<br>"
-            "• <strong>【極佳左右平衡與配速穩定性】</strong> 8/15 破百長騎 127.37 km（左右平衡 50.5%/49.5%）與 8/16 雙 1,600m 連續長游均展現頂尖的體能一致性。"
-        )
-        h2 = (
-            "• <strong>【長騎控瓦與有氧解離防線】</strong> 8/15 長騎 NP 172W (IF 0.84) 偏向競賽強度，未來長距離 LSD 前 3 小時務必壓制在 140W-150W (68-75% FTP)，下車前 10-15km 主動降瓦冷卻。<br>"
-            "• <strong>【山道長跑心率與步頻轉換】</strong> 上坡路段維持 131-163 bpm 控心率、下坡迅速拉高步頻至 176-184 spm 減少煞車衝擊，對標 Sub-11 全馬 4 小時 (5:41/km) 節奏。<br>"
-            "• <strong>【游泳長距離 1:53 巡航手感】</strong> 雙 1,600m 巡航在 140 bpm 游出 1:56-1:58/100m，可於後續課表逐步加入 100/200m 巡航配速游，目標直指 1:48-1:53/100m。"
-        )
-        h3 = (
-            "• <strong>【週末雙大日深度修復】</strong> 連續兩天高強度與高量訓練累積近 540 TSS，請持續補充水分、電解質與每公斤 1.5–2.0g 優質蛋白質。<br>"
-            "• <strong>【下肢與肩背肌群放鬆】</strong> 重點針對小腿阿基里斯腱、臀大肌、肩關節與闊背肌進行滾筒放鬆與深層伸展。<br>"
-            "• <strong>【週一恢復日排程】</strong> 週一安排完全休息 (Rest Day) 或低心率排酸輕鬆游/滾筒活動度，讓神經與肌肉充分吸收本週超量訓練。"
-        )
-    elif has_815_bike and has_815_run:
-        h1 = (
-            "• <strong>【大訓練日 (Big Day) 高品質完成】</strong> 本週累計自行車已達 <strong>188.36 km</strong>、跑步 <strong>19.68 km</strong>、游泳 <strong>6.60 km</strong>。<br>"
-            "• <strong>【極佳左右平衡與座艙穩定度】</strong> 8/15 扎實完成 127.37 km 破百長騎 (4h36m)，踩踏平衡 50.5% / 49.5% 完美均衡！<br>"
-            "• <strong>【成熟的教練級防傷自覺】</strong> 騎車大負荷 (320 TSS) 後無縫銜接轉換跑，依即時心率與體感主動於 30 分鐘適度收操 (Feeling 5/5)，兼顧神經肌肉轉換刺激與防範熱衰竭/過度疲勞。"
-        )
-        h2 = (
-            "• <strong>【自行車 LSD 功率與有氧解離控制】</strong> 8/15 長騎 NP 達 172W (IF 0.84)，偏向 Tempo 強度，造成後段有氧解離 (Pw:HR) 達 21.39%。建議未來長距離 LSD 前段克制輸出在 140W-150W (68-75% FTP)，爬坡嚴守 174W 上限，避免過早耗損肝醣。<br>"
-            "• <strong>【下車前降瓦與冷卻紀律】</strong> 下車前最後 10–15km 請務必降瓦至 123W-133W 並維持 85-90 rpm 高踏頻，讓心率平順回落。<br>"
-            "• <strong>【跑步步頻與著地剛性】</strong> 轉換跑維持 175-180 spm 小步幅，垂直比控制在 9% 以內，保護膝關節與雙腿剛性。"
-        )
-        h3 = (
-            "• <strong>【水分與電解質持續補充】</strong> 今日總消耗高達 2,855 kcal，請持續每 1–2 小時補充電解質水，直至尿液清澈。<br>"
-            "• <strong>【醣類與優質蛋白補給】</strong> 充足攝取碳水化合物與每公斤 1.5–2.0g 優質蛋白質，加速肌糖原回補與肌纖維修復。<br>"
-            "• <strong>【明日排程建議】</strong> 今日總 TSS 達 338，明日強烈建議安排完全休息 (Rest Day) 或輕鬆低心率排酸游/滾筒放鬆。"
-        )
-    elif completed:
-        h1 = f"• 本週已累積單車 <strong>{bike_dist:.2f} km</strong>、跑步 <strong>{run_dist:.2f} km</strong>、游泳 <strong>{swim_dist:.2f} km</strong>，整體訓練節奏扎實推進中。<br>• 游泳與單車 4 週滾動均量皆達到 Sub-11 標竿需求。"
-        h2 = "• <strong>單車控瓦</strong>：目標巡航 140W-145W，爬坡上限 174W，下車前 10-15km 降瓦至 123W-133W 冷卻。<br>• <strong>跑步步頻</strong>：維持 175-180 spm，減輕關節衝擊，保護全馬下半程。"
-        h3 = "• 訓練後即刻補充水份、電解質與 25g 蛋白質。<br>• 保持每晚 7.5–8.5 小時高品質深度睡眠，加速神經與肌肉修復。"
-    elif w == 34 and not completed:
-        h1 = (
-            "• <strong>【Base 3-3 超量後吸收與超補償調整週】</strong> 經歷 W33 週累積近 650 TSS、10.7km 游泳、188km 單車與 37.2km 跑步的超大負荷後，第 34 週核心任務為<strong>「體能吸收與神經超補償 (Supercompensation)」</strong>。<br>"
-            "• <strong>【週二 Z2 基礎耐力跑 (90 分鐘 / 11.6km)】</strong> 透過低心率 Z1-Z2 巡航，在不增加肌肉與關節衝擊負擔下，持續刺激粒線體有氧氧化與脂肪燃燒效率。<br>"
-            "• <strong>【週四 TEMPO 3x15 ＋ 20 分鐘轉換跑】</strong> 85 分鐘單車安排 3 組 15 分鐘 TEMPO (155W-165W)，下車即刻接續 20 分鐘 (3km) 轉換跑，維持神經肌肉連動與抗乳酸耐受度。"
-        )
-        h2 = (
-            "• <strong>【週一 Rest Day 嚴格徹底放鬆】</strong> 週一安排完全休息日，請配合滾筒筋膜放鬆小腿阿基里斯腱、臀大肌與足底，切勿私自加課。<br>"
-            "• <strong>【週四 TEMPO 瓦數嚴格克制】</strong> TEMPO 組請穩在 75%-80% FTP (155W-165W)，切勿衝過頭進入閾值區，避免破壞吸收週節奏。<br>"
-            "• <strong>【轉換跑專注 175-180 spm 步頻】</strong> 下車後跑步維持高步頻、小步幅與輕著地感，保護膝踝關節與衝擊剛性。"
-        )
-        h3 = (
-            "• <strong>【肌力訓練安排 (主課 B + 短課)】</strong> 週一與週四執行主課 B（臀推/登階/帕羅夫壓/怪獸走/離心提踵），週三執行 15 分鐘短課（死蟲式/側棒式/鳥狗式/單腳提踵）。<br>"
-            "• <strong>【優質蛋白與抗發炎修復飲食】</strong> 每日補充足量每公斤 1.6–1.8g 優質蛋白質，多攝取 Omega-3 魚油、藍莓與抗氧化蔬果，加速深層肌纖維修復。<br>"
-            "• <strong>【睡眠品質管理】</strong> 維持每晚 8 小時優質深層睡眠，促使生長激素分泌以達最佳超補償效應。"
-        )
-    elif w == 35 and not completed:
-        h1 = (
-            "• <strong>【Base 3-4 減量恢復與超量吸收週 (Adaptation & Recovery Phase)】</strong> 經歷 Base 3 週期前 3 週（含 W33 大量週與 W34 節奏調整）的高負荷訓練後，第 35 週進入 4 週循環中至關重要的<strong>「減量恢復週 (Recovery Week)」</strong>。核心任務為釋放中樞神經疲勞、重建微血管網絡與粒線體超補償，為即將到來的 Build 專項建構期奠定巔峰體能底層。<br>"
-            "• <strong>【總體時數精簡與維持轉速】</strong> 全週排定訓練時數精簡至約 <strong>7.8 小時</strong>（單車 TEMPO 56 & TEMPO 350、跑步 Z2 8.4km/轉換跑 40分/有氧打底 15km、游泳甜甜課表 2 堂 + 3,000m 長游），兼顧維持有氧引擎轉速與極大化肌纖維修復。<br>"
-            "• <strong>【週末模擬課表穩健推進】</strong> 週六安排單車 TEMPO 350 接 40 分鐘轉換跑，週日 90 分鐘有氧打底跑 (15km) 接 3,000m 排酸長游，精準模擬賽道連續運動耐受力。"
-        )
-        h2 = (
-            "• <strong>【週一減量日徹底放鬆】</strong> 週一標記「減量週完全休息日 (Day Off)」，嚴格禁止私自加課或進行大負荷重訓，專注全身關節活動度與筋膜放鬆。<br>"
-            "• <strong>【單車 TEMPO 瓦數嚴格克制在 155W-165W】</strong> 週四 TEMPO 56 與週六 TEMPO 350 務必精準控制在 75%-80% FTP 範圍，爬坡上限 174W (85% FTP)，切勿因體能恢復自覺良好而衝過頭進入閾值區。<br>"
-            "• <strong>【跑步步頻與著地剛性紀律】</strong> 週二 8.4km、週六 40 分鐘轉換跑與週日 15km 有氧打底，全程落實 175-180 spm 高步頻與 <270ms 輕著地，保護膝踝關節與衝擊剛性。<br>"
-            "• <strong>【游泳長游流線型與划水效率】</strong> 週三/週五甜甜課表與週日 3,000m 長游，專注維持長划幅、放鬆抓抱水與核心流線型，均速巡航在 1:53-2:00/100m 節奏。"
-        )
-        h3 = (
-            "• <strong>【主動性恢復與肌力微調 (主課 A + 短課)】</strong> 週一與週四執行主課 A（分腿蹲/羅馬尼亞硬舉/單腳硬舉/側棒式/死蟲式/雙腳提踵，維持 3 組 6-8 下並保留 2-3 下餘裕），週三執行 15 分鐘短課（核心抗旋轉/抗側彎/足踝推蹬剛性）。<br>"
-            "• <strong>【抗發炎修復飲食與優質蛋白】</strong> 每日維持每公斤 1.6-1.8g 優質蛋白質攝取，搭配富含抗氧化物（藍莓、深綠色蔬菜）與 Omega-3 魚油之抗發炎飲食，加速深層微創修復。<br>"
-            "• <strong>【深層睡眠管理】</strong> 本週爭取每晚 8-8.5 小時高品質深層睡眠，促進生長激素深度釋放以達到最大化超補償效果。<br>"
-        )
-    elif w == 38:
-        h1 = (
-            "• <strong>【Build 1-3 第一建構期巔峰週展開 (Peak Build Phase)】</strong> 第 38 週正式邁入第一建構期第三週（大負荷巔峰週），全週排定總訓練時長達 <strong>14.9 小時 (896 分鐘)</strong>，為 Build 1 週期負荷最高峰！<br>"
-            "• <strong>【單車核心課表 (6.6 小時 / 120km+ 長騎)】</strong> 週二 Threshold 5x3 間歇衝刺 (40m)、週四 TEMPO 3x18' 專項節奏 (86m)、週六「大安～中角灣～大安」4.5 小時 120km 戶外長騎 (IF 0.75~0.8，本日重點) ＋ 30 分鐘下車轉換跑，扎實考驗單車續航力與補給吸收！<br>"
-            "• <strong>【跑步專項抗疲勞 (4.5 小時 / 32km+)】</strong> 週二 90 分鐘專項耐力跑 (11.6km)、週四/週六雙 30 分鐘 Brick 轉換跑、週日 2 小時 21km 半馬比賽配速長跑 (本日重點)，深層鍛鍊馬拉松抗衝擊剛性。<br>"
-            "• <strong>【游泳雙甜甜與長游 (3.8 小時 / 7,000m+)】</strong> 週三/週五各 80 分鐘甜甜泳課，週日安排 3,500m 比賽配速主課長游，維持 Sub-11 (1:53/100m) 流線型與轉體效率。"
-        )
-        h2 = (
-            "• <strong>【週一完全休息日 (Rest Day) 紀律】</strong> 週一標記完全休息日，經歷 W37 728.8 TSS 超大負荷結算後，今日嚴格禁止私自加課或重訓，全心投入超補償吸收與關節活動度放鬆。<br>"
-            "• <strong>【週六 120km 北海岸長騎控瓦】</strong> 週六大安至中角灣長騎務必遵守 IF 0.75~0.8 (150W-164W) 上限，切勿在爬坡段暴衝爆心率，全程維持每小時 60–90g 碳水化合物與電解質補給演練。<br>"
-            "• <strong>【週日 21km 比賽配速跑節奏】</strong> 週日半馬長跑請嚴格以 Sub-11 標竿配速 (5:35~5:45/km) 巡航，平均步頻維持 175–180 spm，觸地時間 <270ms，保護膝踝關節。"
-        )
-        h3 = (
-            "• <strong>【週一完全休息日深度修復】</strong> 本週進入高達 15 小時之建構巔峰週，今日請徹底放鬆，多攝取抗發炎天然食材（深海魚油、深色莓果、薑黃）與每公斤體重 1.6–1.8g 優質蛋白質。<br>"
-            "• <strong>【筋膜放鬆與活動度喚醒】</strong> 睡前進行 20 分鐘全身肌筋膜滾筒放鬆，特別針對小腿阿基里斯腱、臀中肌、髂腰肌與肩胛下肌，維持關節靈活度。<br>"
-            "• <strong>【充足睡眠迎接建構巔峰】</strong> 今晚確保 8–8.5 小時優質深度睡眠，儲備充足精力迎接明日 (週二) 單車 Threshold 5x3 ＋ 90 分鐘專項跑！"
-        )
-    elif w == 37 and not completed:
-        h1 = (
-            "• <strong>【Build 1-2 第一建構期推進・週六 Brick 轉換大日圓滿達成】</strong> 第 37 週持續推進 Build 1-2 建構期，週一完全休息後，週二跑步 12.5km、週三游泳 3.15km、週四單車 42.8km、週五長游 3.25km，週六順利完成單車 59.60km (爬升 +729m) ＋ 下車轉換跑 9.73km (60分鐘)！全週三項累計時長達 <strong>9.4 小時</strong>，總 TSS 強勢突破 <strong>585+</strong>！<br>"
-            "• <strong>【明日週日收尾調整】</strong> 明日 (週日) 安排 90 分鐘 EASY 有氧跑 ＋ 70 分鐘 3,200m 比賽配速游，專項耐力即將圓滿結算！"
-        )
-        h2 = (
-            "• <strong>【下車轉換高步頻與極低心率】</strong> 週六轉換跑維持 173 spm 高步頻與 117 bpm 超低有氧心率，脫鉤率 -43.90%，神經肌肉轉換順暢無比。<br>"
-            "• <strong>【長騎控心率防線】</strong> 北海岸長騎爬升 +729m，均心率穩健維持在 131 bpm，不盲目衝陡坡爆心率，保護肌肉彈性。<br>"
-            "• <strong>【週日有氧放鬆紀律】</strong> 明日課表請嚴格恪守 Zone 1-2 輕鬆有氧節奏，避免衝速累積神經疲勞。"
-        )
-        h3 = (
-            "• <strong>【轉換大日課後黃金窗口修復】</strong> 今日總消耗 1,888 kcal，課後立即補充 25–30g 優質蛋白質與 60–80g 高GI碳水化合物，加速肌糖原回補與肌纖維修復。<br>"
-            "• <strong>【下肢深層滾筒放鬆】</strong> 今晚睡前進行 20 分鐘全身肌筋膜滾筒放鬆，特別針對大腿前側、臀大肌與小腿比目魚肌。<br>"
-            "• <strong>【補水與睡眠管理】</strong> 持續補充含電解質水分；今晚確保 8–8.5 小時深度睡眠，迎接明日週日收尾課表！"
-        )
-    elif w == 36 and not completed:
-        h1 = (
-            "• <strong>【Build 1-1 第一建構期正式展開】</strong> 經歷 Base 3 基礎打底與 W35 減量超量吸收後，第 36 週正式邁入<strong>「Build 1-1（第一建構期 第一週）」</strong>。核心任務由單純的低強度基礎堆疊，轉向<strong>「專項抗乳酸耐受力、TEMPO 瓦數續航力與長距離轉換適應」</strong>，全週排定總時長達 <strong>14.2 小時 (850 分鐘)</strong>。<br>"
-            "• <strong>【游泳雙甜甜課表 (180 分鐘)】</strong> 週三與週五各安排 90 分鐘甜甜泳課，以長划幅、高流線型與目標巡航配速（1:50~1:53/100m）持續強化水感與上半身肌耐力。<br>"
-            "• <strong>【單車四大核心課表 (9.75 小時)】</strong> 週二 TEMPO 8x4 短間歇、週四 TEMPO 3x20 (155W-165W) 節奏耐力、週六 3 小時有氧長騎、週日 4.5 小時超長距離耐力巡航，建立深厚的比賽瓦數續航底層。<br>"
-            "• <strong>【跑步專項耐力與雙轉換 (4.58 小時 / 38.4+ km)】</strong> 週二 85 分鐘有氧跑 (12.4km)、週四 40 分鐘 Brick 轉換跑 (7.0km)、週六 120 分鐘長跑 (19.0km)、週日 30 分鐘下車轉接跑，全面鍛鍊神經肌肉抗疲勞與全馬抗衝擊剛性。"
-        )
-        h2 = (
-            "• <strong>【週一 Rest Day 徹底修復】</strong> 週一安排完全休息日 (Day Off)，配合滾筒放鬆下肢肌筋膜（股四頭、臀大肌、阿基里斯腱與足底），確保以最佳精力進入建構期。<br>"
-            "• <strong>【單車 TEMPO 3x20 嚴格控瓦】</strong> 週四 3 組 20 分鐘 TEMPO 務必穩健落在 155W-165W (75%-80% FTP)，爬坡上限 174W，切勿因體能充沛而衝進無氧閾值區破壞課表結構。<br>"
-            "• <strong>【轉接跑步頻與著地控制】</strong> 週四 40 分鐘轉換跑與週日 30 分鐘下車跑，下車後前 5 分鐘專注 175-180 spm 小步幅與 <270ms 輕著地，嚴禁剛下車暴衝。<br>"
-            "• <strong>【長距離補給演練】</strong> 週日 4.5 小時長騎與週六 2 小市長跑，全程落實每小時 60–90g 碳水化合物與電解質補給，演練賽道腸胃吸收力。"
-        )
-        h3 = (
-            "• <strong>【肌力課表安排 (主課 B + 短課)】</strong> 週一與週四執行主課 B（臀推/登階/帕羅夫壓/怪獸走/離心提踵），週三執行 15 分鐘短課（死蟲式/側棒式/鳥狗式/單腳提踵），強化單腳推蹬剛性與骨盆核心穩定度。<br>"
-            "• <strong>【高訓練量營養支持】</strong> 建構期總消耗大幅增加，每日需補足足量碳水化合物與每公斤 1.6–2.0g 優質蛋白質，多攝取抗氧化蔬果與 Omega-3 魚油抗發炎。<br>"
-            "• <strong>【深層睡眠管理】</strong> 每日爭取 8 小時以上優質睡眠，確保神經系統與肌纖維能在高強度建構期充分修復超補償。"
-        )
-    else:
-        h1 = "• 當週課表已排定完備，請依預定配速與強度執行。"
-        h2 = "• 遵守各項課表之強度區間設定，切勿在基礎有氧日超量超瓦。"
-        h3 = "• 課前充足熱身，課後落實收操與營養補充。"
-
-    return f"""
-    <div id="coachInsightsBox" class="section-box" style="border-left: 4px solid #38BDF8; background: linear-gradient(135deg, rgba(30,41,59,0.85), rgba(15,23,42,0.95)); margin-bottom: 20px;">
-        <div class="section-title" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-            <span>🧭 教練視角綜合解析與後續建議 (Daily & Weekly Coach Insights)</span>
-            <span style="font-size:0.75rem; background:rgba(56,189,248,0.15); color:#38BDF8; border:1px solid rgba(56,189,248,0.3); padding:3px 8px; border-radius:6px; font-weight:600;">✨ 每日自動更新即時同步</span>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 14px;">
-            <div style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid rgba(16, 185, 129, 0.3);">
-                <div style="font-weight: 700; color: #34D399; margin-bottom: 8px; font-size: 0.92rem;">🌟 執行亮點與成效分析</div>
-                <div style="font-size: 0.86rem; color: #E2E8F0; line-height: 1.7;">
-                    {h1}
-                </div>
-            </div>
-            <div style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid rgba(245, 158, 11, 0.3);">
-                <div style="font-weight: 700; color: #FBBF24; margin-bottom: 8px; font-size: 0.92rem;">⚠️ 需注意的細節與配速紀律</div>
-                <div style="font-size: 0.86rem; color: #E2E8F0; line-height: 1.7;">
-                    {h2}
-                </div>
-            </div>
-            <div id="recovery-guideline" style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid rgba(56, 189, 248, 0.3);">
-                <div style="font-weight: 700; color: #38BDF8; margin-bottom: 8px; font-size: 0.92rem;">🧪 賽後恢復與能量補給指南</div>
-                <div style="font-size: 0.86rem; color: #E2E8F0; line-height: 1.7;">
-                    {h3}
-                </div>
-            </div>
-        </div>
-    </div>
-    """
-
-
-
 def generate_52_week_dashboard():
     today = date.today()
     current_year = today.year
     current_week_num = today.isocalendar().week
 
     cache = load_cache()
+    weekly_reviews = build_weekly_training_reviews(cache, current_year, today)
 
     cache_by_week = {}
     for uid, ev in cache.items():
@@ -1275,7 +968,7 @@ def generate_52_week_dashboard():
 
         est_snap = calculate_dynamic_226_estimate(w_monday)
         daily_feedback_html = build_daily_feedback_cards(events)
-        coach_insights_box_html = build_weekly_coach_insights_box(events, w, w_monday, w_sunday, est_snap)
+        coach_insights_box_html = build_weekly_coach_html(weekly_reviews[w], phase)
 
         weeks_data[w] = {
             "week_num": w,
@@ -1288,6 +981,7 @@ def generate_52_week_dashboard():
             "phase": phase,
             "exec_rate": round(exec_rate, 1),
             "actual_time_hrs": round(actual_time / 60.0, 1),
+            "training_review": weekly_reviews[w],
             "planned_time_hrs": round(planned_time / 60.0, 1),
             "swim_km": round(swim_dist, 2),
             "bike_km": round(bike_dist, 2),
@@ -1921,6 +1615,7 @@ def generate_52_week_dashboard():
 
     <div class="main-content" id="mainContent"></div>
 
+    <script src="weekly-review.js?v=20261024"></script>
     <script>
         const WEEKS_DATA = {weeks_json_str};
         const CURRENT_WEEK = {current_week_num};
@@ -2009,7 +1704,11 @@ def generate_52_week_dashboard():
 
         let currentSubtab = 'estimate';
 
-        function openSubtab(tabName) {{
+        function openSubtab(tabName, syncUrl = true) {{
+            // Manual tab changes leave article anchors; hash routing preserves shared links.
+            if (syncUrl && window.location.hash) {{
+                window.history.replaceState(window.history.state, '', window.location.pathname + window.location.search);
+            }}
             currentSubtab = tabName;
             document.querySelectorAll('.subtab-view').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.subtab-btn').forEach(el => el.classList.remove('active'));
@@ -2026,30 +1725,35 @@ def generate_52_week_dashboard():
             if (!hash) return;
 
             if (hash === 'recovery') {{
-                openSubtab('articles');
+                openSubtab('articles', false);
                 setTimeout(() => {{
+                    if (window.location.hash.toLowerCase().replace('#', '') !== hash) return;
                     const target = document.getElementById('recovery');
                     if (target) target.scrollIntoView({{ behavior: 'smooth' }});
                 }}, 200);
             }} else if (hash === 'swim' || hash === 'bike' || hash === 'run' || hash === 'summary') {{
-                openSubtab('articles');
+                openSubtab('articles', false);
                 setTimeout(() => {{
+                    if (window.location.hash.toLowerCase().replace('#', '') !== hash) return;
                     const target = document.getElementById(hash);
                     if (target) target.scrollIntoView({{ behavior: 'smooth' }});
                 }}, 200);
             }} else if (hash === 'articles' || hash === 'article' || hash === 'news') {{
-                openSubtab('articles');
+                openSubtab('articles', false);
+            }} else if (hash === 'targets' || hash === 'target-races' || hash === 'races') {{
+                openSubtab('targets', false);
             }} else if (hash === 'plan' || hash === 'workout' || hash === 'strength') {{
-                openSubtab('plan');
+                openSubtab('overview', false);
             }} else if (hash === 'review' || hash === 'execution') {{
-                openSubtab('review');
+                openSubtab('review', false);
             }} else if (hash === 'overview') {{
-                openSubtab('overview');
-            }} else if (hash === 'estimate' || hash === 'estimates' || hash === 'prediction' || hash === 'predictions' || hash === '226' || hash === '113' || hash === 'race' || hash === 'races') {{
-                openSubtab('estimate');
+                openSubtab('overview', false);
+            }} else if (hash === 'estimate' || hash === 'estimates' || hash === 'prediction' || hash === 'predictions' || hash === '226' || hash === '113' || hash === 'race') {{
+                openSubtab('estimate', false);
             }} else if (hash === 'recovery-guideline' || hash === 'coach-recovery') {{
-                openSubtab('overview');
+                openSubtab('overview', false);
                 setTimeout(() => {{
+                    if (window.location.hash.toLowerCase().replace('#', '') !== hash) return;
                     const target = document.getElementById('recovery-guideline') || document.getElementById('coachInsightsBox');
                     if (target) target.scrollIntoView({{ behavior: 'smooth' }});
                 }}, 200);
@@ -2099,8 +1803,8 @@ def generate_52_week_dashboard():
                 <!-- SUBNAV TABS FOR ONLINE READING -->
                 <div class="subnav-tabs">
                     <button class="subtab-btn ${{currentSubtab === 'estimate' ? 'active' : ''}}" data-tab="estimate" onclick="openSubtab('estimate')">🔮 預估完賽時間</button>
+                    <button class="subtab-btn ${{currentSubtab === 'targets' ? 'active' : ''}}" data-tab="targets" onclick="openSubtab('targets')">🏁 目標賽事</button>
                     <button class="subtab-btn ${{currentSubtab === 'overview' ? 'active' : ''}}" data-tab="overview" onclick="openSubtab('overview')">📊 當週總覽</button>
-                    <button class="subtab-btn ${{currentSubtab === 'plan' ? 'active' : ''}}" data-tab="plan" onclick="openSubtab('plan')">🏋️ 當週課表與肌力計畫</button>
                     <button class="subtab-btn ${{currentSubtab === 'articles' ? 'active' : ''}}" data-tab="articles" onclick="openSubtab('articles')">📰 鐵人新知</button>
                     <button class="subtab-btn ${{currentSubtab === 'review' ? 'active' : ''}}" data-tab="review" onclick="openSubtab('review')">📈 執行率回顧</button>
                 </div>
@@ -2198,6 +1902,43 @@ def generate_52_week_dashboard():
                         </div>
                     </div>
 
+                    <!-- SUB-11 BENCHMARK & COACH ADVICE SECTION -->
+                    <div class="section-box" style="margin-top: 20px; line-height: 1.8;">
+                        <div class="section-title">🎯 Sub-11 完賽目標基準對比與教練關鍵訓練提醒</div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 16px;">
+                            <div style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid var(--border-color);">
+                                <div style="font-weight: 700; color: #22D3EE; margin-bottom: 6px;">🏊‍♂️ 游泳項目 (Sub-11 標竿：1h05m – 1h10m)</div>
+                                <div style="font-size: 0.88rem; color: #CBD5E1;">
+                                    • 您目前 4 週滾動均量：<strong style="color:var(--accent-cyan);">${{est.rolling_4w_avg_swim_km}} km/週</strong> (達標率 100%，標竿 7.0–9.0km/週)<br>
+                                    • 配速目標：維持 1:42 – 1:50 / 100m 定速划水，定位 (Sighting) 動作保持流暢。<br>
+                                    • 比賽策略：保持輕鬆有氧游，勿急躁拼出水，保留核心體力予單車與全馬。
+                                </div>
+                            </div>
+                            <div style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid var(--border-color);">
+                                <div style="font-weight: 700; color: #38BDF8; margin-bottom: 6px;">🚴‍♂️ 單車項目 (Sub-11 標竿：5h20m – 5h30m)</div>
+                                <div style="font-size: 0.88rem; color: #CBD5E1;">
+                                    • 您目前 4 週滾動均量：<strong style="color:var(--accent-green);">${{est.rolling_4w_avg_bike_km}} km/週</strong> (達標率 100%，標竿 120–150km/週)<br>
+                                    • 建議配速：FTP 205W 之 68%–70% Target Power (<strong>140W–145W</strong>)，丘陵/逆風爬坡嚴格上限 174W (85% FTP)。<br>
+                                    • 下車前最後 10–15km 主動降瓦至 123W–133W 進行雙腿有氧冷卻。
+                                </div>
+                            </div>
+                            <div style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid var(--border-color);">
+                                <div style="font-weight: 700; color: #F59E0B; margin-bottom: 6px;">🏃‍♂️ 跑步項目 (Sub-11 標竿：3h45m – 4h00m)</div>
+                                <div style="font-size: 0.88rem; color: #CBD5E1;">
+                                    • 您目前 4 週滾動均量：<strong style="color:var(--accent-orange);">${{est.rolling_4w_avg_run_km}} km/週</strong> (達標率 82%，標竿 35–40km/週)<br>
+                                    • 核心補強點：衝擊剛性與耐受力。建議週末 LSD 與 90 分鐘 Brick Run 務必穩健完成。<br>
+                                    • 週跑量若穩定拉升至 35km 以上，全馬將有機會推進至 Sub-4 邊緣！
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: 10px; padding: 14px 18px; font-size: 0.9rem; color: #E2E8F0;">
+                            💡 <strong>Sub-11 總教練策略總結</strong>：${{bench.sub11_coach_advice}}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TARGET RACES: separate view after estimates -->
+                <div id="subview-targets" class="subtab-view ${{currentSubtab === 'targets' ? 'active' : ''}}">
                     <!-- TARGET RACES HIERARCHY & COURSE SPECIFIC PREDICTIONS -->
                     <div class="section-box" style="margin-top: 20px; border-left: 4px solid #38BDF8; background: linear-gradient(135deg, rgba(30,41,59,0.7), rgba(15,23,42,0.9));">
                         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-bottom: 12px; gap:8px;">
@@ -2379,39 +2120,6 @@ def generate_52_week_dashboard():
                         </div>
                     </div>
 
-                    <!-- SUB-11 BENCHMARK & COACH ADVICE SECTION -->
-                    <div class="section-box" style="margin-top: 20px; line-height: 1.8;">
-                        <div class="section-title">🎯 Sub-11 完賽目標基準對比與教練關鍵訓練提醒</div>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 16px;">
-                            <div style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid var(--border-color);">
-                                <div style="font-weight: 700; color: #22D3EE; margin-bottom: 6px;">🏊‍♂️ 游泳項目 (Sub-11 標竿：1h05m – 1h10m)</div>
-                                <div style="font-size: 0.88rem; color: #CBD5E1;">
-                                    • 您目前 4 週滾動均量：<strong style="color:var(--accent-cyan);">${{est.rolling_4w_avg_swim_km}} km/週</strong> (達標率 100%，標竿 7.0–9.0km/週)<br>
-                                    • 配速目標：維持 1:42 – 1:50 / 100m 定速划水，定位 (Sighting) 動作保持流暢。<br>
-                                    • 比賽策略：保持輕鬆有氧游，勿急躁拼出水，保留核心體力予單車與全馬。
-                                </div>
-                            </div>
-                            <div style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid var(--border-color);">
-                                <div style="font-weight: 700; color: #38BDF8; margin-bottom: 6px;">🚴‍♂️ 單車項目 (Sub-11 標竿：5h20m – 5h30m)</div>
-                                <div style="font-size: 0.88rem; color: #CBD5E1;">
-                                    • 您目前 4 週滾動均量：<strong style="color:var(--accent-green);">${{est.rolling_4w_avg_bike_km}} km/週</strong> (達標率 100%，標竿 120–150km/週)<br>
-                                    • 建議配速：FTP 205W 之 68%–70% Target Power (<strong>140W–145W</strong>)，丘陵/逆風爬坡嚴格上限 174W (85% FTP)。<br>
-                                    • 下車前最後 10–15km 主動降瓦至 123W–133W 進行雙腿有氧冷卻。
-                                </div>
-                            </div>
-                            <div style="background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 10px; border: 1px solid var(--border-color);">
-                                <div style="font-weight: 700; color: #F59E0B; margin-bottom: 6px;">🏃‍♂️ 跑步項目 (Sub-11 標竿：3h45m – 4h00m)</div>
-                                <div style="font-size: 0.88rem; color: #CBD5E1;">
-                                    • 您目前 4 週滾動均量：<strong style="color:var(--accent-orange);">${{est.rolling_4w_avg_run_km}} km/週</strong> (達標率 82%，標竿 35–40km/週)<br>
-                                    • 核心補強點：衝擊剛性與耐受力。建議週末 LSD 與 90 分鐘 Brick Run 務必穩健完成。<br>
-                                    • 週跑量若穩定拉升至 35km 以上，全馬將有機會推進至 Sub-4 邊緣！
-                                </div>
-                            </div>
-                        </div>
-                        <div style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: 10px; padding: 14px 18px; font-size: 0.9rem; color: #E2E8F0;">
-                            💡 <strong>Sub-11 總教練策略總結</strong>：${{bench.sub11_coach_advice}}
-                        </div>
-                    </div>
                 </div>
 
                 <!-- SUBTAB 2: OVERVIEW (當週總覽) -->
@@ -2453,31 +2161,6 @@ def generate_52_week_dashboard():
                     </div>
                 </div>
 
-                <!-- SUBTAB 3: PLAN (當週課表與肌力計畫) -->
-                <div id="subview-plan" class="subtab-view ${{currentSubtab === 'plan' ? 'active' : ''}}">
-                    <div class="section-box">
-                        <div class="section-title">🏋️ 第 ${{data.week_num}} 週 TrainingPeaks 課表與肌力整合內容</div>
-                        <table class="table-custom">
-                            <thead>
-                                <tr>
-                                    <th style="width: 140px;">日期</th>
-                                    <th>TrainingPeaks 課表內容</th>
-                                    <th>肌力與備忘安排</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${{scheduleRowsHtml}}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- FULL STRENGTH WORKOUT DETAILS BELOW -->
-                    <div class="section-box" style="line-height: 1.8;">
-                        <div class="section-title">🏋️ 第 ${{data.week_num}} 週肌力訓練計畫與課表詳細指南</div>
-                        <div>${{data.str_html}}</div>
-                    </div>
-                </div>
-
                 <!-- SUBTAB 4: ARTICLES (鐵人新知) -->
                 <div id="subview-articles" class="subtab-view ${{currentSubtab === 'articles' ? 'active' : ''}}">
                     <div class="section-box" style="line-height: 1.8;">
@@ -2486,14 +2169,20 @@ def generate_52_week_dashboard():
                     </div>
                 </div>
 
-                <!-- SUBTAB 5: REVIEW (執行率回顧) -->
+
+
+                <!-- SUBTAB 5: REVIEW (全年時數與逐週教練解析) -->
                 <div id="subview-review" class="subtab-view ${{currentSubtab === 'review' ? 'active' : ''}}">
-                    <div class="section-box" style="line-height: 1.8;">
-                        <div class="section-title">📈 ${{data.prev_week_num === data.week_num ? '當週' : '上週'}} (W${{data.prev_week_num}}) 訓練執行率回顧成果</div>
+                    <div id="weeklyReviewChart"></div>
+                    ${{data.coach_insights_box_html.replace('id="coachInsightsBox"', 'id="reviewCoachInsightsBox"')}}
+                    <details class="section-box weekly-review-detail">
+                        <summary>展開${{data.prev_week_num === data.week_num ? '當週' : '上週'}} (W${{data.prev_week_num}}) 原始文字回顧報告</summary>
                         <div>${{data.rev_html}}</div>
-                    </div>
+                    </details>
                 </div>
+
             `;
+            renderWeeklyReview(WEEKS_DATA, wNum);
         }}
 
         renderSidebar();
@@ -2507,6 +2196,11 @@ def generate_52_week_dashboard():
 </html>
 """
 
+    OUT_INDEX.parent.mkdir(parents=True, exist_ok=True)
+    (OUT_INDEX.parent / "weekly-review.js").write_text(
+        (Path(__file__).resolve().parent / "assets" / "weekly-review.js").read_text(encoding="utf-8"),
+        encoding="utf-8",
+    )
     OUT_INDEX.write_text(html, encoding="utf-8")
     print("Full Web-Native 52-Week Dashboard generated successfully at:", OUT_INDEX)
 

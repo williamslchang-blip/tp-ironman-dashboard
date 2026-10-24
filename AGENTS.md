@@ -65,3 +65,9 @@
 - 是否要固定命名規則與資料夾結構
 - 是否需要建立 `skills/` 與專案專用 `SKILL.md`
 
+
+## 網站導覽與逐週回顧驗證（2026-10-24）
+- 手動切換分頁需同步清理文章 hash；網址解析保留分享連結。產生程式與 docs/index.html、outputs/index.html 的導覽需一致。
+- 圖表以 actual_time 分鐘換小時，按 ISO 年 W01-W52 分組；缺資料不補零，不納入資料日期後的實際活動。
+- 教練解析僅使用該週及此前資料；本週未結束時標為進度，不當成結算，不以時間推定未提供的強度、疲勞或恢復。
+- 導覽修改後執行 node tests/dashboard_navigation.test.cjs；回顧修改後執行 Python unittest 與 node tests/weekly_review_chart.test.cjs，無須額外安裝套件。

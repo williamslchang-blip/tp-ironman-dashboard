@@ -19,6 +19,10 @@ def package_web():
     if (OUTPUTS / "weekly_articles.html").exists():
         shutil.copy2(OUTPUTS / "weekly_articles.html", DOCS / "weekly_articles.html")
 
+    # Copy the offline SVG review chart asset.
+    if (OUTPUTS / "weekly-review.js").exists():
+        shutil.copy2(OUTPUTS / "weekly-review.js", DOCS / "weekly-review.js")
+
     # Copy weekly folder
     if (OUTPUTS / "weekly").exists():
         shutil.copytree(OUTPUTS / "weekly", DOCS / "weekly", dirs_exist_ok=True)
