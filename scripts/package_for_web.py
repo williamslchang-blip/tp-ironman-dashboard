@@ -27,6 +27,12 @@ def package_web():
     if (OUTPUTS / "weekly").exists():
         shutil.copytree(OUTPUTS / "weekly", DOCS / "weekly", dirs_exist_ok=True)
 
+    predictor_src = Path(r"C:\Users\User\tri-race-predictor\static")
+    if predictor_src.exists():
+        shutil.copytree(predictor_src, OUTPUTS / "predictor", dirs_exist_ok=True)
+        shutil.copytree(predictor_src, DOCS / "predictor", dirs_exist_ok=True)
+        print("Tri Race Predictor copied into:", DOCS / "predictor")
+
     print("Web site successfully packaged into deployment folder:", DOCS)
 
 if __name__ == "__main__":

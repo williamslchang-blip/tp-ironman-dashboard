@@ -1607,8 +1607,11 @@ def generate_52_week_dashboard():
             </div>
             <div class="sub">全網頁內容即時閱讀 & 地端資料分析</div>
         </div>
-        <div class="sidebar-controls">
+        <div class="sidebar-controls" style="display:flex; flex-direction:column; gap:8px;">
             <button class="btn-current" onclick="selectWeek({current_week_num}, true)">🎯 跳至本週 (W{current_week_num:02d})</button>
+            <a href="predictor/index.html" style="display:flex; align-items:center; justify-content:center; gap:6px; width:100%; padding:10px 12px; border-radius:8px; background:linear-gradient(135deg, #0284C7, #2563EB); color:#FFFFFF; font-weight:700; font-size:0.86rem; text-decoration:none; box-shadow:0 4px 12px rgba(37,99,235,0.35); border:1px solid rgba(56,189,248,0.45); transition:all 0.2s;">
+                🚀 AI 賽道與完賽預估系統 ↗
+            </a>
         </div>
         <div class="week-list" id="weekList"></div>
     </div>
@@ -1807,10 +1810,23 @@ def generate_52_week_dashboard():
                     <button class="subtab-btn ${{currentSubtab === 'overview' ? 'active' : ''}}" data-tab="overview" onclick="openSubtab('overview')">📊 當週總覽</button>
                     <button class="subtab-btn ${{currentSubtab === 'articles' ? 'active' : ''}}" data-tab="articles" onclick="openSubtab('articles')">📰 鐵人新知</button>
                     <button class="subtab-btn ${{currentSubtab === 'review' ? 'active' : ''}}" data-tab="review" onclick="openSubtab('review')">📈 執行率回顧</button>
+                    <a href="predictor/index.html" class="subtab-btn" style="text-decoration:none; background:linear-gradient(135deg, rgba(2,132,199,0.28), rgba(37,99,235,0.32)); color:#38BDF8; border:1px solid rgba(56,189,248,0.5); font-weight:800; display:inline-flex; align-items:center; gap:5px;">
+                        🚀 AI 賽道完賽預估與攻略網站 ↗
+                    </a>
                 </div>
 
                 <!-- SUBTAB 1: ESTIMATE (預估完賽時間) -->
                 <div id="subview-estimate" class="subtab-view ${{currentSubtab === 'estimate' ? 'active' : ''}}">
+                    <!-- PROMINENT CTA BANNER TO AI RACE PREDICTOR -->
+                    <div style="background: linear-gradient(135deg, rgba(2,132,199,0.22), rgba(30,41,59,0.85)); border: 1px solid rgba(56,189,248,0.45); border-radius: 12px; padding: 14px 18px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <div style="font-size: 1.02rem; font-weight: 800; color: #38BDF8;">🚀 三項鐵人 AI 賽道氣象解析與多模型動態完賽預估系統</div>
+                            <div style="font-size: 0.84rem; color: #CBD5E1; margin-top: 3px;">貼上比賽網址自動判讀賽道等高線與當日天氣 (WBGT/露點/落山風)，提供瀑布拆解圖、五維雷達圖、互動式六段配瓦攻略與單車上管戰術貼紙！</div>
+                        </div>
+                        <a href="predictor/index.html" style="background: linear-gradient(135deg, #0284C7, #2563EB); color: #FFFFFF; padding: 10px 18px; border-radius: 999px; font-weight: 800; font-size: 0.88rem; text-decoration: none; white-space: nowrap; box-shadow: 0 4px 14px rgba(37,99,235,0.4); border: 1px solid rgba(125,211,252,0.5);">
+                            ⚡ 開啟 AI 完賽預估與賽道攻略網站 ➔
+                        </a>
+                    </div>
                     <!-- IM226 DYNAMIC ESTIMATE -->
                     <div class="section-box">
                         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-bottom: 14px;">

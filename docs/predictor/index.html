@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三項鐵人 AI 賽道氣象解析與多模型動態完賽預估系統</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <div>
+                <div class="site-title">🏊🚴🏃 三項鐵人 AI 賽道氣象解析與多模型完賽預估</div>
+                <div class="site-subtitle">賽道網址自動判讀等高線 × 比賽當日氣象預報連動 × 積木 A~C 自適應多模型預測 × 賽道分段攻略</div>
+            </div>
+            <div>
+                <a href="https://williamslchang-blip.github.io/tp-ironman-dashboard/index.html"
+                   style="display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.14); color:#F8FAFC; border:1px solid rgba(255,255,255,0.28); padding:8px 14px; border-radius:999px; font-size:0.84rem; font-weight:700; text-decoration:none; transition:all 0.2s;"
+                   onmouseover="this.style.background='rgba(255,255,255,0.25)'"
+                   onmouseout="this.style.background='rgba(255,255,255,0.14)'">
+                   ⬅ 返回 TP 52週訓練儀表板
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- =========================================================
+         頂部 STEP 1 ~ 4 導覽切換按鍵列 (不拉長頁面，點選切換)
+         ========================================================= -->
+    <nav class="top-step-nav">
+        <div class="top-step-nav-inner">
+            <button type="button" id="navBtnStep1" class="step-nav-item active" onclick="switchStep(1)">
+                <span class="step-nav-badge">Step 1</span>
+                <div>
+                    <div class="step-nav-label">賽道與當日天氣</div>
+                    <div id="navSubStep1" class="step-nav-sub">貼網址解析等高線與氣象</div>
+                </div>
+            </button>
+
+            <button type="button" id="navBtnStep2" class="step-nav-item" onclick="switchStep(2)">
+                <span class="step-nav-badge">Step 2</span>
+                <div>
+                    <div class="step-nav-label">選手數據 (積木A~C)</div>
+                    <div id="navSubStep2" class="step-nav-sub">提供多少算多少，可留空</div>
+                </div>
+            </button>
+
+            <button type="button" id="navBtnStep3" class="step-nav-item" onclick="switchStep(3)">
+                <span class="step-nav-badge">Step 3</span>
+                <div>
+                    <div class="step-nav-label">預估完賽時間</div>
+                    <div id="navSubStep3" class="step-nav-sub">三階段總時間與五分項配速</div>
+                </div>
+            </button>
+
+            <button type="button" id="navBtnStep4" class="step-nav-item" onclick="switchStep(4)">
+                <span class="step-nav-badge">Step 4</span>
+                <div>
+                    <div class="step-nav-label">賽道攻略與注意事項</div>
+                    <div id="navSubStep4" class="step-nav-sub">結合等高線、天氣與個人配速</div>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <!-- =========================================================
+             STEP 1: 貼上比賽賽道連結 + 選擇比賽日期
+             ========================================================= -->
+        <section id="stepView1" class="step-card active-step">
+            <div class="step-header">
+                <div class="step-badge-title">
+                    <span class="step-num">Step 1</span>
+                    <h2 class="step-title">貼上比賽賽道連結與比賽日期（AI 自動解析賽道等高線 ＆ 比賽當日天氣預報）</h2>
+                </div>
+            </div>
+
+            <div class="url-input-row">
+                <input type="url" id="courseUrlInput" class="url-input"
+                       placeholder="請貼上比賽官網賽道網址（例如 https://www.ironman.com/races/im703-kenting/course）..."
+                       value="https://www.ironman.com/races/im703-kenting/course">
+                <div style="display:flex; align-items:center; gap:6px; background:#F1F5F9; padding:0 12px; border-radius:10px; border:1px solid #CBD5E1;">
+                    <label for="raceDateInput" style="font-size:0.82rem; font-weight:700; color:#334155; white-space:nowrap;">📅 比賽日期：</label>
+                    <input type="date" id="raceDateInput" style="border:none; background:transparent; font-size:0.9rem; font-weight:700; color:#0F172A; padding:10px 4px; outline:none;">
+                </div>
+                <button id="btnAnalyzeCourse" class="btn-analyze" onclick="analyzeCourseUrl()">🔍 解析賽道與當日天氣</button>
+            </div>
+
+            <div class="quick-links-bar">
+                <span style="color:var(--text-muted); font-weight:600;">快速測試賽事網址：</span>
+                <button class="quick-chip" onclick="quickFillUrl('https://www.ironman.com/races/im703-kenting/course', '2026-11-01')">🌊 IRONMAN 70.3 墾丁</button>
+                <button class="quick-chip" onclick="quickFillUrl('https://www.ironman.com/races/im-penghu/course', '2027-04-11')">🏆 IRONMAN 澎湖 226</button>
+                <button class="quick-chip" onclick="quickFillUrl('https://www.challenge-taiwan.com/113km', '2027-04-24')">☀️ Challenge Taiwan 113</button>
+                <button class="quick-chip" onclick="quickFillUrl('https://www.challenge-taiwan.com/226km', '2027-04-24')">🔥 Challenge Taiwan 226</button>
+                <button class="quick-chip" onclick="quickFillUrl('https://www.ironman.com/im-malaysia', '2026-11-07')">🏝️ IRONMAN 蘭卡威 226</button>
+                <label class="quick-chip" style="color:var(--accent-blue); border-color:#93C5FD; background:#EFF6FF;">
+                    📂 或上傳賽道 GPX 檔
+                    <input type="file" accept=".gpx" style="display:none;" onchange="handleGpxFile(event)">
+                </label>
+            </div>
+
+            <!-- AI 解析後的賽道資訊、當日天氣預報與等高線圖 -->
+            <div class="parsed-course-box">
+                <div class="parsed-top-bar">
+                    <div>
+                        <div id="parsedCourseName" class="parsed-race-title">載入賽道與氣象分析中...</div>
+                        <div id="parsedCourseStatus" class="parsed-status-tag">✓ 準備就緒</div>
+                    </div>
+                    <div id="weatherForecastBadge" style="background:#EFF6FF; border:1px solid #BFDBFE; color:#1E40AF; padding:8px 14px; border-radius:10px; font-size:0.8rem; font-weight:600; line-height:1.5;">
+                        🌤️ 比賽當日氣象載入中...
+                    </div>
+                </div>
+
+                <!-- 可微調的賽道與比賽當日天氣參數 -->
+                <div class="course-params-grid">
+                    <div class="param-mini-box">
+                        <label>賽事距離級別</label>
+                        <select id="courseDistType" onchange="triggerPrediction()">
+                            <option value="515">51.5 km (標鐵)</option>
+                            <option value="113" selected>113 km (70.3)</option>
+                            <option value="226">226 km (超鐵)</option>
+                        </select>
+                    </div>
+                    <div class="param-mini-box">
+                        <label>🏊 游泳距離 (km)</label>
+                        <input type="number" id="courseSwimKm" step="0.1" value="1.9" oninput="triggerPrediction()">
+                    </div>
+                    <div class="param-mini-box">
+                        <label>🚴 單車距離 (km)</label>
+                        <input type="number" id="courseBikeKm" step="1" value="90" oninput="triggerPrediction()">
+                    </div>
+                    <div class="param-mini-box">
+                        <label>⛰️ 單車總爬升 (m)</label>
+                        <input type="number" id="courseBikeEle" step="10" value="641" oninput="triggerPrediction()">
+                    </div>
+                    <div class="param-mini-box">
+                        <label>🏃 路跑距離 (km)</label>
+                        <input type="number" id="courseRunKm" step="0.1" value="21.1" oninput="triggerPrediction()">
+                    </div>
+                    <div class="param-mini-box">
+                        <label>⛰️ 路跑總爬升 (m)</label>
+                        <input type="number" id="courseRunEle" step="10" value="342" oninput="triggerPrediction()">
+                    </div>
+                    <div class="param-mini-box">
+                        <label>🌡️ 當日預估氣溫 (°C)</label>
+                        <input type="number" id="courseTempC" step="0.5" value="28" oninput="triggerPrediction()">
+                    </div>
+                    <div class="param-mini-box">
+                        <label>💧 當日相對濕度 (%)</label>
+                        <input type="number" id="courseHumidPct" step="1" value="78" oninput="triggerPrediction()">
+                    </div>
+                    <div class="param-mini-box">
+                        <label>🌬️ 預報風速 (km/h)</label>
+                        <input type="number" id="courseWindSpeed" step="1" value="22" oninput="triggerPrediction()">
+                    </div>
+                    <div class="param-mini-box">
+                        <label>💨 最大陣風 (km/h)</label>
+                        <input type="number" id="courseWindGust" step="1" value="35" oninput="triggerPrediction()">
+                    </div>
+                </div>
+
+                <!-- 單車與路跑等高線高度剖面圖 (支援點擊放大檢視) -->
+                <div class="elevation-grid">
+                    <div class="elevation-panel" onclick="openZoomModal('bike')" title="點擊放大檢視單車賽道等高線與各坡段明細">
+                        <div class="elevation-panel-header">
+                            <span style="color:#B45309;">🚴 單車賽道等高線剖面圖</span>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span id="bikeEleSummary" style="color:var(--text-muted); font-size:0.76rem;">90 km｜爬升 641 m</span>
+                                <span class="zoom-hint-pill">🔍 點擊放大</span>
+                            </div>
+                        </div>
+                        <div id="bikeElevationChart" class="svg-chart-container"></div>
+                    </div>
+
+                    <div class="elevation-panel" onclick="openZoomModal('run')" title="點擊放大檢視路跑賽道等高線與各坡段明細">
+                        <div class="elevation-panel-header">
+                            <span style="color:#BE123C;">🏃 路跑賽道等高線剖面圖</span>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span id="runEleSummary" style="color:var(--text-muted); font-size:0.76rem;">21.1 km｜爬升 342 m</span>
+                                <span class="zoom-hint-pill">🔍 點擊放大</span>
+                            </div>
+                        </div>
+                        <div id="runElevationChart" class="svg-chart-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-footer-bar">
+                <span style="font-size:0.84rem; color:var(--text-muted);">確認賽道與當日天氣無誤後，請前往下一步填寫選手個人能力數據。</span>
+                <button type="button" class="btn-analyze" onclick="switchStep(2)">下一步：填入選手數據 (Step 2) ➔</button>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             STEP 2: 積木 A ~ C 個人數據輸入
+             ========================================================= -->
+        <section id="stepView2" class="step-card">
+            <div class="step-header">
+                <div class="step-badge-title">
+                    <span class="step-num">Step 2</span>
+                    <h2 class="step-title">填入選手個人數據（積木 A～C 自由選填，知道幾項就填幾項，未知留空即可）</h2>
+                </div>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button class="quick-chip" onclick="clearAllBlocks()">🧹 清空重填 (預設 TP 標竿基準)</button>
+                    <button class="quick-chip" style="border-color:#38BDF8; background:#EFF6FF; color:#0369A1;" onclick="loadDemoScenario('tp_dashboard')">🎯 套用 TP 儀表板數據 (FTP 205W + 4週均量)</button>
+                    <button class="quick-chip" onclick="loadDemoScenario('pb_only')">測試情境 1：只填過往總成績</button>
+                    <button class="quick-chip" onclick="loadDemoScenario('speed_only')">測試情境 2：無功率計（填泳速+時速+跑速）</button>
+                    <button class="quick-chip" onclick="loadDemoScenario('all_blocks')">測試情境 3：A+B+C 完整填寫</button>
+                </div>
+            </div>
+
+            <div class="blocks-grid">
+
+                <!-- 積木 A：過往比賽經驗 -->
+                <div class="block-card">
+                    <div class="block-card-header">
+                        <span class="block-tag">🧱 積木 A｜過往完鐵最佳成績</span>
+                        <span class="block-optional-pill">選填（只填總成績也可算）</span>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label>比過的賽事距離</label>
+                            <select id="pbDistType" class="field-input" onchange="triggerPrediction()">
+                                <option value="none" selected>未填寫 / 尚無經驗</option>
+                                <option value="515">51.5 km (標鐵)</option>
+                                <option value="113">113 km (70.3)</option>
+                                <option value="226">226 km (超鐵)</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <label>🏆 最佳總成績 (時:分)</label>
+                            <input type="text" id="pbTotal" class="field-input" placeholder="例如 06:15" value="" oninput="onPbInput()">
+                        </div>
+                    </div>
+
+                    <button type="button" class="toggle-sub-btn" onclick="toggleSplitsBox()">
+                        ➕ 展開／收合「各分項最佳成績 (游 / T1 / 騎 / T2 / 跑)」
+                    </button>
+
+                    <div id="pbSplitsContainer" style="display:grid; gap:10px;">
+                        <div class="field-row">
+                            <div class="field-group">
+                                <label>🏊 游泳分項 (時:分)</label>
+                                <input type="text" id="pbSwim" class="field-input" placeholder="例如 00:42" value="" oninput="autoSumPbSplits()">
+                            </div>
+                            <div class="field-group">
+                                <label>⏱️ T1 轉換區 (時:分)</label>
+                                <input type="text" id="pbT1" class="field-input" placeholder="例如 00:05" value="" oninput="autoSumPbSplits()">
+                            </div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-group">
+                                <label>🚴 單車分項 (時:分)</label>
+                                <input type="text" id="pbBike" class="field-input" placeholder="例如 03:05" value="" oninput="autoSumPbSplits()">
+                            </div>
+                            <div class="field-group">
+                                <label>⏱️ T2 轉換區 (時:分)</label>
+                                <input type="text" id="pbT2" class="field-input" placeholder="例如 00:04" value="" oninput="autoSumPbSplits()">
+                            </div>
+                        </div>
+                        <div class="field-group">
+                            <label>🏃 路跑分項 (時:分)</label>
+                            <input type="text" id="pbRun" class="field-input" placeholder="例如 02:19" value="" oninput="autoSumPbSplits()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 積木 B：日常三項能力 -->
+                <div class="block-card">
+                    <div class="block-card-header">
+                        <span class="block-tag" style="background:#E0F2FE; color:#0369A1;">🧱 積木 B｜日常三項能力數據</span>
+                        <span class="block-optional-pill">選填（不清楚可留空）</span>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label>🏊 游泳 100m 幾秒完成？</label>
+                            <input type="number" id="swimSecPer100m" class="field-input" placeholder="例如 120 (即2分00秒)" value="" oninput="triggerPrediction()">
+                        </div>
+                        <div class="field-group">
+                            <label>⚖️ 選手體重 (kg)</label>
+                            <input type="number" id="weightKg" class="field-input" placeholder="未填預設 68kg" value="" oninput="triggerPrediction()">
+                        </div>
+                    </div>
+
+                    <!-- 單車 FTP vs 平路時速切換 -->
+                    <div class="mode-switch">
+                        <button type="button" id="btnModeFtp" class="active" onclick="setBikeMode('ftp')">⚡ 輸入 FTP 瓦數</button>
+                        <button type="button" id="btnModeSpeed" onclick="setBikeMode('speed')">🚴 無功率計，填平路時速</button>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group" id="ftpFieldWrap">
+                            <label>🚴 單車 FTP 功率 (W)</label>
+                            <input type="number" id="ftpWatts" class="field-input" placeholder="無可留空，如 190" value="" oninput="triggerPrediction()">
+                        </div>
+                        <div class="field-group" id="speedFieldWrap" style="display:none;">
+                            <label>🚴 平路巡航時速 (km/h)</label>
+                            <input type="number" id="flatSpeedKmh" class="field-input" step="0.5" placeholder="無可留空，如 30" value="" oninput="triggerPrediction()">
+                        </div>
+                        <div class="field-group">
+                            <label>🚲 比賽車種配置</label>
+                            <select id="bikeType" class="field-input" onchange="triggerPrediction()">
+                                <option value="tt_aero">三鐵車 (TT Bike)</option>
+                                <option value="road_clipon" selected>公路車 + 休息把</option>
+                                <option value="road_drop">一般彎把公路車</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label>🏃 單項半馬時間 (時:分)</label>
+                            <input type="text" id="hmPb" class="field-input" placeholder="無可留空，如 01:55" value="" oninput="triggerPrediction()">
+                        </div>
+                        <div class="field-group">
+                            <label>或 日常跑步配速 (秒/km)</label>
+                            <input type="number" id="runPaceSecPerKm" class="field-input" placeholder="如 340 (即5分40秒)" value="" oninput="triggerPrediction()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 積木 C：近期訓練量 -->
+                <div class="block-card">
+                    <div class="block-card-header">
+                        <span class="block-tag" style="background:#FEF3C7; color:#92400E;">🧱 積木 C｜近 4 週平均週訓練量</span>
+                        <span class="block-optional-pill">選填（評估後段抗掉速）</span>
+                    </div>
+                    <p style="font-size:0.78rem; color:var(--text-muted);">
+                        填寫近期平均一週的訓練里程，系統會計算您的「長距離耐受度」，判斷全馬/半馬後半段是否容易掉速或抽筋。不清楚可直接留空。
+                    </p>
+                    <div class="field-group">
+                        <label>🏊 平均每週游泳距離 (km / 週)</label>
+                        <input type="number" id="weeklySwimKm" class="field-input" step="0.5" placeholder="不清楚可留空" value="" oninput="triggerPrediction()">
+                    </div>
+                    <div class="field-group">
+                        <label>🚴 平均每週騎車距離 (km / 週)</label>
+                        <input type="number" id="weeklyBikeKm" class="field-input" step="5" placeholder="不清楚可留空" value="" oninput="triggerPrediction()">
+                    </div>
+                    <div class="field-group">
+                        <label>🏃 平均每週跑步距離 (km / 週)</label>
+                        <input type="number" id="weeklyRunKm" class="field-input" step="1" placeholder="不清楚可留空" value="" oninput="triggerPrediction()">
+                    </div>
+
+                    <button type="button" class="toggle-sub-btn" onclick="toggleLongRunBox()">
+                        ➕ 展開／收合「單次最長騎跑課表 (LSD) 與轉換跑經驗」
+                    </button>
+
+                    <div id="longSessionContainer" style="display:grid; gap:10px;">
+                        <div class="field-row">
+                            <div class="field-group">
+                                <label>🚴 近月最長單次騎乘 (km)</label>
+                                <input type="number" id="longestBikeKm" class="field-input" step="5" placeholder="如 85 (可留空)" value="" oninput="triggerPrediction()">
+                            </div>
+                            <div class="field-group">
+                                <label>🏃 近月最長單次跑步 (km)</label>
+                                <input type="number" id="longestRunKm" class="field-input" step="1" placeholder="如 18 (可留空)" value="" oninput="triggerPrediction()">
+                            </div>
+                        </div>
+                        <div class="field-group">
+                            <label>🔄 騎轉跑 (Brick Run) 練習頻率</label>
+                            <select id="brickFreq" class="field-input" onchange="triggerPrediction()">
+                                <option value="none" selected>未填寫 / 一般</option>
+                                <option value="regular">每週或隔週固定練習轉換跑 (+抗抽筋剛性)</option>
+                                <option value="rare">極少練習騎完馬上跑</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="step-footer-bar">
+                <button type="button" class="quick-chip" onclick="switchStep(1)">⬅ 返回 Step 1 檢視賽道與天氣</button>
+                <button type="button" id="btnRunPredict" class="btn-analyze" style="background: linear-gradient(135deg, #2563EB, #0D9488); padding: 12px 28px; font-size: 0.98rem; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);" onclick="manualExecutePrediction()">
+                    🚀 計算完賽預估時間與賽道攻略 (前往 Step 3) ➔
+                </button>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             STEP 3: 綜合多模型動態完賽時間預估 (含視覺化比例條、瀑布拆解圖、WBGT/坡度診斷與五維雷達圖)
+             ========================================================= -->
+        <section id="stepView3" class="step-card">
+            <div class="step-header">
+                <div class="step-badge-title">
+                    <span class="step-num">Step 3</span>
+                    <h2 class="step-title">綜合多模型動態完賽時間預估（三階段時間、五分項配速佔比、環境瀑布拆解 ＆ 五維能力雷達圖）</h2>
+                </div>
+                <div style="display:flex; gap:8px;">
+                    <button type="button" class="quick-chip" onclick="switchStep(2)">✏️ 修改個人數據 (Step 2)</button>
+                    <button type="button" class="quick-chip" style="color:var(--accent-blue); border-color:#93C5FD; background:#EFF6FF;" onclick="switchStep(4)">🗺️ 查看賽道攻略與注意事項 (Step 4) ➔</button>
+                </div>
+            </div>
+
+            <!-- 資料完整度與已啟用之模型說明 -->
+            <div class="confidence-banner">
+                <div class="confidence-header">
+                    <div style="font-weight:800; color:#166534; font-size:0.95rem;">
+                        📊 目前已提供的資料完整度與模型信心度：<span id="confScoreText">--%</span>
+                    </div>
+                    <div id="confSourcesText" style="font-size:0.78rem; color:#15803D; font-weight:600;"></div>
+                </div>
+                <div id="activeModelsBadges" class="model-badges"></div>
+                <div id="missingHintsBox" class="hint-list"></div>
+                <div id="flatBenchmarkCompareBox" style="margin-top:10px; padding:10px 14px; background:#EFF6FF; border:1px solid #BFDBFE; border-radius:8px; font-size:0.83rem; color:#1E3A8A; line-height:1.6;"></div>
+            </div>
+
+            <!-- 樂觀 / 中性 / 保守 三階段完賽預估卡 -->
+            <div class="prediction-cards-grid">
+                <div class="pred-card opt">
+                    <div class="pred-label">🟢 樂觀完賽目標（巔峰發揮／順風無抽筋）</div>
+                    <div id="optRangeText" class="pred-range">--:-- – --:--</div>
+                    <div id="optMidText" class="pred-mid">預估中位數：--:--</div>
+                    <div id="optVisualBar"></div>
+                    <div id="optSplitsBox" class="pred-splits"></div>
+                </div>
+
+                <div class="pred-card neu">
+                    <div class="pred-label">🔵 中性完賽目標（實戰最可能落點／穩定配速）</div>
+                    <div id="neuRangeText" class="pred-range">--:-- – --:--</div>
+                    <div id="neuMidText" class="pred-mid">預估中位數：--:--</div>
+                    <div id="neuVisualBar"></div>
+                    <div id="neuSplitsBox" class="pred-splits"></div>
+                </div>
+
+                <div class="pred-card con">
+                    <div class="pred-label">🔴 保守完賽目標（遭遇強逆風／後半段掉速抽筋）</div>
+                    <div id="conRangeText" class="pred-range">--:-- – --:--</div>
+                    <div id="conMidText" class="pred-mid">預估中位數：--:--</div>
+                    <div id="conVisualBar"></div>
+                    <div id="conSplitsBox" class="pred-splits"></div>
+                </div>
+            </div>
+
+            <!-- 視覺化深度分析區：左欄 (平路➔實戰時間瀑布拆解 + WBGT/坡度陡峭度診斷) / 右欄 (五維能力雷達圖) -->
+            <div class="step3-visual-analytics-grid">
+                <div class="analytics-card">
+                    <div class="analytics-card-title">📉 平路無風基準 ➔ 本賽道實戰預估「時間增減瀑布拆解圖」</div>
+                    <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px;">
+                        直觀拆解為什麼從標準平路成績來到本場賽事會增加（或減少）這些分鐘數：
+                    </div>
+                    <div id="waterfallChartBox" class="waterfall-list"></div>
+
+                    <div id="envSlopeDiagBox" class="env-diag-grid"></div>
+                </div>
+
+                <div class="analytics-card">
+                    <div class="analytics-card-title">🕸️ 選手五維生理能力 ＆ 賽道適應雷達圖</div>
+                    <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:8px;">
+                        地端即時演算「游泳水感、平路巡航功率、爬坡推重比 (W/kg)、路跑轉換配速、長距離抗衰退剛性」：
+                    </div>
+                    <div id="radarSvgBox" style="width:100%; height:255px; display:flex; align-items:center; justify-content:center;"></div>
+                    <div id="radarLegendBox" class="radar-legend-grid"></div>
+                </div>
+            </div>
+
+            <div class="step-footer-bar">
+                <button type="button" class="quick-chip" onclick="switchStep(2)">⬅ 返回 Step 2 修改選手數據</button>
+                <button type="button" class="btn-analyze" onclick="switchStep(4)">下一步：檢視專屬賽道攻略與注意事項 (Step 4) ➔</button>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             STEP 4: 互動式賽道戰術攻略本 (Playbook) 與注意事項
+             (融合動態多模型預估 + 比賽當日氣象預報 + 參考資料夾暗色互動分段攻略介面)
+             ========================================================= -->
+        <section id="stepView4" class="step-card">
+            <div class="step-header">
+                <div class="step-badge-title">
+                    <span class="step-num">Step 4</span>
+                    <h2 class="step-title">個人化賽道互動戰術攻略（結合賽道等高線 × 當日氣象預報 × 積木 A～C 實戰配速）</h2>
+                </div>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button type="button" class="quick-chip" onclick="toggleAllPlaybookModules()">📖 切換「單頁展開全部 / 分頁瀏覽」</button>
+                    <button type="button" class="quick-chip" onclick="switchStep(3)">⏱️ 返回預估完賽時間 (Step 3)</button>
+                </div>
+            </div>
+
+            <!-- 頂部次級戰術模組切換列 -->
+            <div class="playbook-subnav">
+                <button type="button" id="pbTab1" class="playbook-tab-btn active" onclick="switchPlaybookTab(1)">01 🏊 游泳五段與浮標</button>
+                <button type="button" id="pbTab2" class="playbook-tab-btn" onclick="switchPlaybookTab(2)">02 🚴 單車六段騎法与功率</button>
+                <button type="button" id="pbTab3" class="playbook-tab-btn" onclick="switchPlaybookTab(3)">03 🏃 路跑地形與六段配速</button>
+                <button type="button" id="pbTab4" class="playbook-tab-btn" onclick="switchPlaybookTab(4)">04 🍌 照時鐘吃：氣象補給</button>
+                <button type="button" id="pbTab5" class="playbook-tab-btn" onclick="switchPlaybookTab(5)">05 🚨 八大比賽風險應對</button>
+                <button type="button" id="pbTab6" class="playbook-tab-btn" onclick="switchPlaybookTab(6)">06 📋 戰術總卡 & 複製 LINE</button>
+            </div>
+
+            <!-- =====================================================
+                 MODULE 01: 🏊 游泳五段策略與浮標分段时间表
+                 ===================================================== -->
+            <div id="pbMod1" class="playbook-module active-mod">
+                <div class="pb-kicker">01 · SWIM STRATEGY & BUOY SPLITS</div>
+                <div id="pbSwimHeadline" class="pb-headline">前 200 m 不搶，最後 300 m 準備出水。</div>
+                <div class="pb-subnote">開放水域把游泳拆成五個明確任務段落，先求呼吸穩定，再求定位準確，最後平順轉換進 T1。</div>
+
+                <div class="swim-stage-track">
+                    <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#94A3B8; font-weight:700;">
+                        <span>出發下水拱門 (0m)</span>
+                        <span>第一折返浮標</span>
+                        <span>中段巡航區</span>
+                        <span>最後折返浮標</span>
+                        <span>上岸進 T1 轉換區</span>
+                    </div>
+                    <div class="swim-bar-Grid">
+                        <div class="swim-bar-seg" style="background:#38BDF8;"></div>
+                        <div class="swim-bar-seg" style="background:#0EA5E9;"></div>
+                        <div class="swim-bar-seg" style="background:#0284C7;"></div>
+                        <div class="swim-bar-seg" style="background:#14B8A6;"></div>
+                        <div class="swim-bar-seg" style="background:#F59E0B;"></div>
+                    </div>
+                    <div id="pbSwimWaterNote" style="font-size:0.82rem; color:#CBD5E1; margin-top:6px;"></div>
+                </div>
+
+                <!-- 五段任務卡 -->
+                <div id="pbSwimStagesGrid" class="swim-stages-cards"></div>
+
+                <!-- 浮標通過時間速查表 -->
+                <div class="pb-dark-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                        <div>
+                            <div class="pb-dark-card-tag">BUOY PASSING CALCULATOR</div>
+                            <div class="pb-dark-card-title" style="margin-bottom:0;">個人游泳配速與各浮標預計通過時間</div>
+                        </div>
+                        <div style="font-size:0.78rem; color:#94A3B8;">自動根據 Step 2 泳速/PB 與當日海況推算</div>
+                    </div>
+                    <div id="pbSwimBuoyGrid" class="buoy-grid"></div>
+                </div>
+            </div>
+
+            <!-- =====================================================
+                 MODULE 02: 🚴 單車六段互動等高線、功率目標與車錶設定
+                 ===================================================== -->
+            <div id="pbMod2" class="playbook-module">
+                <div class="pb-kicker" style="color:#FB923C;">02 · BIKE POWER STRATEGY & 6-SEGMENT PLAYBOOK</div>
+                <div id="pbBikeHeadline" class="pb-headline">六段騎法，前 15 km 與最後 8 km 都要收。</div>
+                <div class="pb-subnote">自行車不是比誰最會衝坡，而是用最平穩的標準化功率 (NP)，把雙腿完整留給接下來的路跑。</div>
+
+                <!-- 四個核心功率數字 -->
+                <div id="pbBikeFourMetrics" class="pb-four-metrics"></div>
+
+                <!-- 六段按鈕切換器 -->
+                <div style="font-size:0.82rem; font-weight:700; color:#FB923C;">👇 點擊下方各公里分段，即時連動等高線高亮區間與該段配瓦攻略：</div>
+                <div id="pbBikeSegButtons" class="seg-selector-bar"></div>
+
+                <!-- 左：互動等高線高亮圖 / 右：該段戰術明細卡 -->
+                <div class="seg-interactive-layout">
+                    <div class="seg-chart-box">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                            <span style="font-size:0.86rem; font-weight:800; color:#F8FAFC;">🚴 單車賽道等高線剖面與目前選取分段</span>
+                            <button type="button" class="quick-chip" style="background:#1E293B; color:#38BDF8; border-color:#334155;" onclick="openZoomModal('bike')">🔍 全螢幕放大檢視</button>
+                        </div>
+                        <div id="pbBikeInteractiveSvg" style="width:100%; height:210px;"></div>
+                        <div id="pbBikeChartCaption" style="font-size:0.78rem; color:#94A3B8; margin-top:8px;"></div>
+                    </div>
+                    <div id="pbBikeSegDetailCard" class="seg-detail-box"></div>
+                </div>
+
+                <!-- 風向與坡度調整法則 + 車錶設定 -->
+                <div class="pb-Headline" style="font-size:1.25rem; font-weight:800; margin: 18px 0 10px; color:#FFFFFF;">
+                    🌬️ 環境變了，守住功率，不守速度（當日風力連動法則 ＆ 車錶設定）
+                </div>
+                <div id="pbBikeWindAndComputerGrid" class="swim-stages-cards" style="grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin-bottom:0;"></div>
+            </div>
+
+            <!-- =====================================================
+                 MODULE 03: 🏃 路跑四大地形守則與六段互動配速
+                 ===================================================== -->
+            <div id="pbMod3" class="playbook-module">
+                <div class="pb-kicker" style="color:#2DD4BF;">03 · RUN TERRAIN RULES & 6-SEGMENT PACING</div>
+                <div id="pbRunHeadline" class="pb-headline">把平路配速，換成賽道每一段的配速。</div>
+                <div class="pb-subnote">前 2 km 保守起跑讓雙腿從騎車切換到跑步；上坡看心率與步頻、下坡護住股四頭肌，最後一段才有本錢加速。</div>
+
+                <!-- 四大地形法則 (UPHILL / DOWNHILL / FLAT / FINAL) -->
+                <div id="pbRunFourRules" class="pb-four-metrics"></div>
+
+                <!-- 路跑六段按鈕切換器 -->
+                <div style="font-size:0.82rem; font-weight:700; color:#2DD4BF;">👇 點擊下方路跑分段，查看對應海拔剖面與每公里目標配速：</div>
+                <div id="pbRunSegButtons" class="seg-selector-bar"></div>
+
+                <!-- 左：互動路跑等高線圖 / 右：該段配速明細卡 -->
+                <div class="seg-interactive-layout" style="margin-bottom:0;">
+                    <div class="seg-chart-box">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                            <span style="font-size:0.86rem; font-weight:800; color:#F8FAFC;">🏃 路跑賽道等高線剖面與目前選取分段</span>
+                            <button type="button" class="quick-chip" style="background:#1E293B; color:#2DD4BF; border-color:#334155;" onclick="openZoomModal('run')">🔍 全螢幕放大檢視</button>
+                        </div>
+                        <div id="pbRunInteractiveSvg" style="width:100%; height:210px;"></div>
+                        <div id="pbRunChartCaption" style="font-size:0.78rem; color:#94A3B8; margin-top:8px;"></div>
+                    </div>
+                    <div id="pbRunSegDetailCard" class="seg-detail-box"></div>
+                </div>
+            </div>
+
+            <!-- =====================================================
+                 MODULE 04: 🍌 照時鐘吃：氣象連動補給帳本與每 30 分鐘提醒表
+                 ===================================================== -->
+            <div id="pbMod4" class="playbook-module">
+                <div class="pb-kicker" style="color:#FBBF24;">04 · CLOCK-BASED NUTRITION & WEATHER HYDRATION</div>
+                <div class="pb-headline">照時鐘吃，不照感覺吃。</div>
+                <div id="pbFuelSubnote" class="pb-subnote">根據您的預估騎乘與路跑時間，以及比賽當日溫濕度預報自動精算每小時碳水、水量與鈉補給。</div>
+
+                <div id="pbFuelTopCards" class="pb-four-metrics"></div>
+
+                <div class="fuel-two-col">
+                    <div class="pb-dark-card">
+                        <div class="pb-dark-card-tag" style="color:#FBBF24;">CARB LEDGER · 補給品攜帶帳本</div>
+                        <div class="pb-dark-card-title">建議隨車與路跑準備清單</div>
+                        <div id="pbFuelLedgerList"></div>
+                    </div>
+                    <div class="pb-dark-card">
+                        <div class="pb-dark-card-tag" style="color:#38BDF8;">EVERY 30 MIN REMINDER · 定時補給鬧鐘</div>
+                        <div class="pb-dark-card-title">每 30 分鐘碳水與水分提醒時間表</div>
+                        <div style="font-size:0.8rem; font-weight:700; color:#FB923C; margin-top:6px;">🚴 單車每 30 分鐘提醒點：</div>
+                        <div id="pbBikeSchedulePills" class="fuel-timeline-pills"></div>
+                        <div style="font-size:0.8rem; font-weight:700; color:#2DD4BF; margin-top:14px;">🏃 路跑每 30 分鐘提醒點：</div>
+                        <div id="pbRunSchedulePills" class="fuel-timeline-pills"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =====================================================
+                 MODULE 05: 🚨 八大比賽風險辨識與應對指南
+                 ===================================================== -->
+            <div id="pbMod5" class="playbook-module">
+                <div class="pb-kicker" style="color:#F87171;">05 · 8 RACE RISKS & EMERGENCY RESPONSE</div>
+                <div class="pb-headline">身體警訊，永遠比 PB 重要。</div>
+                <div class="pb-subnote">點選下方八種鐵人賽最常發生的實戰危機，查看「如何辨識、如何預防、當下如何處理、什麼情況該立即停止」。</div>
+
+                <div id="pbRiskSelectorGrid" class="risk-selector-grid"></div>
+                <div id="pbRiskDetailBoard" class="pb-dark-card"></div>
+            </div>
+
+            <!-- =====================================================
+                 MODULE 06: 📋 個人專屬比賽戰術總卡 ＆ 一鍵複製 LINE 版
+                 ===================================================== -->
+            <div id="pbMod6" class="playbook-module">
+                <div class="pb-kicker" style="color:#A78BFA;">06 · MY RACE PLAN SUMMARY & LINE CARD</div>
+                <div class="pb-headline">把整場比賽濃縮成一張隨時可看的個人戰術卡。</div>
+                <div class="pb-subnote">可一鍵複製文字貼到 LINE 記事本或傳給補給親友團，賽前一天不再焦慮。</div>
+
+                <div id="pbSummaryThreeCols" class="swim-stages-cards" style="grid-template-columns: repeat(3, 1fr);"></div>
+
+                <div class="fuel-two-col" style="margin-bottom:0;">
+                    <!-- 左：單車上管戰術貼紙 (Top-Tube Sticker) 濃縮預覽 -->
+                    <div class="pb-dark-card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+                            <div>
+                                <div class="pb-dark-card-tag" style="color:#FBBF24;">TOP-TUBE STICKER · 單車上管貼紙</div>
+                                <div class="pb-dark-card-title" style="margin-bottom:0;">🏷️ 單車上管配瓦與定時補給貼紙 (可截圖/列印貼上管)</div>
+                            </div>
+                            <button type="button" class="quick-chip" style="background:#1E293B; color:#FBBF24; border-color:#475569;" onclick="window.print()">🖨️ 列印貼紙</button>
+                        </div>
+                        <div id="pbTopTubeStickerBox" class="toptube-sticker-wrap"></div>
+                    </div>
+
+                    <!-- 右：LINE 隨身版個人比賽計畫小抄 -->
+                    <div class="pb-dark-card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                            <div>
+                                <div class="pb-dark-card-tag" style="color:#34D399;">ONE-CLICK EXPORT</div>
+                                <div class="pb-dark-card-title" style="margin-bottom:0;">📱 LINE 隨身版個人比賽計畫小抄</div>
+                            </div>
+                            <button type="button" id="btnCopyLineCard" class="btn-analyze" style="background:#EA580C; padding:8px 14px; font-size:0.84rem;" onclick="copyLineTacticalCard()">
+                                📋 複製 LINE 版戰術卡
+                            </button>
+                        </div>
+                        <pre id="pbLineCardPre" class="line-copy-pre"></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-footer-bar">
+                <button type="button" class="quick-chip" onclick="switchStep(3)">⬅ 返回 Step 3 檢視完賽時間預估</button>
+                <button type="button" class="quick-chip" onclick="switchStep(1)">🔄 換一場比賽重新分析 (Step 1)</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =========================================================
+         全螢幕等高線放大檢視視窗 (解決字體重疊、支援 1x / 1.5x / 2.5x 無段縮放與坡段明細表)
+         ========================================================= -->
+    <div id="zoomModalOverlay" class="zoom-modal-overlay" onclick="if(event.target===this) closeZoomModal()">
+        <div class="zoom-modal-card">
+            <div class="zoom-modal-header">
+                <div>
+                    <div id="zoomModalTitle" style="font-size:1.05rem; font-weight:800;">🔍 賽道等高線高度剖面放大檢視</div>
+                    <div id="zoomModalSub" style="font-size:0.78rem; color:#94A3B8;">可切換放大倍率或橫向捲動檢視每一處地標與坡度</div>
+                </div>
+                <div class="zoom-controls-group">
+                    <span style="font-size:0.78rem; color:#CBD5E1;">縮放倍率：</span>
+                    <button type="button" id="btnZoom1x" class="btn-zoom-scale active" onclick="setModalZoomScale(1)">100% 適應視窗</button>
+                    <button type="button" id="btnZoom15x" class="btn-zoom-scale" onclick="setModalZoomScale(1.6)">160% 放大</button>
+                    <button type="button" id="btnZoom25x" class="btn-zoom-scale" onclick="setModalZoomScale(2.4)">240% 超展開</button>
+                    <button type="button" class="btn-close-modal" onclick="closeZoomModal()">✕ 關閉</button>
+                </div>
+            </div>
+            <div class="zoom-modal-body">
+                <div class="zoom-scroll-viewport">
+                    <div id="zoomModalSvgBox" style="width:100%; height:320px;"></div>
+                </div>
+                <div style="margin-top:16px; font-weight:800; font-size:0.92rem; color:#0F172A;">
+                    📋 賽道分段里程、海拔高度與坡度一覽表
+                </div>
+                <table class="segment-table">
+                    <thead>
+                        <tr>
+                            <th>里程位置 (km)</th>
+                            <th>海拔高度 (m)</th>
+                            <th>預估坡度 (%)</th>
+                            <th>賽道關鍵地標與地形特徵</th>
+                        </tr>
+                    </thead>
+                    <tbody id="zoomModalTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="engine.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
