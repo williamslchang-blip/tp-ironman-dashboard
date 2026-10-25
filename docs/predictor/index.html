@@ -484,8 +484,8 @@
             <!-- 頂部次級戰術模組切換列 -->
             <div class="playbook-subnav">
                 <button type="button" id="pbTab1" class="playbook-tab-btn active" onclick="switchPlaybookTab(1)">01 🏊 游泳五段與浮標</button>
-                <button type="button" id="pbTab2" class="playbook-tab-btn" onclick="switchPlaybookTab(2)">02 🚴 單車六段騎法与功率</button>
-                <button type="button" id="pbTab3" class="playbook-tab-btn" onclick="switchPlaybookTab(3)">03 🏃 路跑地形與六段配速</button>
+                <button type="button" id="pbTab2" class="playbook-tab-btn" onclick="switchPlaybookTab(2)">02 🚴 單車騎法與功率</button>
+                <button type="button" id="pbTab3" class="playbook-tab-btn" onclick="switchPlaybookTab(3)">03 🏃 路跑地形與配速</button>
                 <button type="button" id="pbTab4" class="playbook-tab-btn" onclick="switchPlaybookTab(4)">04 🍌 照時鐘吃：氣象補給</button>
                 <button type="button" id="pbTab5" class="playbook-tab-btn" onclick="switchPlaybookTab(5)">05 🚨 八大比賽風險應對</button>
                 <button type="button" id="pbTab6" class="playbook-tab-btn" onclick="switchPlaybookTab(6)">06 📋 戰術總卡 & 複製 LINE</button>
@@ -534,18 +534,21 @@
             </div>
 
             <!-- =====================================================
-                 MODULE 02: 🚴 單車六段互動等高線、功率目標與車錶設定
+                 MODULE 02: 🚴 單車騎法與功率（AI 賽道智慧分段）
                  ===================================================== -->
             <div id="pbMod2" class="playbook-module">
-                <div class="pb-kicker" style="color:#FB923C;">02 · BIKE POWER STRATEGY & 6-SEGMENT PLAYBOOK</div>
-                <div id="pbBikeHeadline" class="pb-headline">六段騎法，前 15 km 與最後 8 km 都要收。</div>
-                <div class="pb-subnote">自行車不是比誰最會衝坡，而是用最平穩的標準化功率 (NP)，把雙腿完整留給接下來的路跑。</div>
+                <div class="pb-kicker" style="color:#FB923C;">02 · AI BIKE COURSE SEGMENTATION & POWER STRATEGY</div>
+                <div id="pbBikeHeadline" class="pb-headline">依賽道地形動態配瓦，前段暖身與末段排酸都要收。</div>
+                <div class="pb-subnote">自行車不是比誰最會衝坡，而是由 AI 依賽道起伏、圈數與折返風向智慧切割區段，用最平穩的標準化功率 (NP) 把雙腿留給路跑。</div>
 
                 <!-- 四個核心功率數字 -->
                 <div id="pbBikeFourMetrics" class="pb-four-metrics"></div>
 
-                <!-- 六段按鈕切換器 -->
-                <div style="font-size:0.82rem; font-weight:700; color:#FB923C;">👇 點擊下方各公里分段，即時連動等高線高亮區間與該段配瓦攻略：</div>
+                <!-- AI 賽道切割邏輯說明 -->
+                <div id="pbBikeAiSegRationale" style="background:rgba(251,146,60,0.12); border:1px solid rgba(251,146,60,0.35); border-radius:10px; padding:10px 14px; font-size:0.84rem; color:#FDE68A; margin-bottom:12px; line-height:1.55;"></div>
+
+                <!-- 動態分段按鈕切換器 -->
+                <div style="font-size:0.82rem; font-weight:700; color:#FB923C;">👇 點擊下方 AI 切割之賽道分段，即時連動等高線高亮區間與該段配瓦攻略：</div>
                 <div id="pbBikeSegButtons" class="seg-selector-bar"></div>
 
                 <!-- 左：互動等高線高亮圖 / 右：該段戰術明細卡 -->
@@ -569,18 +572,21 @@
             </div>
 
             <!-- =====================================================
-                 MODULE 03: 🏃 路跑四大地形守則與六段互動配速
+                 MODULE 03: 🏃 路跑地形與配速（AI 賽道智慧分段）
                  ===================================================== -->
             <div id="pbMod3" class="playbook-module">
-                <div class="pb-kicker" style="color:#2DD4BF;">03 · RUN TERRAIN RULES & 6-SEGMENT PACING</div>
+                <div class="pb-kicker" style="color:#2DD4BF;">03 · AI RUN TERRAIN SEGMENTATION & PACING</div>
                 <div id="pbRunHeadline" class="pb-headline">把平路配速，換成賽道每一段的配速。</div>
-                <div class="pb-subnote">前 2 km 保守起跑讓雙腿從騎車切換到跑步；上坡看心率與步頻、下坡護住股四頭肌，最後一段才有本錢加速。</div>
+                <div class="pb-subnote">由 AI 依據賽道爬坡、下坡、折返與圈數動態切割配速區間；前段保守轉換、上下坡護腿，最後一段才有本錢加速。</div>
 
                 <!-- 四大地形法則 (UPHILL / DOWNHILL / FLAT / FINAL) -->
                 <div id="pbRunFourRules" class="pb-four-metrics"></div>
 
-                <!-- 路跑六段按鈕切換器 -->
-                <div style="font-size:0.82rem; font-weight:700; color:#2DD4BF;">👇 點擊下方路跑分段，查看對應海拔剖面與每公里目標配速：</div>
+                <!-- AI 路跑切割邏輯說明 -->
+                <div id="pbRunAiSegRationale" style="background:rgba(45,212,191,0.12); border:1px solid rgba(45,212,191,0.35); border-radius:10px; padding:10px 14px; font-size:0.84rem; color:#99F6E4; margin-bottom:12px; line-height:1.55;"></div>
+
+                <!-- 路跑動態分段按鈕切換器 -->
+                <div style="font-size:0.82rem; font-weight:700; color:#2DD4BF;">👇 點擊下方 AI 切割之路跑分段，查看對應海拔剖面與每公里目標配速：</div>
                 <div id="pbRunSegButtons" class="seg-selector-bar"></div>
 
                 <!-- 左：互動路跑等高線圖 / 右：該段配速明細卡 -->

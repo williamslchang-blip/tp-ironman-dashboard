@@ -1086,6 +1086,209 @@ async function analyzeCourseClient(url, raceDateStr) {
     return matched;
 }
 
+
+function aiSegmentBikeCourseClient(course, bikeKm, windDir, windSpeedKmh, climbCapW) {
+    const cid = course.course_id || "";
+    const bEle = Number(course.bike_elevation_m || 0);
+
+    // 1. IRONMAN 70.3 墾丁 (90km, 6段)
+    if (cid === "kenting_703" && Math.abs(bikeKm - 90) <= 15 && course.bike_segments_template) {
+        return {
+            segs: course.bike_segments_template,
+            rationale: "AI 依墾丁 70.3『屏153雙次海岸丘陵 ＋ 台26車城/199縣道牡丹落山風折返』地形特徵，將 90km 智慧切割為 6 段：區分南灣暖身、萬里桐首波丘陵、車城落山風抗風區、海口順風補給、大光末段丘陵與回 T2 降瓦排酸。"
+        };
+    }
+
+    // 2. IRONMAN 澎湖 226 (180km, 5段：蒔裡出發 + 跨海大橋/西嶼 3 圈制 + 回馬公 T2)
+    if (cid === "penghu_226" && Math.abs(bikeKm - 180) <= 25) {
+        return {
+            rationale: "AI 依澎湖 226『蒔裡單向出發 ＋ 跨海大橋與西嶼西臺 3 圈制抗風折返 ＋ 馬公 T2』賽道結構，將 180km 智慧切割為 5 段（1 段出發暖身 ＋ 3 圈跨海主課表 ＋ 1 段進 T2 排酸）。",
+            segs: [
+                { range_label: "0–22", start_km: 0, end_km: 22, title: "蒔裡出發暖身巡航", np_pct_range: [0.88, 0.94], terrain: `由蒔裡沙灘 T1 出發經湖西 204 縣道往北寮/白沙，地勢平緩微幅起伏，適應當日 ${windDir} (${windSpeedKmh} km/h)。`, tactics: "前 20 分鐘讓心率從 3.8km 海泳中穩下來，不跟快車硬衝。先喝幾口水，第 20 分鐘啟動第一次定時補給。", aid_station: "B1 湖西補給站 (約 15 km)，出發水壺已滿可快速通過。", common_mistake: "第一段順風或平路太興奮，瓦數高出目標 NP 10% 以上。" },
+                { range_label: "22–68", start_km: 22, end_km: 68, title: "第一圈：跨海大橋與西嶼折返", np_pct_range: [0.95, 1.02], terrain: "首次通過澎湖跨海大橋（開闊海面強勁側逆陣風）進入西嶼鄉起伏丘陵，至西嶼西臺折返 (52 km) 回白沙。", tactics: "過跨海大橋遇強側陣風時雙手握彎把/牛角把控車；西嶼短坡換輕齒比守住瓦數上限，不抽車硬頂。", aid_station: "B2 跨海大橋站 (38 km) ｜ B3 西嶼折返站 (52 km)", common_mistake: "在跨海大橋頂逆風死守時速，導致第一圈就燒掉過多無氧火柴。" },
+                { range_label: "68–118", start_km: 68, end_km: 118, title: "第二圈：穩態配瓦與特需袋補給", np_pct_range: [0.95, 1.01], terrain: "於白沙折返點二進跨海大橋與西嶼西臺 (98 km)，日照升溫且東北季風持續。", tactics: "嚴格執行『照時鐘每 30 分鐘吃喝』，於 98 km 西嶼折返處領取單車特需袋 (Special Needs)，補滿後半程能量膠與電解質粉。", aid_station: "白沙折返點 (78 km) ｜ 西嶼特需袋與補給站 (98 km)", common_mistake: "中段專注騎車忘記按時補鈉補水，或錯過特需袋補給造成後段斷糧。" },
+                { range_label: "118–162", start_km: 118, end_km: 162, title: "第三圈：西嶼最終圈抗衰退", np_pct_range: [0.92, 0.98], terrain: "白沙折返後第三次通過跨海大橋與西嶼西臺 (138 km)，雙腿已累積超過 3.5 小時做功。", tactics: `體感變沉時主動退一檔維持 82–86 rpm 踏頻，西嶼爬坡絕對不超過 ${climbCapW} W，把股四頭肌留給 42.2km 全馬。`, aid_station: "B4 西嶼最終站 (138 km) ｜ 跨海大橋站 (158 km)", common_mistake: "第三圈逆風心態急躁重齒比硬踩，導致踏頻掉到 70 rpm 以下引發抽筋。" },
+                { range_label: "162–180", start_km: 162, end_km: 180, title: "回馬公 T2 降瓦排酸", np_pct_range: [0.82, 0.90], terrain: "離開跨海大橋經白沙、中正橋順風/平路返回馬公市區體育館 T2 轉換區。", tactics: "最後 18 km 主動降瓦、踏頻拉高至 88–92 rpm 排酸；最後 15 分鐘只喝白開水不吃固體食物，讓胃部排空準備全馬。", aid_station: "180 km 馬公體育館 T2 轉換區", common_mistake: "最後順風段一路猛催瓦數衝進 T2，一下車雙腿僵硬。" }
+            ]
+        };
+    }
+
+    // 3. Challenge Taiwan 台東 113 (4段) / 226 (5段)
+    if (cid === "ct_taitung") {
+        if (bikeKm < 135) {
+            return {
+                rationale: "AI 依 Challenge Taiwan 113『台11線花東海岸單圈雙向折返（活水湖 ⇄ 成功鎮 45k）』對稱緩坡特徵，將 90km 精簡切割為 4 段（前 12k 出城暖身 ＋ 北上緩坡去程 ＋ 南下巡航回程 ＋ 最後 12k 排酸進 T2）。",
+                segs: [
+                    { range_label: "0–12", start_km: 0, end_km: 12, title: "活水湖出城暖身轉換", np_pct_range: [0.88, 0.95], terrain: "由活水湖 T1 出發經中華大橋往杉原海岸，路幅寬廣平緩，僅過橋時有短坡與河口側風。", tactics: "前 15 分鐘讓心率從活水湖游泳平順過渡，維持 85+ rpm 輕快踏頻，勿在中華大橋與旁車競速。", aid_station: "出發水壺裝滿，本段無須停靠。", common_mistake: "一出活水湖見平路大直線就猛踩超瓦，前 10 km 把心率頂上 Z4。" },
+                    { range_label: "12–45", start_km: 12, end_km: 45, title: "台11北上：都蘭東河至成功折返", np_pct_range: [0.95, 1.02], terrain: "沿台11線北上經杉原、都蘭長緩坡 (2–3%)、東河包子站至成功鎮折返點 (45 km)。", tactics: `都蘭與成功長緩坡維持休息把空力姿勢或微退一檔，爬坡上限守在 ${climbCapW} W 內，每 20–30 分鐘定時補碳水。`, aid_station: "B1 都蘭站 (22 km) ｜ B2 東河站 (35 km) ｜ B3 成功折返站 (45 km)", common_mistake: "在都蘭長緩坡不自覺重踩推瓦，忽略長緩坡累積的肌肉疲勞。" },
+                    { range_label: "45–78", start_km: 45, end_km: 78, title: "台11南下：成功回程巡航與補給", np_pct_range: [0.94, 1.00], terrain: `由成功鎮折返南下經東河 (60 km)、都蘭回程緩坡 (72 km)，當日預報 ${windDir} ${windSpeedKmh} km/h。`, tactics: "折返後視順逆風調整齒比，守住目標 NP 區間；把握第 50–70 km 將隨車能量膠與電解質水按時喝完。", aid_station: "B4 東河回程站 (60 km) ｜ 都蘭站 (72 km)", common_mistake: "回程若遇逆風硬踩追時速，或因風景單調忘記定時吃第 2 小時補給。" },
+                    { range_label: "78–90", start_km: 78, end_km: 90, title: "中華大橋回程進 T2 排酸", np_pct_range: [0.82, 0.90], terrain: "由杉原經中華大橋返回台東森林公園/鐵花村 T2 轉換區，地勢平緩微下坡。", tactics: "最後 12 km 主動降低瓦數、拉高踏頻至 90 rpm 放鬆大腿；最後 15 分鐘只喝水讓胃排空。", aid_station: "90 km 森林公園 T2 轉換區", common_mistake: "過中華大橋後重踩衝刺進 T2，導致一下車跑森林公園雙腿緊繃。" }
+                ]
+            };
+        } else {
+            return {
+                rationale: "AI 依 Challenge Taiwan 226『台11線花東海岸雙圈長距離折返 (180km)』結構，將賽道智慧切割為 5 段（出城暖身 ＋ 第一圈穩態巡航 ＋ 第二圈北上抗熱抗風 ＋ 第二圈南下固體補給 ＋ 最後 12k 排酸進 T2）。",
+                segs: [
+                    { range_label: "0–15", start_km: 0, end_km: 15, title: "活水湖出城暖身段", np_pct_range: [0.86, 0.93], terrain: "活水湖 T1 出發過中華大橋至杉原海岸，平緩開闊。", tactics: "226 單車長達 5–6 小時，前 15 km 務必壓低瓦數讓心率穩定在 Z2 下緣。", aid_station: "水壺滿載出發。", common_mistake: "開賽跟隨 113 選手的高配速一起衝。" },
+                    { range_label: "15–90", start_km: 15, end_km: 90, title: "第一圈：台11海岸往返巡航", np_pct_range: [0.95, 1.01], terrain: "第一趟經都蘭、東河、成功折返返回台東，包含數段 2–3% 海岸長緩坡。", tactics: "保持低風阻空力姿勢，每 30 分鐘嚴格執行 35–40g 碳水與水分補給，趁早段腸胃吸收最好時打底。", aid_station: "沿途都蘭、東河、成功各補給站按需換水。", common_mistake: "第一圈爬坡抽車或忽略前 2.5 小時的固體/能量膠補充。" },
+                    { range_label: "90–135", start_km: 90, end_km: 135, title: "第二圈北上：午間升溫與海風考驗", np_pct_range: [0.94, 1.00], terrain: `進入第二圈北上段，氣溫升高且海風 (${windDir} ${windSpeedKmh} km/h) 轉強。`, tactics: `緩坡與逆風段嚴格守住 ${climbCapW} W 上限，每小時補水量拉高並搭配鹽錠/電解質。`, aid_station: "90k 折返點與第二圈都蘭/東河站務必補滿冰水。", common_mistake: "第二圈北上頂風硬踩導致心率漂移與大腿提前抽動。" },
+                    { range_label: "135–168", start_km: 135, end_km: 168, title: "第二圈南下：耐力守衛與最後補給", np_pct_range: [0.91, 0.97], terrain: "由北端折返南下經東河、都蘭回程，體能進入第 4–5 小時關鍵期。", tactics: "專注維持 82–86 rpm 踏頻，完成單車段最後兩次碳水補給，確保下車前肝醣充足。", aid_station: "東河與都蘭最後補給站補滿清水。", common_mistake: "後段味覺疲勞停止吃東西，導致一進全馬立刻低血糖撞牆。" },
+                    { range_label: "168–180", start_km: 168, end_km: 180, title: "中華大橋回程進 T2 排酸", np_pct_range: [0.80, 0.88], terrain: "最後 12 km 經中華大橋滑回森林公園/鐵花村 T2。", tactics: "瓦數調降 12–15%，拉高踏頻至 90 rpm 讓雙腿血液回流，最後 15 分鐘只喝水清空胃部。", aid_station: "180 km T2 轉換區", common_mistake: "最後 10 km 趕時間重踩，下車雙腿僵硬。" }
+                ]
+            };
+        }
+    }
+
+    // 4. IRONMAN 蘭卡威 226 (180km, 5段)
+    if (cid === "langkawi_226") {
+        return {
+            rationale: "AI 依蘭卡威 226『兩圈制雨林陡坡（兩度翻越 Datai 與 The Gullet 8% 魔王坡）＋ Kuah 平緩折返區 ＋ 34°C 高溫』地形，將 180km 智慧切割為 5 段，重點隔離兩次魔王陡坡功率紅線與中段補水區。",
+            segs: [
+                { range_label: "0–18", start_km: 0, end_km: 18, title: "Pantai Kok 出發與 Datai 雨林首坡", np_pct_range: [0.88, 0.95], terrain: "由 Pantai Kok T1 出發進入 Datai 雨林爬坡段（海拔升至 95m，坡度約 5.5%）。", tactics: "前 18 km 趁清晨氣溫尚未飆高，以輕齒比順暢爬完 Datai 雨林坡，下坡注意路面猴子與濕滑彎道。", aid_station: "B1 Datai 站 (18 km)", common_mistake: "在第一段 Datai 雨林坡就抽車飆瓦，提早消耗核心肝醣。" },
+                { range_label: "18–50", start_km: 18, end_km: 50, title: "第一圈魔王坡：The Gullet 攻頂與丘陵", np_pct_range: [0.95, 1.03], terrain: "挑戰著名的 The Gullet 魔王陡坡（32 km 處海拔 165m，最大坡度 8%+）與 Tengkorak 連續起伏丘陵。", tactics: `換上最輕齒比 (32T/34T)，爬坡嚴格把瓦數壓在 ${climbCapW} W 附近，寧可慢速高踏頻也絕不硬踩鎖死大腿。`, aid_station: "B2 The Gullet 站 (32 km) ｜ B3 Tengkorak 站 (50 km)", common_mistake: "齒比太重在 The Gullet 陡坡硬頂超過 120% FTP，燒光雙腿。" },
+                { range_label: "50–100", start_km: 50, end_km: 100, title: "Kuah 折返平緩巡航與高溫大量補水", np_pct_range: [0.94, 1.00], terrain: "進入島嶼東側與南側 Kuah 折返平緩區 (95 km 特需袋)，氣溫開始突破 32°C。", tactics: "把握這 50 km 相對平緩的路段維持空力姿勢，每過補給站必拿冰水淋身，並補足每小時 800ml+ 水分與高鈉電解質。", aid_station: "Kuah 折返與特需袋站 (95 km)", common_mistake: "在平緩段疏於抓冰水降溫，進入第二圈前核心體溫已經過高。" },
+                { range_label: "100–145", start_km: 100, end_km: 145, title: "第二圈魔王坡：高溫二度攻頂 The Gullet", np_pct_range: [0.90, 0.98], terrain: "正午高溫下第二次進入 Datai 與 The Gullet 魔王坡 (118 km)，並翻越 Tengkorak 第二圈丘陵 (145 km)。", tactics: "正午熱壓力最大，上坡看心率與功率雙重上限，必要時在補給站停 15 秒用冰水從頭淋下再上坡。", aid_station: "B4 The Gullet 二圈站 (118 km) ｜ Tengkorak 站 (145 km)", common_mistake: "第二圈過 The Gullet 硬拼第一圈瓦數，導致嚴重熱衰竭或大腿抽筋。" },
+                { range_label: "145–180", start_km: 145, end_km: 180, title: "回程滑入 MIEC 冷氣館 T2 排酸", np_pct_range: [0.82, 0.90], terrain: "離開丘陵區一路平緩回程進入 MIEC 展覽館冷氣房 T2 (180 km)。", tactics: "最後 15 km 主動降瓦 12%、拉高踏頻排酸，持續小口喝電解質水，進冷氣館 T2 換裝順便降低核心體溫。", aid_station: "180 km MIEC 冷氣館 T2", common_mistake: "下車前停止補水，帶著脫水狀態進入 34°C 機場跑道全馬。" }
+            ]
+        };
+    }
+
+    // 5. 短距離 51.5 標鐵 (<= 55km, 3段)
+    if (bikeKm <= 55) {
+        const c1 = Number((bikeKm * 0.18).toFixed(1));
+        const c2 = Number((bikeKm * 0.82).toFixed(1));
+        return {
+            rationale: `AI 依標準距離 (${bikeKm}km) 緊湊節奏特徵，將單車賽道精簡切割為 3 段（前 ${c1}km 出 T1 快速暖身 ➔ 中段 ${(c2-c1).toFixed(1)}km 高效率空力巡航 ➔ 最後 ${(bikeKm-c2).toFixed(1)}km 高踏頻轉換進 T2）。`,
+            segs: [
+                { range_label: `0–${c1}`, start_km: 0, end_km: c1, title: "出 T1 快速暖身建立節奏", np_pct_range: [0.90, 0.96], terrain: `出 T1 轉換區前 ${c1} km 加速段。`, tactics: "前 5–8 分鐘利用 90 rpm 高踏頻讓雙腿從海泳切換至騎乘，逐步推升至目標瓦數。", aid_station: "使用車上水壺補水。", common_mistake: "標鐵出 T1 前 3 km 猛衝超過 115% FTP 導致呼吸紊亂。" },
+                { range_label: `${c1}–${c2}`, start_km: c1, end_km: c2, title: "核心空力巡航與折返抗風", np_pct_range: [0.97, 1.03], terrain: `第 ${c1}–${c2} km 賽道主巡航與折返區（總爬升約 ${Math.round(bEle)}m，當日 ${windDir} ${windSpeedKmh} km/h）。`, tactics: `全程維持低風阻空力姿勢，遇坡或逆風上限守在 ${climbCapW} W，每 15–20 分鐘小口補充運動飲料或能量膠。`, aid_station: "賽道折返補給站視需要補水。", common_mistake: "逆風段死守時速硬踩，把接下來 10km 路跑的雙腿榨乾。" },
+                { range_label: `${c2}–${bikeKm}`, start_km: c2, end_km: bikeKm, title: "高踏頻排酸準備 T2 轉換", np_pct_range: [0.85, 0.92], terrain: `最後 ${(bikeKm - c2).toFixed(1)} km 返回 T2 轉換區。`, tactics: "主動將瓦數微降 8–12%、踏頻拉高至 92 rpm 以上，讓雙腿準備好一下車就能跑出高步頻。", aid_station: `${bikeKm} km T2 轉換區`, common_mistake: "重齒比硬踩到下車線前才急煞，一下車雙腿僵硬。" }
+            ]
+        };
+    }
+
+    // 6. 通用/自訂 GPX 賽道 (5段)
+    const bCuts = [0, Math.round(bikeKm * 0.15), Math.round(bikeKm * 0.45), Math.round(bikeKm * 0.72), Math.round(bikeKm * 0.88), Math.round(bikeKm)];
+    return {
+        rationale: `AI 掃描本場單車賽道 (${bikeKm}km / 爬升 ${Math.round(bEle)}m) 等高線與當日風向 (${windDir} ${windSpeedKmh}km/h)，自動將賽道切割為 5 個功率執行區段：依序為出 T1 暖身、前段巡航、中段爬坡/抗風核心區、後段耐力補給與進 T2 降瓦排酸。`,
+        segs: [
+            { range_label: `${bCuts[0]}–${bCuts[1]}`, start_km: bCuts[0], end_km: bCuts[1], title: "保守暖身騎乘", np_pct_range: [0.88, 0.95], terrain: `出 T1 轉換區前 ${bCuts[1]} km 暖身段，適應當日風向（${windDir} ${windSpeedKmh} km/h）。`, tactics: "前 15 分鐘讓心率與呼吸從游泳中穩下來，坡上不追人。先喝水，約 20 分鐘開始第一次補給。", aid_station: "出發時水壺裝滿，前段無須進站。", common_mistake: "游泳後腎上腺素高，前 10 km 平均功率高出目標 10% 以上。" },
+            { range_label: `${bCuts[1]}–${bCuts[2]}`, start_km: bCuts[1], end_km: bCuts[2], title: "進入目標競賽功率", np_pct_range: [0.95, 1.02], terrain: `第 ${bCuts[1]}–${bCuts[2]} km 巡航與首波起伏路段。`, tactics: "進入低風阻空力姿勢，踏頻維持 82–88 rpm，每 20–30 分鐘按錶定時補充碳水與水分。", aid_station: `經過前段補給站（約 ${Math.round(bCuts[2]*0.7)} km）視水壺存量補水。`, common_mistake: "跟隨快車集團超瓦競速，忽略自身目標 IF 配速紀律。" },
+            { range_label: `${bCuts[2]}–${bCuts[3]}`, start_km: bCuts[2], end_km: bCuts[3], title: "中段折返與爬坡/抗風核心", np_pct_range: [0.96, 1.03], terrain: `第 ${bCuts[2]}–${bCuts[3]} km 賽道中段與折返點，面對爬升與 ${windDir} 側逆風挑戰。`, tactics: `環境變了，守住功率、不守速度！爬坡與逆風嚴守 ≤ ${climbCapW} W 上限，壓低身體減少迎風面積。`, aid_station: `中段折返補給站（約 ${Math.round(bikeKm*0.5)} km），務必換滿運動飲料與水。`, common_mistake: "逆風或爬坡段為了維持帳面時速而將功率拉高到 110% NP 以上。" },
+            { range_label: `${bCuts[3]}–${bCuts[4]}`, start_km: bCuts[3], end_km: bCuts[4], title: "中後段耐力守衛與最後固體補給", np_pct_range: [0.93, 0.99], terrain: `第 ${bCuts[3]}–${bCuts[4]} km 回程段，體能進入中後段考驗。`, tactics: "維持 82+ rpm 穩定踏頻，把握此區段將隨車能量膠與電解質水按時喝足，為路跑儲備肝醣。", aid_station: `後段補給站（約 ${Math.round(bikeKm*0.8)} km）。`, common_mistake: "騎乘後段味覺疲勞而少吃能量膠，造成下車後低血糖撞牆。" },
+            { range_label: `${bCuts[4]}–${bCuts[5]}`, start_km: bCuts[4], end_km: bCuts[5], title: "主動降瓦排酸準備 T2", np_pct_range: [0.82, 0.90], terrain: `最後 ${bCuts[5] - bCuts[4]} km 滑回 T2 轉換區。`, tactics: "主動降瓦 10–15%、拉高踏頻至 90 rpm 活絡下肢；最後 15 分鐘只喝水不吃固體食物，讓胃在跑步前排空。", aid_station: `進 ${bCuts[5]} km T2 轉換區前減速慢行。`, common_mistake: "一路重踩衝進 T2，一下車雙腿僵硬抽筋。" }
+        ]
+    };
+}
+
+function aiSegmentRunCourseClient(course, runKm) {
+    const cid = course.course_id || "";
+    const rEle = Number(course.run_elevation_m || 0);
+
+    // 1. IRONMAN 70.3 墾丁 (21.1km, 6段)
+    if (cid === "kenting_703" && Math.abs(runKm - 21.1) <= 3 && course.run_segments_template) {
+        return {
+            segs: course.run_segments_template,
+            rationale: "AI 依墾丁 70.3『第一圈直攻社頂公園 210m 陡升與船帆路陡降 ＋ 第二圈台26海岸平路』先苦後甘地形，將 21.1km 智慧切割為 6 段，精準分離 T2 轉換、社頂爬坡、船帆路護腿下坡與台26平路巡航。"
+        };
+    }
+
+    // 2. IRONMAN 澎湖 226 (42.2km, 5段)
+    if (cid === "penghu_226" && Math.abs(runKm - 42.2) <= 5) {
+        return {
+            rationale: "AI 依澎湖全馬『馬公 T2 出發 ＋ 觀音亭與重光媽祖銅像 4 圈制（每圈約 10.55km）』賽道結構，將 42.2km 智慧切割為 5 段（前 3km T2 轉換起跑 ＋ 四圈配速、補鈉與防撞牆守則）。",
+            segs: [
+                { range_label: "0–3", start_km: 0.0, end_km: 3.0, title: "出馬公 T2 保守起跑", tag: "T2 轉換適應 · 3.0 km", pace_offset_sec: [10, 18], terrain: "由馬公體育館 T2 出發進入市區與海岸連接段，雙腿剛結束 180km 跨海抗風騎乘。", intensity: "比平路目標配速慢 10–18 秒/km，強制壓住剛下車的亢奮感與心率。", form_tip: "小步幅、高步頻 (175–180 spm)，先求跑姿放鬆流暢。", aid_station: "R1 補給站先喝水並用海綿/冰水降溫。", common_mistake: "剛下單車覺得腿輕就開出比目標快 15 秒的配速，導致半馬後提前崩盤。" },
+                { range_label: "3–10.5", start_km: 3.0, end_km: 10.5, title: "第一圈：重光媽祖至觀音亭建立節奏", tag: "Lap 1 巡航 · 7.5 km", pace_offset_sec: [-2, 8], terrain: "往北跑向重光媽祖銅像折返 (5.2 km) 再回到觀音亭虹橋 (10.5 km)，海風開闊無遮蔭。", intensity: "進入目標全馬配速區間，順逆風交替時看心率與步頻微調。", form_tip: "逆海風段身體微前傾、手肘貼近身體擺動減少風阻。", aid_station: "每 2–2.5 km 補給站必進，第 30 分鐘吃第一包跑步能量膠配白開水。", common_mistake: "第一圈頂著海風硬推配速，心率提早進入 Z3 上緣。" },
+                { range_label: "10.5–21.1", start_km: 10.5, end_km: 21.1, title: "第二圈：半馬折返散熱與定時補鈉", tag: "Lap 2 穩態 · 10.6 km", pace_offset_sec: [0, 10], terrain: "觀音亭與媽祖銅像第二圈往返，日照與海風持續考驗核心體溫。", intensity: "穩守平路目標配速，讓體感維持在『可以穩定說話』的有氧節奏。", form_tip: "每過一處折返點做一次肩頸與雙手放鬆甩動，避免上半身僵硬耗能。", aid_station: "每站拿冰塊塞帽內/後頸，按時補充第 2、3 包能量膠與鹽錠。", common_mistake: "因為海風吹乾汗水而低估排汗量，忽略補鈉導致 25k 後抽筋。" },
+                { range_label: "21.1–31.6", start_km: 21.1, end_km: 31.6, title: "第三圈：全馬關鍵撞牆防線", tag: "Lap 3 耐力決戰 · 10.5 km", pace_offset_sec: [5, 18], terrain: "全馬最關鍵的 21–32 km 第三圈，肝醣逐漸耗竭且肌纖維微損傷累積。", intensity: "允許配速比前段微幅慢 5–15 秒/km，核心原則是『進補給站可快走 10 秒喝水，出站立刻跑起來絕不連走』！", form_tip: "專注『抬腳跟、守住 172+ 步頻』，把注意力拆解成從這一個補給站跑到下一個補給站。", aid_station: "可開始喝半杯可樂或咖啡因能量膠提振中樞神經。", common_mistake: "第三圈心理鬆懈開始長距離步行，每走 1 km 就會損失 3–4 分鐘。" },
+                { range_label: "31.6–42.2", start_km: 31.6, end_km: 42.2, title: "第四圈：觀音亭最終圈榮耀衝線", tag: "Lap 4 終點衝刺 · 10.6 km", pace_offset_sec: [-5, 15], terrain: "最後一趟重光媽祖折返直奔觀音亭西瀛虹橋終點拱門。", intensity: "前 6 km 穩守節奏，最後 4 km 若心肺還有餘裕再漸進加速迎接終點紅毯！", form_tip: "用擺臂帶動雙腿，抬頭看遠方虹橋地標提振士氣。", aid_station: "小口喝可樂或電解質水即可，全力迎向 IRONMAN 終點拱門！", common_mistake: "最後 1 km 突然暴衝導致大腿後側劇烈抽筋。" }
+            ]
+        };
+    }
+
+    // 3. Challenge Taiwan 台東 113 (4段) / 226 (5段)
+    if (cid === "ct_taitung") {
+        if (runKm < 30) {
+            return {
+                rationale: "AI 依 Challenge Taiwan 113『台東森林公園＋馬亨亨大道雙圈平緩賽道（每圈 10.5km）』結構，將 21.1km 精簡切割為 4 段（森林公園樹蔭轉換起跑 ＋ 第一圈馬亨亨巡航 ＋ 第二圈午後抗熱降溫 ＋ 舊鐵道回鐵花村終點衝線）。",
+                segs: [
+                    { range_label: "0–3.5", start_km: 0.0, end_km: 3.5, title: "森林公園琵琶湖轉換起跑", tag: "樹蔭轉換 · 3.5 km", pace_offset_sec: [8, 15], terrain: "由 T2 進入台東森林公園與琵琶湖步道，地勢平緩且有濃密樹蔭遮蔽。", intensity: "前 2–3 km 比目標配速慢 10 秒/km，讓雙腿從台11線 90km 騎乘平順轉換為跑姿。", form_tip: "高步頻 (176+ spm)、小步幅，趁森林公園樹蔭調整呼吸節奏。", aid_station: "R1 森林公園站先喝水、拿海綿沾濕降溫。", common_mistake: "森林公園樹蔭涼爽加上觀眾加油，起跑前 3 km 衝太快導致出公園後見光死。" },
+                    { range_label: "3.5–10.5", start_km: 3.5, end_km: 10.5, title: "第一圈：馬亨亨大道平路穩定巡航", tag: "Lap 1 巡航 · 7.0 km", pace_offset_sec: [-3, 6], terrain: "出森林公園轉入馬亨亨大道慢車道折返（微幅緩升 1.5% 後緩降回第 1 圈折返點 10.5 km）。", intensity: "鎖定平路目標配速穩定巡航，馬亨亨大道較無遮蔭，注意防曬與心率控制。", form_tip: "肩膀放鬆、落地輕柔，去程微上坡保持步頻、回程微下坡順勢延伸步幅。", aid_station: "R2/R3 馬亨亨大道補給站每站拿冰水淋頭，第 30 分鐘吃第一包能量膠。", common_mistake: "在馬亨亨大道暴曬段忽略淋水降溫，核心體溫在第一圈尾段就飆高。" },
+                    { range_label: "10.5–17.5", start_km: 10.5, end_km: 17.5, title: "第二圈：森林公園與馬亨亨抗熱守衛", tag: "Lap 2 抗熱 · 7.0 km", pace_offset_sec: [0, 10], terrain: "進入第二圈森林公園 (14 km) 與馬亨亨大道，正午台東悶熱感最明顯。", intensity: "守住目標配速上限，每過補給站強制抓冰塊塞入三鐵衣與帽內物理降溫。", form_tip: "專注維持步頻不掉，把專注力放在每一次擺臂與吐氣。", aid_station: "R4/R5 補給站補充第 2 包能量膠（或可樂）與足量電解質。", common_mistake: "第二圈馬亨亨大道因為悶熱心浮氣躁而開始走路。" },
+                    { range_label: "17.5–21.1", start_km: 17.5, end_km: 21.1, title: "舊鐵道路廊奔向鐵花村終點", tag: "終點衝刺 · 3.6 km", pace_offset_sec: [-10, 8], terrain: "最後 3.6 km 轉入台東舊鐵道路廊與鐵花村音樂聚落，兩旁觀眾熱情加油。", intensity: "若心肺與大腿還有餘裕，每 km 可提速 5–10 秒，帥氣衝進鯉魚山下的終點紅毯！", form_tip: "抬頭挺胸、擺臂帶動步頻迎接終點。", aid_station: "最後補給站拿水漱口即可，直奔終點拱門！", common_mistake: "最後 500m 突然百米衝刺導致小腿抽筋。" }
+                ]
+            };
+        } else {
+            return {
+                rationale: "AI 依 Challenge Taiwan 226『森林公園＋馬亨亨大道 4 圈制全馬 (42.2km)』結構，將賽道智慧切割為 5 段（前 3.5k 樹蔭轉換 ＋ 第一圈建立配速 ＋ 第二圈半馬抗熱 ＋ 第三圈撞牆防線 ＋ 第四圈鐵花村終點衝線）。",
+                segs: [
+                    { range_label: "0–3.5", start_km: 0.0, end_km: 3.5, title: "森林公園 T2 轉換起跑", tag: "樹蔭轉換 · 3.5 km", pace_offset_sec: [10, 18], terrain: "由 T2 進入台東森林公園琵琶湖樹蔭步道。", intensity: "比全馬目標配速慢 10–18 秒/km，讓雙腿從 180km 騎乘平順切換。", form_tip: "高步頻、小步幅，嚴格壓制開跑心率。", aid_station: "R1 站喝水並拿冰塊降溫。", common_mistake: "全馬前 3 km 跑太快，提早消耗寶貴肝醣。" },
+                    { range_label: "3.5–10.5", start_km: 3.5, end_km: 10.5, title: "第一圈：馬亨亨大道建立全馬節奏", tag: "Lap 1 巡航 · 7.0 km", pace_offset_sec: [0, 8], terrain: "第一圈馬亨亨大道折返，午後陽光強烈。", intensity: "進入全馬目標配速，每站必拿冰塊與海綿降溫。", form_tip: "放鬆雙肩，維持穩定有氧呼吸。", aid_station: "每 30 分鐘補充 30g 碳水與電解質水。", common_mistake: "忽略午後馬亨亨大道的熱輻射，沒有每站抓冰塊。" },
+                    { range_label: "10.5–21.1", start_km: 10.5, end_km: 21.1, title: "第二圈：半馬穩態與電解質守衛", tag: "Lap 2 半馬段 · 10.6 km", pace_offset_sec: [0, 10], terrain: "第二圈森林公園與馬亨亨大道往返，完成前半馬。", intensity: "穩守目標配速，利用森林公園樹蔭段回穩心率。", form_tip: "步幅不貪大，落地點保持在重心正下方。", aid_station: "持續按錶每 30 分鐘吃膠並補充 600mg+ 鈉/小時。", common_mistake: "半馬前停止吃能量膠，導致第三圈血糖驟降。" },
+                    { range_label: "21.1–31.6", start_km: 21.1, end_km: 31.6, title: "第三圈：傍晚降溫與防撞牆決戰", tag: "Lap 3 耐力防線 · 10.5 km", pace_offset_sec: [5, 18], terrain: "第三圈太陽漸落、氣溫轉涼，但雙腿進入 25–32 km 最沉重的撞牆期。", intensity: "只在補給站內快走 10 秒喝水吃膠，一出補給站立刻慢跑起來，絕不連續步行！", form_tip: "專注手肘擺動帶動 172+ 步頻。", aid_station: "使用咖啡因膠或可樂提振中樞神經。", common_mistake: "進站走路後拖延太久，雙腿冷卻後更跑不動。" },
+                    { range_label: "31.6–42.2", start_km: 31.6, end_km: 42.2, title: "第四圈：舊鐵道奔向鐵花村終點紅毯", tag: "Lap 4 榮耀衝線 · 10.6 km", pace_offset_sec: [-5, 15], terrain: "最後一圈森林公園與馬亨亨大道，轉入舊鐵道燈光廊道直奔鐵花村終點。", intensity: "穩守配速，最後 3 km 鐵道段享受全場歡呼漸進提速完賽！", form_tip: "抬頭挺胸，穩定擺臂衝線。", aid_station: "小口喝可樂維持血糖即可。", common_mistake: "最後一刻過度衝刺引發抽筋。" }
+                ]
+            };
+        }
+    }
+
+    // 4. IRONMAN 蘭卡威 226 (42.2km, 5段)
+    if (cid === "langkawi_226") {
+        return {
+            rationale: "AI 依蘭卡威全馬『MIEC 冷氣館出發 ＋ 機場外圍無遮蔭暴曬段與珍南海灘 2.5 圈』熱帶結構，將 42.2km 智慧切割為 5 段，特別針對冷氣房溫差轉換與兩次機場暴曬熱浪區制定降溫配速。",
+            segs: [
+                { range_label: "0–3", start_km: 0.0, end_km: 3.0, title: "出 MIEC 冷氣館溫差適應起跑", tag: "溫差轉換 · 3.0 km", pace_offset_sec: [12, 20], terrain: "由 MIEC 冷氣展覽館 T2 跑出戶外 33–34°C 熱帶高溫環境。", intensity: "比目標配速慢 15 秒/km，給心血管與排汗系統 15 分鐘適應冷氣房到酷熱戶外的劇烈溫差。", form_tip: "極小步幅、高步頻慢跑，切勿在剛出冷氣房覺得涼爽時衝刺。", aid_station: "出館第一站立刻拿冰水淋濕帽子與三鐵衣。", common_mistake: "在冷氣館換裝後覺得身體很涼，前 3 km 衝太快導致一進機場跑道瞬間熱衰竭。" },
+                { range_label: "3–14", start_km: 3.0, end_km: 14.0, title: "第一圈：機場跑道外圍暴曬與珍南海灘", tag: "Lap 1 抗熱巡航 · 11.0 km", pace_offset_sec: [0, 10], terrain: "繞行蘭卡威機場跑道外圍（全線無遮蔭、柏油熱輻射強）接往珍南海灘 (Cenang Beach)。", intensity: "看心率配速！在機場暴曬段主動放慢 5–10 秒/km，絕不讓心率突破閾值。", form_tip: "放鬆肩膀，每站必拿冰塊塞進衣領、後頸與手中握著降溫。", aid_station: "每 1.5–2 km 補給站必進，每小時補足 800ml+ 水分與 800mg+ 鈉。", common_mistake: "在機場跑道硬撐平路配速且跳過冰塊降溫。" },
+                { range_label: "14–26", start_km: 14.0, end_km: 26.0, title: "第二圈前段：海灘折返與電解質防抽筋", tag: "Lap 2 海灘巡航 · 12.0 km", pace_offset_sec: [3, 15], terrain: "珍南海灘折返並準備再次進入中段路線，高濕度 (85%+) 下排汗量極大。", intensity: "穩守有氧配速，若覺得胃部水聲晃動則放慢 10 秒讓血液流回腸胃幫助吸收。", form_tip: "維持 175 spm 輕快步頻，減少足底與小腿在熱柏油路上的停留時間。", aid_station: "按時吃能量膠配白開水，交替補充鹽錠或電解質飲。", common_mistake: "高溫下喝太多高濃度甜飲卻沒配白開水，引發胃脹氣想吐。" },
+                { range_label: "26–36", start_km: 26.0, end_km: 36.0, title: "第二圈後段：二度穿越機場熱浪防線", tag: "Lap 2 耐力守衛 · 10.0 km", pace_offset_sec: [8, 22], terrain: "全馬最艱難的 26–36 km，再次通過機場外圍熱浪區。", intensity: "採『補給站內快走 15 秒徹底淋冰水降溫 ➔ 出站立刻小碎步跑起來』策略，守住不崩盤。", form_tip: "把目標縮小到『只跑到下一個冰水桶』，用手臂擺動帶動雙腿。", aid_station: "補充可樂與冰水提振精神。", common_mistake: "在無遮蔭機場段停下來長距離散步，暴曬時間反而更長。" },
+                { range_label: "36–42.2", start_km: 36.0, end_km: 42.2, title: "最終半圈：轉入珍南海灘終點拱門", tag: "沙灘榮耀衝線 · 6.2 km", pace_offset_sec: [0, 15], terrain: "最後 6.2 km 轉入熱鬧的 Pantai Cenang 珍南海灘大街直奔海灘終點拱門。", intensity: "海風與觀眾歡呼聲中穩住步伐，享受最後一段路程迎向終點！", form_tip: "保持直立核心與流暢步頻。", aid_station: "最後補給站拿冰水淋臉，帥氣衝線！", common_mistake: "進沙灘終點前突然加速導致大腿抽筋。" }
+            ]
+        };
+    }
+
+    // 5. 短距離 51.5 標鐵 (<= 12km, 3段)
+    if (runKm <= 12) {
+        const r1 = Number((runKm * 0.20).toFixed(1));
+        const r2 = Number((runKm * 0.75).toFixed(1));
+        return {
+            rationale: `AI 依標準距離路跑 (${runKm}km) 節奏，將賽道精簡切割為 3 段（前 ${r1}km T2 轉換壓速 ➔ 中段 ${(r2-r1).toFixed(1)}km 閾值巡航 ➔ 最後 ${(runKm-r2).toFixed(1)}km 終點漸進衝刺）。`,
+            segs: [
+                { range_label: `0–${r1}`, start_km: 0.0, end_km: r1, title: "出 T2 轉換起跑壓速", tag: `轉換適應 · ${r1} km`, pace_offset_sec: [5, 12], terrain: `出 T2 轉換區前 ${r1} km。`, intensity: "比目標配速微慢 5–10 秒/km，讓雙腿適應地面衝擊。", form_tip: "高步頻 (178+ spm)、小步幅。", aid_station: "第一站喝水並淋水降溫。", common_mistake: "出 T2 第 1 km 衝太快導致第 3 km 就側腹痛或爆心率。" },
+                { range_label: `${r1}–${r2}`, start_km: r1, end_km: r2, title: "核心巡航與呼吸鎖定", tag: `主巡航段 · ${(r2-r1).toFixed(1)} km`, pace_offset_sec: [-2, 5], terrain: `第 ${r1}–${r2} km 賽道核心路段（總爬升約 ${Math.round(rEle)}m）。`, intensity: "鎖定目標配速穩定推進，遇緩坡維持步頻不硬跨大步。", form_tip: "肩膀放鬆、目光看前方 15m。", aid_station: "中段補給站補水或吃半包能量膠/運動飲料。", common_mistake: "中段被旁人帶亂呼吸節奏。" },
+                { range_label: `${r2}–${runKm}`, start_km: r2, end_km: runKm, title: "最後漸進加速衝線", tag: `終點衝刺 · ${(runKm-r2).toFixed(1)} km`, pace_offset_sec: [-10, 5], terrain: `最後 ${(runKm-r2).toFixed(1)} km 返回終點拱門。`, intensity: "若體感還有餘裕，每 km 可提速 5–10 秒全力奔向終點！", form_tip: "加大擺臂帶動雙腿步頻。", aid_station: "拿水漱口或淋頭即可，直奔終點！", common_mistake: "最後 300m 姿勢變形跨大步導致拉傷。" }
+            ]
+        };
+    }
+
+    // 6. 通用/自訂賽道：依爬升決定 4 段或 5 段
+    if (rEle <= 130) {
+        const rCuts = [0.0, Number((runKm * 0.14).toFixed(1)), Number((runKm * 0.50).toFixed(1)), Number((runKm * 0.82).toFixed(1)), Number(runKm.toFixed(1))];
+        return {
+            rationale: `AI 掃描本場路跑賽道 (${runKm}km / 爬升 ${Math.round(rEle)}m) 屬於平緩巡航型，自動將賽道精簡切割為 4 段：依序為出 T2 轉換起跑、前段穩定巡航、中後段抗熱耐力守衛與最後終點衝刺。`,
+            segs: [
+                { range_label: `${rCuts[0]}–${rCuts[1]}`, start_km: rCuts[0], end_km: rCuts[1], title: "出 T2 保守起跑轉換", tag: `轉換適應 · ${(rCuts[1]-rCuts[0]).toFixed(1)} km`, pace_offset_sec: [10, 15], terrain: "出 T2 轉換區前段，雙腿剛由騎車切換為跑步。", intensity: "比平路目標配速慢 10–15 秒/km，心率絕對先別衝上去。", form_tip: "步幅小、步頻高 (175–180 spm)，讓雙腿平順切換。", aid_station: "第一處補給站先喝水、拿海綿或冰塊降溫。", common_mistake: "被 T2 出發的人潮帶快，前 2 km 快了 20 秒/km 以上。" },
+                { range_label: `${rCuts[1]}–${rCuts[2]}`, start_km: rCuts[1], end_km: rCuts[2], title: "前半程穩定配速巡航", tag: `前段巡航 · ${(rCuts[2]-rCuts[1]).toFixed(1)} km`, pace_offset_sec: [-3, 6], terrain: `第 ${rCuts[1]}–${rCuts[2]} km 平緩巡航段。`, intensity: "進入平路目標配速，鎖定有氧呼吸與步頻節奏。", form_tip: "放鬆肩膀與雙手，落地點在身體正下方。", aid_station: "每 30 分鐘按時補充 30g 碳水（能量膠配白開水）。", common_mistake: "前半程覺得輕鬆而超速，埋下後半程掉速伏筆。" },
+                { range_label: `${rCuts[2]}–${rCuts[3]}`, start_km: rCuts[2], end_km: rCuts[3], title: "中後段抗熱與步頻守衛", tag: `耐力考驗 · ${(rCuts[3]-rCuts[2]).toFixed(1)} km`, pace_offset_sec: [0, 12], terrain: `第 ${rCuts[2]}–${rCuts[3]} km 體能撞牆與氣溫考驗區。`, intensity: "守住目標配速上限，每過補給站強制淋冰水降核心體溫。", form_tip: "專注維持 175+ 步頻，步頻不掉、配速就不會崩盤。", aid_station: "折返點補給站補充足夠鈉與咖啡因膠/可樂。", common_mistake: "心態鬆懈開始走路，一旦停下就很難重新跑起來。" },
+                { range_label: `${rCuts[3]}–${rCuts[4]}`, start_km: rCuts[3], end_km: rCuts[4], title: "最後餘裕漸進加速衝線", tag: `終點衝刺 · ${(rCuts[4]-rCuts[3]).toFixed(1)} km`, pace_offset_sec: [-10, 10], terrain: `最後 ${(rCuts[4]-rCuts[3]).toFixed(1)} km 奔向終點拱門。`, intensity: "若呼吸與雙腿還有餘裕，每 km 可快 5–10 秒；若無餘裕就穩守目標配速到底。", form_tip: "擺臂帶動加速，眼睛看前方的下一個目標。", aid_station: "最後補給站拿水漱口或淋頭即可，穩定迎接終點！", common_mistake: "最後 500m 突然猛衝導致終點前小腿劇烈抽筋。" }
+            ]
+        };
+    } else {
+        const rCuts = [0.0, Number((runKm * 0.12).toFixed(1)), Number((runKm * 0.35).toFixed(1)), Number((runKm * 0.60).toFixed(1)), Number((runKm * 0.84).toFixed(1)), Number(runKm.toFixed(1))];
+        return {
+            rationale: `AI 掃描本場路跑賽道 (${runKm}km / 爬升 ${Math.round(rEle)}m) 具有明顯坡度起伏，自動將賽道切割為 5 段：依序為 T2 轉換起跑、前段爬坡調節、下坡護腿轉換、中後段平路耐力與最後衝刺段。`,
+            segs: [
+                { range_label: `${rCuts[0]}–${rCuts[1]}`, start_km: rCuts[0], end_km: rCuts[1], title: "保守起跑轉換", tag: `轉換適應 · ${(rCuts[1]-rCuts[0]).toFixed(1)} km`, pace_offset_sec: [10, 15], terrain: "出 T2 轉換區前段，雙腿剛由騎車切換為跑步。", intensity: "比平路目標配速慢 10–15 秒/km，心率絕對先別衝上去。", form_tip: "步幅小、步頻高 (175–180 spm)，讓雙腿平順切換。", aid_station: "第一處補給站先喝水、拿海綿或冰塊降溫。", common_mistake: "被 T2 出發的人潮帶快，前 2 km 快了 20 秒/km 以上。" },
+                { range_label: `${rCuts[1]}–${rCuts[2]}`, start_km: rCuts[1], end_km: rCuts[2], title: "爬坡段看心率調強度", tag: `爬升調節 · ${(rCuts[2]-rCuts[1]).toFixed(1)} km`, pace_offset_sec: [20, 45], terrain: `第 ${rCuts[1]}–${rCuts[2]} km 主要爬升起伏路段。`, intensity: "看心率與呼吸，不死守平路配速；上坡每 km 慢 20–45 秒完全正常。", form_tip: "身體微前傾、縮短步幅、手肘往後擺動帶動步伐。", aid_station: "過坡頂補給站務必補水與電解質。", common_mistake: "上坡硬維持平路配速導致心率過早突破閾值。" },
+                { range_label: `${rCuts[2]}–${rCuts[3]}`, start_km: rCuts[2], end_km: rCuts[3], title: "下坡與折返護腿跑姿", tag: `下坡護腿 · ${(rCuts[3]-rCuts[2]).toFixed(1)} km`, pace_offset_sec: [-8, 5], terrain: `第 ${rCuts[2]}–${rCuts[3]} km 下坡與折返轉換路段。`, intensity: "順著重力自然滑落，不跨大步煞車。", form_tip: "落地點在身體重心正下方，減少股四頭肌離心收縮衝擊。", aid_station: "小口喝水，按時補充跑步能量膠。", common_mistake: "下坡跨大步腳跟煞車導致大腿前側提早抽筋。" },
+                { range_label: `${rCuts[3]}–${rCuts[4]}`, start_km: rCuts[3], end_km: rCuts[4], title: "中後段平路配速守衛", tag: `耐力巡航 · ${(rCuts[4]-rCuts[3]).toFixed(1)} km`, pace_offset_sec: [0, 12], terrain: `第 ${rCuts[3]}–${rCuts[4]} km 中後段耐力考驗區。`, intensity: "回到目標配速上限，每站抓冰塊降溫並可補充咖啡因提振精神。", form_tip: "專注維持 175+ 步頻，步頻不掉、配速就不會崩盤。", aid_station: "每 30 分鐘補充碳水與足量鈉離子。", common_mistake: "心態鬆懈開始走路，一旦停下就很難重新跑起來。" },
+                { range_label: `${rCuts[4]}–${rCuts[5]}`, start_km: rCuts[4], end_km: rCuts[5], title: "有餘裕才漸進加速", tag: `最後衝刺 · ${(rCuts[5]-rCuts[4]).toFixed(1)} km`, pace_offset_sec: [-10, 10], terrain: `最後 ${(rCuts[5]-rCuts[4]).toFixed(1)} km 回程奔向終點拱門。`, intensity: "若呼吸與雙腿還有餘裕，每 km 可快 5–10 秒；若無餘裕就穩守目標配速到底。", form_tip: "擺臂帶動加速，眼睛看前方的下一個目標。", aid_station: "最後補給站拿水漱口或淋頭即可，穩定迎接終點！", common_mistake: "最後 500m 突然猛衝導致終點前小腿劇烈抽筋。" }
+            ]
+        };
+    }
+}
+
+
 function buildDynamicPlaybookClient(course, swimKm, bikeKm, runKm, neuSwimMins, neuBikeMins, neuRunMins, effFtp, ifRatio, tempC, humidityPct, windSpeedKmh, windGustKmh, windDir) {
     const swimM = Math.round(swimKm * 1000);
     const secPer100m = (neuSwimMins * 60.0) / (swimKm * 10.0);
@@ -1115,18 +1318,9 @@ function buildDynamicPlaybookClient(course, swimKm, bikeKm, runKm, neuSwimMins, 
     const climbCapW = Math.round(effFtp * Math.min(0.88, ifRatio + 0.10));
     const headwindMinW = Math.round(targetNp * 0.96);
 
-    let bikeSegsRaw = course.bike_segments_template;
-    if (!bikeSegsRaw || Math.abs(bikeKm - 90) > 5) {
-        const bCuts = [0, Math.round(bikeKm * 0.17), Math.round(bikeKm * 0.39), Math.round(bikeKm * 0.56), Math.round(bikeKm * 0.72), Math.round(bikeKm * 0.91), Math.round(bikeKm)];
-        bikeSegsRaw = [
-            { range_label: `${bCuts[0]}–${bCuts[1]}`, start_km: bCuts[0], end_km: bCuts[1], title: "穩定出發", np_pct_range: [0.90, 0.96], terrain: `前 ${bCuts[1]} km 出轉換區熱身路段。`, tactics: "剛上車心率偏高，前 15 分鐘先把呼吸放慢、功率壓在目標下緣。", aid_station: "出 T1 後第 10–15 分鐘先喝第一口水。", common_mistake: "剛上車覺得雙腿有力就猛衝超過目標功率 20W 以上。" },
-            { range_label: `${bCuts[1]}–${bCuts[2]}`, start_km: bCuts[1], end_km: bCuts[2], title: "去程巡航", np_pct_range: [0.96, 1.01], terrain: `第 ${bCuts[1]}–${bCuts[2]} km 主幹道巡航段。`, tactics: "保持穩定空力姿勢與 85–90 rpm 踏頻，每 20 分鐘固定補給。", aid_station: "經過第一、二處單車補給站補充水壺。", common_mistake: "只顧跟著快車集團拉扯，忽略了自己的功率錶。" },
-            { range_label: `${bCuts[2]}–${bCuts[3]}`, start_km: bCuts[2], end_km: bCuts[3], title: "折返與爬升段", np_pct_range: [1.00, 1.03], terrain: `第 ${bCuts[2]}–${bCuts[3]} km 折返點或主要爬升區。`, tactics: "上坡提早換輕齒比，瓦數絕對不超過爬坡上限；折返減速過彎後漸進加速。", aid_station: "折返點前後補給站確認水壺存量。", common_mistake: "上坡硬踩重齒比衝破閾值，提早消耗路跑肝醣。" },
-            { range_label: `${bCuts[3]}–${bCuts[4]}`, start_km: bCuts[3], end_km: bCuts[4], title: "回程定瓦巡航", np_pct_range: [0.98, 1.01], terrain: `第 ${bCuts[3]}–${bCuts[4]} km 回程長距離穩定段。`, tactics: "順風趁機吃能量膠與喝水，逆風則握下把或收窄手肘守住瓦數。", aid_station: "按時完成中段能量膠與鹽錠補充。", common_mistake: "中後段忘記喝水導致核心體溫上升、心率漂移。" },
-            { range_label: `${bCuts[4]}–${bCuts[5]}`, start_km: bCuts[4], end_km: bCuts[5], title: "後段抗風與丘陵", np_pct_range: [0.95, 1.00], terrain: `第 ${bCuts[4]}–${bCuts[5]} km 體能考驗與丘陵段。`, tactics: "雙腿開始疲勞時，專注維持圓滑踩踏，不與逆風硬拚。", aid_station: "最後一處單車補給站補水。", common_mistake: "為了維持帳面時速而在逆風段硬踩超標。" },
-            { range_label: `${bCuts[5]}–${bCuts[6]}`, start_km: bCuts[5], end_km: bCuts[6], title: "準備 T2 轉換", np_pct_range: [0.82, 0.90], terrain: `最後 ${bCuts[6] - bCuts[5]} km 滑回 T2 轉換區。`, tactics: "主動降瓦 10–15%、拉高踏頻至 90 rpm 活絡下肢；最後 15 分鐘少吃固體食物讓胃排空。", aid_station: "進 T2 轉換區前減速慢行。", common_mistake: "一路重踩衝進 T2，一下車雙腿僵硬抽筋。" }
-        ];
-    }
+    const bikeSegObj = aiSegmentBikeCourseClient(course, bikeKm, windDir, windSpeedKmh, climbCapW);
+    const bikeSegsRaw = bikeSegObj.segs;
+    const bikeSegRationale = bikeSegObj.rationale;
 
     const bikeSegments = bikeSegsRaw.map(seg => {
         const [loPct, hiPct] = seg.np_pct_range;
@@ -1153,18 +1347,9 @@ function buildDynamicPlaybookClient(course, swimKm, bikeKm, runKm, neuSwimMins, 
     const avgRunSecPerKm = (neuRunMins * 60.0) / runKm;
     const flatBaseSecPerKm = Math.max(210.0, avgRunSecPerKm - ((course.run_elevation_m || 0) / 100.0) * 8.0);
 
-    let runSegsRaw = course.run_segments_template;
-    if (!runSegsRaw || Math.abs(runKm - 21.1) > 3) {
-        const rCuts = [0.0, Number((runKm * 0.10).toFixed(1)), Number((runKm * 0.28).toFixed(1)), Number((runKm * 0.45).toFixed(1)), Number((runKm * 0.68).toFixed(1)), Number((runKm * 0.82).toFixed(1)), Number(runKm.toFixed(1))];
-        runSegsRaw = [
-            { range_label: `${rCuts[0]}–${rCuts[1]}`, start_km: rCuts[0], end_km: rCuts[1], title: "保守起跑", tag: `轉換適應 · ${(rCuts[1]-rCuts[0]).toFixed(1)} km`, pace_offset_sec: [10, 15], terrain: "出 T2 轉換區前段，雙腿剛由騎車切換為跑步。", intensity: "比平路目標配速慢 10–15 秒/km，心率絕對先別衝上去。", form_tip: "步幅小、步頻高 (175–180 spm)，讓雙腿平順切換。", aid_station: "第一處補給站先喝水、拿海綿或冰塊降溫。", common_mistake: "被 T2 出發的人潮帶快，前 2 km 快了 20 秒/km 以上。" },
-            { range_label: `${rCuts[1]}–${rCuts[2]}`, start_km: rCuts[1], end_km: rCuts[2], title: "依坡度調整強度", tag: `前段爬升/節奏 · ${(rCuts[2]-rCuts[1]).toFixed(1)} km`, pace_offset_sec: (course.run_elevation_m || 0) > 180 ? [15, 35] : [0, 8], terrain: `第 ${rCuts[1]}–${rCuts[2]} km 賽道前段起伏區。`, intensity: "看心率與呼吸，不死守配速；遇上坡縮短步幅維持穩定出力。", form_tip: "身體微前傾、手肘往後擺動帶動步伐。", aid_station: "經過 R2/R3 補給站固定補水與電解質。", common_mistake: "上坡硬維持平路配速導致心率過早突破閾值。" },
-            { range_label: `${rCuts[2]}–${rCuts[3]}`, start_km: rCuts[2], end_km: rCuts[3], title: "下坡與折返保持跑姿", tag: `中前段 · ${(rCuts[3]-rCuts[2]).toFixed(1)} km`, pace_offset_sec: [-5, 5], terrain: `第 ${rCuts[2]}–${rCuts[3]} km 下坡或折返轉換路段。`, intensity: "進入平順巡航節奏，下坡不跨大步煞車。", form_tip: "落地點在身體重心正下方，減少股四頭肌離心衝擊。", aid_station: "小口喝水，按時補充第一份跑步能量膠。", common_mistake: "下坡跨大步腳跟煞車導致大腿前側提早僵硬。" },
-            { range_label: `${rCuts[3]}–${rCuts[4]}`, start_km: rCuts[3], end_km: rCuts[4], title: "進入穩定配速", tag: `中段巡航 · ${(rCuts[4]-rCuts[3]).toFixed(1)} km`, pace_offset_sec: [-3, 7], terrain: `第 ${rCuts[3]}–${rCuts[4]} km 核心平路巡航段。`, intensity: "鎖定平路目標配速，專心執行呼吸與補水節奏。", form_tip: "放鬆肩膀，每過一個補給站就用冷水淋頭降核心體溫。", aid_station: "每 30 分鐘補充 30g 碳水（能量膠配白開水）。", common_mistake: "正午氣溫升高卻只顧跑、沒拿冰塊降溫導致心率漂移。" },
-            { range_label: `${rCuts[4]}–${rCuts[5]}`, start_km: rCuts[4], end_km: rCuts[5], title: "檢查剩餘體力", tag: `中後段耐力考驗 · ${(rCuts[5]-rCuts[4]).toFixed(1)} km`, pace_offset_sec: [0, 12], terrain: `第 ${rCuts[4]}–${rCuts[5]} km 體能撞牆考驗區。`, intensity: "守住目標配速上限，可補充咖啡因膠或可樂提振精神。", form_tip: "專注維持 175+ 步頻，步頻不掉、配速就不會崩盤。", aid_station: "折返關門點補給站，補充足夠鈉與水分防抽筋。", common_mistake: "心態鬆懈開始走路，一旦停下就很難重新跑起來。" },
-            { range_label: `${rCuts[5]}–${rCuts[6]}`, start_km: rCuts[5], end_km: rCuts[6], title: "有餘裕才加速", tag: `最後衝刺 · ${(rCuts[6]-rCuts[5]).toFixed(1)} km`, pace_offset_sec: [-10, 10], terrain: `最後 ${(rCuts[6]-rCuts[5]).toFixed(1)} km 回程奔向終點拱門。`, intensity: "若呼吸與雙腿還有餘裕，每 km 可快 5–10 秒；若無餘裕就穩守目標配速到底。", form_tip: "擺臂帶動加速，眼睛看前方的下一個目標。", aid_station: "最後補給站拿水漱口或淋頭即可，穩定迎接終點！", common_mistake: "最後 500m 突然猛衝導致終點前小腿劇烈抽筋。" }
-        ];
-    }
+    const runSegObj = aiSegmentRunCourseClient(course, runKm);
+    const runSegsRaw = runSegObj.segs;
+    const runSegRationale = runSegObj.rationale;
 
     const runSegments = runSegsRaw.map(seg => {
         const [offLo, offHi] = seg.pace_offset_sec;
@@ -1250,7 +1435,8 @@ function buildDynamicPlaybookClient(course, swimKm, bikeKm, runKm, neuSwimMins, 
             buoy_splits: buoySplits
         },
         bike_plan: {
-            headline: `六段騎法，前 ${bikeSegments[0].end_km} km 與最後 ${Math.round(bikeKm - bikeSegments[bikeSegments.length - 1].start_km)} km 都要收。`,
+            headline: `AI 依賽道地形切為 ${bikeSegments.length} 段騎法，前 ${bikeSegments[0].end_km} km 與最後 ${Math.round(bikeKm - bikeSegments[bikeSegments.length - 1].start_km)} km 都要收。`,
+            segmentation_rationale: bikeSegRationale,
             wind_headline: "環境變了，守住功率，不守速度。",
             ftp_w: Math.round(effFtp),
             target_if: Number(ifRatio.toFixed(2)),
@@ -1267,7 +1453,8 @@ function buildDynamicPlaybookClient(course, swimKm, bikeKm, runKm, neuSwimMins, 
             }
         },
         run_plan: {
-            headline: "把平路配速，換成賽道每一段的配速。",
+            headline: `AI 依賽道地形切為 ${runSegments.length} 段配速，把平路配速換成每一段的實戰配速。`,
+            segmentation_rationale: runSegRationale,
             flat_base_pace: fmtSecToMMSS(flatBaseSecPerKm),
             terrain_est_time: fmtMMSS(neuRunMins),
             segments: runSegments

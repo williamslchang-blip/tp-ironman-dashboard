@@ -590,7 +590,7 @@ function renderPredictionResult(res, course) {
     const sub3 = document.getElementById('navSubStep3');
     if (sub3) sub3.textContent = `中性預估：${res.predictions.neutral.mid} (${res.predictions.neutral.range})`;
     const sub4 = document.getElementById('navSubStep4');
-    if (sub4) sub4.textContent = `單車 NP ${res.playbook?.bike_plan?.target_np_w || '--'}W｜六段攻略與補給`;
+    if (sub4) sub4.textContent = `單車 NP ${res.playbook?.bike_plan?.target_np_w || '--'}W｜AI 分段攻略與補給`;
 
     const badgesEl = document.getElementById('activeModelsBadges');
     badgesEl.innerHTML = conf.active_models.map(m => `<span class="model-badge">✓ ${m}</span>`).join('');
@@ -864,18 +864,23 @@ function renderPlaybookUI(res, course) {
         `;
         const splitBoxes = sw.buoy_splits.map(b => `
             <div class="buoy-box">
-                <div class="b-label">${b.mark} 通過時間</div>
-                <div class="b-val" style="color:#E2E8F0;">${b.split_time}</div>
+                <div class="b-label">${b.mark || b.name} 通過時間</div>
+                <div class="b-val" style="color:#E2E8F0;">${b.split_time || b.pass_time}</div>
             </div>
         `).join('');
         buoyGridEl.innerHTML = baseBoxes + splitBoxes;
     }
 
     // ---------------------------------------------------------
-    // 02. 單車四個核心數字、六段互動等高線與車錶設定
+    // 02. 單車四個核心數字、AI 動態分段等高線與車錶設定
     // ---------------------------------------------------------
     const bk = pb.bike_plan;
     document.getElementById('pbBikeHeadline').textContent = bk.headline;
+
+    const bkRationaleEl = document.getElementById('pbBikeAiSegRationale');
+    if (bkRationaleEl) {
+        bkRationaleEl.innerHTML = `🧠 <strong>AI 賽道分段決策（共切為 ${bk.segments.length} 段）</strong>：${bk.segmentation_rationale || '依據本場賽道距離、海拔起伏、折返點與風向特徵自動切割最佳功率執行區間。'}`;
+    }
 
     const bkMetricsEl = document.getElementById('pbBikeFourMetrics');
     if (bkMetricsEl) {
@@ -883,7 +888,7 @@ function renderPlaybookUI(res, course) {
             <div class="pb-metric-card">
                 <div class="m-tag">NP · 標準化功率</div>
                 <div class="m-big">${bk.target_np_w} W</div>
-                <div class="m-desc">最能代表身體真實代謝負荷；本站六段配瓦以它為主。</div>
+                <div class="m-desc">最能代表身體真實代謝負荷；本場 AI ${bk.segments.length} 段配瓦以它為主。</div>
             </div>
             <div class="pb-metric-card">
                 <div class="m-tag">AP · 預估平均功率</div>
@@ -937,10 +942,15 @@ function renderPlaybookUI(res, course) {
     }
 
     // ---------------------------------------------------------
-    // 03. 路跑四大地形守則與六段互動配速
+    // 03. 路跑四大地形守則與 AI 動態分段配速
     // ---------------------------------------------------------
     const rn = pb.run_plan;
     document.getElementById('pbRunHeadline').textContent = rn.headline;
+
+    const rnRationaleEl = document.getElementById('pbRunAiSegRationale');
+    if (rnRationaleEl) {
+        rnRationaleEl.innerHTML = `🧠 <strong>AI 路跑分段決策（共切為 ${rn.segments.length} 段）</strong>：${rn.segmentation_rationale || '依據本場路跑賽道坡度起伏、圈數與折返點自動切割最佳配速執行區間。'}`;
+    }
 
     const rnRulesEl = document.getElementById('pbRunFourRules');
     if (rnRulesEl) {
@@ -1382,12 +1392,14 @@ function renderRaceSummaryAndLineCard(res, course) {
         ``,
         `🏊 【01 游泳配速與浮標 (${sw.target_pace_100m}/100m)】`,
         `  • 口訣：${sw.headline}`,
-        `  • 浮標通過：${sw.buoy_splits.map(b => `${b.mark}=${b.split_time}`).join(' ｜ ')}`,
+        `  • 浮標通過：${sw.buoy_splits.map(b => `${b.mark || b.name}=${b.split_time || b.pass_time}`).join(' ｜ ')}`,
         ``,
-        `🚴 【02 單車六段功率計畫 (FTP ${bk.ftp_w}W / 目標 NP ${bk.target_np_w}W / IF ${bk.target_if})】`,
+        `🚴 【02 單車騎法與功率計畫 (AI 依地形切為 ${bk.segments.length} 段｜FTP ${bk.ftp_w}W / 目標 NP ${bk.target_np_w}W / IF ${bk.target_if})】`,
+        `  • 分段邏輯：${bk.segmentation_rationale || ''}`,
         bikeSegLines,
         ``,
-        `🏃 【03 路跑六段配速計畫 (平路基準 ${rn.flat_base_pace}/km)】`,
+        `🏃 【03 路跑地形與配速計畫 (AI 依地形切為 ${rn.segments.length} 段｜平路基準 ${rn.flat_base_pace}/km)】`,
+        `  • 分段邏輯：${rn.segmentation_rationale || ''}`,
         runSegLines,
         ``,
         `🍌 【04 照時鐘吃：補給與防中暑帳本】`,
