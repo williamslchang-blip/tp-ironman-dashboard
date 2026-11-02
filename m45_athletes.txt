@@ -1,0 +1,224 @@
+P10: 1835 LIU HUA CHEN 劉華成 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1836 Yiwei Pai 白逸維 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1837 Tsung han Liu 劉宗翰 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P10: 1838 Chia Yao Tsao 曹家耀 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1839 Chien An Chen 陳建安 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1840 Kuo Fu Cheng 鄭國富 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1841 CHI CHANG CHEN 陳歧菖 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1842 Chang-Hsien Yu 游昌憲 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1843 KuoChun Hua 華國鈞 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1844 Jiun Shiun Chen 陳俊勳 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1845 SHIHKUO LIN 世國 林 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1846 SHIH LEI LEE 李世雷 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1847 Hsien chiang Chiu 邱顯強 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1848 Meng-Tse Cheng 鄭孟哲 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1849 Ryuichiro Motoki 本木隆一郎 M45-49 JPN Open Division (not eligible for age group awards or World Championship slots)
+P10: 1850 SHEN KAI CHIANG 江申塏 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1851 Ji hui liu 劉繼輝 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1852 Yi Hsien Li 李奕賢 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1853 Sheng che Su 蘇聖哲 M45-49 TWN AWA Bronze Age group for Awards or World Championship Slots
+P10: 1854 Hung Kuen Chuang 莊宏堃 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1855 Guan qi huang 黃冠錡 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1856 Marcus M 江忠益 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1857 Chen Chi Chiu 邱楨琦 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1858 Wen-Chung Hu 胡文忠 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1859 CHIH WEI TSAO 曹志瑋 M45-49 TWN AWA Silver Age group for Awards or World Championship Slots
+P10: 1860 Sheng de Huang 黃勝德 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1861 Takuma GUNJI 郡司　拓磨 M45-49 JPN Open Division (not eligible for age group awards or World Championship slots)
+P10: 1862 PI-LIN HSU 許璧麟 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P10: 1863 Cheng kai Cheng 鄭丞凱 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1864 chih liang Chiang 江志亮 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1865 WEI CHIH CHAO M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1866 Hung I Chien 錢泓邑 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P10: 1867 Zhe ming Yang 楊哲銘 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1868 TSUNG WEI TSAI 蔡淙緯 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P10: 1869 Sijie Leaw 刘思捷 M45-49 SGP AWA Bronze Age group for Awards or World Championship Slots
+P10: 1870 Yu Jen Lee 李育仁 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1871 Gwenaël Marchand M45-49 FRA AWA Gold Age group for Awards or World Championship Slots
+P10: 1872 Chia-Ming Hung 洪嘉明 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1873 Yang-Ho Hsu 徐揚和 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1874 HAN-CHUNG CHOU 周漢忠 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1875 Ching Chi Hsu 許清吉 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1876 Yen Che Huang 黃彥哲 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P10: 1877 chunwen Chen 鄭俊汶 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1878 Jean-Yu Gu 古政育 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1879 Wai kit Woo 胡偉傑 M45-49 HKG Age group for Awards or World Championship Slots
+P10: 1880 Jui Wei Chien 簡瑞偉 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1881 SHIHWEI CHEN 陳仕偉 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1882 CHIEN-MIN LI 李建民 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1883 CHUN TE WU 吳俊德 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1884 Yi-Wen Liu 劉議文 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1885 Guan yi Wu 吳冠億 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1886 Chunkai Chen 陳鈞凱 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1887 Yu-Chen Liu 劉昱辰 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1888 HSIU HSIEN WU 伍修賢 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1889 WEIKAI CHEN 陳威凱 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1890 Chih Chien Cheng 鄭 智謙 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1891 Chun-Min Wang 王俊閔 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1892 Boonpin Ong M45-49 SGP Age group for Awards or World Championship Slots
+P10: 1893 Mikhail Bobylev M45-49 USA AWA Silver Age group for Awards or World Championship Slots
+P10: 1894 Gary Huang 黃耕翊 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1895 Jeff Lunz M45-49 USA Age group for Awards or World Championship Slots
+P10: 1896 Chichong Chen 陳啓中 M45-49 TWN AWA Bronze Age group for Awards or World Championship Slots
+P10: 1897 Brian Hsueh 薛玉龍 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1898 Sung ching Li 李松青 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1899 Sheng-Fong Chiang 江昇峰 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1900 Chao hsuan Wei 魏照軒 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1901 Chao Jan Hsieh 謝超然 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1902 Todd Milliner M45-49 AUS AWA Gold Age group for Awards or World Championship Slots
+P10: 1903 YU-TING CHOU 周育廷 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P10: 1904 Chung Cheng Lin 林中正 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1905 Tzu Tai Huang 黃子泰 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1906 Xiao xian Chu 朱效賢 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1907 Yi-Hsuan Hsieh 謝易軒 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1908 HSING YUAN YAO 姚星源 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1909 Chang rong Lin 林長榮 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P10: 1910 YiChi Chang 張義棋 M45-49 TWN Age group for Awards or World Championship Slots
+P10: 1911 Carl Blundon 卡爾 M45-49 CAN Age group for Awards or World Championship Slots
+P11: 1912 Wayne Hung 洪俊瑋 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P11: 1913 CHIA JUNG CHANG 張家榮 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1914 Tsung Li Kuo 郭宗利 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1915 HsuanWen Huang 黃宣文 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1916 Chihfu Chang 張志富 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1917 Jenson Chang 張建聖 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1918 SHI-JU Chen 陳世駒 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1919 Guo-Tung Wang 王國同 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P11: 1920 Robert Wang 王政裕 M45-49 TWN AWA Bronze Age group for Awards or World Championship Slots
+P11: 1921 Guo rong Pan 潘國榮 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P11: 1922 Akanit Kanjanaviroj M45-49 THA Age group for Awards or World Championship Slots
+P11: 1923 TUNG CHUAN CHENG 鄭涷筌 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P11: 1924 Yen Cheng Huang 黃雁鉦 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1925 CHUN-YU LIN 林君宇 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1926 Chia-Chun Chen 陳嘉俊 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1927 Ted Huang 黃子豪 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1928 DONGYEN LEE 李東諺 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1929 Tzeming Chang 張哲銘 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1930 LIN PO CHOU 林柏州 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1931 Yi Hsiung Lin 林義雄 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1932 CHI HAO HSU 徐志灝 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1933 GY Huang 黃致諭 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1934 ChienChia Chiu 邱建嘉 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P11: 1935 Powei Chu 朱博瑋 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1936 Fu-Chia Chen 陳复嘉 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1937 HSIEN HSIU CHEN 陳賢修 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P11: 1938 SHUFAN LIN 林書帆 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1939 Jiewei Sun 孫介偉 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1940 Wenhung Yang 楊文宏 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1941 YUCHUEH LEE 李宇爵 M45-49 PHL Age group for Awards or World Championship Slots
+P11: 1942 Xuan hao Mi 米軒皞 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1943 Lee Da-Kang M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1944 CHIHCHI CHIEN 簡智祺 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1945 YOSHIHIRO WADA M45-49 JPN AWA Silver Age group for Awards or World Championship Slots
+P11: 1946 Anthony  Feoutis 費安東 M45-49 FRA Age group for Awards or World Championship Slots
+P11: 1947 HSU PAN 潘序 M45-49 TWN AWA Bronze Age group for Awards or World Championship Slots
+P11: 1948 Taiken Sasaki 佐々木 太建 M45-49 JPN Age group for Awards or World Championship Slots
+P11: 1949 CHIHHSIANG YIN 鄞志祥 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1950 Jen-Chieh LIAO 廖仁傑 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1951 YOSHIKI KATOU 加藤　良生 M45-49 JPN Open Division (not eligible for age group awards or World Championship slots)
+P11: 1952 Hideto Takekida 武木田　秀人 M45-49 JPN Age group for Awards or World Championship Slots
+P11: 1953 Zhang Ling 张令 M45-49 CHN Age group for Awards or World Championship Slots
+P11: 1954 chien chou 周頡 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1955 HON PHIN WONG 黃漢斌 M45-49 MYS Age group for Awards or World Championship Slots
+P11: 1956 Yi Hung Sun 孫一弘 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1957 Chung-Yi Chuang 莊忠益 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1958 Hsiao Ming Liao 廖曉明 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1959 Sandro Berger 裴山德 M45-49 CHE Age group for Awards or World Championship Slots
+P11: 1960 Kuo-Lung Yao 姚國隆 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1961 Wei Jie SU 蘇偉傑 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1962 Tony Ho 何馴申 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1963 Yi Chuan Li 李易全 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1964 Chiung Ting Liu 劉炯廷 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1965 Si-Yan Kuo 郭思延 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1966 Tsungying Chung 鍾宗穎 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1967 Chien Wei Jian 簡政偉 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1968 Gary Chang 張藝騰 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1969 CHIH Yi Wang 王智億 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1970 HUAN-TANG WANG 王煥棠 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P11: 1971 Li tsang yu Li 李蒼瑀 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1972 JUI HSIOU FAN 范睿修 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1973 Hsiyen Lu 呂希言 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1974 TZUNG SHIN GUO 郭宗欣 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1975 Jun liang lin 林俊良 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1976 Brian WU 吳錫豐 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1977 WEI LIN HUNG 洪維麟 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1978 Wei Jie Tzeng 曾唯傑 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1979 Wei ren Lu 盧威任 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1980 LOK HEI NELSON MO 毛樂熙 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1981 KENG YU KO M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P11: 1982 Alan Liao 廖國宏 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1983 Hsing Kuei Huang 黃興貴 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1984 Chin Yu Wang 王金裕 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1985 Hung Tetsung 洪德宗 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1986 Yinghan Tsai 蔡頴瀚 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1987 Shi qing Fu 傅士卿 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P11: 1988 Chih Chiang Hu 胡智強 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1989 Andrei Covalenco M45-49 MDA AWA Bronze Age group for Awards or World Championship Slots
+P11: 1990 CHING PIAO LEE 李錦標 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1991 Michael Hsu 徐同廣 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1992 Zong Shen Chen 陳宗陞 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1993 Szu-Yan Kuo 郭思延 M45-49 TWN Age group for Awards or World Championship Slots
+P11: 1994 Shengpao Wang 王勝保 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 1995 Sheng-Kuang Chung 鍾勝光 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 1996 JEN WEI PAN 潘人維 M45-49 TWN AWA Bronze Age group for Awards or World Championship Slots
+P12: 1997 Jason Yu 余正舜 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 1998 Yen Liang Chen 陳彥良 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P12: 1999 Jose Luis Contreras M45-49 MEX Age group for Awards or World Championship Slots
+P12: 2000 Jin Jun Kuo 郭晉均 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2001 SHIH-WEI LIU 劉世偉 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2002 CHIEN HUI LIN 林虔輝 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2003 hidekazu matsubara 松原秀和 M45-49 JPN Open Division (not eligible for age group awards or World Championship slots)
+P12: 2004 Ben Allison M45-49 AUS Age group for Awards or World Championship Slots
+P12: 2005 Chieh Hsueh Lee 李杰學 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2006 Yen-Chi Chiang 江衍吉 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2007 Chieh-Jen Lee 李傑仁 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P12: 2008 David Hwang 黃冠曄 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2009 HAO CHUNG YANG 楊皓中 M45-49 TWN AWA Bronze Age group for Awards or World Championship Slots
+P12: 2010 YUJEN TSENG 曾裕仁 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2011 Scott Chen 陳守龍 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2012 Chun Pong David Li 李振邦 M45-49 HKG Age group for Awards or World Championship Slots
+P12: 2013 ZHENG-HONG LI 李政宏 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2014 Kuan-Yu Shih 施冠宇 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2015 SHULIEN CHANG 張書濂 M45-49 TWN AWA Bronze Age group for Awards or World Championship Slots
+P12: 2016 Jay Tsao 曹宗傑 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2017 Lu Sheng tser 呂聖哲 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2018 Kuang lin Chen 陳光霖 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2019 Oriol Ayne Rovira M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2020 Chih-Yuan Huang 黃致遠 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2021 CHIHHAO KAO 高志豪 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2022 Wei Chiang Tseng 曾威強 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2023 Jui Cheng Wei 魏睿呈 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2024 Chien Hsiang Wang 王建翔 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2025 CHIANG KUEIWEI 江桂蔚 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2026 Cheng rui Chang 張成瑞 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2027 WEN-HSIN HSU 許文欣 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2028 YUNGTANG CHO 卓永堂 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2029 Albert Chen 陳永專 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2030 Bocheng Huang 黃柏誠 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2031 Ching Li Huang 黃經理 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2032 Hsuan Ming Chen 陳宣名 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P12: 2033 Hung Chin Wu 吳鴻欽 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2034 José Ignacio Rodrí guez Herrera M45-49 CRI Age group for Awards or World Championship Slots
+P12: 2035 Chi Fai Tam 譚志輝 M45-49 HKG Age group for Awards or World Championship Slots
+P12: 2036 Harry Chen 陳思豪 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2037 Vitaya Likittanawong 李培龙 M45-49 THA Age group for Awards or World Championship Slots
+P12: 2038 CHENG-CHIH TSAI 蔡承志 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2039 Jing hau Tsai 蔡景昊 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2040 Jeremy (Chia Jing) Tung 董家錦 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2041 DANIEL ALEXANDER CROMHOUT M45-49 ZAF Age group for Awards or World Championship Slots
+P12: 2042 Pedro Calderón M45-49 PRI Open Division (not eligible for age group awards or World Championship slots)
+P12: 2043 Yu xi Lee 李玉璽 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2044 I-Fang Liu 劉怡坊 M45-49 CHN Age group for Awards or World Championship Slots
+P12: 2045 Kállai Attila M45-49 HUN Open Division (not eligible for age group awards or World Championship slots)
+P12: 2046 John SKY 江詩凱 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P12: 2047 kun kuo Huang 黃坤國 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2048 Quincy Chang 張坤盛 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2049 Yung Chang Hsu 徐永昌 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2050 Charlie Chen 陳群岳 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2051 Jen Mao HSU 許仁茂 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2052 Elbert Cho 卓志鴻 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2053 Yensheng Chen 陳言昇 M45-49 TWN Open Division (not eligible for age group awards or World Championship slots)
+P12: 2054 Wei Lun Huang M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2055 Chih sheng Wu 吳志聖 M45-49 TWN Age group for Awards or World Championship Slots
+P12: 2056 Yuan JI 纪元 M45-49 CHN Age group for Awards or World Championship Slots
+P12: 2057 Jianmin CHEN 陈剑敏 M45-49 CHN Age group for Awards or World Championship Slots
+P12: 2058 CHENG CHANG CHIEN 簡承璋 M45-49 TWN Age group for Awards or World Championship Slots

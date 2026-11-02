@@ -1,0 +1,65 @@
+ 1. Bib 1945  | Yoshihiro Wada         | JAPAN      | PowerIndex:  85.2 | S: 0.0 B: 0.0 R: 0.0 | Conf: medium
+ 2. Bib 1879  | Wai Kit Woo            | HONG KONG  | PowerIndex:  83.8 | S: 0.0 B: 0.0 R: 0.0 | Conf: high
+ 3. Bib 2023  | Jui Cheng Wei          | TAIWAN     | PowerIndex:  83.1 | S:72.8 B:82.8 R:78.2 | Conf: medium
+ 4. Bib 1877  | Chunwen Chen           | TAIWAN     | PowerIndex:  80.2 | S:48.5 B:82.8 R:77.9 | Conf: medium
+ 5. Bib 1902  | Todd Milliner          | AUSTRALIA  | PowerIndex:  80.1 | S:79.0 B:78.0 R:78.8 | Conf: high
+ 6. Bib 1859  | Chih Wei Tsao          | TAIWAN     | PowerIndex:  79.8 | S:73.5 B:75.4 R:76.4 | Conf: medium
+ 7. Bib 1957  | Chung-Yi Chuang        | TAIWAN     | PowerIndex:  78.5 | S:53.3 B:79.0 R:78.5 | Conf: medium
+ 8. Bib 1871  | Gwenaël Marchand       | FRANCE     | PowerIndex:  77.8 | S:68.9 B:80.2 R:74.3 | Conf: high
+ 9. Bib 2022  | Wei Chiang Tseng       | TAIWAN     | PowerIndex:  77.2 | S:71.6 B:74.7 R:71.5 | Conf: medium
+10. Bib 2016  | Jay Tsao               | TAIWAN     | PowerIndex:  76.2 | S:75.8 B:70.6 R:71.4 | Conf: medium
+11. Bib 1947  | Hsu Pan                | TAIWAN     | PowerIndex:  75.5 | S:68.7 B:74.3 R:72.7 | Conf: medium
+12. Bib 2051  | Jen Mao Hsu            | TAIWAN     | PowerIndex:  74.8 | S:58.1 B:75.4 R:72.1 | Conf: medium
+13. Bib 1858  | Wen-Chung Hu           | TAIWAN     | PowerIndex:  74.4 | S:59.9 B:79.2 R:67.9 | Conf: medium
+14. Bib 2052  | Elbert Cho             | TAIWAN     | PowerIndex:  74.2 | S:47.0 B:80.8 R:70.0 | Conf: medium
+15. Bib 1939  | Jiewei Sun             | TAIWAN     | PowerIndex:  74.0 | S:60.5 B:76.7 R:68.0 | Conf: medium
+16. Bib 2055  | Chih Sheng Wu          | TAIWAN     | PowerIndex:  73.9 | S:48.1 B:77.8 R:71.8 | Conf: medium
+17. Bib 1869  | Sijie Leaw             | SINGAPORE  | PowerIndex:  73.0 | S:64.0 B:73.9 R:75.4 | Conf: high
+18. Bib 2024  | Chien Hsiang Wang      | TAIWAN     | PowerIndex:  73.0 | S:69.7 B:72.5 R:66.8 | Conf: medium
+19. Bib 1973  | Hsiyen Lu              | TAIWAN     | PowerIndex:  72.2 | S:61.5 B:82.7 R:61.7 | Conf: medium
+20. Bib 1853  | Sheng Che Su           | TAIWAN     | PowerIndex:  69.5 | S:66.5 B:74.7 R:60.2 | Conf: medium
+21. Bib 1928  | Dongyen Lee            | TAIWAN     | PowerIndex:  68.6 | S:39.8 B:75.9 R:65.2 | Conf: medium
+22. Bib 1890  | Chih Chien Cheng       | TAIWAN     | PowerIndex:  68.1 | S:57.6 B:68.1 R:64.4 | Conf: medium
+23. Bib 1929  | Tzeming Chang          | TAIWAN     | PowerIndex:  66.4 | S:46.2 B:66.4 R:65.1 | Conf: medium
+24. Bib 1918  | Shi-Ju Chen            | TAIWAN     | PowerIndex:  65.8 | S:63.3 B:76.9 R:52.4 | Conf: medium
+25. Bib 1838  | Chia Yao Tsao          | TAIWAN     | PowerIndex:  64.9 | S:67.1 B:63.6 R:59.4 | Conf: medium
+26. Bib 1878  | Jean-Yu Gu             | TAIWAN     | PowerIndex:  63.4 | S:49.1 B:81.0 R:46.7 | Conf: medium
+27. Bib 2028  | Yungtang Cho           | TAIWAN     | PowerIndex:  63.0 | S:50.4 B:63.8 R:60.6 | Conf: medium
+28. Bib 2047  | Kun Kuo Huang          | TAIWAN     | PowerIndex:  62.2 | S:43.0 B:62.5 R:62.0 | Conf: medium
+29. Bib 2012  | Chun Pong David Li     | HONG KONG  | PowerIndex:  61.9 | S:67.1 B:62.0 R:58.6 | Conf: high
+30. Bib 1886  | Chunkai Chen           | TAIWAN     | PowerIndex:  61.3 | S:62.2 B:55.9 R:57.9 | Conf: medium
+31. Bib 1988  | Chih Chiang Hu         | TAIWAN     | PowerIndex:  60.8 | S:39.6 B:57.5 R:69.8 | Conf: medium
+32. Bib 1985  | Hung Tetsung           | TAIWAN     | PowerIndex:  60.7 | S:42.6 B:70.8 R:53.4 | Conf: medium
+33. Bib 1961  | Wei Jie Su             | TAIWAN     | PowerIndex:  58.7 | S:41.3 B:74.2 R:48.3 | Conf: medium
+34. Bib 2000  | Jin Jun Kuo            | TAIWAN     | PowerIndex:  58.5 | S:48.3 B:47.3 R:64.8 | Conf: medium
+35. Bib 1875  | Ching Chi Hsu          | TAIWAN     | PowerIndex:  58.1 | S:73.0 B:61.9 R:46.5 | Conf: medium
+36. Bib 2036  | Harry Chen             | TAIWAN     | PowerIndex:  57.9 | S:72.5 B:61.0 R:45.3 | Conf: medium
+37. Bib 2009  | Hao Chung Yang         | TAIWAN     | PowerIndex:  57.7 | S:52.1 B:63.1 R:50.1 | Conf: high
+38. Bib 1908  | Hsing Yuan Yao         | TAIWAN     | PowerIndex:  57.6 | S:49.0 B:59.7 R:57.2 | Conf: medium
+39. Bib 1959  | Sandro Berger          | SWITZERLAND | PowerIndex:  56.8 | S:66.2 B:66.5 R:46.3 | Conf: medium
+40. Bib 1881  | Shihwei Chen           | TAIWAN     | PowerIndex:  54.2 | S:44.5 B:56.9 R:46.2 | Conf: medium
+41. Bib 2031  | Ching Li Huang         | TAIWAN     | PowerIndex:  53.2 | S:42.2 B:52.6 R:55.3 | Conf: medium
+42. Bib 2035  | Chi Fai Tam            | HONG KONG  | PowerIndex:  52.8 | S:61.5 B:53.5 R:52.2 | Conf: medium
+43. Bib 1891  | Chun-Min Wang          | TAIWAN     | PowerIndex:  52.4 | S:42.5 B:57.5 R:48.7 | Conf: medium
+44. Bib 1935  | Powei Chu              | TAIWAN     | PowerIndex:  52.3 | S:57.4 B:52.8 R:46.7 | Conf: medium
+45. Bib 1989  | Andrei Covalenco       | MOLDOVA    | PowerIndex:  52.2 | S:55.0 B:50.6 R:52.2 | Conf: medium
+46. Bib 1880  | Jui Wei Chien          | TAIWAN     | PowerIndex:  51.8 | S:37.6 B:69.8 R:40.7 | Conf: medium
+47. Bib 1852  | Yi Hsien Li            | TAIWAN     | PowerIndex:  51.6 | S:37.9 B:58.4 R:47.4 | Conf: medium
+48. Bib 2014  | Kuan-Yu Shih           | TAIWAN     | PowerIndex:  51.5 | S:62.0 B:47.5 R:52.4 | Conf: medium
+49. Bib 1911  | Carl Blundon           | CANADA     | PowerIndex:  49.8 | S:36.5 B:52.4 R:62.4 | Conf: medium
+50. Bib 2011  | Scott Chen             | TAIWAN     | PowerIndex:  49.0 | S:46.3 B:51.4 R:42.6 | Conf: medium
+51. Bib 1904  | Chung Cheng Lin        | TAIWAN     | PowerIndex:  48.5 | S:52.5 B:55.7 R:41.0 | Conf: medium
+52. Bib 2039  | Jing Hau Tsai          | TAIWAN     | PowerIndex:  48.0 | S:53.7 B:46.8 R:47.6 | Conf: medium
+53. Bib 1847  | Hsien Chiang Chiu      | TAIWAN     | PowerIndex:  46.9 | S:57.3 B:44.0 R:43.5 | Conf: medium
+54. Bib 1971  | Li Tsang Yu Li         | TAIWAN     | PowerIndex:  46.1 | S:46.6 B:58.0 R:34.1 | Conf: medium
+55. Bib 1956  | Yi Hung Sun            | TAIWAN     | PowerIndex:  45.4 | S:53.4 B:63.3 R:33.5 | Conf: medium
+56. Bib 1883  | Chun Te Wu             | TAIWAN     | PowerIndex:  45.0 | S:43.0 B:54.2 R:37.0 | Conf: medium
+57. Bib 1905  | Tzu Tai Huang          | TAIWAN     | PowerIndex:  44.4 | S:49.6 B:50.1 R:36.8 | Conf: medium
+58. Bib 1907  | Yi-Hsuan Hsieh         | TAIWAN     | PowerIndex:  44.4 | S:36.2 B:47.0 R:40.6 | Conf: medium
+59. Bib 1969  | Chih Yi Wang           | TAIWAN     | PowerIndex:  44.1 | S:45.5 B:40.8 R:50.9 | Conf: medium
+60. Bib 1926  | Chia-Chun Chen         | TAIWAN     | PowerIndex:  43.6 | S:43.4 B:43.4 R:44.0 | Conf: medium
+61. Bib 1954  | Chien Chou             | TAIWAN     | PowerIndex:  42.4 | S:36.4 B:47.5 R:40.6 | Conf: medium
+62. Bib 1962  | Tony Ho                | TAIWAN     | PowerIndex:  42.2 | S:60.0 B:57.2 R:32.2 | Conf: medium
+63. Bib 1898  | Sung Ching Li          | TAIWAN     | PowerIndex:  40.0 | S:39.0 B:41.7 R:38.6 | Conf: medium
+64. Bib 1854  | Hung Kuen Chuang       | TAIWAN     | PowerIndex:  37.9 | S:43.5 B:43.0 R:32.5 | Conf: medium
+65. Bib 1960  | Kuo-Lung Yao           | TAIWAN     | PowerIndex:  37.4 | S:42.2 B:41.8 R:33.4 | Conf: medium
