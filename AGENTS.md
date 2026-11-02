@@ -6,12 +6,8 @@
 
 - 追蹤運動成效與達成 **IM226 Sub-11 完賽目標藍圖** (總目標 **10:54:00**：游泳 1h12m | T1 6m | 單車 5h30m / 140W-145W | T2 6m | 全馬 4h00m / 5:41km)
 - **賽事體系階層定位**：
-  1. **2026 賽事 B (實戰前哨檢驗 / Tune-up & Test Race)**：2026 年 11 月 **IRONMAN 70.3 墾丁 (Kenting 70.3)**
-     - 官方路線：`https://www.ironman.com/races/im703-kenting/course`（[游泳](https://www.ironman.com/races/im703-kenting/course#swim) 小灣 1.9km 雙峰 M 字海泳；[單車](https://www.ironman.com/races/im703-kenting/course#bike) DT Swiss 90km 總爬升 641M + 落山風；[路跑](https://www.ironman.com/races/im703-kenting/course#run) 21.1km 雙圈總爬升 342M，Lap 1 攻頂社頂自然公園標高 210M，Lap 2 台26平路折返）
-     - 任務：檢驗小灣雙峰 M 字海泳水感、屏153/台26落山風與起伏丘陵 (641m 爬升) 控瓦紀律、社頂陡下坡 (342m 爬升) 後之防抽筋轉換跑配速，為蘭卡威賽事 A 做最後校準。
-  2. **2026 主要賽事 A (Main Target Race A)**：2026 年 11 月 **IRONMAN 馬來西亞蘭卡威 (Langkawi 226km)**
-     - 任務：挑戰高溫 (34°C)/高濕 (90%) 與單車 1,500m 爬坡，嚴格落實散熱控心率與補水補電解質。
-  3. **2027 主要賽事 (Ultimate Main Target Race)**：2027 年 **IRONMAN 澎湖 (Penghu 226km)**
+  - **前哨檢驗結算**：2026 年 IRONMAN 70.3 墾丁（已完賽結算）；2026 年馬來西亞蘭卡威（不參加，已自目標賽事移除）。
+  - **現行終極主要賽事 (Ultimate Main Target Race)**：2027 年 **IRONMAN 澎湖 (Penghu 226km)**
      - 官方路線：`https://www.ironman.com/races/im-penghu/course#swim`（[游泳](https://www.ironman.com/races/im-penghu/course#swim) 蒔裡沙灘 3.8km 雙圈逆時針海泳 + 澳式出水 Australian Exit，防寒衣合法 24°C；[單車](https://www.ironman.com/races/im-penghu/course#bike) 180km 跨海大橋 3 圈折返 + 西嶼西臺 Special Needs 特需袋 + 10 處補給站 + 東北季風抗側風；[路跑](https://www.ironman.com/races/im-penghu/course#run) 42.2km 觀音亭休閒園區＋西瀛虹橋＋世界最高媽祖銅像＋喜來登港灣，4 圈信物手環制）
      - 任務：2027 年度終極目標！全面實踐 Sub-11 (10:54) 完賽藍圖，抗衡跨海大橋 3 圈強烈東北季風與觀音亭 4 圈全馬。
 

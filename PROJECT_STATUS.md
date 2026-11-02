@@ -387,3 +387,16 @@
 - 同步修改產生程式、打包程式與 docs/outputs 網頁副本；本機原有運動.xlsx 未編輯。
 - 新增導覽、彙總與圖表測試（Node.js 內建模組／Python unittest）；來源為既有 calendar_cache.json 與專案程式，資料日期顯示於圖表。
 - 判讀參考：TrainingPeaks Workout Card Overview，https://help.trainingpeaks.com/hc/en-us/articles/204861204-Workout-Card-Overview （查閱 2026-10-24）。
+
+
+## 2026-11-02｜目標賽事架構更新：結算墾丁 70.3、移除蘭卡威 226km，全面鎖定 2027 澎湖 226km
+
+- **賽事體系異動**：
+  1. **2026 IRONMAN 70.3 墾丁**：已順利完賽結算，達成實戰檢驗目標。
+  2. **2026 IRONMAN 馬來西亞蘭卡威 (226km)**：經評估不參賽，自專案目標賽事體系與完賽預估中正式移除。
+  3. **現行唯一主要賽事**：專注鎖定 **2027 IRONMAN 澎湖 (226km)** 終極 Sub-11 完賽藍圖 (10:54:00)。
+- **程式與儀表板同步更新**：
+  - `scripts/estimator_226.py`：移除 `langkawi_estimate` 與 `kenting_703_estimate` 之物理力學與完賽預估計算及回傳欄位。
+  - `scripts/generate_web_dashboard.py`：目標賽事分頁 (Target Races Hierarchy) 標籤更新為「🎯 2027 澎湖 (終極主要賽事 🏆)」，移除墾丁 70.3 與蘭卡威 226km 區塊，聚焦展示 2027 澎湖賽道特化戰術與五分段時間帳本。
+  - `scripts/package_for_web.py`：重新編譯並將更新之靜態頁面打包至 `docs/`。
+  - `AGENTS.md`、`CLAUDE.md`：同步更新賽事體系階層定義。
