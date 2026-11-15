@@ -780,28 +780,6 @@ def build_daily_feedback_cards(events):
             <div class="dw-metrics-grid">
                 {metrics_chips_html}
             </div>
-
-            <!-- STRUCTURED COACH GRADE ADVICE -->
-            <div class="dw-coach-advice-box">
-                <div class="coach-advice-header">
-                    <span>🧭 專業教練隨堂講評與深度解析 (Coach Analysis)</span>
-                    <span class="coach-tag">對標 Sub-11 10:54 藍圖</span>
-                </div>
-                <div class="coach-advice-body">
-                    <div class="coach-section">
-                        <div class="coach-sub-title coach-sub-title-1">🎯 課表達成與執行品質解析</div>
-                        <div class="coach-sub-content">{advice_p1}</div>
-                    </div>
-                    <div class="coach-section">
-                        <div class="coach-sub-title coach-sub-title-2">⚡ 生理指標與配速/功率紀律檢驗</div>
-                        <div class="coach-sub-content">{advice_p2}</div>
-                    </div>
-                    <div class="coach-section">
-                        <div class="coach-sub-title coach-sub-title-3">💡 教練隨堂叮嚀與後續銜接指引</div>
-                        <div class="coach-sub-content">{advice_p3}</div>
-                    </div>
-                </div>
-            </div>
         </div>
         """
         cards_html.append(card)
@@ -1523,7 +1501,7 @@ def generate_52_week_dashboard():
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 0;
         }}
         .metric-chip {{
             background: rgba(15, 23, 42, 0.5);
@@ -2071,9 +2049,9 @@ def generate_52_week_dashboard():
                     <!-- COACH COMPREHENSIVE ANALYSIS & RECOVERY PROTOCOL -->
                     ${{data.coach_insights_box_html}}
 
-                    <!-- DAILY WORKOUT ACCOMPLISHMENTS & COACH FEEDBACK -->
+                    <!-- DAILY WORKOUT ACCOMPLISHMENTS & EXECUTION STATUS -->
                     <div class="section-box">
-                        <div class="section-title">📋 每日最新訓練成果解析與教練隨堂建議 (對比 Sub-11 10:54 藍圖)</div>
+                        <div class="section-title">📋 每日訓練成果與執行達成率 (對比 Sub-11 10:54 藍圖)</div>
                         <div>${{data.daily_feedback_html}}</div>
                     </div>
                 </div>

@@ -400,3 +400,18 @@
   - `scripts/generate_web_dashboard.py`：目標賽事分頁 (Target Races Hierarchy) 標籤更新為「🎯 2027 澎湖 (終極主要賽事 🏆)」，移除墾丁 70.3 與蘭卡威 226km 區塊，聚焦展示 2027 澎湖賽道特化戰術與五分段時間帳本。
   - `scripts/package_for_web.py`：重新編譯並將更新之靜態頁面打包至 `docs/`。
   - `AGENTS.md`、`CLAUDE.md`：同步更新賽事體系階層定義。
+
+
+## 2026-11-15：儀表板當週總覽「教練隨堂建議」精簡優化（方案 A）
+
+- **背景與問題**：
+  - 使用者反映網頁當週總覽中，每日訓練成果解析與教練隨堂建議每週內容都一樣。
+  - 因自動同步流程使用 TrainingPeaks iCal 日曆串流，iCal 協定僅包含活動時間、距離與速度，無心率、功率、踏頻、TSS 等 FIT 細部數據，故後續日期皆回退至靜態預設模板。
+- **改善措施（方案 A）**：
+  - 修改 scripts/generate_web_dashboard.py 之 uild_daily_feedback_cards()：
+    - 保留每日活動卡片核心：日期、課表名稱、時間完備度進度條、距離完備度進度條、客觀數據標籤（時間、距離、速度/配速等）。
+    - 徹底移除每張卡片底部重複的三段「🧭 專業教練隨堂講評與深度解析 (Coach Analysis)」罐頭文字區塊。
+    - 區塊標題微調為「📋 每日訓練成果與執行達成率 (對比 Sub-11 10:54 藍圖)」。
+    - 調整 .dw-metrics-grid 之 CSS margin 使卡片邊界更加整潔。
+  - 重新執行 generate_web_dashboard.py 與 package_for_web.py，更新 outputs/index.html 與發布目錄 docs/index.html。
+  - 執行全套自動化測試（dashboard_navigation.test.cjs、weekly_review_chart.test.cjs、	est_weekly_review.py），全部 100% 通過。
