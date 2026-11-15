@@ -415,3 +415,23 @@
     - 調整 .dw-metrics-grid 之 CSS margin 使卡片邊界更加整潔。
   - 重新執行 generate_web_dashboard.py 與 package_for_web.py，更新 outputs/index.html 與發布目錄 docs/index.html。
   - 執行全套自動化測試（dashboard_navigation.test.cjs、weekly_review_chart.test.cjs、	est_weekly_review.py），全部 100% 通過。
+
+
+## 2026-11-15：側邊欄週次週期（ATP Period）校正與獨立配置化
+
+- **背景與問題**：
+  - 使用者反映左邊欄位每一週的訓練週期標籤不正確（例如第 47 週 11/16-11/22 應為 TrainingPeaks #plan 的 Base 1 - Week 1）。
+  - 核心原因：先前的程式透過正則表達式自動掃描週一課表標題（
+e.search(r'(Base|Build)\s*(\d+)-(\d+)')），而歷史快取中每週一皆有 Day Off: Build 1-4 Day Off 減量週，導致 W40~W47 全數被誤判為 Build 1-4；且 TP ATP 階段定義位於個人登入後的 #plan 頁面，無法由開放的 iCal 串流直接取得。
+- **改善措施**：
+  - 建立專屬權威週期設定檔 config/training_plan_periods.json，對齊 TrainingPeaks ATP 4 週一循環（3 週負荷 + 1 週恢復）標準週期格式：
+    - W44：Race Week 🏆 (墾丁 70.3)
+    - W45~W46：Transition - Week 1~2
+    - W47：Base 1 - Week 1（2027 澎湖 226 新週期）
+    - W48：Base 1 - Week 2
+    - W49：Base 1 - Week 3
+    - W50：Base 1 - Week 4 (Recovery)
+    - W51：Base 2 - Week 1
+    - W52：Base 2 - Week 2
+  - 修改 scripts/generate_web_dashboard.py，優先以 config/training_plan_periods.json 作為最高優先級之週期來源，徹底隔絕課表日曆名稱污染。
+  - 重新建置儀表板與發布目錄 docs/，全套自動化測試通過並推送到 GitHub main 分支。

@@ -15,6 +15,7 @@ from generate_articles_page import parse_articles_md_to_body_html
 from weekly_review import build_weekly_training_reviews, build_weekly_coach_html
 
 CACHE_FILE = ROOT / "data" / "raw" / "calendar_cache.json"
+PLAN_PERIODS_FILE = ROOT / "config" / "training_plan_periods.json"
 OUT_INDEX = ROOT / "outputs" / "index.html"
 WEEKLY_DIR = ROOT / "outputs" / "weekly"
 WEEKDAYS = ["一", "二", "三", "四", "五", "六", "日"]
@@ -795,6 +796,14 @@ def generate_52_week_dashboard():
     cache = load_cache()
     weekly_reviews = build_weekly_training_reviews(cache, current_year, today)
 
+    plan_periods = {}
+    if PLAN_PERIODS_FILE.exists():
+        try:
+            with open(PLAN_PERIODS_FILE, "r", encoding="utf-8") as f:
+                plan_periods = json.load(f)
+        except Exception as e:
+            print("Warning loading plan periods config:", e)
+
     cache_by_week = {}
     for uid, ev in cache.items():
         try:
@@ -834,18 +843,19 @@ def generate_52_week_dashboard():
             status_tag = "Future"
             status_label = "預計計畫"
 
-        # Dynamic phase lookup from Monday's event summary (e.g. Base 3-2) or fallback mapping
-        monday_events = [ev for ev in events if ev.get("date") == str(w_monday)]
-        phase = None
-        for ev in monday_events:
-            summary = ev.get("summary", "")
-            match = re.search(r"\b(Base|Build)\s*(\d+)-(\d+)\b", summary, re.IGNORECASE)
-            if match:
-                phase_type = match.group(1).capitalize()
-                phase_cycle = match.group(2)
-                phase_week = match.group(3)
-                phase = f"{phase_type} {phase_cycle}-{phase_week}"
-                break
+        # Training phase / ATP Period lookup (Authoritative config -> Dynamic -> Fallback)
+        phase = plan_periods.get(str(w)) or plan_periods.get(w)
+        if not phase:
+            monday_events = [ev for ev in events if ev.get("date") == str(w_monday)]
+            for ev in monday_events:
+                summary = ev.get("summary", "")
+                match = re.search(r"\b(Base|Build)\s*(\d+)-(\d+)\b", summary, re.IGNORECASE)
+                if match:
+                    phase_type = match.group(1).capitalize()
+                    phase_cycle = match.group(2)
+                    phase_week = match.group(3)
+                    phase = f"{phase_type} {phase_cycle} - Week {phase_week}"
+                    break
 
         if not phase:
             if w <= 15:
@@ -853,35 +863,51 @@ def generate_52_week_dashboard():
             elif w <= 27:
                 phase = "Base 2"
             elif w == 28:
-                phase = "Base 2-1"
+                phase = "Base 2 - Week 1"
             elif w == 29:
-                phase = "Base 2-2"
+                phase = "Base 2 - Week 2"
             elif w == 30:
-                phase = "Base 2-3"
+                phase = "Base 2 - Week 3"
             elif w == 31:
-                phase = "Base 2-4 (Recovery)"
+                phase = "Base 2 - Week 4 (Recovery)"
             elif w == 32:
-                phase = "Base 3-1"
+                phase = "Base 3 - Week 1"
             elif w == 33:
-                phase = "Base 3-2"
+                phase = "Base 3 - Week 2"
             elif w == 34:
-                phase = "Base 3-3"
+                phase = "Base 3 - Week 3"
             elif w == 35:
-                phase = "Base 3-4 (Recovery)"
+                phase = "Base 3 - Week 4 (Recovery)"
             elif w == 36:
-                phase = "Build 1-1"
+                phase = "Build 1 - Week 1"
             elif w == 37:
-                phase = "Build 1-2"
+                phase = "Build 1 - Week 2"
             elif w == 38:
-                phase = "Build 1-3"
+                phase = "Build 1 - Week 3"
             elif w == 39:
-                phase = "Build 1-4 (Recovery)"
+                phase = "Build 1 - Week 4 (Recovery)"
             elif w == 40:
-                phase = "Peak Phase"
+                phase = "Peak - Week 1"
             elif 41 <= w <= 43:
-                phase = f"Taper {w - 40}"
+                phase = f"Taper - Week {w - 40}"
             elif w == 44:
-                phase = "Race Week 🏆"
+                phase = "Race Week 🏆 (墾丁 70.3)"
+            elif w == 45:
+                phase = "Transition - Week 1"
+            elif w == 46:
+                phase = "Transition - Week 2"
+            elif w == 47:
+                phase = "Base 1 - Week 1"
+            elif w == 48:
+                phase = "Base 1 - Week 2"
+            elif w == 49:
+                phase = "Base 1 - Week 3"
+            elif w == 50:
+                phase = "Base 1 - Week 4 (Recovery)"
+            elif w == 51:
+                phase = "Base 2 - Week 1"
+            elif w == 52:
+                phase = "Base 2 - Week 2"
             else:
                 phase = "Off-Season / Maintenance"
 
