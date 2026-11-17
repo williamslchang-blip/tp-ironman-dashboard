@@ -1,27 +1,9 @@
 {
-  "2026-11-12_Bike_0": {
-    "date": "2026-11-12",
-    "summary": "Bike: Endurance 5X6",
-    "uid": "2026-11-12_Bike_0",
-    "tp_uid": "8c53dfc9-6d60-46a9-a3f5-5a466d80757b",
-    "type": "Bike",
-    "planned_time": 60,
-    "actual_time": 60,
-    "planned_dist": 0,
-    "actual_dist": 28.79,
-    "speed": 28.67,
-    "pace": "",
-    "last_synced": "2026-11-16T20:00:11.340143",
-    "original_plan": {
-      "planned_time": 60,
-      "planned_dist": 0
-    }
-  },
   "2026-11-13_Swim_0": {
     "date": "2026-11-13",
     "summary": "Swim: 甜甜課表",
     "uid": "2026-11-13_Swim_0",
-    "tp_uid": "78cf6527-e2c3-439c-a603-5926bfbae50a",
+    "tp_uid": "a57a7537-a780-486b-b701-375060407459",
     "type": "Swim",
     "planned_time": 80,
     "actual_time": 72,
@@ -29,7 +11,7 @@
     "actual_dist": 3.4,
     "speed": 2.8,
     "pace": "2:09 /100m",
-    "last_synced": "2026-11-16T20:00:11.340143",
+    "last_synced": "2026-11-17T20:00:09.255013",
     "original_plan": {
       "planned_time": 80,
       "planned_dist": 0
@@ -39,7 +21,7 @@
     "date": "2026-11-14",
     "summary": "Bike: Cycling",
     "uid": "2026-11-14_Bike_0",
-    "tp_uid": "d23376c7-99e6-4837-9a7a-54ca2d3289c7",
+    "tp_uid": "3d39fe69-db26-46cd-bb41-40fbb24baa97",
     "type": "Bike",
     "planned_time": 270,
     "actual_time": 247,
@@ -47,7 +29,7 @@
     "actual_dist": 111.13,
     "speed": 26.97,
     "pace": "",
-    "last_synced": "2026-11-16T20:00:11.340143",
+    "last_synced": "2026-11-17T20:00:09.255013",
     "original_plan": {
       "planned_time": 270,
       "planned_dist": 0
@@ -57,7 +39,7 @@
     "date": "2026-11-14",
     "summary": "Run: Running",
     "uid": "2026-11-14_Run_0",
-    "tp_uid": "bf95b5ad-c749-4213-8d64-097f8810d152",
+    "tp_uid": "842e0dfd-1df7-458b-872a-d03aad87f320",
     "type": "Run",
     "planned_time": 20,
     "actual_time": 20,
@@ -65,7 +47,7 @@
     "actual_dist": 3.62,
     "speed": 10.84,
     "pace": "5:32 /km",
-    "last_synced": "2026-11-16T20:00:11.340143",
+    "last_synced": "2026-11-17T20:00:09.255013",
     "original_plan": {
       "planned_time": 20,
       "planned_dist": 3.3
@@ -75,7 +57,7 @@
     "date": "2026-11-15",
     "summary": "Run: 24k (輕鬆)",
     "uid": "2026-11-15_Run_0",
-    "tp_uid": "cb019796-2c8b-4fca-93bb-d7eed51d1919",
+    "tp_uid": "c61c2019-5a7d-4704-95fd-27bea8b839be",
     "type": "Run",
     "planned_time": 144,
     "actual_time": 122,
@@ -83,7 +65,7 @@
     "actual_dist": 15.21,
     "speed": 7.44,
     "pace": "8:04 /km",
-    "last_synced": "2026-11-16T20:00:11.340143",
+    "last_synced": "2026-11-17T20:00:09.255013",
     "original_plan": {
       "planned_time": 144,
       "planned_dist": 24.0
@@ -93,7 +75,7 @@
     "date": "2026-11-15",
     "summary": "Swim: 甜甜課表",
     "uid": "2026-11-15_Swim_0",
-    "tp_uid": "72d71164-3288-4348-9221-b4bea30027aa",
+    "tp_uid": "126cd077-cee1-489b-abf7-24680d2088e9",
     "type": "Swim",
     "planned_time": 75,
     "actual_time": 56,
@@ -101,7 +83,7 @@
     "actual_dist": 3.0,
     "speed": 3.18,
     "pace": "1:53 /100m",
-    "last_synced": "2026-11-16T20:00:11.340143",
+    "last_synced": "2026-11-17T20:00:09.255013",
     "original_plan": {
       "planned_time": 75,
       "planned_dist": 3.6
@@ -111,7 +93,7 @@
     "date": "2026-11-16",
     "summary": "Day Off: Build 1-4 Day Off 減量週",
     "uid": "2026-11-16_Day Off_0",
-    "tp_uid": "bc11cecd-c2fa-49a2-94a3-968c239caafb",
+    "tp_uid": "56872aef-8b07-44cd-8f49-30e2631b24c0",
     "type": "Day Off",
     "planned_time": 0,
     "actual_time": 0,
@@ -119,7 +101,7 @@
     "actual_dist": 0,
     "speed": 0.0,
     "pace": "",
-    "last_synced": "2026-11-16T20:00:11.340143",
+    "last_synced": "2026-11-17T20:00:09.255013",
     "original_plan": {
       "planned_time": 0,
       "planned_dist": 0
@@ -129,15 +111,15 @@
     "date": "2026-11-17",
     "summary": "Bike: AC 20\"x4",
     "uid": "2026-11-17_Bike_0",
-    "tp_uid": "f6f39ea7-9b29-4e2e-be2f-6f881e518cbe",
+    "tp_uid": "830f2f0a-efb5-46be-b57b-b43934b2b1a9",
     "type": "Bike",
     "planned_time": 40,
-    "actual_time": 0,
+    "actual_time": 40,
     "planned_dist": 0,
-    "actual_dist": 0,
-    "speed": 0.0,
+    "actual_dist": 16.26,
+    "speed": 24.26,
     "pace": "",
-    "last_synced": "2026-11-16T20:00:11.340143",
+    "last_synced": "2026-11-17T20:00:09.255013",
     "original_plan": {
       "planned_time": 40,
       "planned_dist": 0
@@ -147,15 +129,15 @@
     "date": "2026-11-17",
     "summary": "Run: 比賽配速 (本日重點)",
     "uid": "2026-11-17_Run_0",
-    "tp_uid": "7dacb838-f2a9-4ebb-bbcf-08fb24f338be",
+    "tp_uid": "bd92b644-f4ee-4df8-acaf-a98a614a3a85",
     "type": "Run",
     "planned_time": 85,
-    "actual_time": 0,
+    "actual_time": 73,
     "planned_dist": 10.1,
-    "actual_dist": 0,
-    "speed": 0.0,
-    "pace": "",
-    "last_synced": "2026-11-16T20:00:11.340143",
+    "actual_dist": 10.21,
+    "speed": 8.34,
+    "pace": "7:11 /km",
+    "last_synced": "2026-11-17T20:00:09.255013",
     "original_plan": {
       "planned_time": 85,
       "planned_dist": 10.1
@@ -165,7 +147,7 @@
     "date": "2026-11-18",
     "summary": "Swim: 甜甜課表",
     "uid": "2026-11-18_Swim_0",
-    "tp_uid": "4ca64076-b142-4592-a4d5-e1faddf7a50f",
+    "tp_uid": "3bf97f8f-e17b-4c17-a527-95861e7947cc",
     "type": "Swim",
     "planned_time": 60,
     "actual_time": 0,
@@ -173,7 +155,7 @@
     "actual_dist": 0,
     "speed": 0.0,
     "pace": "",
-    "last_synced": "2026-11-16T20:00:11.340143",
+    "last_synced": "2026-11-17T20:00:09.255013",
     "original_plan": {
       "planned_time": 60,
       "planned_dist": 0
@@ -183,7 +165,7 @@
     "date": "2026-11-19",
     "summary": "Bike: TEMPO 8X4",
     "uid": "2026-11-19_Bike_0",
-    "tp_uid": "7332238b-3d33-4593-ae40-d9eacb93f7c4",
+    "tp_uid": "b5505301-a172-4561-86af-66db8b9472e6",
     "type": "Bike",
     "planned_time": 60,
     "actual_time": 0,
@@ -191,7 +173,7 @@
     "actual_dist": 0,
     "speed": 0.0,
     "pace": "",
-    "last_synced": "2026-11-16T20:00:11.340143",
+    "last_synced": "2026-11-17T20:00:09.255013",
     "original_plan": {
       "planned_time": 60,
       "planned_dist": 0
@@ -201,7 +183,7 @@
     "date": "2026-11-19",
     "summary": "Run",
     "uid": "2026-11-19_Run_0",
-    "tp_uid": "46fa781e-5175-4dda-a0ce-9a2dd6a50a1d",
+    "tp_uid": "15648bd1-d564-4c1e-875d-4b511085dc1f",
     "type": "Run",
     "planned_time": 20,
     "actual_time": 0,
@@ -209,7 +191,7 @@
     "actual_dist": 0,
     "speed": 0.0,
     "pace": "",
-    "last_synced": "2026-11-16T20:00:11.340143",
+    "last_synced": "2026-11-17T20:00:09.255013",
     "original_plan": {
       "planned_time": 20,
       "planned_dist": 3.3
@@ -219,7 +201,7 @@
     "date": "2026-11-20",
     "summary": "Swim: 甜甜課表",
     "uid": "2026-11-20_Swim_0",
-    "tp_uid": "0555f872-be59-48eb-9604-cb3aa25d0d3c",
+    "tp_uid": "335cf896-6550-4482-a7a9-8d28150d42ac",
     "type": "Swim",
     "planned_time": 60,
     "actual_time": 0,
@@ -227,7 +209,7 @@
     "actual_dist": 0,
     "speed": 0.0,
     "pace": "",
-    "last_synced": "2026-11-16T20:00:11.340143",
+    "last_synced": "2026-11-17T20:00:09.255013",
     "original_plan": {
       "planned_time": 60,
       "planned_dist": 0
@@ -237,7 +219,7 @@
     "date": "2026-11-21",
     "summary": "Bike",
     "uid": "2026-11-21_Bike_0",
-    "tp_uid": "493938dd-e316-4230-8fcb-eee996658156",
+    "tp_uid": "c109ddec-6d06-4682-a90a-7c58d7fdaded",
     "type": "Bike",
     "planned_time": 270,
     "actual_time": 0,
@@ -245,7 +227,7 @@
     "actual_dist": 0,
     "speed": 0.0,
     "pace": "",
-    "last_synced": "2026-11-16T20:00:11.340143",
+    "last_synced": "2026-11-17T20:00:09.255013",
     "original_plan": {
       "planned_time": 270,
       "planned_dist": 0
@@ -255,7 +237,7 @@
     "date": "2026-11-21",
     "summary": "Run",
     "uid": "2026-11-21_Run_0",
-    "tp_uid": "15edf83a-5d54-4a45-bb8a-46799eceb39e",
+    "tp_uid": "8faddd4b-24c0-4517-bc6f-37b02efe0606",
     "type": "Run",
     "planned_time": 20,
     "actual_time": 0,
@@ -263,7 +245,7 @@
     "actual_dist": 0,
     "speed": 0.0,
     "pace": "",
-    "last_synced": "2026-11-16T20:00:11.340143",
+    "last_synced": "2026-11-17T20:00:09.255013",
     "original_plan": {
       "planned_time": 20,
       "planned_dist": 3.3
@@ -273,7 +255,7 @@
     "date": "2026-11-22",
     "summary": "Run: 26k (輕鬆)",
     "uid": "2026-11-22_Run_0",
-    "tp_uid": "c1acc078-84e1-467e-a98b-ce57e030b986",
+    "tp_uid": "6e4e9f50-2165-49cf-ac05-57d0362169c0",
     "type": "Run",
     "planned_time": 150,
     "actual_time": 0,
@@ -281,7 +263,7 @@
     "actual_dist": 0,
     "speed": 0.0,
     "pace": "",
-    "last_synced": "2026-11-16T20:00:11.340143",
+    "last_synced": "2026-11-17T20:00:09.255013",
     "original_plan": {
       "planned_time": 150,
       "planned_dist": 26.0
@@ -291,7 +273,7 @@
     "date": "2026-11-22",
     "summary": "Swim: 甜甜課表",
     "uid": "2026-11-22_Swim_0",
-    "tp_uid": "c4621d3f-65ee-4585-b395-4cd9ae8580e4",
+    "tp_uid": "20c1bc84-3533-4af9-b8e6-b25131cd9be9",
     "type": "Swim",
     "planned_time": 75,
     "actual_time": 0,
@@ -299,7 +281,7 @@
     "actual_dist": 0,
     "speed": 0.0,
     "pace": "",
-    "last_synced": "2026-11-16T20:00:11.340143",
+    "last_synced": "2026-11-17T20:00:09.255013",
     "original_plan": {
       "planned_time": 75,
       "planned_dist": 3.6
@@ -3737,6 +3719,24 @@
     "last_synced": "2026-11-16T09:00:10.297627",
     "original_plan": {
       "planned_time": 0,
+      "planned_dist": 0
+    }
+  },
+  "2026-11-12_Bike_0": {
+    "date": "2026-11-12",
+    "summary": "Bike: Endurance 5X6",
+    "uid": "2026-11-12_Bike_0",
+    "tp_uid": "8c53dfc9-6d60-46a9-a3f5-5a466d80757b",
+    "type": "Bike",
+    "planned_time": 60,
+    "actual_time": 60,
+    "planned_dist": 0,
+    "actual_dist": 28.79,
+    "speed": 28.67,
+    "pace": "",
+    "last_synced": "2026-11-16T20:00:11.340143",
+    "original_plan": {
+      "planned_time": 60,
       "planned_dist": 0
     }
   }
